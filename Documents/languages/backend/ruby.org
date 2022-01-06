@@ -2151,3 +2151,11 @@ https://rubular.com
    1. We must identify the messages we want to send in order to accomplish the task at hand.
    2. We must identify the roles which correspond to those messages.
    3. We must ensure the method's logic receives objects which can play those roles
+* Blog feeds
+     "https://rubyweekly.com/rss/"
+     "https://feeds.transistor.fm/remote-ruby"
+     "https://dev.to/feed/leandronsp"
+     "https://videosdeti.com.br/feed/"
+     "https://railsguides.net/atom.xml"
+     "https://gettalong.org/posts.rss"
+     "https://leandronsp.com/rss.xml"
