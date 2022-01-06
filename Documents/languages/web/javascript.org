@@ -24,9 +24,9 @@
   :END:
 * Progress
 ** Books
-| Books                           | Cap                         | @                           |
-|---------------------------------+-----------------------------+-----------------------------|
-| JavaScript The Definitive Guide | 4 Expressions and Operators | 4.11 Assignment Expressions |
+| Books                           | Cap          | @ |
+|---------------------------------+--------------+---|
+| JavaScript The Definitive Guide | 5 Statements |   |
 ** SLOC
 | Project   | folder                  | file         | @ |
 |-----------+-------------------------+--------------+---|
@@ -291,20 +291,81 @@ a instanceof RegExp
 //=> true: all arrays are objects
 //=> false: arrays are not regular expressions
 #+end_src
+*** miscellaneous
+**** conditional operator (?:)
+#+begin_src js
+greeting = "hello " + (username ? username : "there");
+#+end_src
+**** typeof
+- specifies the type of the operand.
+#+begin_src js
+(typeof value === "string") ? "'" + value + "'" : value.toString()
+#+end_src
+**** delete
+- unary operator
+- attempts to delete the object property or array element specified
+- when a property is deleted, the property ceases to exist.
+- expects its operand to be an lvalue
+- in strict mode, delete raises a SyntaxError if its operand is an unqualified identifier
+
+#+begin_src js
+let o = { x: 1, y: 2};
+delete o.x;
+
+let a = [1,2,3];
+delete a[2];
+
+let o = {x: 1, y: 2};
+delete o.x; // Delete one of the object properties; returns true.
+typeof o.x;// Property does not exist; returns "undefined".
+#+end_src
+**** await
+- only legal within functions that have been declared asynchronous with the async keyword.
+- The value of the await operator is the fulfillment value of the Promise object.
+
+**** First-Defined (??)
+- short-circuiting
+- irst operand is “nullish” (i.e., null or undefined ) that this operator evaluates and returns the second operand
+#+begin_src js
+let max = maxWidth ?? preferences.maxWidth ?? 500;
+#+end_src
+**** void
+- unary operator
+- evaluates its operand, then discards the value and returns undefined
+**** comma (,)
+- evaluates its left operand, evaluates its right operand, and then returns the value of the right operand
 ** Array
 *** conditional property access
 #+begin_src js
 a?.[index++]
 #+end_src
-** Assignment
-*** let
+** Expressions
+*** Logical Expression
+**** or
+#+begin_src js
+let max = maxWidth || preferences.maxWidth || 500;
+#+end_src
+**** not
+- unary operator
+- invert the boolean value of its operand
+- always returns true or fals
+
+#+begin_src js
+// DeMorgan's Laws
+!(p && q) === (!p || !q) // => true: for all values of p and q
+!(p || q) === (!p && !q) // => true: for all values of p and q
+#+end_src
+*** Assignment Expression
+- left-side operand to be an lvalue
+
+**** let
 - default value is undefined if not assigned
 
 #+begin_src js
 let meh = 'foo'
 let i, sum;
 #+end_src
-*** Const
+**** Const
 - same as let
 - must initialized at declaration
 - attempt to change its value throws a TypeError
@@ -316,7 +377,7 @@ const H0 = 74;
 const C = 299792.458;
 const AU = 1.496E8;
 #+end_src
-*** var
+**** var
 - do not have block scope
 - outside of a function body, it declares a global variable.
 - legal to declare the same variable multiple times with var
@@ -325,7 +386,7 @@ var x;
 var data = [], count = data.length;
 for(var i = 0; i < count; i++) console.log(data[i]);
 #+end_src
-*** destructuring assignment
+**** destructuring assignment
 - The number of variables on the left of a destructuring assignment does not have to match the number of array elements on the right.
 - Extra variables on the left are set to undefined , and extra values on the right are ignored.
 - The list of variables on the left can include extra commas to skip certain values on the right:
@@ -353,22 +414,19 @@ let points = { p1: [1,2], p2: [3,4] };// An object with 2 array props
 let { p1: [x1, y1], p2: [x2, y2] } = points;// destructured into 4 vars
 (x1 === 1 && y1 === 2 && x2 === 3 && y2 === 4) // => true
 #+end_src
-** Expressions
-*** Logical Expression
-**** or
+*** eval
+**** indirect
 #+begin_src js
-let max = maxWidth || preferences.maxWidth || 500;
+eval
 #+end_src
-**** not
-- unary operator
-- invert the boolean value of its operand
-- always returns true or fals
-
+**** direct
 #+begin_src js
-// DeMorgan's Laws
-!(p && q) === (!p || !q) // => true: for all values of p and q
-!(p || q) === (!p && !q) // => true: for all values of p and q
+eval()
 #+end_src
+**** strict eval
+- local eval with a private variable environment.
+- not allowed to overwrite the eval() function with a new value.
+- not allowed to declare a variable, function, function parameter, or catch block parameter with the name “eval”
 ** Functions
 - is an object
 
