@@ -24,9 +24,9 @@
   :END:
 * Progress
 ** Books
-| Books                           | Cap                         | @                          |
-|---------------------------------+-----------------------------+----------------------------|
-| JavaScript The Definitive Guide | 4 Expressions and Operators | 4.8 Arithmetic Expressions |
+| Books                           | Cap                         | @                           |
+|---------------------------------+-----------------------------+-----------------------------|
+| JavaScript The Definitive Guide | 4 Expressions and Operators | 4.11 Assignment Expressions |
 ** SLOC
 | Project   | folder                  | file         | @ |
 |-----------+-------------------------+--------------+---|
@@ -148,7 +148,7 @@ String.raw`\n`.length
 |   | immutable |
 
 - represents truth or falsehood
-- false values: undefined, null, 0, -0, NaN, ""
+- falsy values: undefined, null, 0, -0, NaN, ""
 
 #+begin_src js
 a === 4 // true
@@ -352,6 +352,22 @@ let [{x: x1, y: y1}, {x: x2, y: y2}] = points; // destructured into 4 variables.
 let points = { p1: [1,2], p2: [3,4] };// An object with 2 array props
 let { p1: [x1, y1], p2: [x2, y2] } = points;// destructured into 4 vars
 (x1 === 1 && y1 === 2 && x2 === 3 && y2 === 4) // => true
+#+end_src
+** Expressions
+*** Logical Expression
+**** or
+#+begin_src js
+let max = maxWidth || preferences.maxWidth || 500;
+#+end_src
+**** not
+- unary operator
+- invert the boolean value of its operand
+- always returns true or fals
+
+#+begin_src js
+// DeMorgan's Laws
+!(p && q) === (!p || !q) // => true: for all values of p and q
+!(p || q) === (!p && !q) // => true: for all values of p and q
 #+end_src
 ** Functions
 - is an object
