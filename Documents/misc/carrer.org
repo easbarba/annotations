@@ -22,17 +22,15 @@
 
 Amante da filosofia Unix por sua simplicidade, claridade e frugalidade.
 
-Há muito prefiro criar sistemas simples e usáveis com foco em usuários
-experientes, extensivo uso de shell scripts, auxiliados as maravilhosas
-ferramentas CLI como awk, sed, parallel para automação e bootstrap de
-distros GNU/Linux.
+Busco criar sistemas simples e usáveis com foco em usuários experientes,
+extensivo uso de shell scripts, auxiliados as maravilhosas ferramentas CLI como
+awk, sed, parallel para automação e bootstrap de distros GNU/Linux.
 
 Venho ativamente ajudando a alguns projetos de extensões do editor Emacs,
 toolings de linguagens novas e pacotes Guix.
 
 Tenho alguns projetos pessoais nos quais experimento as novidades
-opensource/livres, estes geralmente são baseados em tecnologias Ruby,
-Awk e Guile Scheme.
+opensource/livres, estes baseados em tecnologias JavaScript, Ruby e Awk.
 
 *HABILIDADES*
 -----
