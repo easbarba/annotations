@@ -1,4 +1,4 @@
-#+TITLE: Css
+#+TITLE: CSS
 
 * Summary
     :PROPERTIES:
@@ -23,76 +23,36 @@
   :END:
 * Progress
 ** Books
-     | Books                                     | Cap                                     | @                                     | late | revision |
-     |-------------------------------------------+-----------------------------------------+---------------------------------------+------+---------|
-     | JavaScript The Definitive Guide           | Chapter 3. Types, Values, and Variables | 3.9.3 Object to Primitive Conversions |      |         |
-     | Essential TypeScript From Beginner to Pro |                                         | Marking Tasks Complete                |      |         |
-
+| Books                                    | Cap                 | @ |
+|------------------------------------------+---------------------+---|
+| Responsive Web Design with HTML5 and CSS | Writing HTML Markup |   |
 ** SLOC
-     | Project | folder | file | @ |
-     |-------------+--------+------+---|
-     | node        |        |      |   |
-     | angular     |        |      |   |
-     | inquirer    |        |      |   |
-* Pre-Processors
-    [[https://sass-lang.com/][SASS]]
-    less
-    flexbox
-* Resources
-    https://jensimmons.github.io/
+| SLOC | folder | file | @ |
+|------+--------+------+---|
+|      |        |      |   |
 
-    https://labs.jensimmons.com
+* Base
+** Media Queries
+** Grid
+** Flexbox
+** Vendor Prefix
+Vendor prefixes have been employed historically to prefix experimental CSS
+properties in different browsers; for example, -webkit-backface-visibility.
 
-    https://daneden.github.io/animate.css/
-
-    https://css-tricks.com
-
-    https://flexboxfroggy.com/
-
-    https://leaverou.github.io/css3patterns/#lined-paper
-* Frameworks
-    - semantic-ui
-    - materialize
-
-* Tools
-    https://cssicon.space/#/
-
-    greensock
-    velocity,js
-    anime.js
-
-    https://animejs.com/
-
-    https://postcss.org/
-
-    https://autoprefixer.github.io/
-
-    http://screensiz.es/
-
-    http://mqtest.io/
-
-    https://www.axis-praxis.org/
-* Properties
-    | Properties                         |                                                              |
-    |------------------------------------+--------------------------------------------------------------|
-    | font-variant-numeric: tabular-nums | aplied in time interval, ensure its number to use even space |
-    |                                    |                                                              |
+** Properties
+| Properties                         |                                                              |
+|------------------------------------+--------------------------------------------------------------|
+| font-variant-numeric: tabular-nums | aplied in time interval, ensure its number to use even space |
+** Backward Compatibility
+** Viewport
+*** breakpoint
+a particular viewport width or height at which a responsive design should change
+significantly.
+* Best Practics
+** images
+- set all images to a max-width of 100% in the CSS by default!
+* Mobile first
 * Articles
-** CSS Grid
-     https://css-tricks.com/css-grid-in-ie-css-grid-and-the-new-autoprefixer/
-
-     https://www.smashingmagazine.com/2017/11/css-grid-supporting-browsers-without-grid/
-
-     https://medium.com/@elad/supporting-css-grid-in-internet-explorer-b38669e75d66
-
-     https://css-tricks.com/css-grid-in-ie-css-grid-and-the-new-autoprefixer/
-
-     https://css-tricks.com/css-grid-in-ie-duplicate-area-names-now-supported/
-
-** CSS Flexbox
-     https://philipwalton.github.io/solved-by-flexbox/demos/grids/
-
-     https://codepen.io/chriscoyier/pen/vWEMWw?editors=1100
 ** CSS Misc
 
      https://clubmate.fi/oocss-acss-bem-smacss-what-are-they-what-should-i-use/
@@ -132,17 +92,3 @@
      https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Keyword_index
 
      https://www.learnenough.com/css-and-layout-tutorial/css/introduction
-* Blogs/Site
-    csstriggers.com
-    https://thecssworkshop.com/
-
-    https://gridbyexample.com/
-
-    http://www.csszengarden.com/
-
-    http://learnlayout.com/
-
-* Frameworks
-    Compass
-* Backward Compatibility
-    https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks
