@@ -1,0 +1,104 @@
+#+TITLE: To learn
+
+* yyyxxxxaa
+1. Conheça o protocolo HTTP
+2. Conheça seu framework
+3. Conheça seu ORM
+4. Conheça sua base de dados
+5. Conheça algum Pub/Sub (#ApacheKafka é mais que isso).
+6. Entenda como tudo isso se relaciona.
+
+As vezes a pessoa confia no ORM, depois reclama que o ORM é lento. Em muitos
+casos você não está usando direito. Procura aí "como otimizar (nome)", "dicas
+para (nome)".
+
+As vezes a API fica complexa, é preciso estudar mais sobre REST (não é JSON +
+HTTP).
+
+As vezes é preciso fazer umas gambiarras no framework, dá uma lida na
+documentação. Em muitos casos você não conhece uma feature que resolve seu
+problema.
+
+Depois de tudo isso tente conhecer:
+
+1. Arquitetura em camadas
+2. Domain Driven Design
+3. Arquitetura octogonal
+4. Microservices
+
+Use YouTube para ter uma introdução ao assunto, mas esteja sempre lendo bons
+livros. Mas procure diversidade, só um autor é bobeira.
+
+Viu que não tem nada de código?
+
+Código é só a linguagem. É muito importante você conhecer sua linguagem e todo
+ecossistema dela. Procure bibliotecas, veja comparativos (isso é bom em blog).
+Acompanhe as discussões.
+
+Dê uma lida sobre algoritmos. Entenda o que é complexidade. Isso é um pouco
+complicado para quem não fez cálculo 1, mas vai te dar uma boa ideia em como seu
+software vai escalar.
+
+Tudo isso é trabalho pra os 5 primeiros anos da sua carreira.
+
+Caramba esqueci algo importantíssimos. Entenda os paradigmas de programação.
+Qual a diferença de funcional e porque falam tanto dela.
+
+Sobre o ORM não é só como usar. Eu só conheço o Hibernate e acho importante
+saber como é feito o cache, como é feita a busca, diferença de eager e lazy,
+ciclo de vida do objeto. Tudo isso é importante.
+
+* web developer
+** Fundamentos de HTTP:
+arquitetura client-server, socket TCP, rotas, cookies, natureza stateless do protocolo
+
+Dica -> construir um HTTP server com sua linguagem de programação favorita.
+Preferencialmente um sistema de login web para entender o problema que cookies
+resolvem
+** HTML, CSS e Javascript (ES6):
+servir uma página HTML simples, utilizar os headers HTTP corretos para
+comprimir, utilizar cache; entender o processo do browser fazendo pedidos CSS e
+JS à parte; escrever ES6 padrão e simples
+** Persistência de dados:
+guardar os dados em alguma estrutura como txt ou outra de preferência; gravar, ler, percorrer listas, criar índices
+
+(esta parte vai exigir um estudo paralelo em algumas estruturas de dados e
+algoritmos, como arrays, listas ligadas e hash tables).
+** WebComponents:
+shadow DOM, template engine; tentar ao máximo componentizar e organizar código
+ES6 apenas com webcomponents;
+** SPA (single page application):
+aqui coisas como npm, yarn e webpack vão ajudar a criar um bundle único para ser
+servido no primeiro pedido HTTP
+** SSR (server side rendering):
+diferente do SPA, aqui é utilizar AJAX para fazer pedidos ao HTTP server, que
+responde "pedaços" de HTML para serem substituídos no DOM
+** Websockets:
+implementar websockets no HTTP server; uso dos headers apropriados, frames,
+natureza stateful para troca de mensagens com client
+
+Dica -> no client HTTP (browser), utilizar a própria lib de websockets do JS
+** Deploy na nuvem:
+comprar um domínio, configurar o DNS, provisionar máquina; treinar comandos ssh,
+scp
+
+Dica -> criar um arquivo shell script para o deploy (exige estudo paralelo no
+básico de shell script)
+** frameworks
+- React/Angular p/ organizar código do frontend
+- Djang/ Rails/Express p/ organizar código do backend
+- PostgreSQL p/ guardar os dados
+- Docker p/ não ter que instalar as coisas
+
+* processo de desenvolvimento de software
+** Agile
+** Analise de Requisitos
+** Kanban
+- ToDo da semana
+- Doing (1 card per developer/pair)
+- Ready for review (code review
+- Ready for Staging
+- In Staging
+- Accepted
+- Done (in master)
+** User stories
