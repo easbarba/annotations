@@ -1,21 +1,22 @@
 #+TITLE: Carrer
 
 * Priorities
-| @               | desc                      |
-|-----------------+---------------------------|
-| Frameworks      | Ruby on Rails             |
-| Lang            | JavaScript                |
-| Database        | PostgreSQL                |
-| Concepts        | APIs, OOP, Patterns, DS&A |
-| Testing         | Rspec, Jest               |
-| Containers      | Podman, Docker            |
-| Version Control | Git                       |
+| @               | desc                                         |
+|-----------------+----------------------------------------------|
+| Frameworks      | VueJs                                        |
+| Lang            | Javascript, Typescript                       |
+| CSS             | BEM, SMACSS                                  |
+| Database        | PostgreSQL                                   |
+| Concepts        | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
+| Testing         | Jest                                         |
+| Containers      | Podman, Docker                               |
+| Version Control | Git                                          |
 
 * Résumé
 #+OPTIONS: toc:nil author:nil date:nil num:nil
 *EAS Barbosa*
 
-@easbarba / easbarba@pm.me / distrito-federal
+@easbarba / easbarba@outlook.com / distrito-federal
 
 *SOBRE*
 -----
@@ -30,16 +31,17 @@ Venho ativamente ajudando a alguns projetos de extensões do editor Emacs,
 toolings de linguagens novas e pacotes Guix.
 
 Tenho alguns projetos pessoais nos quais experimento as novidades
-opensource/livres, estes baseados em tecnologias JavaScript, Ruby e Awk.
+FLOSS, estes baseados em tecnologias JavaScript, Ruby e Awk.
 
 *HABILIDADES*
 -----
-  - Linguagens: Ruby, Guile Scheme, Awk.
-  - Frameworks: Ruby on Rails.
-  - Distros: Debian, Arch, GNU Guix.
-  - Script: Sed, GNU Bash, find, Fish.
+  - Linguagens: JavaScript, Ruby, GNU Guile, Awk.
+  - Frameworks: Vuejs.
+  - Unit Test: Mocha, Jest.
+  - Distros: Debian, Fedora, Arch.
+  - Script: GNU Sed, Bash, find, fish shell.
   - Infra: dockerfile, docker-compose, podman, vagrantfile, qemu/kvm.
-  - Editores: GNU Emacs, Nano, NeoVim.
+  - Editores: GNU Emacs, Nano, VSCode, NeoVim.
   - Git: merge, rebase, format-patch.
 
 *PROJETOS*
@@ -49,6 +51,6 @@ https://github.com/easbarba
 
 *EDUCAÇÃO*
 -----
-  - Direito @ IESB (Trancado)
   - Ciência da Computação @ Estacio (Cursando)
   - Inglês: Ativo(Intermediário), Passivo(Avancado).
+  - Direito @ IESB (Trancado)
