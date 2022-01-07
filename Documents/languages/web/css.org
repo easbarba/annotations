@@ -23,9 +23,9 @@
   :END:
 * Progress
 ** Books
-| Books                                    | Cap                 | @ |
-|------------------------------------------+---------------------+---|
-| Responsive Web Design with HTML5 and CSS | Writing HTML Markup |   |
+| Books                                    | Cap             | @ |
+|------------------------------------------+-----------------+---|
+| Responsive Web Design with HTML5 and CSS | 3 Media Queries |   |
 ** SLOC
 | SLOC | folder | file | @ |
 |------+--------+------+---|
