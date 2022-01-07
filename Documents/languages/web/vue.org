@@ -1,0 +1,78 @@
+#+TITLE: Vue.js
+
+* Summary
+    :PROPERTIES:
+    :TOC:      :include all :depth 2 :ignore this
+    :END:
+  :CONTENTS:
+  - [[#progress][Progress]]
+    - [[#books][Books]]
+    - [[#sloc][SLOC]]
+  - [[#css-pre-processors][CSS Pre-Processors]]
+  - [[#css-resources][CSS Resources]]
+  - [[#frameworks][Frameworks]]
+  - [[#tools][Tools]]
+  - [[#css-properties][CSS Properties]]
+  - [[#css-articles][CSS Articles]]
+    - [[#css-grid][CSS Grid]]
+    - [[#css-flexbox][CSS Flexbox]]
+    - [[#css-misc][CSS Misc]]
+  - [[#css-blogssite][CSS Blogs/Site]]
+  - [[#css-frameworks][CSS Frameworks]]
+  - [[#css-backward-compatibility][CSS Backward Compatibility]]
+  :END:
+* Progress
+** Books
+| Books         | Cap                         | @ |
+|---------------+-----------------------------+---|
+| Fullstack Vue | II - Single-file components |   |
+** SLOC
+| SLOC     | folder                            | file            | @ |
+|----------+-----------------------------------+-----------------+---|
+| vue-next | packages/compiler-core/src/compat | compatConfig.ts |   |
+| vue      |                                   |                 |   |
+* Base
+** Directives
+*** v-bind
+#+begin_src html
+<article v-for="submission in submissions" v-bind:key="submission.id"
+  class="media">
+  <!-- Rest of the submission template -->
+</article>
+#+end_src
+
+#+begin_src html
+<!-- // the full syntax -->
+<img v-bind:src="submission.submissionImage" />
+<!-- // the shorthand syntax -->
+<img :src="submission.submissionImage" />
+#+end_src
+
+*** v-for
+#+begin_src html
+<article v-for="submission in submissions" class="media">
+  <!-- Rest of the submission template -->
+</article>
+#+end_src
+*** v-on
+create event listeners within the DOM.
+
+#+begin_src html
+<div class="media-right">
+  <span class="icon is-small" v-on:click="upvote(submission.id)">
+    <i class="fa fa-chevron-up"></i>
+    <strong class="has-text-info">{{ submission.votes }}</strong>
+  </span>
+</div>
+#+end_src
+
+#+begin_src html
+<!-- // the full syntax -->
+<span v-on:click="upvote(submission.id)"></span>
+<!-- // the shorthand syntax -->
+<span @click="upvote(submission.id)"></span>
+#+end_src
+
+** Components
+Vue components are Vue instances.
+*** props
