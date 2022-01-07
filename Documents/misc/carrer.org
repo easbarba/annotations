@@ -9,7 +9,7 @@
 | Database        | PostgreSQL                                   |
 | Concepts        | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
 | Testing         | Jest                                         |
-| Containers      | Podman, Docker                               |
+| Containers      | Docker                                       |
 | Version Control | Git                                          |
 
 * Résumé
