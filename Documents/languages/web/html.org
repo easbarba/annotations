@@ -22,8 +22,191 @@
 |         |        |      |   |
 * Base
 ** Tags
-*** meta
+*** head
+**** meta
 in the head of your HTML so a browser knows how to render the page
+***** charset
+Character encoding
+#+begin_src html
+<meta charset="utf-8" />
+#+end_src
+*** html
+#+begin_src html
+<html></html>
+#+end_src
+**** lang
+specifies the primary language for the element's contents and for any of the
+element's attributes that contain text.
+
+#+begin_src html
+<html lang="en"></html>
+#+end_src
+*** doctype
+#+begin_src html
+<!DOCTYPE html>
+#+end_src
+*** body
+**** text
+***** link
+****** href
+#+begin_src html
+href="CSS/main.css"
+#+end_src
+****** rel
+#+begin_src html
+rel="stylesheet"
+#+end_src
+****** type
+#+begin_src html
+type="text/css"
+#+end_src
+***** span
+***** i
+#+begin_src html
+<p>However, discussion on the hgroup element is now frustraneous as it's now gone the way of the <i>Raphus cucullatus</i>.</p>
+#+end_src
+***** b
+The b element represents a span of text to which attention is being drawn for
+utilitarian purposes without conveying any extra importance and with no
+implication of an alternate voice or mood, such as key words in a document
+abstract, product names in a review, actionable words in interactive text-driven
+software, or an article lede.
+***** strong
+The strong element represents strong importance, seriousness, or urgency for its contents.
+***** em
+represents stress emphasis of its contents.
+***** br
+***** a
+anchor tag
+- can wrap multiple elements in an <a> tag
+- can't wrap one <a> tag within another <a> or other interactive element
+- can't wrap a form in an <a>
+
+#+begin_src html
+<a href="index.html">
+  <h2>The home page</h2>
+  <p>This paragraph also links to the home page</p>
+  <img src="home-image.png" alt="A rendering of the home page" />
+</a>
+#+end_src
+
+***** img
+****** src
+#+begin_src html
+SRC=frontCarousel.png
+#+end_src
+****** alt
+#+begin_src html
+alt=frontCarousel
+#+end_src
+***** h1-h6
+- h1–h6 elements must not be used to mark up subheadings, subtitles, alternative
+  titles and taglines unless intended to be the heading for a new section or
+  subsection.
+***** video
+#+begin_src html
+<video src="myVideo.mp4" width="640" height="480" controls autoplay></video>
+#+end_src
+
+options: width height controls autoplay preload muted poster
+***** audio
+***** obselete
+strike, center, font, acronym, frame, and frameset
+**** grouping
+***** p
+The p element represents a paragraph.
+***** hr
+***** pre
+The pre element represents a block of preformatted text, in which structure is
+represented by typographic conventions rather than by elements.
+
+#+begin_src html
+<p>This is the <code>Panel</code> constructor:</p>
+<pre><code>function Panel(element, canClose, closeHandler) {
+  this.element = element;
+  this.canClose = canClose;
+  this.closeHandler = function () { if (closeHandler) closeHandler() };
+}</code></pre>
+#+end_src
+***** div
+The div element has no special meaning at all. It represents its children. It
+can be used with the class, lang, and title attributes to mark up semantics
+common to a group of consecutive elements. It can also be used in a dl element,
+wrapping groups of dt and dd elements.
+***** figure
+#+begin_src html
+<figure class="MoneyShot">
+  <img
+    class="MoneyShotImg"
+    src="img/scones.jpg"
+    alt="Incredible scones baked to perfection and ready to eat"
+  />
+  <figcaption class="ImageCaption">
+    This image isn't of scones I have made, instead it's a stock photo from Wikipedia
+  </figcaption>
+</figure>
+#+end_src
+***** details
+#+begin_src html
+<details open>
+  <summary>I ate 15 scones in one day</summary>
+  <p>
+    Of course I didn't. It would probably kill me if I did. What a way to go.
+    Mmmmmm, scones!
+  </p>
+</details>
+#+end_src
+***** summary
+#+begin_src html
+    <details>
+      <summary>I ate 15 scones in one day</summary>
+      <p>
+        Of course I didn't. It would probably kill me if I did. What a way to go.
+        Mmmmmm, scones!
+      </p>
+    </details>
+#+end_src
+***** blockquote
+The blockquote element represents a section that is quoted from another source.
+***** address
+The address element represents the contact information for its nearest article
+or body element ancestor. If that is the body element, then the contact
+information applies to the document as a whole.
+**** sectioning
+***** section
+The section element represents a generic section of a document or application. A
+section, in this context, is a thematic grouping of content, typically with a
+heading.
+***** main
+The main content area of a document includes content that is unique to that
+document and excludes content that is repeated across a set of documents such as
+site navigation links, copyright information, site logos and banners and search
+forms (unless the document or application's main function is that of a search form).
+
+- A document must not have more than one main element that does not have the hidden attribute specified.
+
+***** article
+The article element represents a complete, or self-contained, composition in a
+document, page, application, or site and that is, in principle, independently
+distributable or reusable, e.g. in syndication.
+***** nav
+The nav element represents a section of a page that links to other pages or to
+parts within the page: a section with navigation links.
+***** header
+The header element represents a group of introductory or navigational aids.
+***** aside
+The aside element represents a section of a page that consists of content that
+is tangentially related to the content around the aside element, and which could
+be considered separate from that content. Such sections are often represented as
+sidebars in printed typography.
+***** footer
+The footer element represents a footer for its nearest ancestor sectioning
+content or sectioning root element. A footer typically contains information
+about its section such as who wrote it, links to related documents, copyright
+data, and the like.
+** Void elements
+- referred to as void elements because they have no contents.
+- area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wbr
 * Workaround
 ** IE8 - HTML5
 #+BEGIN_SRC html
