@@ -4,34 +4,19 @@
 | @               | desc                                         |
 |-----------------+----------------------------------------------|
 | Frameworks      | VueJs                                        |
-| Lang            | Javascript, Typescript                       |
-| CSS             | BEM, SMACSS                                  |
+| Lang            | Javascript, Nodejs, Typescript               |
 | Database        | PostgreSQL                                   |
-| Concepts        | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
 | Testing         | Jest                                         |
 | Containers      | Docker                                       |
+| Concepts        | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
 | Version Control | Git                                          |
+| HTML/CSS        | BEM, SMACSS                                  |
 
 * Résumé
 #+OPTIONS: toc:nil author:nil date:nil num:nil
 *EAS Barbosa*
 
-@easbarba / easbarba@outlook.com / distrito-federal
-
-*SOBRE*
------
-
-Amante da filosofia Unix por sua simplicidade, claridade e frugalidade.
-
-Busco criar sistemas simples e usáveis com foco em usuários experientes,
-extensivo uso de shell scripts, auxiliados as maravilhosas ferramentas CLI como
-awk, sed, parallel para automação e bootstrap de distros GNU/Linux.
-
-Venho ativamente ajudando a alguns projetos de extensões do editor Emacs,
-toolings de linguagens novas e pacotes Guix.
-
-Tenho alguns projetos pessoais nos quais experimento as novidades
-FLOSS, estes baseados em tecnologias JavaScript, Ruby e Awk.
+@easbarba / easbarba@outlook.com / easbarba.com
 
 *HABILIDADES*
 -----
@@ -47,10 +32,56 @@ FLOSS, estes baseados em tecnologias JavaScript, Ruby e Awk.
 *PROJETOS*
 -----
 
-https://github.com/easbarba
+  - distro:
+        asdasd
+
+  - floss:
+        asdasd
+
+  mais projetos em: https://github.com/easbarba
 
 *EDUCAÇÃO*
 -----
   - Ciência da Computação @ Estacio (Cursando)
   - Inglês: Ativo(Intermediário), Passivo(Avancado).
   - Direito @ IESB (Trancado)
+
+* About
+*SOBRE*
+-----
+
+Como o seguidor da filosofia Unix, simplicidade, claridade e frugalidade sao
+irrevogaveis principios.
+
+Para seguir estes eu busco criar sistemas simples e usáveis com foco em usuários
+experientes, extensivo uso de shell scripts, auxiliados as maravilhosas
+ferramentas CLI como awk, sed, parallel para automação e bootstrap de distros
+GNU/Linux.
+
+Venho ativamente ajudando a alguns projetos de extensões do editor Emacs,
+toolings de linguagens novas e pacotes Guix.
+
+Quanto a projetos pessoais, faco uso pesado de novidades FLOSS, estes proejetos
+baseados em tecnologias JavaScript, Ruby e Awk.
+
+------------------------------
+
+As a follower of the Unix philosophy simplicity, clarity and frugality are
+unrevogable rule.
+
+To follow these I seek to create simple and usable systems focused on experienced users,
+extensive use of shell scripts, aided by the marvelous CLI tools such as awk,
+sed, parallel for automation and bootstrap of GNU/Linux distros.
+
+I've been actively helping a few Emacs editor extensions projects, programming
+languages toolings and Guix packages.
+
+As for personal projects, I make heavy use of FLOSS novelties, these projects
+based on JavaScript, Ruby and Awk technologies.
+
+* Interview Exercises
+Alguns desafios:
+- Aplicação do redux;
+- Estilização com styled components;
+- Consumo de APIs Rest;
+- Implementação fiel de layouts do design;
