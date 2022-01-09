@@ -1,0 +1,18 @@
+#+TITLE: Javascript Packages
+
+* node
+** Cli
+*** install
+|                      |   |
+|----------------------+---|
+| -—save-dev <package> |   |
+
+** Node frameworks
+https://adonisjs.com/
+* npx
+* npm
+** link
+** pack
+** install
+* eslit
+* prettier

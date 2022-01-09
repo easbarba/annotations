@@ -1,5 +1,5 @@
 #+TITLE: Vue.js
-
+https://jobs.rs.levi9.com/jobs/1442274-junior-javascript-developer/applications/new
 * Summary
     :PROPERTIES:
     :TOC:      :include all :depth 2 :ignore this
@@ -72,6 +72,7 @@ create event listeners within the DOM.
 <!-- // the shorthand syntax -->
 <span @click="upvote(submission.id)"></span>
 #+end_src
+*** v-if
 
 ** Components
 Vue components are Vue instances.
