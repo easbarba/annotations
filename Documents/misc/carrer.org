@@ -12,76 +12,29 @@
 | Version Control | Git                                          |
 | HTML/CSS        | BEM, SMACSS                                  |
 
-* Résumé
-#+OPTIONS: toc:nil author:nil date:nil num:nil
-*EAS Barbosa*
-
-@easbarba / easbarba@outlook.com / easbarba.com
-
-*HABILIDADES*
------
-  - Linguagens: JavaScript, Ruby, GNU Guile, Awk.
-  - Frameworks: Vuejs.
-  - Unit Test: Mocha, Jest.
-  - Distros: Debian, Fedora, Arch.
-  - Script: GNU Sed, Bash, find, fish shell.
-  - Infra: dockerfile, docker-compose, podman, vagrantfile, qemu/kvm.
-  - Editores: GNU Emacs, Nano, VSCode, NeoVim.
-  - Git: merge, rebase, format-patch.
-
-*PROJETOS*
------
-
-  - distro:
-        asdasd
-
-  - floss:
-        asdasd
-
-  mais projetos em: https://github.com/easbarba
-
-*EDUCAÇÃO*
------
-  - Ciência da Computação @ Estacio (Cursando)
-  - Inglês: Ativo(Intermediário), Passivo(Avancado).
-  - Direito @ IESB (Trancado)
-
-* About
-*SOBRE*
------
-
-Como o seguidor da filosofia Unix, simplicidade, claridade e frugalidade sao
-irrevogaveis principios.
-
-Para seguir estes eu busco criar sistemas simples e usáveis com foco em usuários
-experientes, extensivo uso de shell scripts, auxiliados as maravilhosas
-ferramentas CLI como awk, sed, parallel para automação e bootstrap de distros
-GNU/Linux.
-
-Venho ativamente ajudando a alguns projetos de extensões do editor Emacs,
-toolings de linguagens novas e pacotes Guix.
-
-Quanto a projetos pessoais, faco uso pesado de novidades FLOSS, estes proejetos
-baseados em tecnologias JavaScript, Ruby e Awk.
-
-------------------------------
-
-As a follower of the Unix philosophy simplicity, clarity and frugality are
-unrevogable rule.
-
-To follow these I seek to create simple and usable systems focused on experienced users,
-extensive use of shell scripts, aided by the marvelous CLI tools such as awk,
-sed, parallel for automation and bootstrap of GNU/Linux distros.
-
-I've been actively helping a few Emacs editor extensions projects, programming
-languages toolings and Guix packages.
-
-As for personal projects, I make heavy use of FLOSS novelties, these projects
-based on JavaScript, Ruby and Awk technologies.
-
 * Interview Exercises
 Alguns desafios:
 - Aplicação do redux;
 - Estilização com styled components;
 - Consumo de APIs Rest;
 - Implementação fiel de layouts do design;
+
+ — Conhecimento profundo de JavaScript (ES6 +), CSS e HTML
+— Conhecimento básico de estruturas de renderização do lado do servidor JavaScript (por exemplo, Nuxt ou Next.js)
+— Conhecimento basico de NodeJS
+— Ampla experiência com uma estrutura JS moderna, como Vue, React (preferencial) ou Angular
+— Trabalhou em testes unitários com mocha ou jest
+— Tenha trabalho com TDD ao menos em 1 cenário
+— SOLID
+— Conhecimento de arquitetura de microsserviços e micro frontend
+
+* aa
+vidades:
+
+· Desenvolver sistemas e aplicações na linguagem utilizada pela empresa,
+adequando-os às necessidades da área e dos clientes.
+
+· Criar e utilizar Banco de Dados, índices, triggers e procedures.
+
+· Entender a necessidade junto ao requisitante e descrever os requisitos
+  funcionais e não funcionais, quando necessário.
