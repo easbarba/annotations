@@ -1,9 +1,60 @@
-#+TITLE: Nodejs
+#+TITLE: Node.js
+
+* Summary
+    :PROPERTIES:
+    :TOC:      :include all :depth 2 :ignore this
+    :END:
+  :CONTENTS:
+  - [[#progress][Progress]]
+    - [[#books][Books]]
+    - [[#sloc][SLOC]]
+    - [[#skills][SKills]]
+  - [[#features][Features]]
+    - [[#nubers][Nubers]]
+  - [[#concepts][Concepts]]
+  - [[#books][Books]]
+    - [[#eloquent-javascript][Eloquent JavaScript]]
+  - [[#sites][Sites]]
+    - [[#web-js---misc][Web JS - Misc]]
+    - [[#web-js---online-tools][Web JS - Online Tools]]
+  - [[#frameworks][Frameworks]]
+  - [[#refactoring][Refactoring]]
+  - [[#articles][Articles]]
+  - [[#interview][Interview]]
+  :END:
+* Progress
+** Books
+| Books         | Cap                          | @ |
+|---------------+------------------------------+---|
+| Node cookbook | 3: Streams, Streams, Streams |   |
+** SLOC
+| Project   | folder                  | file         | @ |
+|-----------+-------------------------+--------------+---|
+| draggable | src/Draggable/DragEvent | DragEvent.js |   |
+| inquirer  |                         |              |   |
 
 * Library
-** fs
-** process
+** [[https://nodejs.org/api/fs.html][fs]]
+*** readFileSync
+*** readdirSync
+*** writeFileSync
+*** readFile
+** [[https://nodejs.org/docs/latest-v16.x/api/process.html][process]]
+*** stdin
+*** stdout
+*** env
 #+begin_src js
 process.env.USER_ID // "239482"
 process.env.USER_KEY // "foobar"
 #+end_src
+*** cwd
+** [[https://nodejs.org/api/path.html][path]]
+*** join
+*** basename
+**** extname
+** net
+
+* Asynchronous
+** callbacks
+** Promises
+** async/await
