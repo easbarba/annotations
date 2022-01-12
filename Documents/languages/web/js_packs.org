@@ -1,4 +1,4 @@
-#+TITLE: Javascript Packages
+#+TITLE: JavaScript Packages
 
 * node
 ** Cli
@@ -10,9 +10,23 @@
 ** Node frameworks
 https://adonisjs.com/
 * npx
+Executes <command> either from a local node_modules/.bin, or from a central
+cache, installing any packages needed in order for <command> to run.
+
+** run different versions of node
+#+begin_src shell
+npx node@10 -v #v10.18.1
+npx node@12 -v #v12.14.1
+#+end_src
+** run remote scripts
+#+begin_src shell
+npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
+#+end_src
 * npm
 ** link
 ** pack
 ** install
 * eslit
 * prettier
+
+
