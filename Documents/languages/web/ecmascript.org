@@ -1,4 +1,4 @@
-#+TITLE: Javascript
+#+TITLE: EcmaScript
 
 * Summary
     :PROPERTIES:
@@ -497,10 +497,35 @@ i *= 3;
 - loops through the property names of a specified object.
 - If it evaluates to null or undefined , the interpreter skips the loop and moves on to the next statement.
 - pre-ES6, may be a source of bugs with ES6 additions
-*** Strict mode
-- attempt to use an undeclared variable gets a reference error
-*** Non-stric
-- attempt to use an undeclared variable ends up creating a new global variable.
+*** with
+runs a block of code as if the properties of a specified object were variables
+in scope for that code.
+
+- forbidden in strict mode, avoid using it whenever possible.
+- creates a temporary scope with the properties of object as variables and then executes statement within that scope.
+- const or let or var to declare a variable or constant within the body of a
+  with statement, it creates an ordinary variable and does not define a new
+  property within the specified object.
+
+#+begin_src js
+with (object)
+    statement
+#+end_src
+
+#+begin_src js
+let f = document.forms[0];
+f.name.value = "";
+f.address.value = "";
+f.email.value = "";
+
+with(document.forms[0]) {
+// Access form elements directly here. For example:
+  name.value = "";
+  address.value = "";
+  email.value = "";
+}
+#+end_src
+*** debugger
 
 ** Errors
 *** throw
@@ -513,6 +538,46 @@ throw expression;
 exceptions are thrown whenever a runtime error occurs and whenever the program
 explicitly throws one using the throw statement.
 *** try/catch/finally
+- catch and finaly are optional but one must be present
+- variable in catch
+- value associated with the exception (an Error object, for example) is assigned to this parameter.
+
+#+begin_src js
+try {
+// Ask the user to enter a number
+let n = Number(prompt("Please enter a positive integer", ""));
+// Compute the factorial of the number, assuming the input is valid
+let f = factorial(n);
+// Display the result
+alert(n + "! = " + f);
+}
+catch(ex) {
+// If the user's input was not valid, we end up here
+alert(ex); // Tell the user what the error is
+}
+#+end_src
+Simulate *for* in a *while* w/ the aid of try/catch
+#+begin_src js
+// Simulate for(initialize ; test ;increment ) body;
+initialize ;
+while( test ) {
+try { body ; }
+finally { increment ; }
+}
+#+end_src
+
+Bare catch
+#+begin_src js
+function parseJSON(s) {
+try {
+return JSON.parse(s);
+} catch {
+// Something went wrong but we don't care what it was
+return undefined;
+}
+}
+#+end_src
+
 ** Functions
 - is an object
 
@@ -536,6 +601,23 @@ function square(x, log) {
 #+end_src
 *** yield
 - only in ES6 generator functions
+** Modes
+*** Strict mode
+- attempt to use an undeclared variable gets a reference error
+- ES5 directive
+- can appear only at the start of a script or at the start of a function body
+- scope where is set get strict: global, function, module, class
+
+#+begin_src js
+"use strict";
+#+end_src
+*** Non-stric
+- attempt to use an undeclared variable ends up creating a new global variable.
+
+
+Asynchronous Control Flow Patterns with Promises and Async Await
+* Concepts
+** Hoisting
 * Library
 ** Numbers
 - do not accept BigInt
