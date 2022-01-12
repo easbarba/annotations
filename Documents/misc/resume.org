@@ -26,7 +26,7 @@
       nodejs, jest, json, docker | https://github.com/easbarba/distro.js
 
   - *floss*: Manage FLOSS Projects repositories.
-      ruby, rspec, yaml, docker | https://github.com/easbarba/floss
+      ruby, rspec, csv, docker | https://github.com/easbarba/floss
 
   mais projetos em: https://github.com/easbarba
 
