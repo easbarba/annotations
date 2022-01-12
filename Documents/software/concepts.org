@@ -1,0 +1,15 @@
+#+TITLE: Concepts
+
+* callback
+** callback hell
+#+begin_src js
+first(args, () => {
+
+    second(args, () => {
+
+        third(args, () => {});
+
+    });
+
+});
+#+end_src
