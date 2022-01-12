@@ -110,6 +110,9 @@ alt=frontCarousel
 
 options: width height controls autoplay preload muted poster
 ***** audio
+***** no-script
+tag displays a message to the user that states the application won’t work as
+intended if JavaScript is disabled in the browser.
 ***** obselete
 strike, center, font, acronym, frame, and frameset
 **** grouping
