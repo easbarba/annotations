@@ -24,9 +24,9 @@
   :END:
 * Progress
 ** Books
-| Books                           | Cap          | @        |
-|---------------------------------+--------------+----------|
-| JavaScript The Definitive Guide | 5 Statements | 5.3.1 if |
+| Books                           | Cap | @                          |
+|---------------------------------+-----+----------------------------|
+| JavaScript The Definitive Guide |     | 6.6 Enumerating Properties |
 ** SLOC
 | Project   | folder                  | file         | @ |
 |-----------+-------------------------+--------------+---|
@@ -169,6 +169,7 @@ true.toString() // 'true'
 - indicate the absence of a value
 - is a object
 - avoid using
+- have no properties
 
 #+begin_src js
 typeof null // object
@@ -189,6 +190,7 @@ typeof null // object
 - the return value of functions that do not explicitly return a value
 - the value of function parameters for which no argument is passed.
 - avoid using
+- have no properties
 
 #+begin_src js
 typeof undefined // undefined
@@ -213,6 +215,10 @@ typeof m // 'symbol'
 - toString()
 - Symbol.for()
 - Symbol.keyFor()
+** Prototypes
+#+begin_src js
+Object.prototype
+#+end_src
 ** Collection
 *** Array
 - is a object
@@ -232,9 +238,66 @@ a?.[index++]
 - mutable
 - not comparable
 - reference type
-- if no arguments are passed to the constructor function in an object creation
-  expression, the empty pair of parentheses can be omitted
+- parentheses can be omitted if no arguments are passed to the constructor
+- unordered collection of properties
+- inherits from prototype
+- three property attributes(writable,enumerable,configurable)
+- almost all objects have a prototype, but only a relatively small number of objects have a prototype property.
+
+**** *Object Literal
+is an expression that creates and initializes a new and distinct object
+each time it is evaluated.
+
 #+begin_src js
+let empty = {};
+let point = { x: 0, y: 0 };
+let p2 = { x: point.x, y: point.y+1 };
+let book = {
+  "main title": "JavaScript",
+  "sub-title": "The Definitive Guide",
+  for: "all audiences",
+  author: {
+    firstname: "David",
+    surname: "Flanagan"
+  }
+};
+
+Object.create()
+#+end_src
+
+**** new
+#+begin_src js
+let o = new Object();
+let a = new Array();
+let d = new Date();
+let r = new Map();
+#+end_src
+
+**** Object.create()
+- passing null to create a new object the newly created object will not inherit anything.
+- create an empty object by passing a Object.prototype
+- also takes an optional second argument that describes the properties of the new object.
+
+#+begin_src js
+let o1 = Object.create({x: 1, y: 2});
+o1.x + o1.y
+
+let o2 = Object.create(null); // o2 inherits no props or methods.
+o2.toString() // Uncaught TypeError: o2.toString is not a function
+
+let o3 = Object.create(Object.prototype); // empty object  like {} or new Object().
+
+let o = { x: "don't change this value" };
+library.function(Object.create(o)); // Guard against accidental modifications
+#+end_src
+
+**** more
+
+#+begin_src js
+let author = book.author; // Get the "author" property of the book.
+let name = author.surname; // Get the "surname" property of the author.
+let title = book["main title"]; // Get the "main title" property of the book.
+
 let o = { x: 1 }, p = { x: 1 };
 o === p // false
 
@@ -252,8 +315,14 @@ let rectangle = {
 o =  new Object()
 o =  new Object // same
 o.x = 'meh' // {x: 'meh'}
-#+end_src
 
+let author = book.author; // Get the "author" property of the book.
+let name = author.surname; // Get the "surname" property of the author.
+let title = book["main title"]; // Get the "main title" property of the book.
+
+book.edition = 7; // Create an "edition" property of book.
+book["main title"] = "ECMAScript"; // Change the "main title" property.
+#+end_src
 
 **** Global Object
 - the properties of this object are the globally defined identifiers that are available to a JavaScript program.
@@ -264,6 +333,116 @@ o.x = 'meh' // {x: 'meh'}
 ***** properties
 - global
 - globalThis
+**** query and set
+- not an error to query a property that does not exist
+- It is an error, however, to attempt to query a property of an object that does not exist.
+- Attempting to set a property on null or undefined also causes a TypeError.
+- In strict mode, a TypeError is thrown whenever an attempt to set a property fails.
+
+#+begin_src js
+let unitcircle = { r: 1 };
+let c = Object.create(unitcircle);
+c.x = 1; c.y = 1;
+c.r = 2;
+unitcircle.r
+#+end_src
+
+query w/ guard anti-undefined
+
+#+begin_src js
+let surname = undefined;
+if (book) {
+    if (book.author) {
+        surname = book.author.surname;
+    }
+}
+
+// A concise and idiomatic alternative to get surname or null or undefined
+surname = book && book.author && book.author.surname;
+
+let surname = book?.author?.surname;
+#+end_src
+
+**** delete
+- only deletes own properties, not inherited ones.
+- To delete an inherited property, you must delete it from the prototype object in which it is defined.
+  Doing this affects every object that inherits from that prototype
+- evaluates to true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property)
+- evaluates to true when used (meaninglessly) with an expression that is not a property access expression
+- does not remove properties that have a configurable attribute of false .
+- In strict mode, delete raises a SyntaxError if its operand is an unqualified identifier like x ,
+  and you have to be explicit about the property access
+- in non-strict mode, can omit the reference to the global object and simply follow the delete operator with the property name:
+#+begin_src js
+let o = {x: 1}; // o has own property x and inherits property toString
+delete o.x // => true: deletes property x
+delete o.x // => true: does nothing (x doesn't exist) but true anyway
+delete o.toString // => true: does nothing (toString isn't an own property)
+delete 1 // => true: nonsense, but true anyway
+
+
+// In strict mode, all these deletions throw TypeError instead of returning false
+delete Object.prototype // => false: property is non-configurable
+var x = 1; // Declare a global variable
+delete globalThis.x // => false: can't delete this property
+function f() {} // Declare a global function
+delete globalThis.f // => false: can't delete this property either
+#+end_src
+
+**** testing properties
+- strings or symbols as property names
+- propertyIsEnumerable() returns true only if the named property is an own property and its enumerable attribute is true.
+- in can distinguish between properties that do not exist and properties that exist but have been set to undefined.
+
+#+begin_src js
+let o = { x: 1 };
+"x" in o // => true: o has an own property "x"
+"y" in o // => false: o doesn't have a property "y"
+"toString" in o // => true: o inherits a toString property
+
+
+let o = { x: 1 };
+o.hasOwnProperty("x") // => true: o has an own property x
+o.hasOwnProperty("y") // => false: o doesn't have a property y
+o.hasOwnProperty("toString") // => false: toString is an inherited property
+
+let o = { x: 1 };
+o.propertyIsEnumerable("x") // => true: o has an own enumerable property x
+
+o.propertyIsEnumerable("toString") // => false: not an own property
+Object.prototype.propertyIsEnumerable("toString") // => false: not enumerable
+
+let o = { x: 1 };
+o.x !== undefined
+// => true: o has a property x
+o.y !== undefined
+// => false: o doesn't have a property y
+o.toString !== undefined // => true: o inherits a toString property
+
+
+let o = { x: undefined };
+o.x !== undefined
+o.y !== undefined
+"x" in o
+"y" in o
+delete o.x;
+"x" in o
+// Property is explicitly set to undefined
+// => false: property exists but is undefined
+// => false: property doesn't even exist
+// => true: the property exists
+// => false: the property doesn't exist
+// Delete the property x
+// => false: it doesn't exist anymore
+
+
+
+
+
+
+
+#+end_src
+
 **** conditional property access
 - guard against errors
 #+begin_src js
@@ -278,6 +457,12 @@ for(let v of Object.values(o)) {
 sum += v;
 }
 sum // => 6
+#+end_src
+***** Object.seal
+***** Object.freeze
+***** __proto__
+#+begin_src js
+o1.__proto__ // { x: 1, y: 2 }
 #+end_src
 ***** Object.keys
 #+begin_src js
@@ -618,6 +803,80 @@ function square(x, log) {
 Asynchronous Control Flow Patterns with Promises and Async Await
 * Concepts
 ** Hoisting
+** Import/Export
+*** AMD
+Asynchronous Module Definition
+
+- imports modules asynchronously (hence the name).
+- is made for frontend (when it was proposed) (while CJS backend).
+- syntax is less intuitive than CJS. I think of AMD as the exact opposite sibling of CJS.
+
+
+#+begin_src js
+define(['dep1', 'dep2'], function (dep1, dep2) {
+    //Define the module value by returning a value.
+    return function () {};
+});
+#+end_src
+
+#+begin_src js
+// "simplified CommonJS wrapping" https://requirejs.org/docs/whyamd.html
+define(function (require) {
+    var dep1 = require('dep1'),
+        dep2 = require('dep2');
+    return function () {};
+});
+#+end_src
+
+*** UMD
+Universal Module Definition
+
+- Works on front and back end (hence the name universal).
+- Unlike CJS or AMD, UMD is more like a pattern to configure several module systems. Check here for more patterns.
+- UMD is usually used as a fallback module when using bundler like Rollup/ Webpack
+
+
+#+begin_src js
+(function (root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define(["jquery", "underscore"], factory);
+    } else if (typeof exports === "object") {
+        module.exports = factory(require("jquery"), require("underscore"));
+    } else {
+        root.Requester = factory(root.$, root._);
+    }
+}(this, function ($, _) {
+    // this is where I defined my module implementation
+
+    var Requester = { // ... };
+
+    return Requester;
+}));
+#+end_src
+
+*** CJS
+- Some of you may immediately recognize CJS syntax from node. That's because node uses CJS module format.
+- CJS imports module synchronously.
+- You can import from a library node_modules or local dir. Either by const
+  myLocalModule = require('./some/local/file.js') or var React =
+  require('react'); works.
+- When CJS imports, it will give you a copy of the imported object.
+- CJS will not work in the browser. It will have to be transpiled and bundled.
+
+#+begin_src js
+//importing
+const doSomething = require('./doSomething.js');
+
+//exporting
+module.exports = function doSomething(n) {
+  // do something
+}
+
+#+end_src
+*** ESM
+** Transpiling
+ a portmanteau of /trans/lating and /com/piling
+
 * Library
 ** Numbers
 - do not accept BigInt
