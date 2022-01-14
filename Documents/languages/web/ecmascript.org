@@ -24,9 +24,9 @@
   :END:
 * Progress
 ** Books
-| Books                           | Cap | @                          |
-|---------------------------------+-----+----------------------------|
-| JavaScript The Definitive Guide |     | 6.6 Enumerating Properties |
+| Books                           | Cap    | @ |
+|---------------------------------+--------+---|
+| JavaScript The Definitive Guide | Arrays |   |
 ** SLOC
 | Project   | folder                  | file         | @ |
 |-----------+-------------------------+--------------+---|
@@ -143,6 +143,8 @@ String.raw`\n`.length
 
 /^HTML/
 /[1-9][0-9]*/
+
+[..."1234"].forEach(x => console.log(x))
 #+end_src
 *** Boolean
 |   |           |
@@ -215,15 +217,9 @@ typeof m // 'symbol'
 - toString()
 - Symbol.for()
 - Symbol.keyFor()
-** Prototypes
-#+begin_src js
-Object.prototype
-#+end_src
 ** Collection
 *** Array
 - is a object
-**** methods
-- Array.from() - ES6
 
 **** conditional property access
 #+begin_src js
@@ -231,257 +227,13 @@ a?.[index++]
 #+end_src
 **** methods
 ***** push
+***** Array.from
+ES6
+***** toString
+obtain a list of the array elements, themselves each converted to a string
 
 *** Set
 *** Map
-*** Objects
-- mutable
-- not comparable
-- reference type
-- parentheses can be omitted if no arguments are passed to the constructor
-- unordered collection of properties
-- inherits from prototype
-- three property attributes(writable,enumerable,configurable)
-- almost all objects have a prototype, but only a relatively small number of objects have a prototype property.
-
-**** *Object Literal
-is an expression that creates and initializes a new and distinct object
-each time it is evaluated.
-
-#+begin_src js
-let empty = {};
-let point = { x: 0, y: 0 };
-let p2 = { x: point.x, y: point.y+1 };
-let book = {
-  "main title": "JavaScript",
-  "sub-title": "The Definitive Guide",
-  for: "all audiences",
-  author: {
-    firstname: "David",
-    surname: "Flanagan"
-  }
-};
-
-Object.create()
-#+end_src
-
-**** new
-#+begin_src js
-let o = new Object();
-let a = new Array();
-let d = new Date();
-let r = new Map();
-#+end_src
-
-**** Object.create()
-- passing null to create a new object the newly created object will not inherit anything.
-- create an empty object by passing a Object.prototype
-- also takes an optional second argument that describes the properties of the new object.
-
-#+begin_src js
-let o1 = Object.create({x: 1, y: 2});
-o1.x + o1.y
-
-let o2 = Object.create(null); // o2 inherits no props or methods.
-o2.toString() // Uncaught TypeError: o2.toString is not a function
-
-let o3 = Object.create(Object.prototype); // empty object  like {} or new Object().
-
-let o = { x: "don't change this value" };
-library.function(Object.create(o)); // Guard against accidental modifications
-#+end_src
-
-**** more
-
-#+begin_src js
-let author = book.author; // Get the "author" property of the book.
-let name = author.surname; // Get the "surname" property of the author.
-let title = book["main title"]; // Get the "main title" property of the book.
-
-let o = { x: 1 }, p = { x: 1 };
-o === p // false
-
-let x = o;
-o == x // true
-
-o.x = 2; // change value
-o.y = 3; // add
-
-let rectangle = {
-    upperLeft: { x: 2, y: 2 },
-    lowerRight: { x: 4, y: 5 }
-};
-
-o =  new Object()
-o =  new Object // same
-o.x = 'meh' // {x: 'meh'}
-
-let author = book.author; // Get the "author" property of the book.
-let name = author.surname; // Get the "surname" property of the author.
-let title = book["main title"]; // Get the "main title" property of the book.
-
-book.edition = 7; // Create an "edition" property of book.
-book["main title"] = "ECMAScript"; // Change the "main title" property.
-#+end_src
-
-**** Global Object
-- the properties of this object are the globally defined identifiers that are available to a JavaScript program.
-- global constants like undefined , Infinity , and NaN
-- global functions like isNaN() , parseInt(), and eval()
-- constructor functions like Date() , RegExp() , String() , Object() , and Array()
-- global objects like Math and JSON
-***** properties
-- global
-- globalThis
-**** query and set
-- not an error to query a property that does not exist
-- It is an error, however, to attempt to query a property of an object that does not exist.
-- Attempting to set a property on null or undefined also causes a TypeError.
-- In strict mode, a TypeError is thrown whenever an attempt to set a property fails.
-
-#+begin_src js
-let unitcircle = { r: 1 };
-let c = Object.create(unitcircle);
-c.x = 1; c.y = 1;
-c.r = 2;
-unitcircle.r
-#+end_src
-
-query w/ guard anti-undefined
-
-#+begin_src js
-let surname = undefined;
-if (book) {
-    if (book.author) {
-        surname = book.author.surname;
-    }
-}
-
-// A concise and idiomatic alternative to get surname or null or undefined
-surname = book && book.author && book.author.surname;
-
-let surname = book?.author?.surname;
-#+end_src
-
-**** delete
-- only deletes own properties, not inherited ones.
-- To delete an inherited property, you must delete it from the prototype object in which it is defined.
-  Doing this affects every object that inherits from that prototype
-- evaluates to true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property)
-- evaluates to true when used (meaninglessly) with an expression that is not a property access expression
-- does not remove properties that have a configurable attribute of false .
-- In strict mode, delete raises a SyntaxError if its operand is an unqualified identifier like x ,
-  and you have to be explicit about the property access
-- in non-strict mode, can omit the reference to the global object and simply follow the delete operator with the property name:
-#+begin_src js
-let o = {x: 1}; // o has own property x and inherits property toString
-delete o.x // => true: deletes property x
-delete o.x // => true: does nothing (x doesn't exist) but true anyway
-delete o.toString // => true: does nothing (toString isn't an own property)
-delete 1 // => true: nonsense, but true anyway
-
-
-// In strict mode, all these deletions throw TypeError instead of returning false
-delete Object.prototype // => false: property is non-configurable
-var x = 1; // Declare a global variable
-delete globalThis.x // => false: can't delete this property
-function f() {} // Declare a global function
-delete globalThis.f // => false: can't delete this property either
-#+end_src
-
-**** testing properties
-- strings or symbols as property names
-- propertyIsEnumerable() returns true only if the named property is an own property and its enumerable attribute is true.
-- in can distinguish between properties that do not exist and properties that exist but have been set to undefined.
-
-#+begin_src js
-let o = { x: 1 };
-"x" in o // => true: o has an own property "x"
-"y" in o // => false: o doesn't have a property "y"
-"toString" in o // => true: o inherits a toString property
-
-
-let o = { x: 1 };
-o.hasOwnProperty("x") // => true: o has an own property x
-o.hasOwnProperty("y") // => false: o doesn't have a property y
-o.hasOwnProperty("toString") // => false: toString is an inherited property
-
-let o = { x: 1 };
-o.propertyIsEnumerable("x") // => true: o has an own enumerable property x
-
-o.propertyIsEnumerable("toString") // => false: not an own property
-Object.prototype.propertyIsEnumerable("toString") // => false: not enumerable
-
-let o = { x: 1 };
-o.x !== undefined
-// => true: o has a property x
-o.y !== undefined
-// => false: o doesn't have a property y
-o.toString !== undefined // => true: o inherits a toString property
-
-
-let o = { x: undefined };
-o.x !== undefined
-o.y !== undefined
-"x" in o
-"y" in o
-delete o.x;
-"x" in o
-// Property is explicitly set to undefined
-// => false: property exists but is undefined
-// => false: property doesn't even exist
-// => true: the property exists
-// => false: the property doesn't exist
-// Delete the property x
-// => false: it doesn't exist anymore
-
-
-
-
-
-
-
-#+end_src
-
-**** conditional property access
-- guard against errors
-#+begin_src js
-let a = { b: null };
-a.b?.c.d // => undefined
-#+end_src
-**** methods
-***** Object.values
-#+begin_src js
-let sum = 0;
-for(let v of Object.values(o)) {
-sum += v;
-}
-sum // => 6
-#+end_src
-***** Object.seal
-***** Object.freeze
-***** __proto__
-#+begin_src js
-o1.__proto__ // { x: 1, y: 2 }
-#+end_src
-***** Object.keys
-#+begin_src js
-let o = { x: 1, y: 2, z: 3 };
-let keys = "";
-for(let k of Object.keys(o)) {
-keys += k;
-}
-keys // => "xyz"
-#+end_src
-***** Object.entries
-#+begin_src js
-let pairs = "";
-for(let [k, v] of Object.entries(o)) {
-pairs += k + v;
-}
-pairs // => "x1y2z3"
-#+end_src
-
 ** Operators
 *** arithmethic
 *** in
@@ -712,6 +464,568 @@ with(document.forms[0]) {
 #+end_src
 *** debugger
 
+** Objects
+- mutable
+- not comparable
+- reference type
+- parentheses can be omitted if no arguments are passed to the constructor
+- unordered collection of properties
+- inherits from prototype
+- three property attributes(writable,enumerable,configurable)
+- almost all objects have a prototype, but only a relatively small number of objects have a prototype property.
+- In order to make an object iterable (so it can be used with a for/of loop), you must define a method with the symbolic name Symbol.iterator
+
+*** Literal
+is an expression that creates and initializes a new and distinct object
+each time it is evaluated.
+
+#+begin_src js
+let empty = {};
+let point = { x: 0, y: 0 };
+let p2 = { x: point.x, y: point.y+1 };
+let book = {
+  "main title": "JavaScript",
+  "sub-title": "The Definitive Guide",
+  for: "all audiences",
+  author: {
+    firstname: "David",
+    surname: "Flanagan"
+  }
+};
+
+Object.create()
+#+end_src
+
+*** new
+#+begin_src js
+let o = new Object();
+let a = new Array();
+let d = new Date();
+let r = new Map();
+#+end_src
+
+*** usage
+
+#+begin_src js
+let author = book.author; // Get the "author" property of the book.
+let name = author.surname; // Get the "surname" property of the author.
+let title = book["main title"]; // Get the "main title" property of the book.
+
+let o = { x: 1 }, p = { x: 1 };
+o === p // false
+
+let x = o;
+o == x // true
+
+o.x = 2; // change value
+o.y = 3; // add
+
+let rectangle = {
+    upperLeft: { x: 2, y: 2 },
+    lowerRight: { x: 4, y: 5 }
+};
+
+o =  new Object()
+o =  new Object // same
+o.x = 'meh' // {x: 'meh'}
+
+let author = book.author; // Get the "author" property of the book.
+let name = author.surname; // Get the "surname" property of the author.
+let title = book["main title"]; // Get the "main title" property of the book.
+
+book.edition = 7; // Create an "edition" property of book.
+book["main title"] = "ECMAScript"; // Change the "main title" property.
+
+o = {...defaults, ...o};
+#+end_src
+
+*** Global Object
+- the properties of this object are the globally defined identifiers that are available to a JavaScript program.
+- global constants like undefined , Infinity , and NaN
+- global functions like isNaN() , parseInt(), and eval()
+- constructor functions like Date() , RegExp() , String() , Object() , and Array()
+- global objects like Math and JSON
+**** properties
+- global
+- globalThis
+*** query and set
+- not an error to query a property that does not exist
+- It is an error, however, to attempt to query a property of an object that does not exist.
+- Attempting to set a property on null or undefined also causes a TypeError.
+- In strict mode, a TypeError is thrown whenever an attempt to set a property fails.
+
+#+begin_src js
+let unitcircle = { r: 1 };
+let c = Object.create(unitcircle);
+c.x = 1; c.y = 1;
+c.r = 2;
+unitcircle.r
+#+end_src
+
+query w/ guard anti-undefined
+
+#+begin_src js
+let surname = undefined;
+if (book) {
+    if (book.author) {
+        surname = book.author.surname;
+    }
+}
+
+// A concise and idiomatic alternative to get surname or null or undefined
+surname = book && book.author && book.author.surname;
+
+let surname = book?.author?.surname;
+#+end_src
+*** extend
+
+ES6 - Shorthand Properties
+
+#+begin_src js
+let x = 1,
+  y = 2;
+let o = {
+  x: x,
+  y: y,
+};
+
+// ES6
+
+let x = 1, y = 2;
+let o = { x, y };
+o.x + o.y // => 3
+#+end_src
+
+Computed Property Names
+
+#+begin_src js
+const PROPERTY_NAME = "p1";
+function computePropertyName() { return "p" + 2; }
+
+let o = {};
+o[PROPERTY_NAME] = 1;
+o[computePropertyName()] = 2;
+
+const PROPERTY_NAME = 'p1';
+function computePropertyName() {
+  return 'p' + 2;
+}
+
+let p = {
+  [PROPERTY_NAME]: 1,
+  [computePropertyName()]: 2,
+};
+
+p.p1 + p.p2; // => 3
+#+end_src
+
+*Symbols as Property Names*
+- In ES6 and later, property names can be strings or symbols.
+
+#+begin_src js
+const extension = Symbol('my extension symbol');
+let o = {
+  [extension]: {
+    /* extension data stored in this object */
+  },
+};
+o[extension].x = 0; // This won't conflict with other properties of o
+#+end_src
+
+*Spread Operator*
+
+#+begin_src js
+let position = { x: 0, y: 0 };
+let dimensions = { width: 100, height: 75 };
+let rect = { ...position, ...dimensions };
+rect.x + rect.y + rect.width + rect.height // => 175
+
+let o = { x: 1 };
+let p = { x: 0, ...o };
+p.x // => 1: the value from object o overrides the initial value
+let q = { ...o, x: 2 };
+q.x // => 2: the value 2 overrides the previous value from o.
+#+end_src
+
+*Shorthand Methods*
+
+pre-ES6
+
+#+begin_src js
+let square = {
+  area: function () {
+    return this.side * this.side;
+  },
+  side: 10,
+};
+square.area(); // => 100
+#+end_src
+
+ES6
+- function keyword and the colon can be omitted
+- can also use string literals and computed property names
+
+#+begin_src js
+let square = {
+  area() {
+    return this.side * this.side;
+  },
+  side: 10,
+};
+square.area(); // => 100
+
+const METHOD_NAME = 'm';
+const symbol = Symbol();
+let weirdMethods = {
+  'method With Spaces'(x) {
+    return x + 1;
+  },
+  [METHOD_NAME](x) {
+    return x + 2;
+  },
+  [symbol](x) {
+    return x + 3;
+  },
+};
+weirdMethods['method With Spaces'](1); // => 2
+weirdMethods[METHOD_NAME](1); // => 3
+weirdMethods[symbol](1); // => 4
+#+end_src
+
+*Property Getters and Setters*
+
+- queries the value of an accessor property, JavaScript invokes the getter method (passing no arguments)
+- if it has only a getter method, it is a read-only property.
+- if it has only a setter method, it is a write-only property
+
+#+begin_src js
+let o = {
+  // An ordinary data property
+  dataProp: value,
+
+  // An accessor property defined as a pair of functions.
+  get accessorProp() {
+    return this.dataProp;
+  },
+  set accessorProp(value) {
+    this.dataProp = value;
+  },
+};
+#+end_src
+
+#+begin_src js
+let p = {
+  // x and y are regular read-write data properties.
+  x: 1.0,
+  y: 1.0,
+
+  // r is a read-write accessor property with getter and setter.
+  // Don't forget to put a comma after accessor methods.
+  get r() {
+    return Math.hypot(this.x, this.y);
+  },
+  set r(newvalue) {
+    let oldvalue = Math.hypot(this.x, this.y);
+    let ratio = newvalue / oldvalue;
+    this.x *= ratio;
+    this.y *= ratio;
+  },
+
+  // theta is a read-only accessor property with getter only.
+  get theta() {
+    return Math.atan2(this.y, this.x);
+  },
+};
+p.r; // => Math.SQRT2
+p.theta; // => Math.PI / 4
+
+let q = Object.create(p); // A new object that inherits getters and setters
+q.x = 3; q.y = 4; // Create q's own data properties
+q.r // => 5: the inherited accessor properties work
+q.theta // => Math.atan2(4, 3)
+#+end_src
+
+Other reasons to use accessor properties include sanity checking of property
+writes and returning different values on each property read
+
+#+begin_src js
+
+// This object generates strictly increasing serial numbers
+const serialnum = {
+  // This data property holds the next serial number.
+  // The _ in the property name hints that it is for internal use only.
+  _n: 0,
+  // Return the current value and increment it
+  get next() {
+    return this._n++;
+  },
+  // Set a new value of n, but only if it is larger than current
+  set next(n) {
+    if (n > this._n) this._n = n;
+    else throw new Error('serial number can only be set to a larger value');
+  },
+};
+
+serialnum.next = 10; // Set the starting serial number
+serialnum.next; // => 10
+serialnum.next; // => 11: different value each time we get next
+#+end_src
+
+#+begin_src js
+// This object has accessor properties that return random numbers.
+// The expression "random.octet", for example, yields a random number
+// between 0 and 255 each time it is evaluated.
+const random = {
+  get octet() {
+    return Math.floor(Math.random() * 256);
+  },
+  get uint16() {
+    return Math.floor(Math.random() * 65536);
+  },
+  get int16() {
+    return Math.floor(Math.random() * 65536) - 32768;
+  },
+};
+#+end_src
+
+*** delete
+- only deletes own properties, not inherited ones.
+- To delete an inherited property, you must delete it from the prototype object in which it is defined.
+  Doing this affects every object that inherits from that prototype
+- evaluates to true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property)
+- evaluates to true when used (meaninglessly) with an expression that is not a property access expression
+- does not remove properties that have a configurable attribute of false .
+- In strict mode, delete raises a SyntaxError if its operand is an unqualified identifier like x ,
+  and you have to be explicit about the property access
+- in non-strict mode, can omit the reference to the global object and simply follow the delete operator with the property name:
+#+begin_src js
+let o = {x: 1}; // o has own property x and inherits property toString
+delete o.x // => true: deletes property x
+delete o.x // => true: does nothing (x doesn't exist) but true anyway
+delete o.toString // => true: does nothing (toString isn't an own property)
+delete 1 // => true: nonsense, but true anyway
+
+
+// In strict mode, all these deletions throw TypeError instead of returning false
+delete Object.prototype // => false: property is non-configurable
+var x = 1; // Declare a global variable
+delete globalThis.x // => false: can't delete this property
+function f() {} // Declare a global function
+delete globalThis.f // => false: can't delete this property either
+#+end_src
+
+*** testing properties
+- strings or symbols as property names
+- propertyIsEnumerable() returns true only if the named property is an own property and its enumerable attribute is true.
+- in can distinguish between properties that do not exist and properties that exist but have been set to undefined.
+
+#+begin_src js
+let o = { x: 1 };
+"x" in o // => true: o has an own property "x"
+"y" in o // => false: o doesn't have a property "y"
+"toString" in o // => true: o inherits a toString property
+
+
+let o = { x: 1 };
+o.hasOwnProperty("x") // => true: o has an own property x
+o.hasOwnProperty("y") // => false: o doesn't have a property y
+o.hasOwnProperty("toString") // => false: toString is an inherited property
+
+let o = { x: 1 };
+o.propertyIsEnumerable("x") // => true: o has an own enumerable property x
+
+o.propertyIsEnumerable("toString") // => false: not an own property
+Object.prototype.propertyIsEnumerable("toString") // => false: not enumerable
+
+let o = { x: 1 };
+o.x !== undefined
+// => true: o has a property x
+o.y !== undefined
+// => false: o doesn't have a property y
+o.toString !== undefined // => true: o inherits a toString property
+
+
+let o = { x: undefined };
+o.x !== undefined
+o.y !== undefined
+"x" in o
+"y" in o
+delete o.x;
+"x" in o
+// Property is explicitly set to undefined
+// => false: property exists but is undefined
+// => false: property doesn't even exist
+// => true: the property exists
+// => false: the property doesn't exist
+// Delete the property x
+// => false: it doesn't exist anymore
+
+
+
+
+
+
+
+#+end_src
+
+*** conditional property access
+- guard against errors
+#+begin_src js
+let a = { b: null };
+a.b?.c.d // => undefined
+#+end_src
+*** methods
+**** Object.values
+#+begin_src js
+let sum = 0;
+for(let v of Object.values(o)) {
+sum += v;
+}
+sum // => 6
+#+end_src
+**** Object.seal
+**** toString
+- takes no arguments
+
+#+begin_src js
+let s = { x: 1, y: 1 }.toString();
+// s == "[object Object]"
+
+let point = {
+  x: 1,
+  y: 2,
+  toString: function () {
+    return `(${this.x}, ${this.y})`;
+  },
+};
+String(point);
+// => "(1, 2)": toString() is used for string conversions
+#+end_src
+**** toLocaleString
+- return a localized string representation of the object
+
+#+begin_src js
+let point = {
+  x: 1000,
+  y: 2000,
+  toString: function () {
+    return `(${this.x}, ${this.y})`;
+  },
+  toLocaleString: function () {
+    return `(${this.x.toLocaleString()}, ${this.y.toLocaleString()})`;
+  },
+};
+point.toString(); // => "(1000, 2000)"
+point.toLocaleString(); // => "(1,000, 2,000)": note thousands separators
+#+end_src
+**** valueOf
+to convert an object to some primitive type other than a string, typically, a number.
+
+- called automatically if an object is used in a context where a primitive value is required.
+- defining valueOf() to convert to numbers allows objects to be compared with < and >
+
+#+begin_src js
+let point = {
+  x: 3,
+  y: 4,
+  valueOf: function () {
+    return Math.hypot(this.x, this.y);
+  },
+};
+Number(point); // => 5: valueOf() is used for conversions to numbers
+point > 4; // => true
+point > 5; // => false
+point < 6; // => true
+#+end_src
+**** toJSON
+JSON.stringify() method (see §6.8) looks for a toJSON() method on any object it is asked to serialize.
+
+#+begin_src js
+let point = {
+  x: 1,
+  y: 2,
+  toString: function () {
+    return `(${this.x}, ${this.y})`;
+  },
+  toJSON: function () {
+    return this.toString();
+  },
+};
+JSON.stringify([point]); // => '["(1, 2)"]'
+
+#+end_src
+**** Object.freeze
+**** __proto__
+#+begin_src js
+o1.__proto__ // { x: 1, y: 2 }
+#+end_src
+**** Object.assign
+**** Object.keys
+#+begin_src js
+let o = { x: 1, y: 2, z: 3 };
+let keys = "";
+for(let k of Object.keys(o)) {
+keys += k;
+}
+keys // => "xyz"
+#+end_src
+**** Object.entries
+#+begin_src js
+let pairs = "";
+for(let [k, v] of Object.entries(o)) {
+pairs += k + v;
+}
+pairs // => "x1y2z3"
+#+end_src
+**** Object.create()
+- passing null to create a new object the newly created object will not inherit anything.
+- create an empty object by passing a Object.prototype
+- also takes an optional second argument that describes the properties of the new object.
+
+#+begin_src js
+let o1 = Object.create({x: 1, y: 2});
+o1.x + o1.y
+
+let o2 = Object.create(null); // o2 inherits no props or methods.
+o2.toString() // Uncaught TypeError: o2.toString is not a function
+
+let o3 = Object.create(Object.prototype); // empty object  like {} or new Object().
+
+let o = { x: "don't change this value" };
+library.function(Object.create(o)); // Guard against accidental modifications
+#+end_src
+
+*** prototypes
+#+begin_src js
+Object.prototype
+#+end_src
+** Functions
+- is an object
+- obtain the source code for the function
+
+#+begin_src js
+function meh() { return 'meh' }
+meh // [Function: meh]
+meh() // 'meh'
+
+
+
+#+end_src
+*** Template tag functions
+*** Conditional Invocation
+- if the expression to the left of the ?. evaluates to null or undefined , then
+  the entire invocation expression evaluates to undefined and no exception is
+  thrown.
+- if the value to the left of ?. is null or undefined , then none of the
+  argument expressions within the parentheses are evaluated
+#+begin_src js
+function square(x, log) {
+    log?.(x);
+    return x * x;
+}
+#+end_src
+*** yield
+- only in ES6 generator functions
 ** Errors
 *** throw
 
@@ -762,30 +1076,6 @@ return undefined;
 }
 }
 #+end_src
-
-** Functions
-- is an object
-
-#+begin_src js
-function meh() { return 'meh' }
-meh // [Function: meh]
-meh() // 'meh'
-#+end_src
-*** Template tag functions
-*** Conditional Invocation
-- if the expression to the left of the ?. evaluates to null or undefined , then
-  the entire invocation expression evaluates to undefined and no exception is
-  thrown.
-- if the value to the left of ?. is null or undefined , then none of the
-  argument expressions within the parentheses are evaluated
-#+begin_src js
-function square(x, log) {
-    log?.(x);
-    return x * x;
-}
-#+end_src
-*** yield
-- only in ES6 generator functions
 ** Modes
 *** Strict mode
 - attempt to use an undeclared variable gets a reference error
@@ -904,3 +1194,14 @@ Number.EPSILON
 - constructor function
 ** Date
 - constructor function
+** JSON
+- Objects, arrays, strings, finite numbers, true , false , and null are supported and can be serialized and restored.
+- NaN , Infinity , and -Infinity are serialized to null
+
+#+begin_src js
+let o = {x: 1, y: {z: [false, null, ""]}}; // Define a test object
+let s = JSON.stringify(o); // s == '{"x":1,"y":{"z":[false,null,""]}}'
+let p = JSON.parse(s); // p == {x: 1, y: {z: [false, null, ""]}}
+#+end_src
+*** JSON.stringify
+*** JSON.parse
