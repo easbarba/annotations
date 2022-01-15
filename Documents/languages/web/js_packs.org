@@ -7,8 +7,14 @@
 |----------------------+---|
 | -—save-dev <package> |   |
 
-** Node frameworks
+** frameworks
 https://adonisjs.com/
+
+** es6
+Node allows ES6 modules to load CommonJS modules using
+the import keyword. The reverse is not true, however: a CommonJS module cannot
+use require() to load an ES6 module.
+
 * npx
 Executes <command> either from a local node_modules/.bin, or from a central
 cache, installing any packages needed in order for <command> to run.
@@ -22,11 +28,21 @@ npx node@12 -v #v12.14.1
 #+begin_src shell
 npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
 #+end_src
+
 * npm
-** link
-** pack
-** install
+** commands
+*** link
+*** pack
+*** install
+** package.json
+*** "type": "module"
+loads the file as an ES6 module.
+*** "type": "commonjs"
+loads the file as a CommonJS module
+
+when no such file is found (or when the file is found but it does not have a
+type property), Node defaults to using CommonJS modules.
+
 * eslit
 * prettier
-
-
+--write

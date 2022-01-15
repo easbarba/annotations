@@ -33,6 +33,20 @@
 | draggable | src/Draggable/DragEvent | DragEvent.js |   |
 | inquirer  |                         |              |   |
 
+* cli
+** options
+|                        |   |
+|------------------------+---|
+| --print or -p          |   |
+| --eval or -e <COMMAND> |   |
+| -i                     |   |
+| --check or -c          |   |
+| --require or -r        |   |
+** env
+|             |   |
+|-------------+---|
+| FORCE_COLOR |   |
+| NO_COLOR    |   |
 * Library
 ** [[https://nodejs.org/api/fs.html][fs]]
 *** readFileSync
@@ -49,6 +63,33 @@ process.env.USER_KEY // "foobar"
 process.env.PATH?.split(':') ?? ['/bin', '/usr/bin', '/sbin/']
 #+end_src
 *** cwd
+*** exit
+*** on
+Ignore Ctrl-C by registering a signal handler function with
+
+#+begin_src js
+process.on("SIGINT", ()=>{})
+#+end_src
+
+Unhandled Promise rejections are expected to become fatal errors
+
+#+begin_src js
+process.on("unhandledRejection", (reason, promise) => {
+// reason is whatever value would have been passed to a .catch() function
+// promise is the Promise object that rejected
+});
+#+end_src
+
+
+*** setUncaughtExceptionCaptureCallback
+
+register a global handler function that will be invoked instead of crashing
+
+#+begin_src js
+process.setUncaughtExceptionCaptureCallback(e => {
+console.error("Uncaught exception:", e);
+});
+#+end_src
 ** [[https://nodejs.org/api/path.html][path]]
 *** join
 *** basename
@@ -59,3 +100,15 @@ process.env.PATH?.split(':') ?? ['/bin', '/usr/bin', '/sbin/']
 ** callbacks
 ** Promises
 ** async/await
+
+* Files
+** .mjs
+If you save your JavaScript code in a file that ends with .mjs, then Node will
+always load it as an ES6 module, will expect it to use import and export , and
+will not provide a require() function.
+
+** .cjs
+save your code in a file that ends with .cjs, then Node will always treat it as
+a CommonJS module, will provide a require() function, and will throw a
+SyntaxError if you use import or export declarations.
+
