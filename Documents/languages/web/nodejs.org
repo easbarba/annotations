@@ -46,6 +46,7 @@
 #+begin_src js
 process.env.USER_ID // "239482"
 process.env.USER_KEY // "foobar"
+process.env.PATH?.split(':') ?? ['/bin', '/usr/bin', '/sbin/']
 #+end_src
 *** cwd
 ** [[https://nodejs.org/api/path.html][path]]
