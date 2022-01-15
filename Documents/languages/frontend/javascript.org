@@ -1032,7 +1032,92 @@ function square(x, log) {
 #+begin_src js
 throw expression;
 #+end_src
+*** Error
+**** new
+#+begin_src js
+e = new Error('Oooops!')
+#+end_src
 
+#+begin_src js
+function CustomError(foo, message, fileName, lineNumber) {
+  var instance = new Error(message, fileName, lineNumber);
+  instance.name = 'CustomError';
+  instance.foo = foo;
+  Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(instance, CustomError);
+  }
+  return instance;
+}
+
+CustomError.prototype = Object.create(Error.prototype, {
+  constructor: {
+    value: Error,
+    enumerable: false,
+    writable: true,
+    configurable: true
+  }
+});
+
+if (Object.setPrototypeOf){
+  Object.setPrototypeOf(CustomError, Error);
+} else {
+  CustomError.__proto__ = Error;
+}
+
+try {
+  throw new CustomError('baz', 'bazMessage');
+} catch(e){
+  console.error(e.name); //CustomError
+  console.error(e.foo); //baz
+  console.error(e.message); //bazMessage
+}
+#+end_src
+**** properties
+***** stack
+a multi-line string that contains a stack trace of the JavaScript call stack at
+the moment that the Error object was created.
+***** name
+#+begin_src js
+try {
+  throw new Error('Oooops!');
+} catch (e) {
+  console.log(e.name + ': ' + e.message);
+}
+#+end_src
+***** message
+#+begin_src js
+try {
+  throw new Error('Oooops!');
+} catch (e) {
+  console.log(e.name + ': ' + e.message);
+}
+#+end_src
+**** methods
+***** toString
+returns the value of the
+name property followed by a colon and space and the value of the message property
+**** Subclasses
+***** EvalError
+***** RangeError
+***** ReferenceError
+***** SyntaxError
+***** TypeError
+***** URIError
+**** Examples
+#+begin_src js
+class HTTPError extends Error {
+  constructor(status, statusText, url) {
+    super(`${status} ${statusText}: ${url}`)
+    this.status = status
+    this.statusText = statusText
+    this.url = url
+  }
+  get name() {
+    return 'HTTPError'
+  }
+}
+#+end_src
 *** exceptions
 exceptions are thrown whenever a runtime error occurs and whenever the program
 explicitly throws one using the throw statement.
