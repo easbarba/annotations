@@ -13,3 +13,10 @@ first(args, () => {
 
 });
 #+end_src
+
+* serialization
+convert its in-memory data structures into a string of bytes or characters than
+can be saved or transmitted and then later be parsed to restore the original
+in-memory data structures. This process of converting data structures into
+streams of bytes or characters is known as serialization (or marshaling or even
+pickling).

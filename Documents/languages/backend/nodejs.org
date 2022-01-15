@@ -24,16 +24,17 @@
   :END:
 * Progress
 ** Books
-| Books         | Cap                          | @ |
-|---------------+------------------------------+---|
-| Node cookbook | 3: Streams, Streams, Streams |   |
+| Books         | Cap                          | @                          |
+|---------------+------------------------------+----------------------------|
+| Node cookbook | 3: Streams, Streams, Streams | 11.6.1 JSON Customizations |
+
 ** SLOC
 | Project   | folder                  | file         | @ |
 |-----------+-------------------------+--------------+---|
 | draggable | src/Draggable/DragEvent | DragEvent.js |   |
 | inquirer  |                         |              |   |
 
-* cli
+* Cli
 ** options
 |                        |   |
 |------------------------+---|
@@ -112,3 +113,10 @@ save your code in a file that ends with .cjs, then Node will always treat it as
 a CommonJS module, will provide a require() function, and will throw a
 SyntaxError if you use import or export declarations.
 
+* Frameworks
+https://adonisjs.com/
+
+* ES6
+Node allows ES6 modules to load CommonJS modules using
+the import keyword. The reverse is not true, however: a CommonJS module cannot
+use require() to load an ES6 module.
