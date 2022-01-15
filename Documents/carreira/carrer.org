@@ -82,3 +82,7 @@ Nice to have
     Experience with continuous integration and deployment (CI/CD) environment
     Experience working remotely
     Familiar/involved with open source projects
+
+* personal info
+** PIS
+13086051069
