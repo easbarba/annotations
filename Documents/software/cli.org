@@ -89,6 +89,8 @@ concatenate files and print on the standard output
  | -u      | sort by access time |
  | -U      | do not sort         |
  | -r      | reverse             |
+ | -F      | only dir            |
+ | -A      | almostall           |
 
 #+begin_src shell
 ✦ ❯ ls -l /proc/753237/exe
@@ -218,6 +220,12 @@ print records from a recfile
 * process
 ** htop
 ** killall
+** ps
+|   |   |
+|---+---|
+| u |   |
+| x |   |
+
 ** kill
 send a signal to a process
 
@@ -292,7 +300,11 @@ Mandatory arguments to long options are mandatory for short options too.
 echo 'NAME="Arch Linux"' | cut -f2 -d '=' # "Arch Linux"
 
 #+end_src
-
+* date
+** week number
+#+begin_src shell
+date +%V
+#+end_src
 * ts
 
 * file system
