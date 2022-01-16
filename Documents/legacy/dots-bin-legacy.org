@@ -18,6 +18,25 @@ gnome-keyring seahorse
 
 #+end_src
 
+* e_fedora
+#+begin_src shell
+ # lua5.4 lua-check
+	# lisp=(libfixposix-dev)
+#  libgccjit-10-dev libwebkit2gtk-4.0-dev
+	# latex=(texlive-latex-recommended texlive-latex-extra texlive-latex-base)
+  # qemu-utils qemu-efi qemu-kvm libvirt-clients ebtables libvirt-daemon-system virtinst bridge-utils
+	# fonts=(fonts-hack fonts-dejavu ttf-ancient-fonts fonts-nanum)
+# iwd iw wireless-tools laptop-mode-tools libinput-tools
+	# fedora=(build-essential apt-listbugs apt-listchanges reportbug aptitude
+		# apt-file gdebi)
+
+ # udiskie bluez zathura aria2 playerctl brightnessctl libnotify-bin w3m dunst suckless-tools
+# lhasa
+ # kdeconnect
+
+
+#+end_src
+
 * e_js
 #+begin_src shell
 front() {
