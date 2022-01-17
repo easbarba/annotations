@@ -96,6 +96,66 @@ console.error("Uncaught exception:", e);
 *** basename
 **** extname
 ** net
+**
+** HTTPServer
+** os
+*** hostname
+*** release
+*** cpus
+*** fremem
+*** arch
+*** tempdir
+*** inspect
+*** networkInterfaces(
+*** type
+
+* EventEmitter
+** methods
+#+begin_src js
+import EventEmitter from 'events';
+
+export class Pulser extends EventEmitter {
+    start() {
+        setInterval(() => {
+            console.log(`${new Date().toISOString()} >>>> pulse`);
+            this.emit('pulse');
+            console.log(`${new Date().toISOString()} <<<< pulse`);
+        }, 1000);
+    }
+}
+#+end_src
+
+#+begin_src js
+import { Pulser } from './pulser.mjs';
+
+// Instantiate a Pulser object
+const pulser = new Pulser();
+// Handler function
+pulser.on('pulse', () => {
+    console.log(`${new Date().toISOString()} pulse received`);
+});
+// Start it pulsing
+pulser.start();
+#+end_src
+
+*** .emit
+send data along with an event
+
+#+begin_src js
+this.emit('eventName', data1, data2, ..);
+#+end_src
+
+When the program receives the event, the data appears as arguments to the
+callback function. Your program listens to this event, as follows:
+
+#+begin_src js
+emitter.on('eventName', (data1, data2, ...theArgs) => {
+  // act on event
+});
+
+#+end_src
+
+*** .on
 
 * Asynchronous
 ** callbacks
