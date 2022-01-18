@@ -9,6 +9,8 @@
 - [[#distro][distro]]
 - [[#floss][floss]]
   - [[#ruby][ruby]]
+  - [[#python][python]]
+  - [[#guile][guile]]
   - [[#misc][misc]]
 - [[#ports][Ports]]
   - [[#ruby][Ruby]]
@@ -121,7 +123,38 @@
 * floss
 ** ruby
 #+begin_src csv
-
+name,repository
+faker,https://github.com/faker-ruby/faker
+solargraph,https://github.com/castwide/solargraph
+rake,https://github.com/ruby/rake
+ruby,https://github.com/ruby/ruby
+#+end_src
+** python
+#+begin_src csv
+name,repository
+flask,https://github.com/pallets/flask
+httpie,https://github.com/httpie/httpie
+requests,https://github.com/psf/requests
+black,https://github.com/psf/black
+mypy,https://github.com/python/mypy
+cpython,https://github.com/python/cpython
+#+end_src
+** guile
+#+begin_src csv
+name,repository
+guile-json,https://github.com/aconchillo/guile-json
+guile-git,https://gitlab.com/guile-git/guile-git
+guile-filesystem,https://gitlab.com/leoprikler/guile-filesystem
+guile-libyaml,https://github.com/mwette/guile-libyaml
+geiser-guile,https://gitlab.com/emacs-geiser/guile
+pjotrp-guix-notesz,https://github.com/pjotrp/guix-notes
+alezost-guix-config,https://github.com/alezost/guix-config
+fibers,https://github.com/wingo/fibers
+nonguix,https://gitlab.com/nonguix/nonguix
+guix,https://git.savannah.gnu.org/git/guix
+guile,https://git.sv.gnu.org/git/guile
+akku,https://gitlab.com/akkuscm/akku
+lokke,https://github.com/lokke-org/lokke
 #+end_src
 ** misc
 
