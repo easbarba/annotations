@@ -24,9 +24,10 @@
   :END:
 * Progress
 ** Books
-| Books         | Cap                          | @                          |
-|---------------+------------------------------+----------------------------|
-| Node cookbook | 3: Streams, Streams, Streams | 11.6.1 JSON Customizations |
+| Books                | Cap                          | @                                |
+|----------------------+------------------------------+----------------------------------|
+| Node cookbook        | 3: Streams, Streams, Streams | 11.6.1 JSON Customizations       |
+| Node Web development |                              | Understanding Express middleware |
 
 ** SLOC
 | Project   | folder                  | file         | @ |

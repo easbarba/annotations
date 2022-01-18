@@ -1,0 +1,7 @@
+#+TITLE: SQL
+
+* CRUD
+** Create
+** Read
+** Update
+** Delete

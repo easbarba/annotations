@@ -1,0 +1,16 @@
+#+TITLE: HTTP Protocol
+
+
+* methods
+** GET
+requests a page to view a resource or more
+** POST
+submits forms and create new resource data
+** PUT
+modifiesa specific resource
+** DELETE
+deletes a resource
+** HEAD
+** OPTIONS
+** TRACE
+** CONNECT

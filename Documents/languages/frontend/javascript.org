@@ -1007,11 +1007,15 @@ Object.prototype
 function meh() { return 'meh' }
 meh // [Function: meh]
 meh() // 'meh'
-
-
-
 #+end_src
 *** Template tag functions
+*** rest operator
+catches any number of remaining function parameters into an array
+
+#+begin_src js
+this.emit('eventName', data1, data2);
+#+end_src
+#+end_src
 *** Conditional Invocation
 - if the expression to the left of the ?. evaluates to null or undefined , then
   the entire invocation expression evaluates to undefined and no exception is

@@ -1,7 +1,11 @@
-#+TITLE: Restful
+#+TITLE: REST
 
+* Features
 * Methods
-- POST: Normally used to submit forms and create new resource data
-- GET: Mainly used to request a page to view a resource or more
-- PATCH/PUT: Used to modify a specific resource
-- DELETE: Used to delete a resource
+- POST:
+- GET:
+- PATCH/PUT:
+- DELETE:
+
+* Resources
+- may be represented in a different format from the one in which it is stored.
