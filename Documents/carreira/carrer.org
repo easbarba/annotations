@@ -3,10 +3,10 @@
 * Priorities
 | @               | desc                                         |
 |-----------------+----------------------------------------------|
-| Frameworks      | VueJs                                        |
+| Frameworks      | Express.js                                   |
 | Lang            | Javascript, Nodejs, Typescript               |
-| Database        | PostgreSQL                                   |
-| Testing         | Jest                                         |
+| Database        | PostgreSQL, MongoDB                          |
+| Testing         | Mocha, Chai                                  |
 | Containers      | Docker                                       |
 | Concepts        | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
 | Version Control | Git                                          |
