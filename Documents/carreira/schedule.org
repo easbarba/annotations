@@ -1,14 +1,13 @@
 #+TITLE: Schedule
 
 * Developer
-| @               | desc                                         |
-|-----------------+----------------------------------------------|
-| Frameworks      | Express.js                                   |
-| Lang            | Javascript, Nodejs, Typescript               |
-| Database        | PostgreSQL, MongoDB                          |
-| Testing         | Mocha, Chai                                  |
-| Concepts        | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
-| HTML/CSS        | BEM, SMACSS                                  |
+| @          | desc                                         |
+|------------+----------------------------------------------|
+| Frameworks | Express.js                                   |
+| Lang       | Javascript                                   |
+| Testing    | Mocha, Chai                                  |
+| Concepts   | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
+| HTML/CSS   | BEM, SMACSS                                  |
 
 * DevOps
 | @               | desc           |
@@ -19,3 +18,9 @@
 | Infra as Code   | Terraform      |
 | Version Control | Git            |
 | Cloud           | AWS            |
+
+* Database
+| @       | desc       |
+|---------+------------|
+| SQL     | PostgreSQL |
+| NON-SQL | MongoDB    |
