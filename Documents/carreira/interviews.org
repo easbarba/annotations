@@ -1,0 +1,17 @@
+#+TITLE: Interviews
+
+* Exercises
+Alguns desafios:
+- Aplicação do redux;
+- Estilização com styled components;
+- Consumo de APIs Rest;
+- Implementação fiel de layouts do design;
+
+ — Conhecimento profundo de JavaScript (ES6 +), CSS e HTML
+— Conhecimento básico de estruturas de renderização do lado do servidor JavaScript (por exemplo, Nuxt ou Next.js)
+— Conhecimento basico de NodeJS
+— Ampla experiência com uma estrutura JS moderna, como Vue, React (preferencial) ou Angular
+— Trabalhou em testes unitários com mocha ou jest
+— Tenha trabalho com TDD ao menos em 1 cenário
+— SOLID
+— Conhecimento de arquitetura de microsserviços e micro frontend
