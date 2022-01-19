@@ -1,0 +1,41 @@
+#+TITLE: Compose
+
+* build
+#+begin_src
+#+end_src
+
+* up
+#+begin_src shell
+docker-compose up
+docker-compose up -d
+#+end_src
+
+** options
+*** -d
+*** --force-recreate
+* stop
+* pause
+* unpause
+* restart
+* ps
+* logs
+#+begin_src shell
+docker-compose logs -f web
+#+end_src
+* run
+#+begin_src shell
+docker-compose run --rm web echo 'ran a different command'
+#+end_src
+* exec
+- wont start a new container, avoids clean up additional containers or use the --rm option
+
+#+begin_src shell
+docker-compose exec web echo 'ran a different command'
+#+end_src
+* rm
+* kill
+* docker-compose.yml
+* --env-file
+#+begin_src shell
+--env-file .env/development/web config
+#+end_src

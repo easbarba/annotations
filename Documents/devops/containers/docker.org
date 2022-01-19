@@ -1,0 +1,31 @@
+#+TITLE: Docker
+
+* Fortschritt
+   |                       |                        |
+   |-----------------------+------------------------|
+   | Docker For Developers | Introduction to Docker |
+
+* Dockerfile
+* Traits
+   - cgroups
+   - use linux security primitives
+   - prevent MITM attack
+   - images are immutable
+* Commands
+   | command             | description                            |
+   |---------------------+----------------------------------------|
+   | login               |                                        |
+   | container ls        |                                        |
+   | images              |                                        |
+   | pull <img>          |                                        |
+   | ps                  |                                        |
+   | run <img>           |                                        |
+   | run -d <img>        |                                        |
+   | run -dp 80:80 <img> |                                        |
+   | stop <id>           |                                        |
+   | rm $(docker ps -aq) | remove all images running              |
+   | run --name <name>   |                                        |
+   | run -rm             | clean up when the container exits      |
+   | run -p              | port                                   |
+   | exec -it            | run command in container interactively |
+   |                     |                                        |

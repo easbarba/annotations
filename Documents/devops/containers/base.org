@@ -21,21 +21,6 @@
   - [[#start][start]]
   - [[#system][system]]
   - [[#network][network]]
-- [[#compose-commands][Compose Commands]]
-  - [[#build][build]]
-  - [[#up][up]]
-  - [[#stop][stop]]
-  - [[#pause][pause]]
-  - [[#unpause][unpause]]
-  - [[#restart][restart]]
-  - [[#ps][ps]]
-  - [[#logs][logs]]
-  - [[#run][run]]
-  - [[#exec][exec]]
-  - [[#rm][rm]]
-  - [[#kill][kill]]
-  - [[#docker-composeyml][docker-compose.yml]]
-  - [[#--env-file][--env-file]]
 - [[#stopquitdetach][Stop/Quit/Detach]]
 - [[#files][Files]]
   - [[#dockerignore][.dockerignore]]
@@ -47,30 +32,22 @@
 - [[#best-practices][Best practices]]
 - [[#multi-stages][Multi-stages]]
   - [[#eg][eg]]
-- [[#podman][Podman]]
-  - [[#docs][docs]]
-  - [[#tricks][tricks]]
-  - [[#fixes][fixes]]
-- [[#docker][Docker]]
-  - [[#fortschritt][Fortschritt]]
-  - [[#dockerfile][Dockerfile]]
-  - [[#traits][Traits]]
-  - [[#commands][Commands]]
 - [[#example][Example]]
 - [[#tips][Tips]]
   - [[#remove][Remove]]
 :END:
 * Progresso
 ** books
-| books                 | chapter                           | at |
-|-----------------------+-----------------------------------+----|
-| Mastering Docker      | 3 Storing and Distributing Images |    |
-| Docker for Developers |                                   |    |
+| books                 | chapter               | at |
+|-----------------------+-----------------------+----|
+| Mastering Docker      | 4 Managing Containers |    |
+| Docker for Developers |                       |    |
+
 ** sloc
-| sloc   | @                 | file          | line |
-|--------+-------------------+---------------+------|
-| go     |                   |               |      |
-| podman | cmd/podman/common | completion.go |      |
+| sloc           | @ | file | line |
+|----------------+---+------+------|
+| awesome-docker |   |      |      |
+
 
 * Commands
 ** container
@@ -209,46 +186,6 @@ docker run -it --rm --privileged --pid=host fundamentalsofdocker/nsenter
 *** prune
 ** network
 *** ls
-* Compose Commands
-** build
-#+begin_src
-#+end_src
-
-** up
-#+begin_src shell
-docker-compose up
-docker-compose up -d
-#+end_src
-
-*** options
-**** -d
-**** --force-recreate
-** stop
-** pause
-** unpause
-** restart
-** ps
-** logs
-#+begin_src shell
-docker-compose logs -f web
-#+end_src
-** run
-#+begin_src shell
-docker-compose run --rm web echo 'ran a different command'
-#+end_src
-** exec
-- wont start a new container, avoids clean up additional containers or use the --rm option
-
-#+begin_src shell
-docker-compose exec web echo 'ran a different command'
-#+end_src
-** rm
-** kill
-** docker-compose.yml
-** --env-file
-#+begin_src shell
---env-file .env/development/web config
-#+end_src
 * Stop/Quit/Detach
 |         |          |
 |---------+----------|
@@ -356,46 +293,6 @@ FROM alpine:3.7
 COPY --from=build /app/bin/hello /app/hello
 CMD /app/hello
 #+end_src
-* Podman
-** docs
-http://docs.podman.io/en/latest/index.html
-** tricks
-   - podman info | grep rootless
-** fixes
-*** "sudo -k -n podman version --format " exit status 1: sudo: a password is required
-    Add your user to the 'sudoers' file: 'elxbarbosa ALL=(ALL) NOPASSWD: /usr/bin/podman'
-*** user namespaces are not enabled in /proc/sys/kernel/unprivileged_userns_clone
-    sudo sysctl -w kernel.unprivileged_userns_clone=1
-* Docker
-** Fortschritt
-   |                       |                        |
-   |-----------------------+------------------------|
-   | Docker For Developers | Introduction to Docker |
-
-** Dockerfile
-** Traits
-   - cgroups
-   - use linux security primitives
-   - prevent MITM attack
-   - images are immutable
-** Commands
-   | command             | description                            |
-   |---------------------+----------------------------------------|
-   | login               |                                        |
-   | container ls        |                                        |
-   | images              |                                        |
-   | pull <img>          |                                        |
-   | ps                  |                                        |
-   | run <img>           |                                        |
-   | run -d <img>        |                                        |
-   | run -dp 80:80 <img> |                                        |
-   | stop <id>           |                                        |
-   | rm $(docker ps -aq) | remove all images running              |
-   | run --name <name>   |                                        |
-   | run -rm             | clean up when the container exits      |
-   | run -p              | port                                   |
-   | exec -it            | run command in container interactively |
-   |                     |                                        |
 * Example
 - Rails
 
