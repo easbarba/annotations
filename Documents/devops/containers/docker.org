@@ -6,6 +6,69 @@
    | Docker For Developers | Introduction to Docker |
 
 * Dockerfile
+* Files
+** .dockerignore
+** docker-entrypoint.sh
+** Dockerfile
+*** FROM
+|                       |                   |
+|-----------------------+-------------------|
+| scratch               | tart from scratch |
+| <image-name> or <uri> |                   |
+*** LABEL
+add extra information to the image
+*** MAINTAINER
+*** RUN
+*** COPY
+*** ADD
+ADD keyword also lets us copy and unpack TAR files, as well as providing a URL
+as a source for the files and folders to copy.
+
+- can change the ownership that the files
+
+#+begin_src shell
+ADD sample.tar /app/bin/
+ADD http://example.com/sample.txt /data/
+ADD --chown=11:22 ./data/web* /app/data/
+#+end_src
+
+*** WORKDIR
+*** ENV
+define env variables
+
+#+begin_src dockerfile
+ENV meh foo # only set one ENV per line
+ENV meh=foo bar=posix # multiple environmental variables on the same line
+#+end_src
+*** EXPOSE
+declare all ports that the application is listening on and that need to be
+accessible from outside of the container
+*** CMD
+used to define the parameters of the program set in ENTRYPOINT
+
+- executed only at the start of image run
+- can be override with `-w`
+#+begin_src shell
+FROM alpine:3.10
+ENTRYPOINT ["ping"]
+CMD ["-c","3","8.8.8.8"]
+
+podman container run -it --rm pinger -w 5 gnu.org
+
+#+end_src
+*** ENTRYPOINT
+used to define the command of the expression
+
+- executed only at the start of image run
+- default value is `/bin/sh -c`
+
+#+begin_src shell
+FROM alpine:3.10
+ENTRYPOINT ["ping"]
+CMD ["-c","3","8.8.8.8"]
+
+podman container run -it --rm --entrypoint bin/sh meh
+#+end_src
 * Traits
    - cgroups
    - use linux security primitives
