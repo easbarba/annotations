@@ -1,4 +1,4 @@
-#+TILE: Containers - Annotations
+#+TILE: Contafiners - Annotations
 
 * Summary
   :PROPERTIES:
@@ -34,10 +34,10 @@
 :END:
 * Progresso
 ** books
-| books                 | chapter               | at   |
-|-----------------------+-----------------------+------|
-| Mastering Docker      | 4 Managing Containers | exec |
-| Docker for Developers |                       |      |
+| books                 | chapter               | at                            |
+|-----------------------+-----------------------+-------------------------------|
+| Mastering Docker      | 4 Managing Containers | Docker networking and volumes |
+| Docker for Developers |                       |                               |
 
 ** sloc
 | sloc           | @ | file | line |
@@ -46,46 +46,25 @@
 
 * Commands
 ** container
-*** ls
-|    |                                                             |
-|----+-------------------------------------------------------------|
-| -h | display help                                                |
-| -a | Show all the containers, default is only running containers |
-| -q | containers ID                                               |
-| -l |                                                             |
-*** run
-#+begin_src shell
-podman container run --name test -it -v sample:/data alpine /bin/sh
-docker run -p 3000:3000 railsapp
-#+end_src
-**** options
-|                  |   |
-|------------------+---|
-| -v <NAME:/WHERE> |   |
-
-*** exec
-|    |                           |
-|----+---------------------------|
-| -i | run process interactively |
-| -t | provide tty               |
-| -e | define env vars           |
-| -d | run as daemon             |
 *** attach
 |                          |   |
 |--------------------------+---|
 | <image>                  |   |
 | --sig-proxy=<true/false> |   |
-*** logs
-|            |   |
-|------------+---|
-| --tail <N> |   |
-| --follow   |   |
+*** commit
+Create a new image from a container’s changes
+*** create
+does not start the container, but instead prepares and configures one:
 
-*** inspect
-|               |   |
-|---------------+---|
-| ID            |   |
-| -f / --filter |   |
+#+begin_src sh
+docker container create --name nginx-test -p 8080:80 nginx
+#+end_src
+*** cp
+Copy the contents of SRC_PATH to the DEST_PATH.
+
+#+begin_src shell
+docker container cp nginx-test:/tmp/testing testing
+#+end_src
 *** diff
 - A: added
 - C: changed
@@ -94,8 +73,99 @@ docker run -p 3000:3000 railsapp
 #+begin_src shell
 podman container diff sample
 #+end_src
-*** commit
-Create a new image from a container’s changes
+*** exec
+|    |                           |
+|----+---------------------------|
+| -i | run process interactively |
+| -t | provide tty               |
+| -e | define env vars           |
+| -d | run as daemon             |
+*** kill
+The docker kill subcommand kills one or more containers. The main process inside
+the container is sent SIGKILL signal (default), or the signal that is specified
+with the --signal option. You can reference a container by its ID, ID-prefix, or
+name.
+*** ls
+|    |                                                             |
+|----+-------------------------------------------------------------|
+| -h | display help                                                |
+| -a | Show all the containers, default is only running containers |
+| -q | containers ID                                               |
+| -l |                                                             |
+*** logs
+|            |   |
+|------------+---|
+| --tail <N> |   |
+| --follow   |   |
+
+#+begin_src shell
+docker container logs --tail 5 nginx-test
+docker container logs -f nginx-test
+docker container logs --since 2020-03-28T15:52:00 nginx-test
+docker container logs --since 2020-03-28T15:52:00 -t nginx-test
+#+end_src
+*** inspect
+|               |   |
+|---------------+---|
+| ID            |   |
+| -f / --filter |   |
+
+#+begin_src sh
+docker container inspect nginx-test
+#+end_src
+*** pause
+Pause all proces
+
+*** prune
+*** port
+#+begin_src shell
+docker container port nginx-test
+#+end_src
+*** run
+#+begin_src shell
+podman container run --name test -it -v sample:/data alpine /bin/sh
+docker run -p 3000:3000 railsapp
+#+end_src
+**** options
+|                          |   |
+|--------------------------+---|
+| -v <NAME:/WHERE>         |   |
+| -p --publish <PORT:PORT> |   |
+| --cpu-shares <INT>       |   |
+| --memory <INT>           |   |
+
+#+begin_src sh
+docker container run -d --name nginx-test --cpu-shares 512 --memory 128M -p 8080:80 nginx
+#+end_src
+*** restart
+Restart one or more containers
+*** stats
+Display a live stream of container(s) resource usage statistics
+
+#+begin_src sh
+docker stats nginx-test
+#+end_src
+*** stop
+#+begin_src sh
+ docker container stop -t 60 nginx3
+#+end_src
+*** top
+#+begin_src shell
+Display the running processes of a container
+#+end_src
+
+#+begin_src sh
+docker container top nginx-test
+#+end_src
+
+*** update
+Update configuration of one or more containers
+
+#+begin_src sh
+docker container update --cpu-shares 512 --memory 128M nginx-test
+docker container update --cpu-shares 512 --memory 128M --memory-swap 256M nginx-test
+#+end_src
+*** unpause
 ** exec
 ** volume
 *** create
@@ -111,6 +181,11 @@ Create a new image from a container’s changes
 |       |   |
 |-------+---|
 | --all |   |
+
+#+begin_src sh
+docker ps -a
+docker ps --filter "status=exited"
+#+end_src
 ** login
 #+begin_src shell
 docker login -u gnschenker -p <my secret password>
