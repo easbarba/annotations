@@ -1,0 +1,61 @@
+#+TITLE: Tests
+
+* php server
+
+- centos/ubuntu server puro
+- apache oy litespeed
+- php (pelo menos umas 2 versoes)
+- mysql (com as devidas permissoes)
+- talvez um exim
+
+** tips
+acredito que seria levantar la um mysql, um apache (ou litespeed) com os
+modulos/configs pra lidar com php
+
+ah, nessa vibe, essa vaga aqui apareceu pra mim recentemente, se fizer sentido pra vc:
+na minha visao, o que ele pede de infra aí é:
+
+vindo de um centos/ubuntu server puro, configurar:
+- apache
+- php (pelo menos umas 2 versoes)
+- mysql (com as devidas permissoes)
+- talvez um exim
+
+essa infra é bem padraozona pra wp (trampei em 2 empresas de hospedagem, é isso
+em todo lugar, mudando no maximo de apache pra litespeed)
+
+https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-20-04-with-a-lamp-stack
+
+em momento nenhum falam de container ali, entao acredito que o 'deploy de
+aplicaçoes' seja configuraçao de proxy reverso talvez dar uma estudada ali num
+nginx seja interessante
+
+bem, na entrevista q fiz pra trabalhar com suporte l2 em hospedagem eles
+cobraram um pouco tbm o 'padraozao' em linux - como se deslocar no sistema,
+permissoes (incluindo o lock -i+i) e tal
+
+como eles dao suporte a empresas q ja tem wordpress, se vc chegar com algum
+conhecimento em cPanel (tipo os /scripts/) aqui:
+https://docs.cpanel.net/whm/scripts/whm-scripts/84/ pode ser bem bacanudo
+
+de quebra, vc entrando la, ja apresenta esse projeto aqui: e mais um, deixa eu
+achar
+
+https://easyengine.io/
+
+em o wordops tb sofri muito pra achar, mas achei hahahaha
+
+sao dois projetos bem massa q pouca gente conhece
+
+gerencia bastante coisa pela cli deles, add um site wp pela cli la e tal
+
+gerencia bastante coisa pela cli deles, add um site wp pela cli la e tal ah! e
+por fim, mas nao menos importante, brinca um pouco com a wordpress-cli
+https://wp-cli.org acho q eh isso, mano parece bastante coisa, mas no final das
+contas eh tudo cli q vc busca no google os comandos e como cuidar de um
+webserver
+
+o principal ali é no deploy de apache + sql, sem duvida nenhuma
+
+dai sabendo isso, parte pro padrao q eh um pouco de cPanel/whm (se vc tem alguma
+vps ou um server virtualizado, pode pegar a demo dele pra conhecer mais)

@@ -1,0 +1,31 @@
+#+TITLE: Terraform
+
+* features
+    - IaC
+    - declarative
+    - mainly provisioning
+    - can deploy apps
+    - no meant for management
+    - more advanced in orchestration
+    - better for infrastructure
+
+* commands
+** destroy
+     - destroy resources/infrastructure
+     - remove one by one
+     - clean up resources
+** apply
+     - execute plan
+** plan
+     - create an execution plan
+** refresh
+     - get from provider current state
+* Core
+** providers
+     - IaaS: aws, azure
+     - PaaS: Kubernetes
+     - SaaS: Fastly
+** configuration
+     - user
+     - state
+     - providers

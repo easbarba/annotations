@@ -1,11 +1,14 @@
 #+TITLE: Schedule
 
+* Common
+- Science of Computer
+
 * Developer
 
 | @          | desc                                         |
 |------------+----------------------------------------------|
 | Frameworks | Express.js                                   |
-| Lang       | Javascript                                   |
+| Lang       | Javascript, Golang, Python                   |
 | Testing    | Mocha, Chai                                  |
 | Concepts   | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
 | HTML/CSS   | BEM, SMACSS                                  |
@@ -20,6 +23,17 @@
 | Infra as Code   | Terraform      |
 | Version Control | Git            |
 | Cloud           | AWS            |
+|                 | NGINX          |
+|                 | Microservices  |
+|                 | Kubernetes     |
+
+Conhecer bastante e/ou ter trabalhado com Scaling de aplicações de modo horizontal e vertical;
+
+* Network
+|   |               |
+|---+---------------|
+|   | Linux Servers |
+|   |               |
 
 * Database
 

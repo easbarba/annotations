@@ -1,0 +1,49 @@
+#+TITLE: Oracle Mysql
+
+* cli
+|    |          |
+|----+----------|
+| -u | user     |
+| -p | password |
+
+* setup
+** create database and user w/ pass
+
+#+begin_src sql
+CREATE DATABASE example_database;
+CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+GRANT ALL ON example_database.* TO 'example_user'@'%';
+#+end_src
+
+- test if the new user has the proper permissions
+#+begin_src sh
+mysql -u example_user -p
+#+end_src
+
+* container
+#+begin_src sh
+podman run -d --rm --name mine -e MYSQL_ROOT_PASSWORD=test mysql
+podman exec -it mine mysql -p
+#+end_src
+
+* examples
+** feed a simple database
+#+begin_src sql
+CREATE DATABASE example_database;
+CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+GRANT ALL ON example_database.* TO 'example_user'@'%';
+
+
+    CREATE TABLE example_database.todo_list (
+        item_id INT AUTO_INCREMENT,
+        content VARCHAR(255),
+        PRIMARY KEY(item_id)
+    );
+
+INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
+INSERT INTO example_database.todo_list (content) VALUES ("My 2 important item");
+INSERT INTO example_database.todo_list (content) VALUES ("My 3 important item");
+INSERT INTO example_database.todo_list (content) VALUES ("My 4 important item");
+
+SELECT * FROM example_database.todo_list;
+#+end_src

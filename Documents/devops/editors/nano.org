@@ -4,3 +4,5 @@
 https://nano-editor.org
 
 * Tips
+* help
+C+g

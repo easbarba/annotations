@@ -1,0 +1,23 @@
+#+TITLE: Firewall
+
+* ufw
+uncomplicated firewall
+
+** commands
+*** status
+*** enable
+#+begin_src shell
+ufw enable
+#+end_src
+*** app
+- list
+#+begin_src sh
+ufw status
+#+end_src
+
+*** allow
+#+begin_src sh
+ufw allow in "Apache"
+#+end_src
+
+* iptables

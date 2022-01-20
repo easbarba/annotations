@@ -1,0 +1,29 @@
+#+TITLE: Apache
+
+* Virtual hosts
+
+* DirectoryIndex
+With the default DirectoryIndex settings on Apache, a file named index.html will
+always take precedence over an index.php file. This is useful for setting up
+maintenance pages in PHP applications, by creating a temporary index.html file
+containing an informative message to visitors. Because this page will take
+precedence over the index.php page, it will then become the landing page for the
+application. Once maintenance is over, the index.html is renamed or removed from
+the document root, bringing back the regular application page.
+
+In case you want to change this behavior, you’ll need to edit the
+/etc/apache2/mods-enabled/dir.conf file and modify the order in which the
+index.php file is listed within the DirectoryIndex directive:
+
+#+begin_src sh
+sudo nano /etc/apache2/mods-enabled/dir.conf
+#+end_src
+
+* Setup
+** UWF Profiles
+*** Apache
+ This profile opens only port 80 (normal, unencrypted web traffic).
+*** Apache Full
+ This profile opens both port 80 (normal, unencrypted web traffic) and port 443 (TLS/SSL encrypted traffic).
+*** Apache Secure
+ This profile opens only port 443 (TLS/SSL encrypted traffic).
