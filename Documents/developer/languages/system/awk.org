@@ -164,8 +164,8 @@ END { statements }
 | >= |   |
 | <= |   |
 *** Regular Expresion
-#+begin_src shell
-awk '/Susie/ { print NR, $1, $3 }
+#+begin_src awk
+awk '/Susie/ { print NR, $1, $3 }'
 #+end_src
 *** Compound
 |    |     |

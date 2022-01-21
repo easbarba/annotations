@@ -1,4 +1,4 @@
-#+TITLE: Linux Distros
+#+TITLE: Linux Distro Common
 
 * Progress
 ** Books
@@ -10,3 +10,18 @@
 | Linux Programming Interface                   | Fundamental Concepts                       | Process                      |
 
 *
+
+* Sumario
+  :PROPERTIES:
+  :TOC:      :include all :depth 2 :ignore this
+  :END:
+:CONTENTS:
+- [[#progress][Progress]]
+- [[#tips][Tips]]
+:END:
+
+* Tips
+** Get Distro Release
+#+begin_src shell
+cat /etc/issue
+#+end_src
