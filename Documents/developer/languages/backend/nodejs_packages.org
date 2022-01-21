@@ -1,0 +1,71 @@
+#+TITLE: Nodejs Packages
+
+* npm
+** commands
+*** link
+*** pack
+*** install
+|                      |   |
+|----------------------+---|
+| -—save-dev <package> |   |
+
+** package.json
+*** "type": "module"
+loads the file as an ES6 module.
+*** "type": "commonjs"
+loads the file as a CommonJS module
+
+when no such file is found (or when the file is found but it does not have a
+type property), Node defaults to using CommonJS modules.
+* library
+** JSON
+JavaScript Object Notation
+
+- supports primitive numbers and strings, true, false, null, as well as arrays and
+objects built up from those primitive values.
+
+#+begin_src js
+let o = {s: "", n: 0, a: [true, false, null]};
+let s = JSON.stringify(o); // s == '{"s":"","n":0,"a":[true,false,null]}'
+let copy = JSON.parse(s);
+// copy == {s: "", n: 0, a: [true, false, null]}
+#+end_src
+*** methods
+**** stringify
+#+begin_src js
+let o = {s: "", n: 0, a: [true, false, null]};
+let s = JSON.stringify(o); // s == '{"s":"","n":0,"a":[true,false,null]}'
+#+end_src
+
+**** parse
+#+begin_src js
+let copy = JSON.parse(s); // copy == {s: "", n: 0, a: [true, false, null]}
+#+end_src
+
+**** toJSON
+a toJSON() method, and if so, it calls that method and then stringifies the
+return value in place of the original value.
+
+*** examples
+#+begin_src js
+// Make a deep copy of any serializable object or array
+function deepcopy(o) {
+  return JSON.parse(JSON.stringify(o))
+}
+#+end_src
+** npx
+Executes <command> either from a local node_modules/.bin, or from a central
+cache, installing any packages needed in order for <command> to run.
+
+*** run different versions of node
+#+begin_src shell
+npx node@10 -v #v10.18.1
+npx node@12 -v #v12.14.1
+#+end_src
+*** run remote scripts
+#+begin_src shell
+npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
+#+end_src
+
+* third-party
+** pm2
