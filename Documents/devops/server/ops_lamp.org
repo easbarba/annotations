@@ -1,0 +1,277 @@
+#+TITLE: OPS LAMP
+
+* Apache
+#+begin_src shell
+sudo apt-get update && sudo apt-get install -y apache2
+#+end_src
+
+firewall
+#+begin_src shell
+sudo ufw app list
+sudo ufw allow in "Apache"
+sudo ufw status
+#+end_src
+
+* mysql
+#+begin_src shell
+sudo apt-get install -y mysql-server
+#+end_src
+
+pre-installed security script
+
+#+begin_src shell
+sudo mysql_secure_installation
+#+end_src
+
+(1) pass: .10Mehmeh11-
+
+* php
+#+begin_src shell
+sudo apt-get install -y php libapache2-mod-php php-mysql
+#+end_src
+
+#+begin_src shell
+# new domain
+sudo mkdir /var/www/forevis.meh
+sudo chown -R $USER:$USER /var/www/forevis.meh
+
+# new apache configuration
+sudo nano /etc/apache2/sites-available/forevis.meh.conf
+
+# /etc/apache2/sites-available/forevis.meh.conf
+<VirtualHost *:80>
+    ServerName forevis.meh
+    ServerAlias www.forevis.meh
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/forevis.meh
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+# enable the new virtual host
+sudo a2ensite forevis.meh
+
+# disable the default website
+sudo a2dissite 000-default
+
+# test configuration file
+sudo apache2ctl configtest
+
+# reload Apache
+sudo systemctl reload apache2
+
+# fallback landing page
+nano /var/www/forevis.meh/index.html
+
+# /var/www/forevis.meh/index.html
+<html>
+  <head>
+    <title>Forevis website</title>
+  </head>
+  <body>
+    <h1>Hellow Worldis!</h1>
+
+    <p>This is the landing page of <strong>forevis.meh</strong>.</p>
+  </body>
+</html>
+#+end_src
+
+index.php as first page to load
+
+#+begin_src shell
+sudo nano /etc/apache2/mods-enabled/dir.conf
+
+# /etc/apache2/mods-enabled/dir.conf
+<IfModule mod_dir.c>
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+
+# and reload config
+sudo systemctl reload apache2
+#+end_src
+
+info page
+#+begin_src shell
+nano /var/www/forevis.meh/info.php
+
+# /var/www/forevis.meh/info.php
+<?php
+phpinfo();
+#+end_src
+
+landing page
+
+#+begin_src shell
+nano /var/www/forevis.meh/todo_list.php
+
+# /var/www/forevis.meh/todo_list.php
+<?php
+$user = "meh_user";
+$password = ".10Mehmeh11-";
+$database = "meh_database";
+$table = "todo_list";
+
+try {
+  $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+  echo "<h2>TODO</h2><ol>";
+  foreach($db->query("SELECT content FROM $table") as $row) {
+    echo "<li>" . $row['content'] . "</li>";
+  }
+  echo "</ol>";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+#+end_src
+
+* tsl
+Enable mod_ssl
+
+#+begin_src shell
+sudo a2enmod ssl
+sudo systemctl restart apache2
+#+end_src
+
+Create the SSL Certificate
+
+#+begin_src shell
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+#+end_src
+
+#+begin_src shell
+Country Name (2 letter code) [XX]:BR
+State or Province Name (full name) []:Meh
+Locality Name (eg, city) [Default City]:Meh
+Organization Name (eg, company) [Default Company Ltd]:Meh Inc
+Organizational Unit Name (eg, section) []:Meh Dept
+Common Name (eg, your name or your server's hostname) []:your_domain_or_ip
+Email Address []:webmaster@meh.com
+#+end_src
+
+#+begin_src shell
+sudo nano /etc/apache2/sites-available/forevis.meh.conf
+
+<VirtualHost *:443>
+   ServerName forevis.meh
+   DocumentRoot /var/www/forevis.meh
+
+   SSLEngine on
+   SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
+   SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName forevis.meh
+    Redirect / https://forevis.meh/
+</VirtualHost>
+#+end_src
+
+#+begin_src shell
+sudo a2ensite forevis.meh.conf
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+#+end_src
+
+if none appears
+#+begin_src shell
+ sudo ufw allow "Apache Full"
+#+end_src
+
+* wordpress
+#+begin_src sql
+CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+CREATE USER 'mehpressuser'@'%' IDENTIFIED WITH mysql_native_password BY '.10Mehmeh11-';
+GRANT ALL ON wordpress.* TO 'mehpressuser'@'%';
+FLUSH PRIVILEGES;
+#+end_src
+
+PHP/Wordpress plugins
+#+begin_src shell
+sudo apt-get update && sudo apt-get install -y php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip
+sudo systemctl restart apache2
+#+end_src
+
+Allow for .htaccess Overrides and Rewrites
+#+begin_src conf
+<Directory /var/www/forevis.meh/>
+    AllowOverride All
+</Directory>
+#+end_src
+
+#+begin_src shell
+sudo a2enmod rewrite
+sudo apache2ctl configtest
+sudo systemctl restart apache2
+#+end_src
+
+#+begin_src shell
+wget -c https://wordpress.org/latest.tar.gz -P /tmp/
+tar xzvf /tmp/latest.tar.gz -C /tmp/
+#+end_src
+
+#+begin_src shell
+touch /tmp/wordpress/.htaccess
+cp /tmp/wordpress/wp-config-sample.php /tmp/wordpress/wp-config.php
+#+end_src
+
+WP may not be able to update, this could help:
+#+begin_src shell
+mkdir /tmp/wordpress/wp-content/upgrade
+#+end_src
+
+#+begin_src shell
+# copy wp files to domain folder
+sudo cp -a /tmp/wordpress/. /var/www/forevis.meh
+
+# Adjust the Ownership and Permissions
+sudo chown -R www-data:www-data /var/www/forevis.meh/
+
+# WP directories and files correct permissions
+sudo find /var/www/forevis.meh/ -type d -exec chmod 750 {} \;
+sudo find /var/www/forevis.meh/ -type f -exec chmod 640 {} \;
+#+end_src
+
+WordPress secret key generator secure values
+
+#+begin_src shell
+curl -s https://api.wordpress.org/secret-key/1.1/salt/
+sudo nano /var/www/forevis.meh/wp-config.php
+
+# /var/www/forevis.meh/wp-config.php
+define('AUTH_KEY',         'VALUES COPIED FROM THE COMMAND LINE');
+define('SECURE_AUTH_KEY',  'VALUES COPIED FROM THE COMMAND LINE');
+define('LOGGED_IN_KEY',    'VALUES COPIED FROM THE COMMAND LINE');
+define('NONCE_KEY',        'VALUES COPIED FROM THE COMMAND LINE');
+define('AUTH_SALT',        'VALUES COPIED FROM THE COMMAND LINE');
+define('SECURE_AUTH_SALT', 'VALUES COPIED FROM THE COMMAND LINE');
+define('LOGGED_IN_SALT',   'VALUES COPIED FROM THE COMMAND LINE');
+define('NONCE_SALT',       'VALUES COPIED FROM THE COMMAND LINE');
+#+end_src
+
+#+begin_src sql
+. . .
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wordpress' );
+
+/** MySQL database username */
+define( 'DB_USER', 'mehpressuser' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', '.10Mehmeh11-' );
+
+/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
+
+/** Database Charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8' );
+
+/** The Database Collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
+
+
+. . .
+
+define('FS_METHOD', 'direct');
+#+end_src

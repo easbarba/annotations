@@ -1,1 +1,27 @@
 #+TITLE: Ocean
+
+* Droplet
+** initial setup
+*** user
+new user to improve security
+
+#+begin_src shell
+adduser meh
+usermod -aG sudo meh
+rsync --archive --chown=meh:meh ~/.ssh /home/meh
+#+end_src
+
+*** firewall
+block all connections except for SSH
+
+#+begin_src shell
+ufw app list
+ufw allow OpenSSH
+ufw enable
+ufw status
+#+end_src
+
+* get ip
+#+begin_src shell
+ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+#+end_src
