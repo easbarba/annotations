@@ -11,6 +11,31 @@ usermod -aG sudo meh
 rsync --archive --chown=meh:meh ~/.ssh /home/meh
 #+end_src
 
+new port
+
+#+begin_src shell
+nano /etc/ssh/sshd_config
+
+# /etc/ssh/sshd_config
+Port 4444
+#+end_src
+
+disable ssh access on root
+
+#+begin_src shell
+nano /etc/ssh/sshd_config
+
+# /etc/ssh/sshd_config
+PermitRootLogin no
+
+service ssh restart
+#+end_src
+
+to connect as user
+#+begin_src shell
+ssh -p 4444 meh@SERVER_IP_ADDRESS
+#+end_src
+
 *** firewall
 block all connections except for SSH
 
