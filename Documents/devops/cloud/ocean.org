@@ -47,6 +47,7 @@ ufw enable
 ufw status
 #+end_src
 
+* token
 * get ip
 #+begin_src shell
 ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'

@@ -1,4 +1,14 @@
-#+TITLE: Cli
+#+TITLE: Unix-like cli Apps
+
+* permissions
+** umask
+
+** chmod
+|    |                                                    |
+|----+----------------------------------------------------|
+| -R | change files and directories recursively           |
+| -c | like verbose but report only when a change is made |
+|    |                                                    |
 
 * write
 Send a message to another user.
@@ -19,13 +29,6 @@ watch runs command repeatedly, displaying its output and errors (the first
 screenfull). This allows you to watch the program output change over time. By
 default, command is run every 2 seconds and watch will run until inter‐ rupted.
 * finger
-* chmod
-|    |                                                    |
-|----+----------------------------------------------------|
-| -R | change files and directories recursively           |
-| -c | like verbose but report only when a change is made |
-|    |                                                    |
-
 * ed
 |              |                                                    |
 |--------------+----------------------------------------------------|
@@ -204,15 +207,15 @@ debug probe to print message bus messages
 | +n |   |
 * exec
  execute command in current process
-* parted
 * cal
 display a calendar
 * tail
 output the last part of files
-* gdisk
-* fdisk
+* partition
+** parted
+** gdisk
+** fdisk
 * mount
-* iwctl
 * images
 ** imagemagick
 * information
@@ -365,7 +368,7 @@ report file system space usage
 | -h | print sizes in powers of 1024                        |
 | -x | limit listing to file systems not of type TYPE       |
 | -a | include pseudo, duplicate, inaccessible file systems |
-* Xorg
+* xorg
 ** xmodmap
 |         |                                    |
 |---------+------------------------------------|
