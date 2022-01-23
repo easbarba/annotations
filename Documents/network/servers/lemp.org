@@ -1,0 +1,91 @@
+#+TITLE: Lemp
+
+sudo mkdir -p /var/www/easbarba.com/html
+sudo chown -R $USER:$USER /var/www/easbarba.com/html
+sudo chmod -R 755 /var/www
+nano /var/www/easbarba.com/html/index.html
+
+#+begin_src html
+<html>
+    <head>
+        <title>Welcome to Your_domain!</title>
+    </head>
+    <body>
+        <h1>Success!  The your_domain virtual host is working!</h1>
+    </body>
+</html>
+#+end_src
+
+# sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/easbarba.com
+sudo nano /etc/nginx/sites-available/easbarba.com
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name your_domain www.your_domain;
+    root /var/www/your_domain;
+
+    index index.html index.htm index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+     }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}
+#+end_src
+
+sudo ln -s /etc/nginx/sites-available/easbarba.com /etc/nginx/sites-enabled/
+
+- disable enabled/default
+sudo unlink /etc/nginx/sites-enabled/default
+# sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+
+sudo nano /etc/nginx/nginx.conf
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+* landing static page
+- web root
+#+begin_src shell
+sudo nano /var/www/easbarba.com/index.html
+#+end_src
+
+#+begin_src html
+<html>
+  <head>
+    <title>easbarba.com website</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+
+    <p>This is the landing page of <strong>easbarba.com</strong>.</p>
+  </body>
+</html>
+#+end_src
+
+* testing nginx w/ php
+
+create a new file in:
+#+begin_src sh
+nano /var/www/easbarba.com/info.php
+#+end_src
+
+and add:
+
+#+begin_src php
+<?php
+phpinfo();
+#+end_src
+
+remove after test is successful

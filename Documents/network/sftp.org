@@ -1,0 +1,31 @@
+#+TITLE: SFtp
+
+* name
+#+begin_src shell
+sudo adduser john
+#+end_src
+
+** upload directory,
+
+`/var/sftp/uploads` owned by user
+
+#+begin_src shell
+sudo mkdir -p /var/sftp/uploads
+#+end_src
+
+owned by root and will not be writable by other users
+
+#+begin_src shell
+sudo chown root:root /var/sftp
+sudo chmod 755 /var/sftp
+#+end_src
+
+Change the ownership on the uploads directory to the user you just created.
+
+#+begin_src shell
+sudo chown meh:meh /var/sftp/uploads
+#+end_src
+
+#+begin_src shell
+sudo systemctl restart sshd
+#+end_src

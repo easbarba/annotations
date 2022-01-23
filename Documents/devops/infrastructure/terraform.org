@@ -112,3 +112,6 @@ The type of EC2 Instance to run.
 |       |   |
 |-------+---|
 | -json |   |
+** plan
+** apply
+** destroy

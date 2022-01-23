@@ -27,27 +27,31 @@ podman exec -it mine mysql -p
 #+end_src
 
 * examples
-** feed a simple database
+** ROOT - create user/pass
 #+begin_src sql
-CREATE DATABASE meh_database;
-CREATE USER 'meh_user'@'%' IDENTIFIED WITH mysql_native_password BY '.10Mehmeh11-';
-GRANT ALL ON meh_database.* TO 'meh_user'@'%';
+CREATE DATABASE assisdb;
+CREATE USER 'assis'@'%' IDENTIFIED WITH mysql_native_password BY '.10Machado11-';
+GRANT ALL ON assisdb.* TO 'assis'@'%';
 FLUSH PRIVILEGES;
+#+end_src
 
-CREATE TABLE meh_database.todo_list (
+** USER - feed simple database
+#+begin_src sql
+SHOW DATABASES;
+CREATE TABLE assisdb.todo_list (
     item_id INT AUTO_INCREMENT,
     content VARCHAR(255),
     PRIMARY KEY(item_id)
 );
 
-INSERT INTO meh_database.todo_list (content) VALUES ("My first important meh");
-INSERT INTO meh_database.todo_list (content) VALUES ("My 2 important meh");
-INSERT INTO meh_database.todo_list (content) VALUES ("My 3 important meh");
-INSERT INTO meh_database.todo_list (content) VALUES ("My 4 important meh");
+INSERT INTO assisdb.todo_list (content) VALUES ("My 1 important book");
+INSERT INTO assisdb.todo_list (content) VALUES ("My 2 important book");
+INSERT INTO assisdb.todo_list (content) VALUES ("My 3 important book");
+INSERT INTO assisdb.todo_list (content) VALUES ("My 4 important book");
 
-SELECT * FROM meh_database.todo_list;
+SELECT * FROM assisdb.todo_list;
 #+end_src
-** root pass
+** ROOT - reset pass
 #+begin_src sql
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '.10Mehmeh11-';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '.10machado11-';
 #+end_src

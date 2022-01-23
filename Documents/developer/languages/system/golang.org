@@ -1212,3 +1212,13 @@ vet is a tool for static analysis of Go programs.
 #+begin_src shell-script
 goimports -l -w .
 #+end_src
+* carrer
+- Rest GPC
+- API
+- Networking knowledge and in depth understanding of network concepts, such as
+  different protocols (TCP/IP, UDP, ICMP, etc.), MAC addresses, IP packets, DNS,
+  OSI layers, and load balancing).
+- SQL/NoSQL databases is a PLUS
+- devops
+- Agile Scrum/Kanban me
+- Unix systems internals and networking.

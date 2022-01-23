@@ -3,3 +3,5 @@
 * sam
 ** serverless
 * console
+* cli
+** configure

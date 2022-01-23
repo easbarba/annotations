@@ -6,9 +6,9 @@
 new user to improve security
 
 #+begin_src shell
-adduser meh
-usermod -aG sudo meh
-rsync --archive --chown=meh:meh ~/.ssh /home/meh
+adduser assis
+usermod -aG sudo assis
+rsync --archive --chown=assis:assis ~/.ssh /home/assis
 #+end_src
 
 new port
@@ -34,7 +34,7 @@ service ssh restart
 to connect as user
 #+begin_src shell
 # su — username
-ssh -p 4444 meh@SERVER_IP_ADDRESS
+ssh -p 4444 assis@SERVER_IP_ADDRESS
 #+end_src
 
 *** firewall

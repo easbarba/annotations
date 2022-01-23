@@ -1,6 +1,6 @@
 #+TITLE: OPS LAMP
 
-* Apache
+* apache
 #+begin_src shell
 sudo apt-get update && sudo apt-get install -y apache2
 #+end_src
@@ -23,33 +23,33 @@ pre-installed security script
 sudo mysql_secure_installation
 #+end_src
 
-(1) pass: .10Mehmeh11-
+(1) pass: .10machado11-
 
 * php
 #+begin_src shell
 sudo apt-get install -y php libapache2-mod-php php-mysql
 #+end_src
-
+* virtual hosts
 #+begin_src shell
 # new domain
-sudo mkdir /var/www/forevis.meh
-sudo chown -R $USER:$USER /var/www/forevis.meh
+sudo mkdir /var/www/assis.com
+sudo chown -R $USER:$USER /var/www/assis.com
 
 # new apache configuration
-sudo nano /etc/apache2/sites-available/forevis.meh.conf
+sudo nano /etc/apache2/sites-available/assis.com.conf
 
-# /etc/apache2/sites-available/forevis.meh.conf
+# /etc/apache2/sites-available/assis.com.conf
 <VirtualHost *:80>
-    ServerName forevis.meh
-    ServerAlias www.forevis.meh
+    ServerName assis.com
+    ServerAlias www.assis.com
     ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/forevis.meh
+    DocumentRoot /var/www/assis.com
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
 # enable the new virtual host
-sudo a2ensite forevis.meh
+sudo a2ensite assis.com
 
 # disable the default website
 sudo a2dissite 000-default
@@ -61,9 +61,9 @@ sudo apache2ctl configtest
 sudo systemctl reload apache2
 
 # fallback landing page
-nano /var/www/forevis.meh/index.html
+nano /var/www/assis.com/index.html
 
-# /var/www/forevis.meh/index.html
+# /var/www/assis.com/index.html
 <html>
   <head>
     <title>Forevis website</title>
@@ -71,7 +71,7 @@ nano /var/www/forevis.meh/index.html
   <body>
     <h1>Hellow Worldis!</h1>
 
-    <p>This is the landing page of <strong>forevis.meh</strong>.</p>
+    <p>This is the landing page of <strong>assis.com</strong>.</p>
   </body>
 </html>
 #+end_src
@@ -92,9 +92,9 @@ sudo systemctl reload apache2
 
 info page
 #+begin_src shell
-nano /var/www/forevis.meh/info.php
+nano /var/www/assis.com/info.php
 
-# /var/www/forevis.meh/info.php
+# /var/www/assis.com/info.php
 <?php
 phpinfo();
 #+end_src
@@ -102,13 +102,13 @@ phpinfo();
 landing page
 
 #+begin_src shell
-nano /var/www/forevis.meh/todo_list.php
+nano /var/www/assis.com/todo_list.php
 
-# /var/www/forevis.meh/todo_list.php
+# /var/www/assis.com/todo_list.php
 <?php
-$user = "meh_user";
-$password = ".10Mehmeh11-";
-$database = "meh_database";
+$user = "assis";
+$password = ".10Machado11-";
+$database = "assisdb";
 $table = "todo_list";
 
 try {
@@ -140,20 +140,20 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 
 #+begin_src shell
 Country Name (2 letter code) [XX]:BR
-State or Province Name (full name) []:Meh
-Locality Name (eg, city) [Default City]:Meh
-Organization Name (eg, company) [Default Company Ltd]:Meh Inc
-Organizational Unit Name (eg, section) []:Meh Dept
+State or Province Name (full name) []:Assis
+Locality Name (eg, city) [Default City]:Assis
+Organization Name (eg, company) [Default Company Ltd]:Assis Inc
+Organizational Unit Name (eg, section) []:Assis Dept
 Common Name (eg, your name or your server's hostname) []:your_domain_or_ip
-Email Address []:webmaster@meh.com
+Email Address []:webmaster@assis.com
 #+end_src
 
 #+begin_src shell
-sudo nano /etc/apache2/sites-available/forevis.meh.conf
+sudo nano /etc/apache2/sites-available/assis.com.conf
 
 <VirtualHost *:443>
-   ServerName forevis.meh
-   DocumentRoot /var/www/forevis.meh
+   ServerName assis.com
+   DocumentRoot /var/www/assis.com
 
    SSLEngine on
    SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
@@ -161,13 +161,13 @@ sudo nano /etc/apache2/sites-available/forevis.meh.conf
 </VirtualHost>
 
 <VirtualHost *:80>
-    ServerName forevis.meh
-    Redirect / https://forevis.meh/
+    ServerName assis.com
+    Redirect / https://assis.com/
 </VirtualHost>
 #+end_src
 
 #+begin_src shell
-sudo a2ensite forevis.meh.conf
+sudo a2ensite assis.com.conf
 sudo apache2ctl configtest
 sudo systemctl reload apache2
 #+end_src
@@ -180,8 +180,8 @@ if none appears
 * wordpress
 #+begin_src sql
 CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-CREATE USER 'mehpressuser'@'%' IDENTIFIED WITH mysql_native_password BY '.10Mehmeh11-';
-GRANT ALL ON wordpress.* TO 'mehpressuser'@'%';
+CREATE USER 'assis'@'%' IDENTIFIED WITH mysql_native_password BY '.10machado11-';
+GRANT ALL ON wordpress.* TO 'assis'@'%';
 FLUSH PRIVILEGES;
 #+end_src
 
@@ -191,12 +191,17 @@ sudo apt-get update && sudo apt-get install -y php-curl php-gd php-mbstring php-
 sudo systemctl restart apache2
 #+end_src
 
-Allow for .htaccess Overrides and Rewrites
+- Allow for .htaccess Overrides and Rewrites
+- Delete Indexes to stop Apache listing directories
+
 #+begin_src conf
-<Directory /var/www/forevis.meh/>
+<Directory /var/www/assis.com/>
+    Options FollowSymLinks
     AllowOverride All
 </Directory>
 #+end_src
+
+- Enable mod_rewrite
 
 #+begin_src shell
 sudo a2enmod rewrite
@@ -221,23 +226,23 @@ mkdir /tmp/wordpress/wp-content/upgrade
 
 #+begin_src shell
 # copy wp files to domain folder
-sudo cp -a /tmp/wordpress/. /var/www/forevis.meh
+sudo cp -a /tmp/wordpress/. /var/www/assis.com
 
 # Adjust the Ownership and Permissions
-sudo chown -R www-data:www-data /var/www/forevis.meh/
+sudo chown -R www-data:www-data /var/www/assis.com/
 
 # WP directories and files correct permissions
-sudo find /var/www/forevis.meh/ -type d -exec chmod 750 {} \;
-sudo find /var/www/forevis.meh/ -type f -exec chmod 640 {} \;
+sudo find /var/www/assis.com/ -type d -exec chmod 750 {} \;
+sudo find /var/www/assis.com/ -type f -exec chmod 640 {} \;
 #+end_src
 
 WordPress secret key generator secure values
 
 #+begin_src shell
 curl -s https://api.wordpress.org/secret-key/1.1/salt/
-sudo nano /var/www/forevis.meh/wp-config.php
+sudo nano /var/www/assis.com/wp-config.php
 
-# /var/www/forevis.meh/wp-config.php
+# /var/www/assis.com/wp-config.php
 define('AUTH_KEY',         'VALUES COPIED FROM THE COMMAND LINE');
 define('SECURE_AUTH_KEY',  'VALUES COPIED FROM THE COMMAND LINE');
 define('LOGGED_IN_KEY',    'VALUES COPIED FROM THE COMMAND LINE');

@@ -1,7 +1,6 @@
 #+TITLE: Apache
 
 * Virtual hosts
-
 * DirectoryIndex
 With the default DirectoryIndex settings on Apache, a file named index.html will
 always take precedence over an index.php file. This is useful for setting up

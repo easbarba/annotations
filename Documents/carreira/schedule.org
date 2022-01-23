@@ -5,35 +5,34 @@
 
 * Developer
 
-| @          | desc                                         |
-|------------+----------------------------------------------|
-| Frameworks | Express.js                                   |
-| Lang       | Javascript, Golang, Python                   |
-| Testing    | Mocha, Chai                                  |
-| Concepts   | APIs, OOP, Patterns, DS&A, SOLID, Clean Code |
-| HTML/CSS   | BEM, SMACSS                                  |
+| @              | desc       |
+|----------------+------------|
+| Lang           | Golang     |
+| Testing        |            |
+| Concepts       | Patterns,  |
+| APIs           | REST, Gra  |
+| Data/structure |            |
+|                | Clean Code |
 
 * DevOps
 
 | @               | desc           |
 |-----------------+----------------|
 | Containers      | Podman, docker |
-| Linux           | Processs       |
-| Shell Script    | Bash, Posix    |
 | Infra as Code   | Terraform      |
+| Linux           | Processs       |
+| Orchestration   | Kubernetes     |
+| Shell Script    | Bash, Posix    |
 | Version Control | Git            |
 | Cloud           | AWS            |
-|                 | NGINX          |
+|                 |           |
 |                 | Microservices  |
-|                 | Kubernetes     |
-
-Conhecer bastante e/ou ter trabalhado com Scaling de aplicações de modo horizontal e vertical;
 
 * Network
-|   |               |
-|---+---------------|
-|   | Linux Servers |
-|   |               |
+|        |   |
+|--------+---|
+| TCP/IP |   |
+| NGINX  |   |
 
 * Database
 

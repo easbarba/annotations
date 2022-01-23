@@ -1,6 +1,11 @@
 #+TITLE: Unix-like cli Apps
 
+* users
+** adduser
+** usermod
+
 * permissions
+** chroot
 ** umask
 
 ** chmod
