@@ -1,6 +1,13 @@
 #+TITLE: SSH
-* options
-* ssh-add
+
+* definition
+The Secure Shell (SSH) protocol sets up a secure Telnet session over a standard TCP/IP con-
+nection and is employed for doing things like logging into other systems, running programs on
+remote systems, and moving files from one system to another.
+* traits
+- ControlPersist
+* openssh
+** ssh-add
 ssh-add adds private key identities to the authentication agent, ssh-agent(1).  When run without arguments, it adds the files
 ~/.ssh/id_rsa, ~/.ssh/id_dsa, ~/.ssh/id_ecdsa, ~/.ssh/id_ecdsa_sk, ~/.ssh/id_ed25519, and ~/.ssh/id_ed25519_sk.  After loading
 a private key, ssh-add will try to load corresponding certificate information from the filename obtained by appending -cert.pub
@@ -17,4 +24,5 @@ ssh-add to work.
 |----+--------------------------------------------------------------------------|
 | -l | Lists fingerprints of all identities currently represented by the agent. |
 |    |                                                                          |
-* ssh-agent
+** ssh-agent
+** ssh-copy-id

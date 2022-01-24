@@ -1,0 +1,14 @@
+#+TITLE: FTP
+
+* definition
+lets you transfer files across an IP network, and it can accomplish this
+between any two machines that are using it
+
+* Features
+- a protocol
+- a program
+- requires authentication login
+- anonymous login w/ limited access
+- listing and manipulating directories, typing file contents, and copying files between hosts.
+- can’t execute remote files as programs
+- data is sent in clear text
