@@ -1,1 +1,20 @@
 #+TITLE: DHCP
+
+Dynamic Host Configuration Protocol/Bootstrap Protocol
+
+* definition
+assigns IP addresses to hosts with information provided by a server. It allows
+
+* features
+- works well in small to even very large network environments.
+- many types of hardware can be used as a DHCP server, including routers.
+- a dynamic BootP
+- uses BootP to send an operating system that a host can boot from.
+
+* Provides:
+- IP address
+- Subnet mask
+- Domain name
+- Default gateway (routers)
+- DNS
+- Windows Internet Naming Service (WINS) information

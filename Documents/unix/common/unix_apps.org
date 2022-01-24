@@ -21,6 +21,8 @@ Send a message to another user.
 * mesg
 Control write access of other users to your terminal.
 
+* network
+** whois
 * news
 * open
 open file in its default application
