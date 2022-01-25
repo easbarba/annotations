@@ -166,10 +166,25 @@ variable "number_example" {
 
 variable "list_example" {
   description = "An example of a list in Terraform"
-  type= list
+  type = list
   default = ["a", "b", "c"]
 }
 
+variable "map_example" {
+  description = "An example of a map in Terraform"
+  type        = map(string)
+  default = {
+    key1 = "value1"
+    key2 = "value2"
+    key3 = "value3"
+  }
+}
+
+variable "list_numeric_example" {
+  description = "An example of a numeric list in WOW! eBookwww.wowebook.orgTerraform"
+  type        = list(number)
+  default     = [1, 2, 3]
+}
 #+end_src
 
 #+begin_src hcl
