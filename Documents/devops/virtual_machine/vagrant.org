@@ -9,6 +9,8 @@
 ** resume
 ** destroy
 ** ssh
+** ssh-config
+
 ** add
 |         |   |
 |---------+---|
@@ -31,6 +33,10 @@ vagrant ssh-config > vagrant-ssh
 and acess with
 #+begin_src sh
 ssh -F vagrant-ssh default
+#+end_src
+
+#+begin_src shell
+ssh -i ~/.vagrant.d/insecure_private_key vagrant@... "hostname"
 #+end_src
 * ENV
 Vagrant is currently configured to create VirtualBox synced folders with

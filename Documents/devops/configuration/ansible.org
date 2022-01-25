@@ -113,7 +113,7 @@ Tool to automate IT tasks
 - install/update software
 - better in configuring
 - procedural
-* cli
+* commands
 |                           |                           |
 |---------------------------+---------------------------|
 | -m <MODULE> -a <OPT_ARGS> | use module with arguments |
@@ -121,6 +121,10 @@ Tool to automate IT tasks
 | --ask-pass                | still require pass        |
 | -a                        | module arguments          |
 | -k                        | ask pass                  |
+* ansible-galaxy
+** list
+** collection install
+
 * ansible-playboy
 |                      |   |
 |----------------------+---|
