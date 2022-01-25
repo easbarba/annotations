@@ -94,10 +94,9 @@
   :END:
 * Progresso
 ** Livros
-| Livros             | Capitulo                             | em                                                  |
-|--------------------+--------------------------------------+-----------------------------------------------------|
-| Ansible for DevOps | 2 - Local Infrastructure Development | Prototyping and testing with local virtual machines |
-|                    |                                      |                                                     |
+| Livros                   | Capitulo        | em                                 |
+|--------------------------+-----------------+------------------------------------|
+| Terraform Up and running | Getting started | Deploying a Cluster of Web Servers |
 * base
 ** resouce
 *** ami
@@ -138,6 +137,10 @@ confirmation prompt.
 | --auto-approve |   |
 
 ** output
+ Reads an output variable from a Terraform state file and prints
+  the value. With no additional arguments, output will display all
+  the outputs for the root module.  If NAME is not specified, all
+  outputs are printed.
 ** plan
 - create an execution plan
 ** refresh
@@ -146,8 +149,7 @@ confirmation prompt.
 ** --options
 *** -var
 
-
-* language
+* hcl
 ** variables
 *** input vars
 
@@ -203,6 +205,13 @@ resource "aws_security_group" "instance" {
 }
 #+end_src
 *** output vars
+#+begin_src hcl
+output "<NAME>" {
+  value = <VALUE>
+  [CONFIG ...]
+}
+#+end_src
+
 * core
 ** providers
      - IaaS: aws, azure
