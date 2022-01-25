@@ -16,6 +16,19 @@
 | Version Control | Git            |
 |                 | Microservices  |
 
+|            |   |
+|------------+---|
+| Docker     |   |
+| Terraform  |   |
+| AWS DevOps |   |
+| AWS        |   |
+| Kubernetes |   |
+
+* Unix
+|       |   |
+|-------+---|
+| RCHSA |   |
+
 * Network
 |        |   |
 |--------+---|
