@@ -2,10 +2,15 @@
 
 * Features
 * Methods
-- POST:
-- GET:
-- PATCH/PUT:
-- DELETE:
+
+| verb    | action                                               |  Sucess | failure |
+|---------+------------------------------------------------------+---------+---------|
+| GET     | Fetches a record or set of resources from the server |     202 |     404 |
+| OPTIONS | Fetches all available REST operations                |     200 |       - |
+| POST    | Creates a new set of resources or a resource         |     201 | 404,409 |
+| PUT     | Updates or replaces the given record                 | 200,204 |     404 |
+| PATCH   | Modifies the given record                            | 200,204 |     404 |
+| DELETE  | Deletes the given resource                           |     200 |     404 |
 
 * Resources
 - may be represented in a different format from the one in which it is stored.
