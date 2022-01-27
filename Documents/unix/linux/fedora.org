@@ -1,1 +1,5 @@
 #+TITLE: Fedora
+
+* system files
+** repositories
+located at /etc/yum.repos.d

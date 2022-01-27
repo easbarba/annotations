@@ -1,9 +1,9 @@
 #+TITLE: Docker
 
 * Fortschritt
-   |                       |                        |
-   |-----------------------+------------------------|
-   | Docker For Developers | Introduction to Docker |
+|                       |                        |
+|-----------------------+------------------------|
+| Docker For Developers | Introduction to Docker |
 
 * Dockerfile
 * Files

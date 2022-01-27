@@ -1,4 +1,4 @@
-#+TILE: Contafiners - Annotations
+#+TILE: Containers - Annotations
 
 * Summary
   :PROPERTIES:
@@ -10,27 +10,22 @@
   - [[#sloc][sloc]]
 - [[#commands][Commands]]
   - [[#container][container]]
-  - [[#exec][exec]]
   - [[#volume][volume]]
-  - [[#ps][ps]]
   - [[#login][login]]
   - [[#images][images]]
   - [[#image][image]]
-  - [[#rm][rm]]
-  - [[#run][run]]
-  - [[#start][start]]
   - [[#system][system]]
   - [[#network][network]]
-- [[#stopquitdetach][Stop/Quit/Detach]]
 - [[#volumes][Volumes]]
+- [[#exit][Exit]]
+  - [[#stopquitdetach][Stop/Quit/Detach]]
 - [[#images-registry][Images Registry]]
 - [[#terms][Terms]]
 - [[#best-practices][Best practices]]
-- [[#multi-stages][Multi-stages]]
-  - [[#eg][eg]]
+  - [[#multi-stages][Multi-stages]]
 - [[#example][Example]]
 - [[#tips][Tips]]
-  - [[#remove][Remove]]
+  - [[#remove-all][Remove all]]
 :END:
 * Progresso
 ** books
@@ -93,10 +88,12 @@ name.
 | -q | containers ID                                               |
 | -l |                                                             |
 *** logs
-|            |   |
-|------------+---|
-| --tail <N> |   |
-| --follow   |   |
+|                   |   |
+|-------------------+---|
+| --tail <N>        |   |
+| --follow          |   |
+| --since <date>    |   |
+| --timestamp or -t |   |
 
 #+begin_src shell
 docker container logs --tail 5 nginx-test
@@ -117,6 +114,7 @@ docker container inspect nginx-test
 Pause all proces
 
 *** prune
+Removes all non running containers
 *** port
 #+begin_src shell
 docker container port nginx-test
@@ -125,18 +123,43 @@ docker container port nginx-test
 #+begin_src shell
 podman container run --name test -it -v sample:/data alpine /bin/sh
 docker run -p 3000:3000 railsapp
-#+end_src
-**** options
-|                          |   |
-|--------------------------+---|
-| -v <NAME:/WHERE>         |   |
-| -p --publish <PORT:PORT> |   |
-| --cpu-shares <INT>       |   |
-| --memory <INT>           |   |
-
-#+begin_src sh
+docker run -it --rm --privileged --pid=host fundamentalsofdocker/nsenter
 docker container run -d --name nginx-test --cpu-shares 512 --memory 128M -p 8080:80 nginx
+docker container run -d --name redis --network moby-counter redis:alpine
 #+end_src
+
+#+begin_src shell
+for i in {1..5}; do docker container run -d --name nginx$(printf "$i") nginx; done
+#+end_src
+
+**** options
+|                          |                                                    |
+|--------------------------+----------------------------------------------------|
+| -v <NAME:/WHERE>         |                                                    |
+| -p --publish <PORT:PORT> |                                                    |
+| --cpu-shares <INT>       |                                                    |
+| --memory <INT>           |                                                    |
+|                          |                                                    |
+| -d or --detach           | run container in background and print container ID |
+| --name <NAME>            | set name                                           |
+| -p <ii:II>               | port                                               |
+| -i                       | interactively                                      |
+| -t                       | tty                                                |
+| --pid=<HOST>             |                                                    |
+| --privileged             |                                                    |
+
+*** rm
+removes one or more containers from the host. The container name or ID can be used.
+
+Command does not remove images. Running or unusable containers will not be removed without the -f option.
+
+#+begin_src shell
+docker container stop nginx3 && docker container rm nginx3
+#+end_src
+
+|           |   |
+|-----------+---|
+| --storage |   |
 *** restart
 Restart one or more containers
 *** stats
@@ -149,6 +172,11 @@ docker stats nginx-test
 #+begin_src sh
  docker container stop -t 60 nginx3
 #+end_src
+
+|              |   |
+|--------------+---|
+| --time or -t |   |
+*** start
 *** top
 #+begin_src shell
 Display the running processes of a container
@@ -166,7 +194,16 @@ docker container update --cpu-shares 512 --memory 128M nginx-test
 docker container update --cpu-shares 512 --memory 128M --memory-swap 256M nginx-test
 #+end_src
 *** unpause
-** exec
+*** pause
+*** ps
+|       |   |
+|-------+---|
+| --all |   |
+
+#+begin_src sh
+docker ps -a
+docker ps --filter "status=exited"
+#+end_src
 ** volume
 *** create
 **** options
@@ -177,15 +214,6 @@ docker container update --cpu-shares 512 --memory 128M --memory-swap 256M nginx-
 
 
 *** inspect
-** ps
-|       |   |
-|-------+---|
-| --all |   |
-
-#+begin_src sh
-docker ps -a
-docker ps --filter "status=exited"
-#+end_src
 ** login
 #+begin_src shell
 docker login -u gnschenker -p <my secret password>
@@ -227,42 +255,21 @@ podman image load -i ./backup/my-alpine.tar
 docker tag 7146a802571b railsapp
 #+end_src
 *** prune
-** rm
-|           |   |
-|-----------+---|
-| --storage |   |
-** run
-#+begin_src shell
-docker run -it --rm --privileged --pid=host fundamentalsofdocker/nsenter
-#+end_src
 
-
-|               |                           |
-|---------------+---------------------------|
-| -d            | keep running in backgroun |
-| --name <NAME> | set name                  |
-| -p <ii:II>    | port                      |
-| -i            | interactively             |
-| -t            | tty                       |
-
-*** options
-|              |   |
-|--------------+---|
-| --pid=<HOST> |   |
-| --privileged |   |
-** start
 ** system
 *** prune
 ** network
 *** ls
-* Stop/Quit/Detach
+*** prune
+* Volumes
+* Exit
+** Stop/Quit/Detach
 |         |          |
 |---------+----------|
 | C-c     | stop all |
 | C-p C-q | detach   |
 | c-d     | kill     |
 
-* Volumes
 * Images Registry
 - https:/​/​cloud.​google.​com/​container-​registry
 - https:/​/​aws.​amazon.​com/​ecr/​
@@ -283,8 +290,8 @@ docker run -it --rm --privileged --pid=host fundamentalsofdocker/nsenter
 - avoid installing unnecessary packages
 - use multi-stages builds
 
-* Multi-stages
-** eg
+** Multi-stages
+*** eg
 #+begin_src shell
 FROM alpine:3.7 AS build
 RUN apk update && \
@@ -333,7 +340,7 @@ services:
 RUN apt-get update -yqq && apt-get install -yqq postgresql postgresql-contrib libpq-dev
 curl make gcc g++ git libffi-dev libyaml-dev
 * Tips
-** Remove
+** Remove all
 #+begin_src shell
 # Stop all containers
 docker stop `docker ps -qa`

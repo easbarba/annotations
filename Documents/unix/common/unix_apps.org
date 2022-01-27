@@ -1,93 +1,20 @@
-#+TITLE: Unix-like cli Apps
+#+TITLE: UNIX-like cli apps
 
-* users
+* Users
 ** adduser
 ** usermod
 
-* permissions
-** chroot
-** umask
-
-** chmod
-|    |                                                    |
-|----+----------------------------------------------------|
-| -R | change files and directories recursively           |
-| -c | like verbose but report only when a change is made |
-|    |                                                    |
-
-* write
-Send a message to another user.
-
-* mesg
-Control write access of other users to your terminal.
-
-* network
-** whois
-* news
-* open
-open file in its default application
-
-* dirs
-print directory stack
-* popd
-move through directory stack
-* watch
-watch runs command repeatedly, displaying its output and errors (the first
-screenfull). This allows you to watch the program output change over time. By
-default, command is run every 2 seconds and watch will run until inter‐ rupted.
-* finger
-* ed
-|              |                                                    |
-|--------------+----------------------------------------------------|
-| a            | append text in next line                           |
-| i            | enter insert mode in the beginning of current line |
-| .            | stop adding text                                   |
-| q            | quit                                               |
-| w <filename> | write to file with name                            |
-| p            | print current line                                 |
-| n            | print current line number and text                 |
-| <n>          | print line in number <n>                           |
-| c            | change content line                                |
-| h            | display error messages                             |
-| ?            | command not available                              |
-| P            | set prompt                                         |
-| <n>t<n>      | copy line <n> in line <n>                          |
-| /<word>      | search for word in file                            |
-| 1,$p         | display all lines till the end of file             |
-
-
-#+begin_src shell-script
-0 meh
-1 hahaha
-2 kkkkkkkkk
-
-2t0 # copy line 2 to line 0
-#+end_src
-* cat
-concatenate files and print on the standard output
-|    |            |
-|----+------------|
-| -u | unbuffered |
-| <> | buffered   |
-
-* pr
-concatenate files and print on the standard output
-|                  |                         |
-|------------------+-------------------------|
-|               -3 | print in three columns  |
-| -m <file> <file> | print files in parallel |
-|                  |                         |
-
-* lpr
-
-* more
-
-* nroff
-
-* troff
-
-* files
+* Files
 ** rsync
+** tree
+|    |                                              |
+|----+----------------------------------------------|
+| -a | Includes hidden files in the output          |
+| -d | Excludes files from the output               |
+| -h | Displays file sizes in human-friendly format |
+| -f | Prints the full path for each file           |
+| -p | Includes file permissions in the output      |
+
 ** ls
  list directory contents
 
@@ -140,7 +67,278 @@ remove files or directories
 | -r or -R              |                   |
 | -d                    | remove empty dir  |
 | --preserve-root[=all] | do not remove '/' |
+** ln
+|    |   |
+|----+---|
+| -s |   |
 
+* Network
+** whois
+* Permissions
+** chroot
+** umask
+
+** chmod
+|    |                                                    |
+|----+----------------------------------------------------|
+| -R | change files and directories recursively           |
+| -c | like verbose but report only when a change is made |
+|    |                                                    |
+
+* Compression/Decompression
+** gzip / gunzip
+
+
+#+begin_src shell
+gzip .history
+gunzip .history.gz
+
+#for more info
+gzip .history
+#+end_src
+
+|    |   |
+|----+---|
+| -r |   |
+
+** bzip2 / bunzip2
+
+
+#+begin_src shell
+bzip2 fstab
+bunzip2.bz2
+#+end_src
+
+** tar
+an archiving utility
+
+|    |   |
+|----+---|
+| -f |   |
+| -c |   |
+| -p |   |
+| -r |   |
+| -t |   |
+| -u |   |
+| -v |   |
+| -x |   |
+| -z |   |
+
+#+begin_src shell
+tar -cvf videos.tar ~/Videos
+tar -cvf /tmp/meh.tar /etc/debian-version
+
+# append
+tar -rvf /tmp/meh.tar /etc/fstab
+
+# peek contents
+tar -tvf /tmp/meh.tar
+
+# extract one file
+tar -xf /tmp/meh.tar /etc/fstab
+
+# extract all
+tar -xf /tmp/meh.tar
+#+end_src
+
+#+begin_src shell
+tar -rvf /tmp/meh.gz /etc/fstab
+tar -rvf /tmp/meh.bz2 /etc/fstab
+
+tar -tf /tmp/meh.bz2
+tar -xf /tmp/meh.bz2
+#+end_src
+
+* File system
+** findmnt
+** lsblk
+** df
+report file system space usage
+
+|    |                                                      |
+|----+------------------------------------------------------|
+| -h | print sizes in powers of 1024                        |
+| -x | limit listing to file systems not of type TYPE       |
+| -a | include pseudo, duplicate, inaccessible file systems |
+* Xorg
+** xmodmap
+|         |                                    |
+|---------+------------------------------------|
+| -pke    |                                    |
+
+** setxkbmap
+|         |                                    |
+|---------+------------------------------------|
+| -option | reset current session modification |
+|         |                                    |
+
+** xinput
+- list the devices
+#+begin_src shell
+ xinput --list
+#+end_src
+
+- list details for the mouse (id=3)
+ #+begin_src shell
+xinput --list-props 3
+ #+end_src
+
+- Disable the mouse:
+#+begin_src shell
+$ export DISPLAY=:0
+$ xinput set-int-prop 3 "Device Enabled" 8 0
+#+end_src
+
+** xandr
+|           |   |
+|-----------+---|
+| -q        |   |
+| --current |   |
+* Media
+** ffmpeg
+*** increase volume
+#+begin_src shell
+ffmpeg -i TUNE.ogg -filter:a "volume=5dB" TUNE_increased.ogg
+#+end_src
+
+* Information
+** man
+|    |   |
+|----+---|
+| -k |   |
+| -f |   |
+** apropos
+search the manual page names and descriptions
+** info
+** pinfo
+** whatis
+* Partition
+** parted
+** gdisk
+** fdisk
+
+* Process
+** htop
+** killall
+** ps
+|   |   |
+|---+---|
+| u |   |
+| x |   |
+
+** kill
+send a signal to a process
+
+| signal numbers | signal name      |
+|----------------+------------------|
+|              0 | kill all process |
+|              1 | SIGHUP           |
+|              9 | SIGKILL          |
+|             15 | SIGTERM          |
+** pgrep
+look up, signal, or wait for processes based on name and other attributes
+** pkill
+** pwait
+** nice
+run a program with modified scheduling priority
+#+begin_src shell
+nice expensive-command &
+#+end_src
+** nohup
+run a command immune to hangups, with output to a non-tty
+#+begin_src shell-script
+nohup command &
+#+end_src
+* Multiplexer
+** tmux
+** screen
+** tty
+print the file name of the terminal connected to standard input
+** tty console
+*** set bigger fonts
+edit FONTSIZE in /etc/default/console-setup to one of these: 6x12, 8x14, 8x16, 10x20, 11x22, 12x24, 14x28, and 16x32
+
+* write
+Send a message to another user.
+
+* mesg
+Control write access of other users to your terminal.
+
+* news
+* open
+open file in its default application
+* uname
+|    |   |
+|----+---|
+| -a |   |
+| -r |   |
+| -s |   |
+| -v |   |
+| -m |   |
+| -p |   |
+| -i |   |
+* lscpu
+* dirs
+print directory stack
+* popd
+move through directory stack
+* watch
+watch runs command repeatedly, displaying its output and errors (the first
+screenfull). This allows you to watch the program output change over time. By
+default, command is run every 2 seconds and watch will run until inter‐ rupted.
+* uptime
+* finger
+* ed
+|              |                                                    |
+|--------------+----------------------------------------------------|
+| a            | append text in next line                           |
+| i            | enter insert mode in the beginning of current line |
+| .            | stop adding text                                   |
+| q            | quit                                               |
+| w <filename> | write to file with name                            |
+| p            | print current line                                 |
+| n            | print current line number and text                 |
+| <n>          | print line in number <n>                           |
+| c            | change content line                                |
+| h            | display error messages                             |
+| ?            | command not available                              |
+| P            | set prompt                                         |
+| <n>t<n>      | copy line <n> in line <n>                          |
+| /<word>      | search for word in file                            |
+| 1,$p         | display all lines till the end of file             |
+
+
+#+begin_src shell-script
+0 meh
+1 hahaha
+2 kkkkkkkkk
+
+2t0 # copy line 2 to line 0
+#+end_src
+* cat
+concatenate files and print on the standard output
+|    |            |
+|----+------------|
+| -u | unbuffered |
+| <> | buffered   |
+* tac
+
+* pr
+concatenate files and print on the standard output
+|                  |                         |
+|------------------+-------------------------|
+|               -3 | print in three columns  |
+| -m <file> <file> | print files in parallel |
+|                  |                         |
+
+* lpr
+
+* more
+* nroff
+
+* troff
+
+* file
 * wc
 print newline, word, and byte counts for each file
 
@@ -200,6 +398,14 @@ find /home/usertest -size +150M –exec rm -rf {} \;
 | -v                  | lines that doesnt match pattern |
 | --exclude-dir=<DIR> |                                 |
 
+* type
+* whereis
+* which
+* command
+|    |   |
+|----+---|
+| -v |   |
+
 * dbus
 ** dbus-launch
 Utility to start a message bus from a shell script
@@ -218,17 +424,11 @@ debug probe to print message bus messages
 display a calendar
 * tail
 output the last part of files
-* partition
-** parted
-** gdisk
-** fdisk
+* head
 * mount
 * images
 ** imagemagick
-* information
-** man
-** info
-* cmp
+* camp
 compare two files byte by byte
 * diff
 compare files line by line
@@ -243,10 +443,6 @@ dump files in octal and other formats
 * stty
 * read
 read line of input into variables
-* tty console
-** set bigger fonts
-edit FONTSIZE in /etc/default/console-setup to one of these: 6x12, 8x14, 8x16, 10x20, 11x22, 12x24, 14x28, and 16x32
-
 * cd
 * mkdir
 * shell
@@ -274,38 +470,6 @@ at, batch, atq, atrm - queue, examine, or delete jobs for later execution
 * recutils
 ** recsel
 print records from a recfile
-* process
-** htop
-** killall
-** ps
-|   |   |
-|---+---|
-| u |   |
-| x |   |
-
-** kill
-send a signal to a process
-
-| signal numbers | signal name      |
-|----------------+------------------|
-|              0 | kill all process |
-|              1 | SIGHUP           |
-|              9 | SIGKILL          |
-|             15 | SIGTERM          |
-** pgrep
-look up, signal, or wait for processes based on name and other attributes
-** pkill
-** pwait
-** nice
-run a program with modified scheduling priority
-#+begin_src shell
-nice expensive-command &
-#+end_src
-** nohup
-run a command immune to hangups, with output to a non-tty
-#+begin_src shell-script
-nohup command &
-#+end_src
 * parallel
 * xargs
 #+begin_src shell-script
@@ -318,9 +482,6 @@ echo 'Meh' | xargs -I {} echo 'Ultra {}' # ultra Meh
 sed -i 's/Meh/Foo/g'
 #+end_src
 * sshuttle
-* multiplexer
-** tmux
-** screen
 * crypt
 * pv
 * fzf
@@ -363,55 +524,3 @@ echo 'NAME="Arch Linux"' | cut -f2 -d '=' # "Arch Linux"
 date +%V
 #+end_src
 * ts
-
-* file system
-** findmnt
-** lsblk
-** df
-report file system space usage
-
-|    |                                                      |
-|----+------------------------------------------------------|
-| -h | print sizes in powers of 1024                        |
-| -x | limit listing to file systems not of type TYPE       |
-| -a | include pseudo, duplicate, inaccessible file systems |
-* xorg
-** xmodmap
-|         |                                    |
-|---------+------------------------------------|
-| -pke    |                                    |
-
-** setxkbmap
-|         |                                    |
-|---------+------------------------------------|
-| -option | reset current session modification |
-|         |                                    |
-
-** xinput
-- list the devices
-#+begin_src shell
- xinput --list
-#+end_src
-
-- list details for the mouse (id=3)
- #+begin_src shell
-xinput --list-props 3
- #+end_src
-
-- Disable the mouse:
-#+begin_src shell
-$ export DISPLAY=:0
-$ xinput set-int-prop 3 "Device Enabled" 8 0
-#+end_src
-
-** xandr
-|           |   |
-|-----------+---|
-| -q        |   |
-| --current |   |
-* media
-** ffmpeg
-*** increase volume
-#+begin_src shell
-ffmpeg -i TUNE.ogg -filter:a "volume=5dB" TUNE_increased.ogg
-#+end_src

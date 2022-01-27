@@ -114,10 +114,10 @@
     :END:
 * Progress
 ** Books
-| name                    | chapter     | @                            |
-|-------------------------+-------------+------------------------------|
-| Go Programming Language | 5 Functions | 5.8. Deferred Function Calls |
-| Learning go             | 9 modules   | Importing Third-Party Code   |
+| name                    | chapter                | @                          |
+|-------------------------+------------------------+----------------------------|
+| Go Programming Language | 4.4.1. Struct Literals |                            |
+| Learning go             | 9 modules              | Importing Third-Party Code |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -381,12 +381,15 @@ julia := person{
     "cat",
 }
 
-	beth := person{
-		age:  30,
-		name: "beth",
-	}
+beth := person{
+	age:  30,
+	name: "beth",
+}
 
 fmt.Println(beth.age)
+
+// empty struct
+x := struct{}
 
 // annonymous struct
 
@@ -402,9 +405,10 @@ pet := struct {
 pp := &Point{1, 2}
 // same as
 pp := new(Point)
-*pp = Point{1, 2}
-
+,*pp = Point{1, 2}
 #+end_src
+
+
 ** Reference Type
 - different named types are not comparable even same underlying type
 - conversions are allowed if both has same underlying type T(x)
@@ -1015,7 +1019,7 @@ Extensive doc comments are often place d in a file of their own, convent ion all
 // Package tempconv performs Celsius and Fahrenheit conversions.
 package meh
 #+end_src
-* Cli
+* Commands
 ** vet
       Examines Go source code and reports suspicious constructs
 
@@ -1058,55 +1062,6 @@ Run compiles and runs the named main Go package.
 - list golang environment variables
 *** $GOPATH
 *** $GOPROXY
-* Structure
-** internal
-** import
-*** blank import
-- obsolete
-
-#+begin_src go
-import _ "github.com/lib/pq"
-#+end_src
-
-** pkg
-** cmd
-** init function
-The init function is a function that takes no argument and returns nothing. This
-function executes after the package is imported and maintains the order of
-execution. That means multiple init functions can be defined in a file and they
-will be called one after another maintaining the order.
-
-- multiple init
-- no parameters and returns no values
-- runs the first time the package is referenced by another package
-- initialize package-level variables that can’t be configured in a single assignment.
-- should be immutable
-- should declare only init function
-- if loads files or accesses the network, document it.
-* Config
-** go.mod
-*** require
-lists the modules that your module depends on and the minimum version required
-for each one.
-*** replace
-lets you override the location where a dependent module is located
-*** exclude
-prevents a specific version of a module from being used.
-*** version
-minimal version
-
-#+begin_src conf
-go 1.15
-#+end_src
-
-*** module
-
-#+begin_src conf
-module meh.com/gojail/money
-#+end_src
-
-** go.sum
-
 * Standard Library
 ** misc
 *** basename
@@ -1188,7 +1143,55 @@ strings.Map
 io.EOF
 
 #+end_src
+* Config
+** go.mod
+*** require
+lists the modules that your module depends on and the minimum version required
+for each one.
+*** replace
+lets you override the location where a dependent module is located
+*** exclude
+prevents a specific version of a module from being used.
+*** version
+minimal version
 
+#+begin_src conf
+go 1.15
+#+end_src
+
+*** module
+
+#+begin_src conf
+module meh.com/gojail/money
+#+end_src
+
+** go.sum
+
+* Structure
+** internal
+** import
+*** blank import
+- obsolete
+
+#+begin_src go
+import _ "github.com/lib/pq"
+#+end_src
+
+** pkg
+** cmd
+** init function
+The init function is a function that takes no argument and returns nothing. This
+function executes after the package is imported and maintains the order of
+execution. That means multiple init functions can be defined in a file and they
+will be called one after another maintaining the order.
+
+- multiple init
+- no parameters and returns no values
+- runs the first time the package is referenced by another package
+- initialize package-level variables that can’t be configured in a single assignment.
+- should be immutable
+- should declare only init function
+- if loads files or accesses the network, document it.
 * Terms
 - runes: single characthers
 * Packages
@@ -1218,7 +1221,4 @@ goimports -l -w .
 - Networking knowledge and in depth understanding of network concepts, such as
   different protocols (TCP/IP, UDP, ICMP, etc.), MAC addresses, IP packets, DNS,
   OSI layers, and load balancing).
-- SQL/NoSQL databases is a PLUS
-- devops
-- Agile Scrum/Kanban me
 - Unix systems internals and networking.

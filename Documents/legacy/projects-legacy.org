@@ -9,6 +9,7 @@
 - [[#distro][distro]]
 - [[#floss][floss]]
   - [[#ruby][ruby]]
+  - [[#nodejs][nodejs]]
   - [[#python][python]]
   - [[#guile][guile]]
   - [[#misc][misc]]
@@ -129,6 +130,32 @@ solargraph,https://github.com/castwide/solargraph
 rake,https://github.com/ruby/rake
 ruby,https://github.com/ruby/ruby
 #+end_src
+** nodejs
+#+begin_src csv
+name,repository
+deno,https://github.com/denoland/deno
+art-of-node,https://github.com/maxogden/art-of-node
+yoavniran-testing,https://gist.github.com/yoavniran/1e3b0162e1545055429e
+commander.js,https://github.com/tj/commander.js
+Inquirer.js,https://github.com/SBoudrias/Inquirer.js
+babel,https://github.com/babel/babel
+npm-cli,https://github.com/npm/cli
+node,https://github.com/nodejs/node
+hapi,https://github.com/hapijs/hapi
+request,https://github.com/request/request
+koa-workshop,https://github.com/koajs/workshop
+kick-off-koa,https://github.com/koajs/kick-off-koa
+koa,https://github.com/koajs/koa
+ejs,https://github.com/mde/ejs
+aleph.js,https://github.com/alephjs/aleph.js
+pug,https://github.com/pugjs/pug
+hbs,https://github.com/pillarjs/hbs
+handlebars.js,https://github.com/handlebars-lang/handlebars.js
+express-generator,https://github.com/expressjs/generator
+express,https://github.com/expressjs/express
+privacybadger,https://github.com/EFForg/privacybadger
+mdn-content,https://github.com/mdn/content
+#+end_src
 ** python
 #+begin_src csv
 name,repository
@@ -192,22 +219,6 @@ awesome-copycats,https://github.com/lcpz/awesome-copycats
 awesome,https://github.com/awesomeWM/awesome
 luarocks,https://github.com/luarocks/luarocks
 lua,https://github.com/lua/lua
-
-Golang
-name,repository
-project-layout,https://github.com/golang-standards/project-layout
-micro,https://github.com/zyedidia/micro
-nomad,https://github.com/hashicorp/nomad
-consul,https://github.com/hashicorp/consul
-terraform,https://github.com/hashicorp/terraform
-packer,https://github.com/hashicorp/packer
-vault,https://github.com/hashicorp/vault
-buildah,https://github.com/containers/buildah
-podman,https://github.com/containers/podman
-awesome-go,https://github.com/avelino/awesome-go
-goplio,https://github.com/adonovan/gopl.io/
-go-tools,https://github.com/golang/tools
-go,https://go.googlesource.com/go
 
 C
 name,repository
