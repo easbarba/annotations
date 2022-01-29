@@ -3,3 +3,13 @@
 * system files
 ** repositories
 located at /etc/yum.repos.d
+
+* dnf
+** config-manager
+#+begin_src shell
+sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+#+end_src
+** install
+#+begin_src shell
+sudo dnf install -y terraform
+#+end_src
