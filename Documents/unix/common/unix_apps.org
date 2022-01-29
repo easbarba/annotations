@@ -334,6 +334,10 @@ concatenate files and print on the standard output
 * lpr
 
 * more
+* tee
+#+begin_src shell
+echo '%podman ALL=(ALL) NOPASSWD: /usr/bin/podman' | sudo tee -a /etc/sudoers.d/podman
+#+end_src
 * nroff
 
 * troff
