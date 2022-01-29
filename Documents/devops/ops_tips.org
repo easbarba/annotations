@@ -1,0 +1,5 @@
+#+TITLE: Ops_tips
+
+* TODO
+- reverso do K8s
+- CNI
