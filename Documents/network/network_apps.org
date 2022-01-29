@@ -1,3 +1,11 @@
-#+TITLE: Network Cli Apps
+#+TITLE: Network cli Apps
 
 * iwctl
+* nslookup
+* ping
+* resolvectl
+** status
+* curl
+#+begin_src shell
+curl -o /tmp/minikube -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+#+end_src
