@@ -1,103 +1,52 @@
 #+TITLE: Kubernetes
 
 * TOC
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
-  :CONTENTS:
-  - [[#fortschritt][Fortschritt]]
-    - [[#buch][Buch]]
-  - [[#infra-provisioning][Infra Provisioning]]
-    - [[#cloudformation][CloudFormation]]
-    - [[#pulumi][Pulumi]]
-    - [[#terraform][Terraform]]
-  - [[#configuration-management][Configuration Management]]
-    - [[#terms][terms]]
-    - [[#alternatives][alternatives]]
-  - [[#containers][Containers]]
-    - [[#images][Images]]
-  - [[#orchestration][Orchestration]]
-    - [[#kubernetes-k8s][Kubernetes (k8s)]]
-  - [[#cloud-providers][Cloud Providers]]
-    - [[#heroku][Heroku]]
-    - [[#azure][Azure]]
-    - [[#aws][AWS]]
-  - [[#linux][Linux]]
-    - [[#progresso][Progresso]]
-    - [[#text-manipulation][Text Manipulation]]
-    - [[#process-monitoring][Process Monitoring]]
-    - [[#df][Df]]
-    - [[#strace][strace]]
-    - [[#dstrace][dstrace]]
-    - [[#multiplexers][Multiplexers]]
-    - [[#firewall][Firewall]]
-    - [[#lvm][LVM]]
-    - [[#swap][Swap]]
-    - [[#systemd][SystemD]]
-    - [[#disk-space-and-partition][Disk Space and Partition]]
-    - [[#sync][Sync]]
-    - [[#laptop][Laptop]]
-    - [[#steam][Steam]]
-    - [[#boot][Boot]]
-    - [[#xorg][X.org]]
-    - [[#network][Network]]
-    - [[#containers-virtualization][Containers, Virtualization]]
-    - [[#terminal][Terminal]]
-    - [[#home][$HOME]]
-    - [[#commands][Commands]]
-    - [[#packages][Packages]]
-    - [[#udev-rules-udevrulesd][Udev rules (udev/rules.d)]]
-  - [[#cicd][CI/CD]]
-    - [[#gitlab][Gitlab]]
-    - [[#github-actions][Github Actions]]
-    - [[#circle-ci][Circle CI]]
-    - [[#jenkins][Jenkins]]
-  - [[#virtual-machine][Virtual Machine]]
-  - [[#web-server][Web Server]]
-    - [[#apache][Apache]]
-    - [[#nginx][Nginx]]
-  - [[#toolings][Toolings]]
-    - [[#hcl][Hcl]]
-  - [[#version-control][Version Control]]
-    - [[#git][Git]]
-  - [[#shell][Shell]]
-    - [[#gnu-bash][GNU Bash]]
-    - [[#bash-resources][Bash resources]]
-    - [[#fish][Fish]]
-    - [[#zsh][Zsh]]
-    - [[#tcsh][TCSH]]
-    - [[#posix][Posix]]
-  - [[#compilers][Compilers]]
-    - [[#gnu-gcc][GNU GCC]]
-    - [[#clang][Clang]]
-  - [[#editors][Editors]]
-    - [[#nano][Nano]]
-    - [[#vimneovim][Vim/NeoVim]]
-    - [[#emacs][Emacs]]
-  - [[#network][Network]]
-    - [[#protocols][Protocols]]
-    - [[#terms][Terms]]
-  - [[#concepts][Concepts]]
-  - [[#skills][Skills]]
-  - [[#concepts][Concepts]]
-  - [[#sites][Sites]]
-  - [[#distros][Distros]]
-    - [[#apt][APT]]
-    - [[#rpm][RPM]]
-    - [[#gentoo][Gentoo]]
-    - [[#functional][Functional]]
-  - [[#yet-to-learn][Yet to learn]]
-  - [[#software][Software]]
-    - [[#onlines][Onlines]]
-    - [[#media][Media]]
-    - [[#browser][Browser]]
-  :END:
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#toc][TOC]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+- [[#kubectl][kubectl]]
+  - [[#commands][commands]]
+    - [[#cluster-info][cluster-info]]
+    - [[#get][get]]
+    - [[#config][config]]
+    - [[#explain][explain]]
+      - [[#pods][pods]]
+  - [[#kubeconfig][kubeconfig]]
+    - [[#clusters][Clusters]]
+    - [[#users][Users]]
+    - [[#contexts][Contexts]]
+- [[#pods][Pods]]
+  - [[#multi-container-pod][multi-container pod]]
+    - [[#patterns][patterns]]
+      - [[#sidecar-pattern][Sidecar pattern]]
+      - [[#adapter-pattern][Adapter pattern]]
+      - [[#ambassador-pattern][Ambassador pattern]]
+      - [[#init-pattern][Init pattern]]
+  - [[#single-container-pod][single-container pod]]
+- [[#controllers][Controllers]]
+  - [[#long-lived][Long-lived]]
+    - [[#deployments][Deployments]]
+    - [[#statefulsets][StatefulSets]]
+    - [[#daemonsets][DaemonSets]]
+  - [[#short-lived][Short-lived]]
+    - [[#jobs][Jobs]]
+    - [[#cronjobs][CronJobs]]
+- [[#alternatives][Alternatives]]
+  - [[#kind][Kind]]
+  - [[#minikube][MiniKube]]
+:END:
+
 * Progress
-** Livros
-| Livros               | Capitulo             | em |
-|----------------------+----------------------+----|
-| Kubernetes Book      | 4: Working with Pods |    |
-| Kubernetes in Action | 2 - first steps      |    |
+** Books
+| Books                | Chapters             | @ |
+|----------------------+----------------------+---|
+| Kubernetes Book      | 4: Working with Pods |   |
+| Kubernetes in Action | 2 - first steps      |   |
+
 * kubectl
 ** commands
 *** cluster-info
@@ -121,13 +70,52 @@ of the --template flag, you can filter the attributes of the fetched resources.
 | current-context |                                   |
 | use-context     | change the current active context |
 |                 |                                   |
+*** explain
+**** pods
+|             |   |
+|-------------+---|
+| --recursive |   |
 
 ** kubeconfig
 *** Clusters
 *** Users
 *** Contexts
+* Pods
+- immutable objects
+- single-container
+- multi-container
+- defined declaratively in manifest files
+- deployed via higher-level controllers
 
-* alternatives
+** multi-container pod
+*** patterns
+**** Sidecar pattern
+- sidecar augments or performs a secondary task for the main application container.
+**** Adapter pattern
+the helper container translate output from the main container to a format required B an external system
+
+- variation of the sidecar pattern
+
+eg: translate NGINX logs to Prometheus.
+
+**** Ambassador pattern
+brokers connectivity to an external system.
+
+- variation of the sidecar pattern
+**** Init pattern
+init container starts and completes before the main app container, only once.
+** single-container pod
+
+* Controllers
+** Long-lived
+*** Deployments
+*** StatefulSets
+*** DaemonSets
+** Short-lived
+*** Jobs
+*** CronJobs
+
+* Alternatives
 ** Kind
 ** MiniKube
      |                       |                             |
