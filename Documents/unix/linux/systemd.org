@@ -1,5 +1,6 @@
-#+TITLE: Systemd
+#+TITLE: SystemD
 
+* definition
 systemd is a system and service manager for Linux operating systems. When run as
 first process on boot (as PID 1), it acts as init system that brings up
 and maintains userspace services. Separate instances are started for
@@ -11,8 +12,11 @@ instance, systemd interprets the configuration file user.conf and the files in
 user.conf.d directories. See systemd-system.conf(5) for more information.
 
 
-
 * systemctl
+** disable
+** enable
+** reenable
+** reset
 
 * units
 ** .service
