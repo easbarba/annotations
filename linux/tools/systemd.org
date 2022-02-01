@@ -1,0 +1,85 @@
+#+TITLE: SystemD
+
+* definition
+systemd is a system and service manager for Linux operating systems. When run as
+first process on boot (as PID 1), it acts as init system that brings up
+and maintains userspace services. Separate instances are started for
+logged-in users to start their services.
+
+When run as a system instance, systemd interprets the configuration file
+system.conf and the files in system.conf.d directories; when run as a user
+instance, systemd interprets the configuration file user.conf and the files in
+user.conf.d directories. See systemd-system.conf(5) for more information.
+
+* systemctl
+** show-environment
+** status
+** disable
+** enable
+** reenable
+** reset
+
+** --user
+
+* units
+** .service
+** .mount
+** .device
+** .socket
+
+
+* SystemD
+** SystemD random commands
+   #  To prevent the laptop from suspending when the lid is closed:
+   set in /etc/systemd/logind.conf: HandleLidSwitch=lock
+
+   # Timezone
+   sudo timedatectl list-timezones
+   sudo timedatectl set-timezone REGION/CITY
+   sudo timedatectl set-ntp true
+
+   # SSD TRIM
+   #Tell systemd to reload its unit files, then enable it:
+   $ sudo systemctl daemon-reload
+   $ sudo systemctl enable fstrim.timer
+   $ sudo systemctl list-timers
+
+   #Rtags
+   sudo systemctl --user enable rdm.socket
+   sudo systemctl --user start rdm.socket
+
+   # boot analyze
+   systemd-analyze
+
+   # Crons
+
+   # Syslogs
+
+
+   # NEtwork Manager
+   $ sudo systemctl enable NetworkManager
+   $ sudo systemctl start NetworkManager
+
+** rescue.target (single-user)
+   - systemd.unit=emergency.target in boot loader to avoid local filesystems to be mounted (Redhat)
+   - systemd.unit=rescue.target ... to boot into rescue mode
+** SystemD services
+*** fstrim.service
+    [Unit]
+    Description=Runs fstrim on all mounted devices that support TRIM
+
+    [Service]
+    Type=oneshot
+    ExecStart=/bin/sh -c '/sbin/fstrim -a'
+*** fstrim.timer
+    [Unit]
+    Description=Run fstrim.service every 12 hours
+
+    [Timer]
+    OnUnitInactiveSec=12h
+    Persistent=true
+
+    [Install]
+    WantedBy=multi-user.target
+** SystemD Read Later
+   https://www.maketecheasier.com/make-linux-boot-faster/

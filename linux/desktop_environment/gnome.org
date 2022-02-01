@@ -1,0 +1,7 @@
+#+TITLE: GNOME
+
+* Dconf
+reset to default
+#+begin_src shell
+dconf reset -f
+#+end_src

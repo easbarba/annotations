@@ -1,0 +1,12 @@
+#+TITLE: Laptop
+
+* touchpad
+** https://wiki.archlinux.org/index.php/Touchpad_Synaptics
+
+* thinkpads
+
+
+** https://www.thinkwiki.org/wiki/Category:T430
+
+* shops
+** https://www.thinkpenguin.com/

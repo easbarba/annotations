@@ -1,4 +1,4 @@
-#+TILE: Database - Annotation, Engines and more
+#+TILE: AwesomeWM
 
 * TOC
   :PROPERTIES:
@@ -6,14 +6,14 @@
   :END:
 :CONTENTS:
 - [[#progress][Progress]]
-- [[#awesomewm][AwesomeWM]]
+- [[#library][library]]
   - [[#awful][Awful]]
 :END:
 * Progress
   | book                                   | chapter          | @                                                     | revision |
   |----------------------------------------+------------------+-------------------------------------------------------+----------|
   | https://awesomewm.org/apidoc/libraries | awful.spawn.html | Understanding blocking versus asynchronous execution: |          |
-* AwesomeWM
+* library
 ** Awful
 **** Spawn
      #+begin_src lua

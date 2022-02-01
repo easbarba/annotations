@@ -108,150 +108,6 @@
 ** Process
    kernel space
    user space
-* Cli Apps
-** Text Manipulation
-*** grep
-*** seq
-*** awk
-*** soft
-*** uniq
-*** cat
-** Process Monitoring
-*** Ps
-*** Htop
-*** Top
-** Misc
-*** write
-Send a message to another user.
-*** mesg
-Control write access of other users to your terminal.
-*** news
-*** devilspie
-    get_window_name()
-     returns a string containing the name of the current window.
-
-    get_application_name()
-    returns the application name of the current window.
-
-    set_window_position(xpos, ypos)
-    Sets the position of a window.
-
-    set_window_size(xsize, ysize)
-    Sets the size of a window.
-
-    set_window_geometry(xpos, ypos, xsize ysize)
-    Set the geometry of a window.
-
-    make_always_on_top()
-    Set the windows always on top flag.
-
-    set_on_top()
-    Sets a window on top of the others (this will however not lock the window in this position).
-
-    debug_print()
-    Debug helper that prints a string to stdout. It is only printed if devilspie2 is run with the --debug option.
-
-    shade()
-    "Shades" a window, showing only the title-bar.
-
-    unshade()
-    Unshades a window - the opposite of "shade"
-
-    maximize()
-    maximizes a window
-
-    unmaximize()
-    unmaximizes a window
-
-    maximize_vertically()
-    maximizes the current window vertically.
-
-    maximize_horisontally()
-    maximizes the current window horisontally.
-
-    minimize()
-    minimizes a window
-
-    unminimize()
-    unminimizes a window, that is bringing it back to screen from the minimized position/size.
-
-    decorate_window()
-    Shows all window decoration.
-
-    undecorate_window()
-    Removes all window decorations.
-
-    set_window_workspace(number)
-    Moves a window to another workspace. The number variable starts counting at 1.
-
-    change_workspace(number)
-    Changes the current workspace to another. The number variable starts counting at 1.
-
-    pin_window()
-    asks the window manager to put the window on all workspaces.
-
-    unpin_window()
-    Asks the window manager to put window only in the currently active workspace.
-
-    stick_window()
-    Asks the window manager to keep the window's position fixed on the screen, even when the workspace or viewport scrolls.
-
-    unstick_window()
-    Asks the window manager to not have window's position fixed on the screen when the workspace or viewport scrolls.
-*** cut
-*** cat
-    |    |                 |
-    |----+-----------------|
-    | -n | display numbers |
-    | -e | shows endline   |
-
-*** fsck
-*** who
-*** w
-*** ps
-    ps auxwww | grep sshd: | grep -v grep
-*** ss
-    ss | grep -i ssh
-*** last
-    last -a | grep -i still
-*** fc-cache
-    |                        |                  |
-    |------------------------+------------------|
-    | fc-list : family style | get font family  |
-    | fc-cache -fv           | reload all fonts |
-    |                        |                  |
-*** man
-    - mandb: perform a keyword search on manual: man -k <TERM>
-*** uname
-    |          |                        |
-    |----------+------------------------|
-    | uname -a | all system information |
-    |          |                        |
-*** tty
-*** uptime
-*** lscpu
-*** pwd
-    returns working directory
-*** lsof
-*** sysctl
-*** gpg
-**** set up
-     gpg --full-generate-key
-     RSA
-     4096 bits
-**** list keys
-     gpg --list-secret-keys --keyid-format LONG
- ***
-*** Df
-*** strace
-*** dstrace
-** Multiplexers
-*** Tmux
-*** GNU Screen
-** Getters
-*** wget
-*** curl
-* Firewall
 * LVM
   # remount lvm volumes
   # vgscan --mknodes
@@ -283,71 +139,6 @@ Control write access of other users to your terminal.
   or
   cat  /proc/swaps
 
-* SystemD
-** SystemD random commands
-   #  To prevent the laptop from suspending when the lid is closed:
-   set in /etc/systemd/logind.conf: HandleLidSwitch=lock
-
-   # Timezone
-   sudo timedatectl list-timezones
-   sudo timedatectl set-timezone REGION/CITY
-   sudo timedatectl set-ntp true
-
-   # SSD TRIM
-   #Tell systemd to reload its unit files, then enable it:
-   $ sudo systemctl daemon-reload
-   $ sudo systemctl enable fstrim.timer
-   $ sudo systemctl list-timers
-
-   #Rtags
-   sudo systemctl --user enable rdm.socket
-   sudo systemctl --user start rdm.socket
-
-   # boot analyze
-   systemd-analyze
-
-   # Crons
-
-   # Syslogs
-
-
-   # NEtwork Manager
-   $ sudo systemctl enable NetworkManager
-   $ sudo systemctl start NetworkManager
-
-** rescue.target (single-user)
-   - systemd.unit=emergency.target in boot loader to avoid local filesystems to be mounted (Redhat)
-   - systemd.unit=rescue.target ... to boot into rescue mode
-** SystemD services
-*** fstrim.service
-    [Unit]
-    Description=Runs fstrim on all mounted devices that support TRIM
-
-    [Service]
-    Type=oneshot
-    ExecStart=/bin/sh -c '/sbin/fstrim -a'
-*** fstrim.timer
-    [Unit]
-    Description=Run fstrim.service every 12 hours
-
-    [Timer]
-    OnUnitInactiveSec=12h
-    Persistent=true
-
-    [Install]
-    WantedBy=multi-user.target
-** SystemD Read Later
-   https://www.maketecheasier.com/make-linux-boot-faster/
-
-* Desktop Environments
-** GNOME
-
-*** Gsettings/Dconf
-    |                  |                  |
-    |------------------+------------------|
-    | reset to default | dconf reset -f / |
-    |                  |                  |
-
 * Disk Space and Partition
   # df - report file system disk space usage
   # du - estimate file space usage
@@ -374,18 +165,6 @@ Control write access of other users to your terminal.
   # Reboot and Poweroff without sudo add to /etc/sudoers:
   # user hostname =NOPASSWD: /usr/bin/systemctl poweroff,/usr/bin/systemctl halt,/usr/bin/systemctl reboot
 
-* Sync
-  https://syncthing.net/
-
-* Laptop
-** https://wiki.archlinux.org/index.php/Touchpad_Synaptics
-
-** https://www.thinkwiki.org/wiki/Category:T430
-
-** https://www.thinkpenguin.com/
-* Boot
-** Coreboot / Libreboot
-   https://www.chucknemeth.com/flash-lenovo-x230-coreboot/
 * X.org
 ** X11 (xorg.conf.d)
 *** 70-synaptics.conf
@@ -445,17 +224,9 @@ Control write access of other users to your terminal.
     | link    | Mac Address |
     |         |             |
 
-** Firewall
-*** Firewalld
-    https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-firewalld-on-centos-7
 ** KdeConnect
    qdbus org.kde.kdeconnect /modules/kdeconnect/devices//sftp getDirectories
    qdbus org.kde.kdeconnect /modules/kdeconnect/devices//sftp mountAndWait
-** NetworkManager
-   nmcli radio
-   nmcli device wifi rescan
-   nmcli device wifi list
-   nmcli device wifi connect SSID-Name wireless-password
 
 * Containers, Virtualization
 ** Qemu & KVM
@@ -1035,10 +806,7 @@ Control write access of other users to your terminal.
   | lsb_release -a | distro info                      |
   | ldd            | print shared object dependencies |
   | ldconfig       |                                  |
-* Online
-  https://pkgs.org/
-* misc
-  $ cat /usr/share/dict/words
+
 * man
   - errno: number of last error
 * Udev rules

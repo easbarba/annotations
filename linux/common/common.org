@@ -11,6 +11,8 @@
 ** /usr/src
 ** /var
 
+* dictionary
+/usr/share/dict/words
 * Sumario
   :PROPERTIES:
   :TOC:      :include all :depth 2 :ignore this
@@ -18,6 +20,7 @@
 :CONTENTS:
 - [[#progress][Progress]]
 - [[#root-folders][root folders]]
+- [[#dictionary][dictionary]]
 - [[#tips][Tips]]
 :END:
 
