@@ -21,49 +21,34 @@ user.conf.d directories. See systemd-system.conf(5) for more information.
 
 ** --user
 
+* systemd
+** systemd-analyze
+
 * units
 ** .service
 ** .mount
 ** .device
 ** .socket
 
+* environment.d
+man environment.d
 
-* SystemD
+* timedatectl
+** list-timezones
+** set-timezone REGION/CITY
+** set-ntp true
+
+* specifics
 ** SystemD random commands
    #  To prevent the laptop from suspending when the lid is closed:
    set in /etc/systemd/logind.conf: HandleLidSwitch=lock
-
-   # Timezone
-   sudo timedatectl list-timezones
-   sudo timedatectl set-timezone REGION/CITY
-   sudo timedatectl set-ntp true
-
-   # SSD TRIM
+** SSD TRIM
+   #
    #Tell systemd to reload its unit files, then enable it:
    $ sudo systemctl daemon-reload
    $ sudo systemctl enable fstrim.timer
    $ sudo systemctl list-timers
 
-   #Rtags
-   sudo systemctl --user enable rdm.socket
-   sudo systemctl --user start rdm.socket
-
-   # boot analyze
-   systemd-analyze
-
-   # Crons
-
-   # Syslogs
-
-
-   # NEtwork Manager
-   $ sudo systemctl enable NetworkManager
-   $ sudo systemctl start NetworkManager
-
-** rescue.target (single-user)
-   - systemd.unit=emergency.target in boot loader to avoid local filesystems to be mounted (Redhat)
-   - systemd.unit=rescue.target ... to boot into rescue mode
-** SystemD services
 *** fstrim.service
     [Unit]
     Description=Runs fstrim on all mounted devices that support TRIM
@@ -81,5 +66,22 @@ user.conf.d directories. See systemd-system.conf(5) for more information.
 
     [Install]
     WantedBy=multi-user.target
-** SystemD Read Later
-   https://www.maketecheasier.com/make-linux-boot-faster/
+** rtags
+   sudo systemctl --user enable rdm.socket
+   sudo systemctl --user start rdm.socket
+
+   # boot analyze
+
+
+   # Crons
+
+   # Syslogs
+
+
+   # NEtwork Manager
+   $ sudo systemctl enable NetworkManager
+   $ sudo systemctl start NetworkManager
+
+** rescue.target (single-user)
+   - systemd.unit=emergency.target in boot loader to avoid local filesystems to be mounted (Redhat)
+   - systemd.unit=rescue.target ... to boot into rescue mode
