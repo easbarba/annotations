@@ -528,8 +528,7 @@ echo 'NAME="Arch Linux"' | cut -f2 -d '=' # "Arch Linux"
 date +%V
 #+end_src
 * ts
-
-
+* stat
 
 * Text Manipulation
 ** grep
