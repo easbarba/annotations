@@ -1,0 +1,47 @@
+#+TITLE: Ansible cases
+
+* django
+
+#+begin_src shell
+ansible app -b -m apt -a "name=python3-pip state=present update_cache=yes"
+ansible app -b -m pip -a "name=django state=present"
+#+end_src
+
+** ntp
+#+begin_src shell
+ansible multi -b -m apt -a "name=ntp state=present update_cache=yes"
+ansible multi -b -m service -a "name=ntp state=started enabled=yes"
+ansible app -b -a "systemctl restart ntp" --limit "192.168.60.4"
+#+end_src
+
+** mariadb
+binary
+
+#+begin_src shell
+ansible db -b -m apt -a "name=mariadb-server state=present"
+ansible db -b -m yum -a "name=mariadb-server state=present"
+#+end_src
+
+module
+
+#+begin_src shell
+ansible app -b -m pip -a "name=pymysql state=present"
+# or
+ansible app -b -m apt -a "name=python3-pymysql state=present"
+#+end_src
+
+services
+
+#+begin_src shell
+ansible db -b -m service -a "name=mariadb state=started enabled=yes"
+#+end_src
+
+firewall
+#+begin_src shell
+ansible db -b -a "iptables -F"
+ansible db -b -a "iptables -A INPUT -s 192.168.60.0/24 -p tcp -m tcp --dport 3306 -j ACCEPT"
+#+end_src
+
+#+begin_src shell
+ansible db -b -m mysql_user -a "name=django host=% password=12345 priv=*.*:ALL state=present"
+#+end_src

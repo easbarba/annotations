@@ -121,18 +121,18 @@ Tool to automate IT tasks
 | --ask-pass                | still require pass        |
 | -a                        | module arguments          |
 | -k                        | ask pass                  |
-* ansible-galaxy
-** list
-** collection install
+** ansible-galaxy
+*** list
+*** collection install
 
-* ansible-playboy
+** ansible-playboy
 |                      |   |
 |----------------------+---|
 | --connection=<LOCAL> |   |
 | --inventory <IP>     |   |
 | --limit <IP>         |   |
 
-** run local
+*** run local
 #+begin_src shell
 ansible-playbook \
     --connection=local \
@@ -140,6 +140,101 @@ ansible-playbook \
     --limit 127.0.0.1 ~/Documents/Ansible/local_playbook.yml
 #+end_src
 
+** ansible-inventory
+
+*** from ini to yaml
+#+begin_src shell
+ansible-inventory -i hosts.ini -y --list > inventory.yaml
+#+end_src
+
+** ansible
+Define and run a single task 'playbook' against a set of hosts
+
+*** <HOST>
+
+*** options
+**** -b or --become
+**** -K or --ask-become-pass
+**** -a or --argument
+**** -i
+**** -m
+**** -f
+**** --limit
+- reserve the --limit option for running commands on single servers
+
+#+begin_src shell
+ansible app -b -a "service ntpd restart" --limit "192.168.60.4"
+
+# Limit hosts with a simple pattern (asterisk is a wildcard).
+ansible app -b -a "service ntpd restart" --limit "*.4"
+
+# Limit hosts with a regular expression (prefix with a tilde).
+ansible app -b -a "service ntpd restart" --limit ~".*\.4"
+#+end_src
+**** -m setup
+****
+
+* Modules
+** services
+
+#+begin_src shell
+ansible multi -b -m service -a "name=ntpd state=started enabled=yes"
+#+end_src
+** commands
+** shell
+** groups
+
+#+begin_src shell
+ansible app -b -m group -a "name=admin state=present"
+#+end_src
+
+- name
+- state
+- gid=[gid]
+- system=[yes|no]
+** user
+#+begin_src shell
+ansible app -b -m user -a "name=johndoe group=admin createhome=yes"
+#+end_src
+
+- createhome=[yes|no]
+- group=[group]
+** easy_install
+** mysql_*
+** package
+#+begin_src shell
+ansible app -b -m package -a "name=git state=present"
+#+end_src
+** stat
+#+begin_src shell
+ansible multi -m stat -a "path=/etc/environment"
+#+end_src
+** copy
+#+begin_src shell
+ansible multi -m copy -a "src=/etc/hosts dest=/tmp/hosts"
+#+end_src
+** rsync
+** unarchive
+** synchronize
+** fetch
+Fetch files from remote nodes
+
+#+begin_src shell
+ansible multi -b -m fetch -a "src=/etc/hosts dest=/tmp"
+#+end_src
+** file
+#+begin_src shell
+ansible multi -m file -a "dest=/tmp/test mode=644 state=directory"
+ansible multi -m file -a "src=/src/file dest=/dest/symlink state=link"
+#+end_src
+** yum
+#+begin_src shell
+ansible multi -b -m yum -a "name=ntp state=present"
+#+end_src
+** apt
+- name=string
+- update_cache=[yes|no]
+- state=[present|absent]
 * Invetory
 - list of the hosts that you wish to run the automation commands against
 - Ip addres or hostname
@@ -181,6 +276,8 @@ ubuntu ansible_host=18.1 ansible_connection=ssh ansible_user=ubuntu ansible_ssh_
 * Vars
 ** ansible_env.HOME
       get remote home
+** ANSIBLE_HOST_KEY_CHECKING
+** ANSIBLE_INVENTORY
 
 * Modules
 ** Trais
