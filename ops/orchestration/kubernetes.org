@@ -11,10 +11,17 @@
 - [[#kubectl][kubectl]]
   - [[#commands][commands]]
     - [[#cluster-info][cluster-info]]
+    - [[#logs][logs]]
     - [[#get][get]]
+      - [[#services][services]]
+      - [[#deployments][deployments]]
+      - [[#pods][pods]]
+      - [[#namespaces][namespaces]]
     - [[#config][config]]
     - [[#explain][explain]]
       - [[#pods][pods]]
+      - [[#deployment][deployment]]
+    - [[#expose][expose]]
   - [[#kubeconfig][kubeconfig]]
     - [[#clusters][Clusters]]
     - [[#users][Users]]
@@ -50,6 +57,7 @@
 * kubectl
 ** commands
 *** cluster-info
+*** logs
 *** get
 Display one or many resources.
 
@@ -61,9 +69,12 @@ namespace unless you pass --all-namespaces.
 By specifying the output as 'template' and providing a Go template as the value
 of the --template flag, you can filter the attributes of the fetched resources.
 
-|   |   |
-|---+---|
-|   |   |
+**** services
+
+**** deployments
+**** pods
+**** namespaces
+
 *** config
 |                 |                                   |
 |-----------------+-----------------------------------|
@@ -75,6 +86,8 @@ of the --template flag, you can filter the attributes of the fetched resources.
 |             |   |
 |-------------+---|
 | --recursive |   |
+**** deployment
+*** expose
 
 ** kubeconfig
 *** Clusters
