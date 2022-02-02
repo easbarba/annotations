@@ -55,3 +55,9 @@ SELECT * FROM assisdb.todo_list;
 #+begin_src sql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '.10machado11-';
 #+end_src
+
+* security
+There are a few other things you should do to secure a production
+MySQL server, including removing the test database, adding a password
+for the root user account, restricting the IP addresses allowed to access port
+3306 more closely, and some other minor cleanups.
