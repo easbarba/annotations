@@ -1,7 +1,21 @@
 #+TITLE: GNOME
 
-* Dconf
+* dconf
 reset to default
 #+begin_src shell
 dconf reset -f
 #+end_src
+
+* gsetting
+** get
+
+** range
+#+begin_src shell
+gsettings range org.gnome.desktop.peripherals.touchpad click-method
+#+end_src
+** set
+** extensions
+gsettings get org.gnome.shell enabled-extensions
+
+* gnome-extension
+gnome-extensions list --enabled
