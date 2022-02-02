@@ -26,3 +26,4 @@ ssh-add to work.
 |    |                                                                          |
 ** ssh-agent
 ** ssh-copy-id
+** scp
