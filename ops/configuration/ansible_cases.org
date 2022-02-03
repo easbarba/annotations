@@ -1,5 +1,15 @@
 #+TITLE: Ansible cases
 
+* summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][summary]]
+- [[#django][django]]
+  - [[#ntp][ntp]]
+  - [[#mariadb][mariadb]]
+:END:
 * django
 
 #+begin_src shell
@@ -39,7 +49,7 @@ ansible db -b -m service -a "name=mariadb state=started enabled=yes"
 firewall
 #+begin_src shell
 ansible db -b -a "iptables -F"
-ansible db -b -a "iptables -A INPUT -s 192.168.60.0/24 -p tcp -m tcp --dport 3306 -j ACCEPT"
+ansible db -b -a "iptableTestings -A INPUT -s 192.168.60.0/24 -p tcp -m tcp --dport 3306 -j ACCEPT"
 #+end_src
 
 #+begin_src shell
