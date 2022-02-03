@@ -1,5 +1,15 @@
 #+TITLE: K8s Apps
 
+* summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][summary]]
+- [[#kind][kind]]
+- [[#minikube][minikube]]
+- [[#k3s][k3s]]
+:END:
 * kind
 * minikube
 * k3s

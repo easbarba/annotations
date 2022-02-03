@@ -1,5 +1,17 @@
 #+TITLE: Cicd
 
+* summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][summary]]
+- [[#concepts][Concepts]]
+  - [[#continuous-integration][Continuous integration]]
+  - [[#continuous-delivery][Continuous delivery]]
+  - [[#continuous-deployment][Continuous deployment]]
+  - [[#pipelines][Pipelines]]
+:END:
 * Concepts
 ** Continuous integration
 
@@ -17,8 +29,3 @@ users without any operator intervention.
 
 ** Pipelines
 A CI/CD pipeline is a series of steps, called “stages,” that run in sequence.
-
-* Gitlab
-* Github Actions
-* Circle CI
-* Jenkins

@@ -1,5 +1,22 @@
 #+TITLE: Network cli Apps
 
+* summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][summary]]
+- [[#iwctl][iwctl]]
+- [[#nslookup][nslookup]]
+- [[#ping][ping]]
+- [[#resolvectl][resolvectl]]
+  - [[#status][status]]
+- [[#curl][curl]]
+- [[#ngrep][ngrep]]
+:END:
+
+
+
 * iwctl
 * nslookup
 * ping
@@ -9,3 +26,4 @@
 #+begin_src shell
 curl -o /tmp/minikube -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 #+end_src
+* ngrep
