@@ -1,103 +1,153 @@
 #+TITLE: Ansible
 
-* TOC
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
-  :CONTENTS:
-  - [[#fortschritt][Fortschritt]]
-    - [[#buch][Buch]]
-  - [[#infra-provisioning][Infra Provisioning]]
-    - [[#cloudformation][CloudFormation]]
-    - [[#pulumi][Pulumi]]
-    - [[#terraform][Terraform]]
-  - [[#configuration-management][Configuration Management]]
-    - [[#terms][terms]]
-    - [[#alternatives][alternatives]]
-  - [[#containers][Containers]]
-    - [[#images][Images]]
-  - [[#orchestration][Orchestration]]
-    - [[#kubernetes-k8s][Kubernetes (k8s)]]
-  - [[#cloud-providers][Cloud Providers]]
-    - [[#heroku][Heroku]]
-    - [[#azure][Azure]]
-    - [[#aws][AWS]]
-  - [[#linux][Linux]]
-    - [[#progresso][Progresso]]
-    - [[#text-manipulation][Text Manipulation]]
-    - [[#process-monitoring][Process Monitoring]]
-    - [[#df][Df]]
-    - [[#strace][strace]]
-    - [[#dstrace][dstrace]]
-    - [[#multiplexers][Multiplexers]]
-    - [[#firewall][Firewall]]
-    - [[#lvm][LVM]]
-    - [[#swap][Swap]]
-    - [[#systemd][SystemD]]
-    - [[#disk-space-and-partition][Disk Space and Partition]]
-    - [[#sync][Sync]]
-    - [[#laptop][Laptop]]
-    - [[#steam][Steam]]
-    - [[#boot][Boot]]
-    - [[#xorg][X.org]]
-    - [[#network][Network]]
-    - [[#containers-virtualization][Containers, Virtualization]]
-    - [[#terminal][Terminal]]
-    - [[#home][$HOME]]
-    - [[#commands][Commands]]
-    - [[#packages][Packages]]
-    - [[#udev-rules-udevrulesd][Udev rules (udev/rules.d)]]
-  - [[#cicd][CI/CD]]
-    - [[#gitlab][Gitlab]]
-    - [[#github-actions][Github Actions]]
-    - [[#circle-ci][Circle CI]]
-    - [[#jenkins][Jenkins]]
-  - [[#virtual-machine][Virtual Machine]]
-  - [[#web-server][Web Server]]
-    - [[#apache][Apache]]
-    - [[#nginx][Nginx]]
-  - [[#toolings][Toolings]]
-    - [[#hcl][Hcl]]
-  - [[#version-control][Version Control]]
-    - [[#git][Git]]
-  - [[#shell][Shell]]
-    - [[#gnu-bash][GNU Bash]]
-    - [[#bash-resources][Bash resources]]
-    - [[#fish][Fish]]
-    - [[#zsh][Zsh]]
-    - [[#tcsh][TCSH]]
-    - [[#posix][Posix]]
-  - [[#compilers][Compilers]]
-    - [[#gnu-gcc][GNU GCC]]
-    - [[#clang][Clang]]
-  - [[#editors][Editors]]
-    - [[#nano][Nano]]
-    - [[#vimneovim][Vim/NeoVim]]
-    - [[#emacs][Emacs]]
-  - [[#network][Network]]
-    - [[#protocols][Protocols]]
-    - [[#terms][Terms]]
-  - [[#concepts][Concepts]]
-  - [[#skills][Skills]]
-  - [[#concepts][Concepts]]
-  - [[#sites][Sites]]
-  - [[#distros][Distros]]
-    - [[#apt][APT]]
-    - [[#rpm][RPM]]
-    - [[#gentoo][Gentoo]]
-    - [[#functional][Functional]]
-  - [[#yet-to-learn][Yet to learn]]
-  - [[#software][Software]]
-    - [[#onlines][Onlines]]
-    - [[#media][Media]]
-    - [[#browser][Browser]]
-  :END:
+* summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+- [[#defition][Defition]]
+- [[#traits][Traits]]
+- [[#commands][commands]]
+  - [[#ansible-galaxy][ansible-galaxy]]
+    - [[#list][list]]
+    - [[#collection-install][collection install]]
+  - [[#ansible-inventory][ansible-inventory]]
+    - [[#from-ini-to-yaml][from ini to yaml]]
+  - [[#ansible][ansible]]
+    - [[#host][<HOST>]]
+    - [[#options][options]]
+      - [[#-b-or---become][-b or --become]]
+      - [[#-k-or---ask-become-pass][-K or --ask-become-pass]]
+      - [[#-a-or---argument][-a or --argument]]
+      - [[#-i][-i]]
+      - [[#-m][-m]]
+      - [[#-f][-f]]
+      - [[#--limit][--limit]]
+      - [[#-m-setup][-m setup]]
+      - [[#-b-seconds][-B <seconds>]]
+      - [[#-p-seconds][-P <seconds>]]
+- [[#modules][Modules]]
+  - [[#services][services]]
+  - [[#commands][commands]]
+  - [[#shell][shell]]
+  - [[#cron][cron]]
+  - [[#git][git]]
+  - [[#groups][groups]]
+  - [[#user][user]]
+  - [[#easy_install][easy_install]]
+  - [[#mysql_][mysql_*]]
+  - [[#package][package]]
+  - [[#stat][stat]]
+  - [[#docker][docker]]
+    - [[#docker_image][docker_image]]
+    - [[#docker_container][docker_container]]
+  - [[#copy][copy]]
+  - [[#rsync][rsync]]
+  - [[#unarchive][unarchive]]
+  - [[#synchronize][synchronize]]
+  - [[#fetch][fetch]]
+  - [[#file][file]]
+  - [[#async_status][async_status]]
+  - [[#yum][yum]]
+  - [[#apt][apt]]
+- [[#ssh][SSH]]
+- [[#invetory][Invetory]]
+  - [[#inventory-example][inventory example]]
+- [[#tower][Tower]]
+- [[#playbooks][Playbooks]]
+  - [[#ansible-playbook][ansible-playbook]]
+    - [[#options][options]]
+      - [[#--connectionlocal][--connection=LOCAL]]
+      - [[#--inventorypath][--inventory=PATH]]
+      - [[#--extra-varsvars][--extra-vars=VARS]]
+      - [[#--connectiontype][--connection=TYPE]]
+      - [[#--forksnum][--forks=NUM]]
+      - [[#--limitips][--limit=IPs]]
+      - [[#--user][--user]]
+      - [[#--check][--check]]
+      - [[#--become-user][--become-user]]
+      - [[#--become-method][--become-method]]
+      - [[#--list-hosts][--list-hosts]]
+      - [[#--force-handlers][--force-handlers]]
+    - [[#run-local][run local]]
+  - [[#usage][usage]]
+  - [[#tips][tips]]
+  - [[#options][options]]
+    - [[#handlers][handlers]]
+    - [[#vars][vars]]
+    - [[#var_files][var_files]]
+    - [[#with_items][with_items]]
+    - [[#name][name]]
+    - [[#hosts][hosts]]
+    - [[#become][become]]
+    - [[#environment][environment]]
+  - [[#modules][modules]]
+    - [[#service][service]]
+    - [[#script][script]]
+    - [[#raw][raw]]
+    - [[#template][template]]
+    - [[#command][command]]
+    - [[#stat][stat]]
+    - [[#meta][meta]]
+    - [[#composer][composer]]
+    - [[#lineinfile][lineinfile]]
+    - [[#file][file]]
+    - [[#copy][copy]]
+    - [[#get_url][get_url]]
+    - [[#mysql_user][mysql_user]]
+    - [[#mysql_db][mysql_db]]
+    - [[#apache2_module][apache2_module]]
+    - [[#apt][apt]]
+    - [[#yum][yum]]
+    - [[#dnf][dnf]]
+  - [[#handler][handler]]
+    - [[#notify][notify]]
+  - [[#tips][tips]]
+    - [[#running-ansible-command-locally][running ansible command locally]]
+  - [[#good-practices][good practices]]
+  - [[#traits][traits]]
+- [[#vault][Vault]]
+  - [[#ansible-vault][ansible-vault]]
+    - [[#give-pass][give pass]]
+    - [[#encrypt][encrypt]]
+    - [[#edit][edit]]
+    - [[#rekey][rekey]]
+    - [[#create][create]]
+    - [[#decrypt][decrypt]]
+    - [[#pass-via-file][pass via file]]
+- [[#variables][Variables]]
+  - [[#acessing-variables][acessing variables]]
+  - [[#ansible_envhome][ansible_env.HOME]]
+  - [[#ansible_host_key_checking][ANSIBLE_HOST_KEY_CHECKING]]
+  - [[#ansible_inventory][ANSIBLE_INVENTORY]]
+  - [[#group_vars][group_vars]]
+  - [[#group_varsall][group_vars/all]]
+  - [[#host_vars][host_vars]]
+  - [[#inventory-variables][inventory variables]]
+  - [[#extra-vars-cli][extra-vars (cli)]]
+  - [[#registered-variables][registered variables]]
+  - [[#groups][groups]]
+  - [[#group_names][group_names]]
+  - [[#inventory_hostname][inventory_hostname]]
+  - [[#inventory_hostname_short][inventory_hostname_short]]
+  - [[#play_hosts][play_hosts]]
+  - [[#facts][facts]]
+  - [[#local-facts][local facts]]
+  - [[#variable-precedence][variable precedence]]
+- [[#modules][Modules]]
+  - [[#trais][Trais]]
+  - [[#packages][packages]]
+  - [[#small-specific-taks][Small specific taks]]
+  - [[#perform-one-action][Perform one action]]
+:END:
 * Progress
-** Livros
-| Livros             | Capitulo                             | em                                                  |
-|--------------------+--------------------------------------+-----------------------------------------------------|
-| Ansible for DevOps | 2 - Local Infrastructure Development | Prototyping and testing with local virtual machines |
-|                    |                                      |                                                     |
+** Books
+| Books              | Chapter                   | @                           |
+|--------------------+---------------------------+-----------------------------|
+| Ansible for DevOps | Playbooks - beyond basics | If/then/when - Conditionals |
 
 * Defition
 Tool to automate IT tasks
@@ -124,21 +174,6 @@ Tool to automate IT tasks
 ** ansible-galaxy
 *** list
 *** collection install
-
-** ansible-playboy
-|                      |   |
-|----------------------+---|
-| --connection=<LOCAL> |   |
-| --inventory <IP>     |   |
-| --limit <IP>         |   |
-
-*** run local
-#+begin_src shell
-ansible-playbook \
-    --connection=local \
-    --inventory 127.0.0.1, \
-    --limit 127.0.0.1 ~/Documents/Ansible/local_playbook.yml
-#+end_src
 
 ** ansible-inventory
 
@@ -173,6 +208,8 @@ ansible app -b -a "service ntpd restart" --limit ~".*\.4"
 #+end_src
 **** -m setup
 ****
+**** -B <seconds>
+**** -P <seconds>
 
 * Modules
 ** services
@@ -182,6 +219,26 @@ ansible multi -b -m service -a "name=ntpd state=started enabled=yes"
 #+end_src
 ** commands
 ** shell
+able to redirect and filter output from a command
+#+begin_src shell
+ansible multi -b -m shell -a "tail /var/log/messages | grep ansible-command | wc -l"
+#+end_src
+
+#+begin_src yaml
+- name: Get the value of the environment variable we just added.
+shell: 'source ~/.bash_profile && echo $ENV_VAR'
+register: foo
+#+end_src
+
+** cron
+#+begin_src shell
+ansible multi -b -m cron -a "name='daily-cron-all-servers' hour=4 job='/path/to/daily-script.sh'"
+ansible multi -b -m cron -a "name='daily-cron-all-servers' state=absent"
+#+end_src
+** git
+#+begin_src shell
+ansible app -b -m git -a "repo=git://example.com/path/to/repo.git dest=/opt/myapp update=yes version=1.2.4"
+#+end_src
 ** groups
 
 #+begin_src shell
@@ -209,6 +266,10 @@ ansible app -b -m package -a "name=git state=present"
 #+begin_src shell
 ansible multi -m stat -a "path=/etc/environment"
 #+end_src
+** docker
+*** docker_image
+*** docker_container
+
 ** copy
 #+begin_src shell
 ansible multi -m copy -a "src=/etc/hosts dest=/tmp/hosts"
@@ -226,6 +287,11 @@ ansible multi -b -m fetch -a "src=/etc/hosts dest=/tmp"
 #+begin_src shell
 ansible multi -m file -a "dest=/tmp/test mode=644 state=directory"
 ansible multi -m file -a "src=/src/file dest=/dest/symlink state=link"
+ansible multi -m file -a "dest=/tmp/test state=absent"
+#+end_src
+** async_status
+#+begin_src shell
+ansible multi -b -m async_status -a "jid=169825235950.3572"
 #+end_src
 ** yum
 #+begin_src shell
@@ -235,6 +301,18 @@ ansible multi -b -m yum -a "name=ntp state=present"
 - name=string
 - update_cache=[yes|no]
 - state=[present|absent]
+
+* SSH
+Pipelining method of OpenSSH transfer will send and execute commands for most
+Ansible modules directly over the SSH connection.
+
+- necessary to comment the 'Defaults requiretty' option in /etc/sudoers
+
+ansible.cfg
+#+begin_src conf
+[ssh_connection]
+pipelining=True
+#+end_src
 * Invetory
 - list of the hosts that you wish to run the automation commands against
 - Ip addres or hostname
@@ -256,11 +334,98 @@ ubuntu ansible_host=18.1 ansible_connection=ssh ansible_user=ubuntu ansible_ssh_
 - configure permissions
 - manage inventory
 * Playbooks
+** ansible-playbook
+*** options
+**** --connection=LOCAL
+**** --inventory=PATH
+calls a custom inventory file
+**** --extra-vars=VARS
+set additional variables as key=value or YAML/JSON
+**** --connection=TYPE
+connection type to use
+**** --forks=NUM
+specify number of parallel processes to use
+**** --limit=IPs
+further limit selected hosts to an additional pattern
+**** --user
+run operations with become
+
+#+begin_src shell
+ansible-playbook playbook.yml --user=johndoe
+#+end_src
+**** --check
+don't make any changes; instead, try to predict some of the changes that may occur
+**** --become-user
+run operations as this user
+
+#+begin_src shell
+ansible-playbook playbook.yml --become --become-user=janedoe --ask-become-pass
+#+end_src
+**** --become-method
+privilege escalation method to use
+**** --list-hosts
+**** --force-handlers
+*** run local
+#+begin_src shell
+ansible-playbook \
+    --connection=local \
+    --inventory 127.0.0.1, \
+    --limit 127.0.0.1 ~/Documents/Ansible/local_playbook.yml
+#+end_src
 ** usage
       - docker container
       - vagrant container
       - cloud instance
       - bare metal
+** tips
+- build your playbooks in a way that doesn’t rely (or care about) specific details of individual hosts.
+** options
+*** handlers
+*** vars
+*** var_files
+*** with_items
+*** name
+*** hosts
+*** become
+*** environment
+** modules
+*** service
+*** script
+*** raw
+*** template
+#+begin_src yaml
+- name: Add Apache virtualhost for Drupal.
+  template:
+    src: "templates/drupal.test.conf.j2"
+    dest: "/etc/apache2/sites-available/{{ domain }}.test.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache
+#+end_src
+*** command
+*** stat
+*** meta
+*** composer
+*** lineinfile
+*** file
+*** copy
+*** get_url
+*** mysql_user
+*** mysql_db
+*** apache2_module
+*** apt
+*** yum
+*** dnf
+** handler
+*** notify
+- will run once, and only once, at the end of a play
+
+#+begin_src yaml
+- name: Enable Apache rewrite module (required for Drupal).
+    apache2_module: name=rewrite state=present
+    notify: restart apache
+#+end_src
 ** tips
 *** running ansible command locally
        ansible-playbook --connection=local --inventory 127.0.0.1, playbook.yml
@@ -272,12 +437,151 @@ ubuntu ansible_host=18.1 ansible_connection=ssh ansible_user=ubuntu ansible_ssh_
       - organized in tasks
       - arguments
       - modules name
+* Vault
+** ansible-vault
+- works with one or multiple files
 
-* Vars
+*** give pass
+#+begin_src shell
+ansible-playbook test.yml --ask-vault-pass
+#+end_src
+
+*** encrypt
+
+#+begin_src shell
+ansible-vault encrypt api_key.yml
+#+end_src
+
+*** edit
+*** rekey
+*** create
+*** decrypt
+*** pass via file
+
+#+begin_src shell
+ansible-playbook test.yml --vault-password-file ~/.ansible/vault_pass
+#+end_src
+
+use an executable script (e.g. ∼/.ansible/vault_pass.py with execute
+permissions, 700), as long as the script outputs a single line of text, the vault password.
+
+#+begin_src shell
+∼/.ansible/vault_pass.py
+#+end_src
+* Variables
+** acessing variables
+#+begin_src yaml
+- command: /opt/my-app/rebuild {{ my_environment }}  # /opt/my-app/rebuild dev
+#+end_src
+
+#+begin_src yaml
+foo_list:
+- one
+- two
+- three
+
+foo[0]
+foo|first
+
+{{ ansible_eth0.ipv4.address }}
+{{ ansible_eth0['ipv4']['address'] }}
+
+#+end_src
+
 ** ansible_env.HOME
       get remote home
 ** ANSIBLE_HOST_KEY_CHECKING
 ** ANSIBLE_INVENTORY
+** group_vars
+
+# group_vars/washington
+#+begin_src yaml
+---
+meh: bao
+forevis: eija
+#+end_src
+** group_vars/all
+apply to all groups
+
+- it’s best to provide defaults in your playbooks and roles
+** host_vars
+
+# ./host_vars/app1.example.com
+#+begin_src yaml
+---
+foo: bar
+baz: qux
+#+end_src
+
+** inventory variables
+
+- documentation recommends not storing variables within the inventory
+#+begin_src config
+# Host-specific variables (defined inline).
+[washington]
+app1.example.com proxy_state=present
+app2.example.com proxy_state=absent
+
+# Variables defined for the entire group.
+[washington:vars]
+cdn_host=washington.static.example.com
+api_version=3.0.1
+
+[group]
+host1 admin_user=jane
+host2 admin_user=jack
+host3
+
+[group:vars]
+admin_user=john
+#+end_src
+** extra-vars (cli)
+#+begin_src shell
+ansible-playbook example.yml --extra-vars "foo=bar"
+ansible-playbook example.yml --extra-vars "@even_more_vars.json"
+ansible-playbook example.yml --extra-vars "@even_more_vars.yml"
+#+end_src
+** registered variables
+** groups
+** group_names
+** inventory_hostname
+** inventory_hostname_short
+** play_hosts
+** facts
+variables derived from system information
+
+#+begin_src shell
+ansible munin -m setup
+#+end_src
+
+#+begin_src yaml
+- hosts: db
+gather_facts: no
+#+end_src
+** local facts
+defining host-specific facts
+
+- either JSON or INI
+- facts.d/XX.ini
+
+# ./facts.d/settings.fact
+#+begin_src conf
+[users]
+admin=jane,john
+normal=jim
+#+end_src
+
+#+begin_src shell
+ansible hostname -m setup -a "filter=ansible_local"
+#+end_src
+
+reload the local facts using a task
+
+#+begin_src yaml
+- name: Reload local facts.
+  setup: filter=ansible_local
+#+end_src
+** variable precedence
 
 * Modules
 ** Trais
