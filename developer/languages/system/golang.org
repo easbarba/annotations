@@ -362,7 +362,12 @@ delete(m, "hello")
 - its value cannot contain itself.
 - can assign just some values
 - For efficiency, larger struct types are passed/returned from functions indirectly using a pointer
-
+- order is significant
+- combine the declarations of related fields.
+- exported if it begins with a capital letter
+- can be passed as arguments to functions and returned from them
+- may contain a mixture of exported and unexported fields
+- larger struct types are passed to or returned from functions indirectly using a pointer,
 
 #+begin_src go
 type person struct {
@@ -406,8 +411,65 @@ pp := &Point{1, 2}
 // same as
 pp := new(Point)
 ,*pp = Point{1, 2}
+
+type Employee struct {
+	ID            int
+	Name, Address string
+	DoB           time.Time
+	Position      string
+	Salary        int
+	ManagerID     int
+}
 #+end_src
 
+shorthand notation to create and initialize a struct variable and obtain its address
+#+begin_src go
+pp := &Point{1, 2}
+
+# same as
+
+pp := new(Point)
+*pp = Point{1, 2}
+#+end_src
+
+compare structs
+
+- all the fields of a struct must be comparable
+
+#+begin_src go
+type Point struct{ X, Y int }
+p := Point{1, 2}
+q := Point{2, 1}
+fmt.Println(p.X == q.X && p.Y == q.Y) // "false"
+fmt.Println(p == q) // "false"
+#+end_src
+
+struct embedding and anonymous fields
+
+- named struct type as an anonymous field of another struct type
+
+#+begin_src go
+type Point struct {
+	X, Y int
+}
+
+type Circle struct {
+	Point
+	Radius int
+}
+type Wheel struct {
+	Circle
+	Spokes int
+}
+
+func main() {
+	var w Wheel
+	w.X = 8      // equivalent to w.Circle.Point.X = 8
+	w.Y = 8      // equivalent to w.Circle.Point.Y = 8
+	w.Radius = 5 // equivalent to w.Circle.Radius = 5
+	w.Spokes = 20
+}
+#+end_src
 
 ** Reference Type
 - different named types are not comparable even same underlying type
@@ -569,6 +631,18 @@ another package.
 - anonymous functions
 - variadic functions, usually suffixed w/ f
 - return functions
+
+*** parameters
+- passed in order
+- passed by value unless reference type is passed
+- no default parameters
+- no keywords parameters
+- variable number of arguments
+#+begin_src go
+func Println(a ...interface{}) (n int, err error)
+#+end_src
+
+*** usage
 
 #+begin_src go
 // assign f to nil function
@@ -1041,7 +1115,15 @@ package meh
 
 ** doc
 ** mod
+*** init
+#+begin_src shell
 go mod init MODULE_PATH
+#+end_src
+*** vendor
+#+begin_src shell
+go mod vendor
+#+end_src
+*** graph
 
 ** install
 |               |                            |
@@ -1119,6 +1201,8 @@ strings.Map
 - ParseUint
 - FormatInt
 - FormatUint
+** json
+- only exported fields are marshaled
 ** fmt
 - Sprintf
 - Scanf
