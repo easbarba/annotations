@@ -6,6 +6,7 @@
   :END:
 :CONTENTS:
 - [[#progresso][Progresso]]
+- [[#goals][Goals]]
 - [[#soap][SOAP]]
   - [[#benefits][benefits]]
   - [[#mm][mm]]
@@ -15,9 +16,17 @@
 - [[#grpc][gRPC]]
 :END:
 * Progresso
-| books                  | chapter | at                                                               |
-|------------------------+---------+------------------------------------------------------------------|
-| The Design of Web APIs |       2 | 2.1 The right perspective for designing everyday user interfaces |
+| books                  | chapter                             | at |
+|------------------------+-------------------------------------+----|
+| The Design of Web APIs | 3 Designing a programming interface |    |
+
+* Goals
+- Whos: Where you list the API’s users (or profles)
+- Whats: Where you list what these users can do
+- Hows: Where you decompose each of the what’s into steps
+- Inputs (source): Where you list what is needed for each step and where it comes from (to spot missing whos, whats, or hows)
+- Output (usage): Where you list what is returned by each step and how it is used (to spot missing whos, whats, or hows)
+- Goals: Where you explicitly and concisely reformulate each how + inputs + outputs
 
 * SOAP
  - Web Service Description Language
