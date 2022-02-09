@@ -1,4 +1,4 @@
-#+TITLE: Network cli Apps
+#+TITLE: Network cli apps
 
 * summary
 :PROPERTIES:
@@ -13,8 +13,41 @@
   - [[#status][status]]
 - [[#curl][curl]]
 - [[#ngrep][ngrep]]
+- [[#ssh][ssh]]
+  - [[#--][--]]
+- [[#ping][ping]]
+- [[#ss][ss]]
+- [[#dig][dig]]
+- [[#ip][ip]]
+- [[#ifconfig][ifconfig]]
+- [[#whois][whois]]
+- [[#host][host]]
+- [[#dig][dig]]
+- [[#iwd][iwd]]
+- [[#dhcpd][dhcpd]]
+- [[#iw][iw]]
+- [[#wpa_supplicant][wpa_supplicant]]
+- [[#curl][curl]]
+  - [[#read-local-file][read local file]]
+- [[#nmap][nmap]]
+- [[#nmcli][nmcli]]
+- [[#nslookup][nslookup]]
+- [[#route][route]]
+- [[#netstat][netstat]]
+- [[#telnet][telnet]]
+- [[#rlogin][rlogin]]
+- [[#traceroute][traceroute]]
+- [[#ethtool][ethtool]]
+- [[#netcat][netcat]]
+- [[#socat][socat]]
+- [[#tcpdump][tcpdump]]
+  - [[#http-get][HTTP GET]]
+  - [[#http-post][HTTP POST:]]
+- [[#wireshark][wireshark]]
+- [[#ngrep][ngrep]]
+- [[#iftop][iftop]]
+- [[#nethogs][nethogs]]
 :END:
-
 
 * iwctl
 * nslookup
@@ -26,3 +59,105 @@
 curl -o /tmp/minikube -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 #+end_src
 * ngrep
+* ssh
+** --
+end of command line flags
+
+It tells ssh or any other valid shell command not to try to parse what comes after command line options
+
+#+begin_src shell
+
+ssh nixcraft@server1.cyberciti.biz -- command1 --arg1 --arg2
+
+#+end_src
+
+ This ensures that command1 will accept --arg1 and --arg2 (or -opt1) as command-line arguments.
+* ping
+#+begin_src shell
+ping 1.1
+#+end_src
+* ss
+* dig
+* ip
+* ifconfig
+configure a network interface
+* whois
+* host
+* dig
+* iwd
+#+begin_src shell
+ip a
+iw dev
+ip link set wlp2s0 up
+
+iwlist scan
+#+end_src
+
+add to /etc/network/interfaces (man interfaces) *Debian-only*
+
+#+begin_src shell
+iface wlp2s0 inet dhcp
+      wpa-ssid ESSID
+      wpa-psk PASSWORD
+#+end_src
+
+Bring up your interface and verify the connection:
+
+#+begin_src shell
+ifup wlp2s0
+iw wlp2s0 link
+ip a
+#+end_src
+* dhcpd
+* iw
+* wpa_supplicant
+* curl
+curl - transfer a URL
+
+|         |   |
+|---------+---|
+| -v <ip> |   |
+| -<N>    |   |
+
+** read local file
+#+begin_src shell-script
+curl file:///home/user/.bashrc
+#+end_src
+
+* nmap
+* nmcli
+|                               |                                                                |
+|-------------------------------+----------------------------------------------------------------|
+| radio wifi on                 | Enable Your Wi-Fi Device                                       |
+| dev status                    | Status                                                         |
+| dev wifi list                 | Lisit available SSID                                           |
+| dev wifi connect <SSID>       | connect to SSID                                                |
+| --ask dev wifi connect <SSID> | password is provided in a manager to avoid dirty shell history |
+| con show                      | list saved connections                                         |
+| con down <SSID>               | disconnect of SSID                                             |
+| con up <SSID>                 | reconnect to SSID                                              |
+|                               |                                                                |
+
+network manager wont work if /etc/network/interface is set to any device, remove it and procced again
+* nslookup
+* route
+* netstat
+|        |   |
+|--------+---|
+| -natp  |   |
+| -tulpn |   |
+* telnet
+* rlogin
+* traceroute
+* ethtool
+* netcat
+* socat
+* tcpdump
+** HTTP GET
+tcpdump -i any -s 0 -A 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
+** HTTP POST:
+tcpdump -i any -s 0 -A 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504F5354'
+* wireshark
+* ngrep
+* iftop
+* nethogs
