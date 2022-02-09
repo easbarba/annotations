@@ -4,8 +4,16 @@
 The Secure Shell (SSH) protocol sets up a secure Telnet session over a standard TCP/IP con-
 nection and is employed for doing things like logging into other systems, running programs on
 remote systems, and moving files from one system to another.
+
+- default port: 22
 * traits
 - ControlPersist
+* commands
+** options
+*** -p
+#+begin_src shell
+ssh username@example.com -p 23
+#+end_src
 * openssh
 ** ssh-add
 ssh-add adds private key identities to the authentication agent, ssh-agent(1).  When run without arguments, it adds the files
