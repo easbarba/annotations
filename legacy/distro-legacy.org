@@ -1,11 +1,10 @@
 #+TITLE: Distro Legacy
 
 * Debian
-
-** Unlisted
+** packages
 #+begin_src shell
 
-zsh unrar rar ripgrep locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2   parted
+locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2   parted
 nnn fzy  screen ncdu pragha materia-gtk-theme papirus-icon-theme suru-icon-theme winetricks fonts-firacode
 fonts-freefont-ttf network-manager-gnome  maim unclutter diodon pasystray libfile-mimeinfo-perl dmenu
 wofi rofi lxappearance x11proto-dev volumeicon-alsa dunst rclone
@@ -26,6 +25,75 @@ dialog
 
 sysstat
 awesome-extra
+
+#+end_src
+
+** foreign
+#+begin_src shell
+	_openrazer() {
+		sudo gpasswd -a $USER plugdev
+
+		echo 'deb http://download.opensuse.org/repositories/hardware:/razer/Debian_Unstable/ /' | sudo tee /etc/apt/sources.list.d/hardware:razer.list
+		curl -fsSL https://download.opensuse.org/repositories/hardware:razer/Debian_Unstable/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/hardware-razer.gpg >/dev/null
+		sudo apt update
+		sudo apt install openrazer-meta
+	}
+
+	_polychromatic() {
+		echo "deb http://ppa.launchpad.net/polychromatic/edge/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/polychromatic.list
+		sudo apt-key adv --recv-key --keyserver keyserver.ubuntu.com 96B9CD7C22E2C8C5
+		sudo apt-get update
+
+		# Full installation
+		sudo apt install polychromatic
+	}
+
+#+end_src
+
+** post
+#+begin_src shell
+	_timezone() {
+		local current_zone
+		local desired_zone
+
+		desired_zone='America/Sao_Paulo'
+		current_zone=$(timedatectl | grep 'Time zone' | awk '{print $3}')
+
+		[[ "$current_zone" != "$desired_zone" ]] && sudo timedatectl set-timezone America/Sao_Paulo
+	}
+
+	_alternatives() {
+		# set python to python3
+		sudo update-alternatives --install python python "$(command -v python3)" 1
+	}
+
+#+end_src
+
+** network
+#+begin_src shell
+	_iwd() {
+		sudo systemctl enable iwd
+		sudo systemctl start iwd
+	}
+
+#+end_src
+
+** services
+#+begin_src shell
+	_lightdm() {
+		sudo systemctl enable lightdm
+	}
+
+	_postgres() {
+		sudo systemctl restart postgresql
+	}
+
+
+	_kdeconnect() {
+		sudo firewall-cmd --zone=public --permanent --add-port=1714-1764/tcp
+		sudo firewall-cmd --zone=public --permanent --add-port=1714-1764/udp
+		sudo systemctl restart firewalld.service
+	}
 
 #+end_src
 
