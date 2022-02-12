@@ -1,3 +1,8 @@
 #+TITLE: Network_linux
 
-* /etc/resolv.conf
+* Linux
+** /etc/resolv.conf
+manual at:
+#+begin_src shell
+man resolv.conf
+#+end_src
