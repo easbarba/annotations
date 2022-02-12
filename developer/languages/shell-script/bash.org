@@ -103,7 +103,78 @@ echo -e "\Uf026"
 						|                                       |
 
    #+end_src
+* Symbols
+** $#
+length or the number of arguments passed
+#+begin_src sh
+bash -c “echo $#” hello world again # 2
+#+end_src
 
+** #
+commentary
+** &>
+redirects both the standard output and the standard error
+
+#+begin_src shell
+bash -c ‘ls -la &> file.txt’
+#+end_src
+
+** \< and \>
+compare the string length or character lengths
+#+begin_src shell
+a=”cat”
+
+b=”lynx”
+
+if [ a \< b ]
+
+then
+
+echo “a is shorter than b”
+
+else
+
+echo “a is longer than b”
+
+fi
+#+end_src
+
+** ^^, ^ and ,,
+
+^^ — to turn all characters to uppercase
+
+^ — to turn the first letter to uppercase
+
+,, — to turn all characters to all lowercase
+
+#+begin_src shell
+a=”cat”
+
+b=”lynx”
+
+c=”DRAGON”
+
+echo ${a^^}
+
+echo ${b^}
+
+echo ${c,,}
+#+end_src
+
+** $@ or $*
+$@ is equivalent to $* which is equivalent to $1 $2 $3 $4
+
+** $?
+get the exit status of the command previously passed.
+
+** $$
+PID of the current shell
+** 2>&1
+redirects both the standard output and the standard error to the standard output.
+
+#+begin_src shell
+ls 2>&1 > file.txt
+#+end_src
 * Resources
    - http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html#toc6
 
