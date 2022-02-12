@@ -23,6 +23,8 @@
       - [[#--become-method][--become-method]]
       - [[#--list-hosts][--list-hosts]]
       - [[#--force-handlers][--force-handlers]]
+      - [[#--tags][--tags]]
+      - [[#--skip-tags][--skip-tags]]
     - [[#run-local][run local]]
   - [[#usage][usage]]
   - [[#statements][statements]]
@@ -32,8 +34,8 @@
     - [[#ignore_errors][ignore_errors]]
     - [[#delegate_to][delegate_to]]
     - [[#local_action][local_action]]
-  - [[#tips][tips]]
-  - [[#options][options]]
+    - [[#tags][tags]]
+    - [[#blocks][blocks]]
     - [[#handlers][handlers]]
     - [[#vars][vars]]
     - [[#var_files][var_files]]
@@ -42,6 +44,10 @@
     - [[#hosts][hosts]]
     - [[#become][become]]
     - [[#environment][environment]]
+    - [[#import_tasks][import_tasks]]
+    - [[#include_tasks][include_tasks]]
+    - [[#import_playbooks][import_playbooks]]
+  - [[#tips][tips]]
   - [[#modules][modules]]
     - [[#service][service]]
     - [[#script][script]]
@@ -63,6 +69,7 @@
     - [[#dnf][dnf]]
   - [[#handler][handler]]
     - [[#notify][notify]]
+  - [[#roles][roles]]
   - [[#tips][tips]]
     - [[#running-ansible-command-locally][running ansible command locally]]
   - [[#good-practices][good practices]]
@@ -160,9 +167,9 @@
 :END:
 * Progress
 ** Books
-| Books              | Chapter                                                 | @ |
-|--------------------+---------------------------------------------------------+---|
-| Ansible for DevOps | 6 - Playbook Organization - Roles, Includes,and Imports |   |
+| Books              | Chapter         | @ |
+|--------------------+-----------------+---|
+| Ansible for DevOps | 7 - Inventories |   |
 
 * Playbooks
 ** ansible-playbook
@@ -229,7 +236,6 @@ ansible-playbook \
   delegate_to: "{{ monitoring_master }}"
 #+end_src
 *** local_action
-*** 
 *** tags
 Tags allow you to run (or exclude) subsets of a playbook’s tasks.
 
@@ -297,9 +303,6 @@ tasks:
         debug: msg="This always executes."
 #+end_src
 
-** tips
-- build your playbooks in a way that doesn’t rely (or care about) specific details of individual hosts.
-** options
 *** handlers
 *** vars
 *** var_files
@@ -309,6 +312,74 @@ tasks:
 *** become
 *** environment
 set the environment for just one play
+*** import_tasks
+Imports a list of tasks to be added to the current playbook for subsequent execution.
+
+#+begin_src yaml
+tasks:
+- import_tasks: imported-tasks.yml
+- import_tasks: tasks/drush.yml tags=drush
+#+end_src
+
+#+begin_src yaml
+tasks:
+  - import_tasks: user.yml
+    vars:
+      username: johndoe
+      ssh_private_keys:
+        - { src: /path/to/johndoe/key1,dest: id_rsa }
+        - { src: /path/to/johndoe/key2,dest: id_rsa_2 }
+  - import_tasks: user.yml
+    vars:
+      username: janedoe
+      ssh_private_keys:
+        - { src: /path/to/janedoe/key1,dest: id_rsa }
+        - { src: /path/to/janedoe/key2,dest: id_rsa_2 }
+#+end_src
+*** include_tasks
+Includes a file with a list of tasks to be executed in the current playbook.
+
+#+begin_src yaml
+# Include extra tasks file, only if it's present at runtime.
+- name: Check if extra_tasks.yml is present.
+  stat: path=tasks/extra-tasks.yml
+  register: extra_tasks_file
+  connection: local
+
+- include_tasks: tasks/extra-tasks.yml
+  when: extra_tasks_file.stat.exists
+#+end_src
+*** import_playbooks
+#+begin_src yaml
+- hosts: all
+  remote_user: root
+
+tasks:
+  [...]
+
+- import_playbook: web.yml
+- import_playbook: db.yml
+#+end_src
+
+#+begin_src yaml
+---
+- hosts: all
+  vars_files:
+    - vars.yml
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
+
+  handlers:
+    - import_tasks: handlers/handlers.yml
+
+  tasks:
+    - import_tasks: tasks/common.yml
+    - import_tasks: tasks/apache.yml
+#+end_src
+
+** tips
+- build your playbooks in a way that doesn’t rely (or care about) specific details of individual hosts.
 ** modules
 *** service
 *** script
@@ -358,6 +429,19 @@ notify:
   - restart memcached
 
 #+end_src
+** roles
+Roles let you automatically load related vars, files, tasks, handlers, and other
+Ansible artifacts based on a known file structure. After you group your content
+in roles, you can easily reuse them and share them with other users.
+
+- ./roles
+
+#+begin_src yaml
+--
+- hosts: all
+  roles:
+    - role_name
+#+end_src
 
 ** tips
 *** running ansible command locally
@@ -376,7 +460,7 @@ notify:
 - webservers: groups multiple ip addresses or hosts names
 - databases
 - can dynamic inventories
-- invetory location: /etc/ansible/hosts
+- inventory location: /etc/ansible/hosts
 
 ** variables
 - documentation recommends not storing variables within the inventory.
@@ -450,7 +534,6 @@ ansible app -b -a "service ntpd restart" --limit "*.4"
 ansible app -b -a "service ntpd restart" --limit ~".*\.4"
 #+end_src
 **** -m setup
-****
 **** -B <seconds>
 **** -P <seconds>
 **** --force-handlers
@@ -494,6 +577,10 @@ from ansible_hostname , which is the hostname reported by the system).
 ** ANSIBLE_HOST_KEY_CHECKING
 ** ANSIBLE_INVENTORY
 ** group_vars
+| default location   |                           |
+|--------------------+---------------------------|
+| root of project    | root/group_vars           |
+| inventory's folder | root/inventory/group_vars |
 
 # group_vars/washington
 #+begin_src yaml
@@ -506,6 +593,10 @@ apply to all groups
 
 - it’s best to provide defaults in your playbooks and roles
 ** host_vars
+| default location   |                          |
+|--------------------+--------------------------|
+| root of project    | root/host_vars           |
+| inventory's folder | root/inventory/host_vars |
 
 # ./host_vars/app1.example.com
 #+begin_src yaml

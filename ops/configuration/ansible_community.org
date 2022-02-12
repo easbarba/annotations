@@ -1,3 +1,39 @@
-#+TITLE: Ansible_comm
+#+TITLE: Ansible Community
 
-* Modules
+* ansible-galaxy
+** commands
+*** init
+build the scaffolding for a role
+#+begin_src shell
+ansible-galaxy init role_name
+#+end_src
+*** install
+*** list
+*** remove
+** requirements.yml
+
+
+installed as:
+
+#+begin_src shell
+ansible-galaxy install -r requirements.yml
+#+end_src
+
+#+begin_src yaml
+---
+# From Ansible Galaxy, latest version.
+- src: mmm.firewall
+
+# From Ansible Galaxy, specifying the version.
+- src: mmm.php
+  version: 3.5.1
+
+# From GitHub, with a custom name and version.
+- src: https://github.com/mmm/ansible-role-passenger
+  name: passenger
+  version: 1.2.0
+
+# From a web server, with a custom name.
+- src: https://www.example.com/ansible/roles/my-role-name.tar.gz
+  name: my-role
+#+end_src
