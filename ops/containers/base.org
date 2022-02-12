@@ -29,10 +29,9 @@
 :END:
 * Progresso
 ** books
-| books                 | chapter               | at                            |
-|-----------------------+-----------------------+-------------------------------|
-| Mastering Docker      | 4 Managing Containers | Docker networking and volumes |
-| Docker for Developers |                       |                               |
+| books            | chapter               | at                            |
+|------------------+-----------------------+-------------------------------|
+| Mastering Docker | 4 Managing Containers | Docker networking and volumes |
 
 ** sloc
 | sloc           | @ | file | line |
