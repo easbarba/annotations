@@ -400,10 +400,16 @@ find /home/usertest -size +150M –exec rm -rf {} \;
 
 ** ripgrep
 ** grep
-| option              | description                     |
-|---------------------+---------------------------------|
-| -v                  | lines that doesnt match pattern |
-| --exclude-dir=<DIR> |                                 |
+| option              | description                                                                                                 |
+|---------------------+-------------------------------------------------------------------------------------------------------------|
+| -v                  | lines that doesnt match pattern                                                                             |
+| --exclude-dir=<DIR> |                                                                                                             |
+| -P                  | perl regex                                                                                                  |
+| -m <int>            | stop at                                                                                                     |
+| -q                  | quiet                                                                                                       |
+| -L                  | print the name of each input file from which no output  would  normally have been printed.                  |
+| -o                  | Print only the matched (non-empty) parts of a matching line, with each such part on a separate output line. |
+|                     |                                                                                                             |
 
 * type
 * whereis
