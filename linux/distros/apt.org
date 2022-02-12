@@ -1,0 +1,12 @@
+#+TITLE: Apt
+
+* apt-mark
+** hold
+used to mark a package as held back, which will prevent the package from being
+automatically installed, upgraded or removed.
+#+begin_src shell
+apt-mark hold virtualbox
+#+end_src
+** unhold
+unhold is used to cancel a previously set hold on a package to allow all actions
+again.
