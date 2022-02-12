@@ -418,7 +418,8 @@ find /home/usertest -size +150M –exec rm -rf {} \;
 |    |   |
 |----+---|
 | -v |   |
-
+* comm
+compare two sorted files line by line
 * dbus
 ** dbus-launch
 Utility to start a message bus from a shell script
