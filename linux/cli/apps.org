@@ -6,6 +6,9 @@
 
 * Files
 ** rsync
+#+begin_src sh
+rsync -avz /from /to
+#+end_src
 ** tree
 |    |                                              |
 |----+----------------------------------------------|
