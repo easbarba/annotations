@@ -2,11 +2,29 @@
 
 Domain Name Service
 
+
 * definition
-Resolves hostnames—­specifically, Internet names, such as www.example.com—­to
-their corresponding IP addresses.
+#+begin_quote
+The Domain Name System (DNS) is the hierarchical and decentralized naming system
+used to identify computers, services, and other resources reachable through the
+Internet or other Internet Protocol (IP) networks. The resource records
+contained in the DNS associate domain names with other forms of information.
+These are most commonly used to map human-friendly domain names to the numerical
+IP addresses computers need to locate services and devices using the underlying
+network protocols, but have been extended over time to perform many other
+functions as well.
+#+end_quote
 
 * FQDN
  fully qualified domain name
 
  - a hierarchy that can logically locate a system based on its domain identifier.
+
+* Terms
+** Recursive DNS resolver
+** Authoritative nameserver:
+** Top level domain
+.com, .org, and .net.
+** Nameserver
+** reverse dns
+lookup of a domain name from an IP addres
