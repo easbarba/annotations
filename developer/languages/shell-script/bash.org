@@ -24,7 +24,22 @@ https://tldp.org/LDP/abs/html/io-redirection.html
 ** variables
 *** undeclared vars
 Use :- if you want to test variables that could be undeclared. For instance: if
-[ "${NAME:-}" = "Kevin" ] will set $NAME to be empty if it's not declared.
+[ "${NAME:-}" = "Kevin" ] will set $NAME to be empty if it's not declares.
+*** arrays
+#+begin_src shell
+meh=(foo bar)
+
+echo ${meh[1]} # bar
+
+meh+='forevis'
+
+for m in ${meh[@]}; do
+  echo "$m"
+done
+
+#+end_src
+*** IFS
+field separator
 
 ** read
 ** shift
@@ -175,6 +190,36 @@ redirects both the standard output and the standard error to the standard output
 #+begin_src shell
 ls 2>&1 > file.txt
 #+end_src
+** ( Single Parentheses )
+running commands inside in a subshell
+#+begin_src shell
+a='This string'
+( a=banana; mkdir $a )
+
+echo $a
+# => 'This string'
+
+ls
+# => ...
+# => banana/
+#+end_src
+** (( Double Parentheses ))
+** <( Angle Parentheses )
+process substitution
+#+begin_src shell
+#+end_src
+** $( Dollar Single Parentheses )
+** $( Dollar Single Parentheses Dollar Q )$?
+ interpolates a command, but only the exit code and not the value,
+** $(( Dollar Double Parentheses ))
+Arithmetic Interpolation
+** [ Single Square Brackets ]
+alternate version of the built-in test.
+** [ [ Double Square Brackets ]]
+** { Single Curly Braces }
+grouping commands or globbing
+** ${dollar braces}
+
 * Resources
    - http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html#toc6
 
