@@ -33,6 +33,12 @@
    #+end_src
 * Documentation
 All available Debian documentation can be found at /usr/share/doc/
+* Debian Install
+** debootstrap
+
+#+begin_src shell
+cat /proc/mounts
+#+end_src
 * source.list.
    #+begin_src conf
    # [Unstable]
