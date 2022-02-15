@@ -6,4 +6,68 @@
 :END:
 :CONTENTS:
 - [[#summary][summary]]
+- [[#base][base]]
+  - [[#global][global]]
+    - [[#stages][stages]]
+      - [[#stage][stage]]
+  - [[#artifacts][artifacts]]
+    - [[#paths][paths]]
+  - [[#jobs][jobs]]
+    - [[#cache][cache]]
+  - [[#script][script]]
+  - [[#envs][ENVS]]
+- [[#commands][commands]]
+  - [[#register][register]]
+  - [[#start][start]]
+  - [[#verify][verify]]
 :END:
+
+* base
+** global
+*** stages
+Use stages to define stages that contain groups of jobs.
+
+#+begin_src yaml
+stages:
+  - build
+  - test
+  - deploy
+#+end_src
+
+**** stage
+Use stage in a job to configure the job to run in a specific stage.
+** artifacts
+Use artifacts to specify which files to save as job artifacts.
+
+#+begin_src yaml
+artifacts:
+  paths:
+    - binaries/
+  exclude:
+    - binaries/**/*.o
+#+end_src
+
+*** paths
+** jobs
+*** cache
+Use cache to specify a list of files and directories to cache between jobs. You
+can only use paths that are in the local working copy.
+
+Caching is shared between pipelines and jobs. Caches are restored before
+artifacts.
+
+** script
+
+** ENVS
+- CI_COMMIT_REF_NAME
+- CI_COMMIT_REF_SLUG
+- CI_COMMIT_SHORT_SHA
+- CI_ENVIRONMENT_SLUG
+
+* commands
+** register
+** start
+** verify
+|          |   |
+|----------+---|
+| --delete |   |
