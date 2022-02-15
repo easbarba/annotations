@@ -1,0 +1,15 @@
+#+TITLE: Make
+
+* definition
+* base
+- starts with a tab character, not spaces.
+* Makefile
+* options
+
+|                 |                                                                 |
+|-----------------+-----------------------------------------------------------------|
+| .DEFAULT_GOAL   | deﬁnes which target is run when no target is speciﬁed.          |
+| <word>:         | name of the target                                              |
+| <word>: <word2> | other targets that must be run before the speciﬁed target runs. |
+| .PHONY:<word>   | <word> doesn't represent a file name in this Makefile           |
+|                 |                                                                 |
