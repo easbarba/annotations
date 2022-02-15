@@ -468,14 +468,6 @@ echo * # echo all files in dir
 echo .bash* # echo all files beginning with '.bash'
 
 #+end_src
-* make
-|                 |                                                                 |
-|-----------------+-----------------------------------------------------------------|
-| .DEFAULT_GOAL   | deﬁnes which target is run when no target is speciﬁed.          |
-| <word>:         | name of the target                                              |
-| <word>: <word2> | other targets that must be run before the speciﬁed target runs. |
-| .PHONY:<word>   | <word> doesn't represent a file name in this Makefile           |
-|                 |                                                                 |
 * scp
 OpenSSH secure file copy
 * at
