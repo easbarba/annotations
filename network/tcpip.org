@@ -1,0 +1,117 @@
+#+TITLE: Tcpip
+
+* Layers
+** Internet
+*** Internet Protocol (IP)
+**** IPV4
+This type of address—four values ranging from 0 to 255, separated by three
+periods: 192.168.1.115
+**** IPV6
+2001:0:4137:9e76:43e:2599:3f57:fe9a
+
+**** ICMP
+**** 14 Fields
+- Version
+- Length
+- Protocol
+- Time to live
+- Differentiated services code point (DSCP)
+** Transport
+*** Transport Layer Protocols (TCP)
+- connection-oriented protocol
+*** User Datagram Protocol (UDP)
+- connectionless protocol
+- voip
+
+** Application
+* DoD Model
+- Process Application
+- Host-to-Host
+- Internet
+- Network Access
+* IP
+Internet Protocol address
+
+- 32 bits integers converted to decimal: 11000000.10101000.00000100.00000010 -> 192.168.1.1
+- MAC and IP address must be unique on a network
+
+*** def
+An IP address, short for Internet Protocol address, is an identifying number for
+network hardware connected to a network. Having an IP address allows a device to
+communicate with other devices over an IP-based network like the internet.
+
+*** IPv4
+- 4 billion unique IP addresses (232)
+- 32-bit numerical number
+- hexadecimal
+
+#+begin_src conf
+151.101.65.121
+#+end_src
+
+*** IPv6
+- 340 trillion, trillion, trillion addresses (2128)
+- no IP address collisions caused by private addresses
+- Auto-configuration
+- No reason for Network Address Translation (NAT)
+- Efficient routing
+- Easier administration
+- Built-in privacy
+
+
+#+begin_src conf
+3ffe:1900:4545:3:200:f8ff:fe21:67cf
+#+end_src
+
+*** Types of IP Addresses
+**** private IP addresses
+- provide a way for devices that don't need a connection to the internet
+
+***** def
+A private IP address is an IP address that's reserved for internal use behind a
+router or other Network Address Translation (NAT) device, apart from the public.
+Private IP addresses are in contrast to public IP addresses, which are public
+and can't be used within a home or business network. Sometimes a private IP
+address is also referred to as a local IP address.
+
+***** range
+- 10.0.0.0 to 10.255.255.255
+- 172.16.0.0 to 172.31.255.255
+- 192.168.0.0 to 192.168.255.255
+
+***** Automatic Private IP Addressing
+- 169.254.0.0 to 169.254.255.255
+
+Automatic Private IP Addressing (APIPA) is a DHCP fail-safe that protects a
+computer system from failure. It invokes a standby mechanism for local Internet
+Protocol version 4 (IPv4) networks supported by Microsoft Windows. With APIPA,
+DHCP clients can obtain IP addresses even when DHCP servers are not functional.
+
+***** Reserved IP Addresses
+- 0.0.0.0 to 0.255.255.255
+- 127.0.0.0 to 127.255.255.255
+
+****** 127.0.0.1.
+This address is called the loopback address and is used to test the network
+adapter or integrated chip. No traffic addressed to 127.0.0.1 is sent over the
+local network or public internet.
+
+**** public IP addresses
+**** static IP addresses
+- doesn't have DHCP enabled
+-  doesn't support DHCP
+
+**** dynamic IP addresses
+- assigned by a DHCP server is a dynamic IP address.
+** EXAM TIP
+you should memorize that 0 = 00000000 and 255 = 11111111.
+* IPAM
+IP address management (IPAM) is a means of planning, tracking, and managing IP addresses within
+the network. IPAM has both DNS and DHCP services, so each service is notified of changes in the other.
+* DNS
+* DHCP
+Dynamic Host Configuration Protocol
+* definition
+a protocol that provides quick, automatic, and central management for the
+distribution of IP addresses within a network. It's also used to configure the
+subnet mask, default gateway, and DNS server information on the device.
