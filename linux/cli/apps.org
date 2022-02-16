@@ -31,6 +31,7 @@ rsync -avz /from /to
  | -r      | reverse             |
  | -F      | only dir            |
  | -A      | almostall           |
+ | -h      |                     |
 
 #+begin_src shell
 ✦ ❯ ls -l /proc/753237/exe
@@ -70,10 +71,20 @@ remove files or directories
 | -r or -R              |                   |
 | -d                    | remove empty dir  |
 | --preserve-root[=all] | do not remove '/' |
+
 ** ln
+In  the  1st form, create a link to TARGET with the name LINK_NAME.  In the 2nd form, create a link to TARGET in the
+current directory.  In the 3rd and 4th forms, create links to each TARGET in DIRECTORY.  Create hard  links  by  de‐
+fault,  symbolic  links  with --symbolic.  By default, each destination (name of new link) should not already exist.
+When creating hard links, each TARGET must exist.  Symbolic links can hold arbitrary text; if later resolved, a rel‐
+ative link is interpreted in relation to its parent directory.
+
 |    |   |
 |----+---|
 | -s |   |
+| -v |   |
+| -f |   |
+| -T |   |
 
 * Network
 ** whois
@@ -87,6 +98,21 @@ remove files or directories
 | -R | change files and directories recursively           |
 | -c | like verbose but report only when a change is made |
 |    |                                                    |
+
+** chown
+This  manual  page  documents the GNU version of chown.  chown changes the user and/or group ownership of each given
+file.  If only an owner (a user name or numeric user ID) is given, that user is made the owner of each  given  file,
+and  the  files'  group is not changed.  If the owner is followed by a colon and a group name (or numeric group ID),
+with no spaces between them, the group ownership of the files is changed as well.  If a colon but no group name fol‐
+lows  the  user  name, that user is made the owner of the files and the group of the files is changed to that user's
+login group.  If the colon and group are given, but the owner is omitted, only the group of the files is changed; in
+this  case, chown performs the same function as chgrp.  If only a colon is given, or if the entire operand is empty,
+neither the owner nor the group is changed.
+
+#+begin_src shell
+chown redis:redis /data
+chown $USER:$USER /dados
+#+end_src
 
 * Compression/Decompression
 ** gzip / gunzip
@@ -113,19 +139,25 @@ bunzip2.bz2
 #+end_src
 
 ** tar
-an archiving utility
+GNU tar is an archiving program designed to store multiple files in a single
+file (an archive), and to manipulate such archives. The archive can be
+either a regular file or a device (e.g. a tape drive, hence the name of
+the program, which stands for tape archiver), which can be located
+either on the local or on a remote machine.
 
-|    |   |
-|----+---|
-| -f |   |
-| -c |   |
-| -p |   |
-| -r |   |
-| -t |   |
-| -u |   |
-| -v |   |
-| -x |   |
-| -z |   |
+|                    |   |
+|--------------------+---|
+| -f                 |   |
+| -c                 |   |
+| -p                 |   |
+| -r                 |   |
+| -t                 |   |
+| -u                 |   |
+| -v                 |   |
+| -x                 |   |
+| -z                 |   |
+| --strip-components |   |
+| -C                 |   |
 
 #+begin_src shell
 tar -cvf videos.tar ~/Videos
@@ -281,6 +313,8 @@ open file in its default application
 | -p |   |
 | -i |   |
 * lscpu
+* scanelf
+ --needed --nobanner --format
 * dirs
 print directory stack
 * popd
@@ -351,6 +385,15 @@ print newline, word, and byte counts for each file
 
 * search
 ** find
+|           |   |
+|-----------+---|
+| -maxdepth |   |
+| -type     |   |
+| -not      |   |
+| -name     |   |
+| -exec     |   |
+
+
 -type
 
 all dirs
@@ -426,12 +469,18 @@ Utility to start a message bus from a shell script
 ** dbus-monitor
 debug probe to print message bus messages
 * sort
+Write sorted concatenation of all FILE(s) to standard output.
+
+With no FILE, or when FILE is -, read standard input.
+
 |    |   |
 |----+---|
 | -r |   |
 | -n |   |
 | -f |   |
 | +n |   |
+| -u |   |
+
 * exec
  execute command in current process
 * cal
@@ -483,9 +532,20 @@ echo 'Meh' | xargs -I {} echo 'Ultra {}' # ultra Meh
 
 #+end_src
 * sed
-#+begin_src shell
+Sed is a stream editor.  A stream editor is used to perform basic text transformations on an input stream (a file or
+input from a pipeline).  While in some ways similar to an editor which permits scripted  edits  (such  as  ed),  sed
+works  by  making  only  one pass over the input(s), and is consequently more efficient.  But it is sed's ability to
+filter text in a pipeline which particularly distinguishes it from other types of editors.
 
+|    |   |
+|----+---|
+| -r |   |
+| -i |   |
+
+
+#+begin_src shell
 sed -i 's/Meh/Foo/g'
+sed -ri 's!^(#define CONFIG_DEFAULT_PROTECTED_MODE) 1$!\1 0!' /usr/src/redis/src/server.h;
 #+end_src
 * sshuttle
 * crypt
@@ -500,10 +560,9 @@ Translate, squeeze, and/or delete characters from standard input, writing to sta
 |              |                                             |
 |--------------+---------------------------------------------|
 | -d, --delete | delete characters in SET1, do not translate |
-|              |                                             |
+
 
 #+begin_src shell
-
 echo '"Arch Linux"' | tr -d '"' # 'Arch Linux'
 #+end_src
 * cut
@@ -513,10 +572,10 @@ With no FILE, or when FILE is -, read standard input.
 
 Mandatory arguments to long options are mandatory for short options too.
 
-|                       |                                                                                                                         |
-|-----------------------+-------------------------------------------------------------------------------------------------------------------------|
-| -f<n> --fields=LIST   | select  only these fields;  also print any line that contains no delimiter character, unless the -s option is specified |
-| -d, --delimiter=DELIM | use DELIM instead of TAB for field delimiter                                                                                                                        |
+|                       |                                              |
+|-----------------------+----------------------------------------------|
+| -f<n> --fields=LIST   | select  only these fields                    |
+| -d, --delimiter=DELIM | use DELIM instead of TAB for field delimiter |
 
 
 #+begin_src shell
