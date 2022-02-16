@@ -36,41 +36,6 @@ also known as system ports
 - doesn’t care what data goes through
 - it just moves the data from one system to another system
 - NIC interface between the PC and the network
-* TCP/IP
-** Layers
-*** Internet
-**** Internet Protocol (IP)
-***** IPV4
-This type of address—four values ranging from 0 to 255, separated by three
-periods: 192.168.1.115
-***** IPV6
-2001:0:4137:9e76:43e:2599:3f57:fe9a
-
-***** ICMP
-***** 14 Fields
-- Version
-- Length
-- Protocol
-- Time to live
-- Differentiated services code point (DSCP)
-*** Transport
-**** Transport Layer Protocols (TCP)
-- connection-oriented protocol
-**** User Datagram Protocol (UDP)
-- connectionless protocol
-- voip
-
-*** Application
-** DoD Model
-- Process Application
-- Host-to-Host
-- Internet
-- Network Access
-* IP
-- 32 bits integers converted to decimal: 11000000.10101000.00000100.00000010 -> 192.168.1.1
-- MAC and IP address must be unique on a network
-** EXAM TIP
-you should memorize that 0 = 00000000 and 255 = 11111111.
 * LAN
 - IP address
 - Ethernet MAC Adress
@@ -114,3 +79,16 @@ address within an IP address.
 11111111111111111111111100000000
 ** Mac adress
 - uses Address Resolution Protocol to figure out the MAC address based on the destination IP address
+* hostname
+** def
+A hostname is a label assigned to a device (a host) on a network. It
+distinguishes one device from another on a specific network or over the
+internet. The hostname for a computer on a home network may be something like
+new laptop, Guest-Desktop, or FamilyPC.
+* url
+Uniform Resource Locator
+** def
+Abbreviated as URL, a Uniform Resource Locator is a way of identifying the
+location of a file on the internet. They're what we use to open not only
+websites, but also to download images, videos, software programs, and other
+types of files that are hosted on a server.
