@@ -1,0 +1,9 @@
+#+TITLE: sh
+* commands
+** options
+|    |   |
+|----+---|
+| -e |   |
+| -u |   |
+| -x |   |
+| -c |   |
