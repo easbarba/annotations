@@ -1,5 +1,16 @@
-#+TITLE: Eksclt
+#+TITLE: eksclt
 
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#commands][commands]]
+  - [[#create][create]]
+    - [[#cluster][cluster]]
+- [[#clusteryaml][cluster.yaml]]
+:END:
 * commands
 
 ** create
@@ -7,7 +18,6 @@
 |    |   |
 |----+---|
 | -f |   |
-
 
 * cluster.yaml
 #+begin_src yaml
