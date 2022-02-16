@@ -1,37 +1,95 @@
 #+TILE: Containers - Annotations
 
 * Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
+:PROPERTIES:
+:TOC:      :include all
+:END:
 :CONTENTS:
+- [[#summary][Summary]]
 - [[#progresso][Progresso]]
   - [[#books][books]]
   - [[#sloc][sloc]]
 - [[#commands][Commands]]
   - [[#container][container]]
+    - [[#attach][attach]]
+    - [[#commit][commit]]
+    - [[#create][create]]
+    - [[#cp][cp]]
+    - [[#diff][diff]]
+    - [[#exec][exec]]
+    - [[#kill][kill]]
+    - [[#ls][ls]]
+    - [[#logs][logs]]
+    - [[#inspect][inspect]]
+    - [[#pause][pause]]
+    - [[#prune][prune]]
+    - [[#port][port]]
+    - [[#run][run]]
+      - [[#options][options]]
+    - [[#rm][rm]]
+    - [[#restart][restart]]
+    - [[#stats][stats]]
+    - [[#stop][stop]]
+    - [[#start][start]]
+    - [[#top][top]]
+    - [[#update][update]]
+    - [[#unpause][unpause]]
+    - [[#pause][pause]]
+    - [[#ps][ps]]
   - [[#volume][volume]]
+    - [[#create][create]]
+      - [[#options][options]]
+    - [[#ls][ls]]
+    - [[#inspect][inspect]]
   - [[#login][login]]
   - [[#images][images]]
   - [[#image][image]]
+    - [[#ls][ls]]
+    - [[#pull][pull]]
+    - [[#build][build]]
+    - [[#history][history]]
+    - [[#inspect][inspect]]
+      - [[#-f][-f]]
+    - [[#save][save]]
+    - [[#tag][tag]]
+    - [[#prune][prune]]
   - [[#system][system]]
+    - [[#prune][prune]]
   - [[#network][network]]
+    - [[#ls][ls]]
+    - [[#prune][prune]]
 - [[#volumes][Volumes]]
+- [[#dockerignore][.dockerignore]]
+- [[#docker-entrypointsh][docker-entrypoint.sh]]
+- [[#dockerfile][Dockerfile]]
+  - [[#from][FROM]]
+  - [[#label][LABEL]]
+  - [[#maintainer][MAINTAINER]]
+  - [[#run][RUN]]
+  - [[#copy][COPY]]
+  - [[#add][ADD]]
+  - [[#workdir][WORKDIR]]
+  - [[#env][ENV]]
+  - [[#expose][EXPOSE]]
+  - [[#cmd][CMD]]
+  - [[#entrypoint][ENTRYPOINT]]
+  - [[#volume][VOLUME]]
 - [[#exit][Exit]]
   - [[#stopquitdetach][Stop/Quit/Detach]]
 - [[#images-registry][Images Registry]]
 - [[#terms][Terms]]
 - [[#best-practices][Best practices]]
   - [[#multi-stages][Multi-stages]]
+    - [[#eg][eg]]
 - [[#example][Example]]
 - [[#tips][Tips]]
   - [[#remove-all][Remove all]]
 :END:
 * Progresso
 ** books
-| books            | chapter               | at                            |
-|------------------+-----------------------+-------------------------------|
-| Mastering Docker | 4 Managing Containers | Docker networking and volumes |
+| books            | chapter        | at |
+|------------------+----------------+----|
+| Mastering Docker | Docker Compose |    |
 
 ** sloc
 | sloc           | @ | file | line |
@@ -125,6 +183,8 @@ docker run -p 3000:3000 railsapp
 docker run -it --rm --privileged --pid=host fundamentalsofdocker/nsenter
 docker container run -d --name nginx-test --cpu-shares 512 --memory 128M -p 8080:80 nginx
 docker container run -d --name redis --network moby-counter redis:alpine
+docker container run -d --name redis -v 45c4cb295fc831c085c49963a01f8e0f79534b9
+f0190af89321efec97b9d051f:/data -network moby-counter redis:alpine
 #+end_src
 
 #+begin_src shell
@@ -161,6 +221,10 @@ docker container stop nginx3 && docker container rm nginx3
 | --storage |   |
 *** restart
 Restart one or more containers
+
+#+begin_src shell
+docker container restart moby-counter
+#+end_src
 *** stats
 Display a live stream of container(s) resource usage statistics
 
@@ -210,8 +274,7 @@ docker ps --filter "status=exited"
 |----------+-----------------------------------|
 | --driver | select a different volume driver. |
 |          |                                   |
-
-
+*** ls
 *** inspect
 ** login
 #+begin_src shell
@@ -261,6 +324,69 @@ docker tag 7146a802571b railsapp
 *** ls
 *** prune
 * Volumes
+* .dockerignore
+* docker-entrypoint.sh
+* Dockerfile
+** FROM
+|                       |                   |
+|-----------------------+-------------------|
+| scratch               | tart from scratch |
+| <image-name> or <uri> |                   |
+** LABEL
+add extra information to the image
+** MAINTAINER
+** RUN
+** COPY
+** ADD
+ADD keyword also lets us copy and unpack TAR files, as well as providing a URL
+as a source for the files and folders to copy.
+
+- can change the ownership that the files
+
+#+begin_src shell
+ADD sample.tar /app/bin/
+ADD http://example.com/sample.txt /data/
+ADD --chown=11:22 ./data/web* /app/data/
+#+end_src
+
+** WORKDIR
+** ENV
+define env variables
+
+#+begin_src dockerfile
+ENV meh foo # only set one ENV per line
+ENV meh=foo bar=posix # multiple environmental variables on the same line
+#+end_src
+** EXPOSE
+declare all ports that the application is listening on and that need to be
+accessible from outside of the container
+** CMD
+used to define the parameters of the program set in ENTRYPOINT
+
+- executed only at the start of image run
+- can be override with `-w`
+#+begin_src shell
+FROM alpine:3.10
+ENTRYPOINT ["ping"]
+CMD ["-c","3","8.8.8.8"]
+
+podman container run -it --rm pinger -w 5 gnu.org
+
+#+end_src
+** ENTRYPOINT
+used to define the command of the expression
+
+- executed only at the start of image run
+- default value is `/bin/sh -c`
+
+#+begin_src shell
+FROM alpine:3.10
+ENTRYPOINT ["ping"]
+CMD ["-c","3","8.8.8.8"]
+
+podman container run -it --rm --entrypoint bin/sh meh
+#+end_src
+** VOLUME
 * Exit
 ** Stop/Quit/Detach
 |         |          |
