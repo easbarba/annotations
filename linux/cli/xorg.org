@@ -1,0 +1,35 @@
+#+TITLE: Xorg
+
+* xmodmap
+|         |                                    |
+|---------+------------------------------------|
+| -pke    |                                    |
+
+* setxkbmap
+|         |                                    |
+|---------+------------------------------------|
+| -option | reset current session modification |
+|         |                                    |
+
+* xinput
+- list the devices
+#+begin_src shell
+ xinput --list
+#+end_src
+
+- list details for the mouse (id=3)
+ #+begin_src shell
+xinput --list-props 3
+ #+end_src
+
+- Disable the mouse:
+#+begin_src shell
+$ export DISPLAY=:0
+$ xinput set-int-prop 3 "Device Enabled" 8 0
+#+end_src
+
+* xandr
+|           |   |
+|-----------+---|
+| -q        |   |
+| --current |   |
