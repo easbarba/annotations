@@ -1,117 +1,155 @@
 #+TITLE: Golang
 
 * Summary
-    :PROPERTIES:
-    :TOC:      :include all :depth 3 :ignore this
-    :END:
-    :CONTENTS:
-    - [[#progress][Progress]]
-      - [[#books][Books]]
-      - [[#sloc][SLOC]]
-    - [[#packages][Packages]]
-      - [[#gem][gem]]
-      - [[#bundle][bundle]]
-	- [[#outdated][outdated]]
-	- [[#gem][gem]]
-	- [[#install][install]]
-	- [[#update][update]]
-      - [[#irb][irb]]
-	- [[#cli][cli]]
-	- [[#inside][inside]]
-      - [[#rspec][rspec]]
-      - [[#unit-test][unit test]]
-      - [[#pry][pry]]
-    - [[#features][Features]]
-      - [[#project-structure][project structure]]
-      - [[#system-errors][System Errors]]
-	- [[#usage][usage]]
-      - [[#exceptions][exceptions]]
-	- [[#errors][Errors]]
-	- [[#usage][usage]]
-      - [[#writable-object-attribute][writable object attribute]]
-      - [[#multithreading][Multithreading]]
-	- [[#usage][usage]]
-      - [[#modules][modules]]
-      - [[#continuation][continuation]]
-      - [[#fibers][Fibers]]
-	- [[#errors][errors]]
-	- [[#usage][usage]]
-      - [[#delimited-input][delimited input]]
-      - [[#rake][rake]]
-	- [[#usage][usage]]
-      - [[#gem][gem]]
-      - [[#variables][Variables]]
-	- [[#class-variables][class variables]]
-	- [[#global-variables][global variables]]
-      - [[#self][self]]
-      - [[#commentary][commentary]]
-      - [[#defined][defined?]]
-      - [[#iterators][iterators]]
-      - [[#block-local-variables][block-local variables]]
-      - [[#loops][loops]]
-      - [[#statement-modifiers][statement modifiers]]
-      - [[#comparison][comparison]]
-      - [[#conditional][conditional]]
-      - [[#class][class]]
-	- [[#class][class]]
-      - [[#append-][append <<]]
-      - [[#blocks][blocks]]
-      - [[#lambda][lambda]]
-	- [[#how][How]]
-	- [[#usage][Usage]]
-      - [[#methods][methods]]
-      - [[#yield][yield]]
-      - [[#procs][procs]]
-      - [[#operators][operators]]
-      - [[#enumerable][enumerable]]
-      - [[#enumerator][enumerator]]
-	- [[#lazy][lazy]]
-	- [[#each_car][each_car]]
-	- [[#each][each]]
-	- [[#to_enumenum_for][to_enum/enum_for]]
-      - [[#inject][inject]]
-      - [[#select][select]]
-      - [[#succ][succ]]
-      - [[#collect][collect]]
-      - [[#freeze][freeze]]
-      - [[#dup][dup]]
-      - [[#dig][dig]]
-      - [[#fetch][fetch]]
-      - [[#tap][tap]]
-      - [[#map][map]]
-      - [[#pluck][pluck]]
-      - [[#quoting][Quoting]]
-      - [[#here-documents][here documents]]
-      - [[#proc][proc]]
-      - [[#do-end-as-param][do end as param]]
-      - [[#array][array]]
-      - [[#datetime][date/time]]
-      - [[#lambda][lambda]]
-      - [[#begin-rescue][begin rescue]]
-      - [[#hash][hash]]
-      - [[#range][range]]
-      - [[#sets][sets]]
-      - [[#gsub][gsub]]
-      - [[#find][find]]
-      - [[#map][map]]
-      - [[#each_slice][each_slice]]
-      - [[#lazy][lazy]]
-      - [[#with_index][with_index]]
-      - [[#enum_for][enum_for]]
-      - [[#more][more]]
-      - [[#concepts][Concepts]]
-	- [[#iterator][Iterator]]
-	- [[#methods][Methods]]
-	- [[#enumerator][Enumerator]]
-      - [[#instructions][Instructions]]
-	- [[#rbenv][Rbenv]]
-	- [[#misc][misc]]
-    - [[#toolings][Toolings]]
-    - [[#videos][Videos]]
-    - [[#tests][Tests]]
-      - [[#rspec][RSpec]]
-      - [[#unit][Unit]]
-    :END:
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
+  - [[#basic-types][Basic Types]]
+    - [[#integers][integers]]
+      - [[#byte][byte]]
+      - [[#int][int]]
+      - [[#uint][uint]]
+      - [[#rune][rune]]
+      - [[#uintptr][uintptr]]
+    - [[#float][float]]
+    - [[#complext][complext]]
+    - [[#literals][literals]]
+    - [[#strings][strings]]
+      - [[#functions][functions]]
+    - [[#boolean][boolean]]
+    - [[#runes][runes]]
+    - [[#nil][nil]]
+  - [[#agreggate-types][Agreggate Types]]
+    - [[#arrays][Arrays]]
+      - [[#functions][functions]]
+        - [[#len][len]]
+    - [[#slices][Slices]]
+      - [[#functions][functions]]
+      - [[#slicing][slicing]]
+    - [[#maps][Maps]]
+      - [[#functions][functions]]
+    - [[#struct][Struct]]
+  - [[#reference-type][Reference Type]]
+    - [[#methods][methods]]
+    - [[#emb][emb]]
+  - [[#interface-types][Interface Types]]
+  - [[#operators][Operators]]
+  - [[#import][import]]
+  - [[#functions][Functions]]
+    - [[#parameters][parameters]]
+    - [[#usage][usage]]
+  - [[#defer][Defer]]
+  - [[#variables][Variables]]
+    - [[#package-level-variables][package-level variables]]
+    - [[#var][var]]
+    - [[#][:=]]
+    - [[#tuple-assignment][tuple assignment]]
+    - [[#new-function][new() function]]
+    - [[#assignment][assignment]]
+    - [[#const][Const]]
+    - [[#blank-identifier][blank identifier]]
+    - [[#pointers][Pointers]]
+  - [[#errors][Errors]]
+    - [[#errors][errors]]
+    - [[#fmterrorf][fmt.Errorf]]
+    - [[#sentinel-error][sentinel error]]
+  - [[#blocks][Blocks]]
+    - [[#package-levels][Package Levels]]
+    - [[#universe-block][Universe block]]
+  - [[#control-flow][Control-flow]]
+    - [[#if][if]]
+    - [[#for][for]]
+    - [[#switch][switch]]
+    - [[#goto][goto]]
+  - [[#stop-flow][Stop-flow]]
+    - [[#continue][continue]]
+    - [[#break][break]]
+  - [[#print][print]]
+  - [[#mutex][mutex]]
+  - [[#packages][Packages]]
+    - [[#doc-comment][doc comment]]
+- [[#commands][Commands]]
+  - [[#vet][vet]]
+  - [[#build][build]]
+  - [[#get][get]]
+  - [[#doc][doc]]
+  - [[#mod][mod]]
+    - [[#init][init]]
+    - [[#vendor][vendor]]
+    - [[#graph][graph]]
+  - [[#install][install]]
+  - [[#run][run]]
+  - [[#env][env]]
+    - [[#gopath][$GOPATH]]
+    - [[#goproxy][$GOPROXY]]
+  - [[#test][test]]
+- [[#standard-library][Standard Library]]
+  - [[#misc][misc]]
+    - [[#basename][basename]]
+    - [[#make][make]]
+    - [[#iota][iota]]
+    - [[#append][append]]
+  - [[#flag][flag]]
+    - [[#example][example]]
+  - [[#string][string]]
+  - [[#bytes][bytes]]
+  - [[#strconv][strconv]]
+  - [[#json][json]]
+  - [[#fmt][fmt]]
+  - [[#unicode][unicode]]
+  - [[#math][math]]
+  - [[#path][path]]
+  - [[#filepath][filepath]]
+  - [[#io][io]]
+  - [[#test][test]]
+    - [[#testingm][testing.M]]
+    - [[#testingt][testing.T]]
+    - [[#testingtrun][testing.T.Run]]
+    - [[#testingtfatal][testing.T.Fatal]]
+    - [[#testingterrorf][testing.T.Errorf]]
+  - [[#os][os]]
+    - [[#remove][Remove]]
+    - [[#exit][Exit]]
+    - [[#exec][exec]]
+      - [[#command][Command]]
+  - [[#path][path]]
+    - [[#filepath][filepath]]
+  - [[#runtime][runtime]]
+    - [[#runtimegoos][runtime.GOOS]]
+- [[#config][Config]]
+  - [[#gomod][go.mod]]
+    - [[#require][require]]
+    - [[#replace][replace]]
+    - [[#exclude][exclude]]
+    - [[#version][version]]
+    - [[#module][module]]
+  - [[#gosum][go.sum]]
+- [[#structure][Structure]]
+  - [[#internal][internal]]
+  - [[#import][import]]
+    - [[#blank-import][blank import]]
+  - [[#pkg][pkg]]
+  - [[#cmd][cmd]]
+  - [[#init-function][init function]]
+- [[#environment-variables][Environment Variables]]
+  - [[#gopath][GOPATH]]
+  - [[#goroot][GOROOT]]
+- [[#terms][Terms]]
+- [[#packages][Packages]]
+  - [[#tool][tool]]
+    - [[#vet][vet]]
+  - [[#golangci-lint][golangci-lint]]
+  - [[#golint][golint]]
+  - [[#goimports][goimports]]
+- [[#carrer][carrer]]
+:END:
+
 * Progress
 ** Books
 | name                    | chapter                | @                          |
@@ -125,7 +163,7 @@
 | go          | src/archive/tar       | reader.go |                   |
 | podman      | cmd/podman/containers | cp.go     | copyFromContainer |
 
-* Features
+* Base
 ** Basic Types
 - comparable
 
@@ -918,6 +956,25 @@ the values returned by functions or import for side-effects.
 #+begin_src go
 _, err = os.Read(x)
 #+end_src
+*** Pointers
+a variable whose value is a memory address.
+
+|            |                      |                                                                       |
+|------------+----------------------+-----------------------------------------------------------------------|
+| &          | address operator     | returns the address of the memory location where the value is stored. |
+| *          | indirection operator | pointer type and returns the pointed-to value. dereferencing.                                                                      |
+| zero value | nil                  |                                                                       |
+
+- type uintptr, holds all bits of a pointer value
+- new() creates a pointer variable. It returns a pointer to a zero value instance of the provided
+- return a pointer set to nil from a function, use the comma ok idiom maps and return a value type and a boolean.
+
+#+begin_src go
+def main() {
+	x := "hello"
+	pointToX := &x
+}
+#+end_src
 ** Errors
 *** errors
 *** fmt.Errorf
@@ -1065,22 +1122,6 @@ outer:
 #+begin_src go
 Printf("%#v\n", w) // # display values in a form similar to Go synVtax.
 #+end_src
-** Pointers
-- zero value: nil
-- type uintptr, holds all bits of a pointer value
-- The & is the address operator: returns the address of the memory location where the value is stored.
-- The * is the indirection operator: pointer type and returns the pointed-to value. dereferencing.
-- new() creates a pointer variable. It returns a pointer to a zero value instance of the provided
-- return a pointer set to nil from a function, use the comma ok idiom maps and return a value type and a boolean.
-
-#+begin_src go
-def main() {
-	x := "hello"
-	pointToX := &x
-}
-
-
-#+end_src
 ** mutex
 #+begin_src go emacs-lisp
 sync.Mutex
@@ -1144,6 +1185,12 @@ Run compiles and runs the named main Go package.
 - list golang environment variables
 *** $GOPATH
 *** $GOPROXY
+** test
+|                 |   |
+|-----------------+---|
+| -v or --verbose |   |
+| -h or --help    |   |
+
 * Standard Library
 ** misc
 *** basename
@@ -1173,6 +1220,15 @@ const (
 )
 #+end_src
 *** append
+** flag
+*** example
+#+begin_src go
+task := flag.String("task", "", "Task to be included in the ToDo list")
+list := flag.Bool("list", false, "List all tasks")
+complete := flag.Int("complete", 0, "Item to be completed")
+
+flag.Parse()
+#+end_src
 ** string
 - IsUpper
 - IsLower
@@ -1227,6 +1283,37 @@ strings.Map
 io.EOF
 
 #+end_src
+** [[https://pkg.go.dev/testing][test]]
+Package testing provides support for automated testing of Go packages.
+
+*** testing.M
+#+begin_src go
+
+#+end_src
+
+*** testing.T
+*** testing.T.Run
+#+begin_src go
+t.Run("AddNewTask", func(t *testing.T) {
+    cmd := exec.Command(cmdPath, "-task", task)
+
+    if err := cmd.Run(); err != nil {
+      t.Fatal(err)
+    }
+  })
+#+end_src
+*** testing.T.Fatal
+*** testing.T.Errorf
+** os
+*** Remove
+*** Exit
+*** exec
+**** Command
+** path
+*** filepath
+** runtime
+*** runtime.GOOS
+
 * Config
 ** go.mod
 *** require
