@@ -1,0 +1,40 @@
+#+TITLE: Google Cloud
+
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#commands][commands]]
+  - [[#init][init]]
+  - [[#container][container]]
+    - [[#compute][compute]]
+      - [[#list][list]]
+      - [[#ssh][ssh]]
+    - [[#clusters][clusters]]
+      - [[#resize][resize]]
+  - [[#auth][auth]]
+    - [[#login][login]]
+:END:
+
+* commands
+** init
+** container
+*** compute
+**** list
+**** ssh
+*** clusters
+**** resize
+increase or decrease the number of nodes in your cluster.
+
+|                   |   |
+|-------------------+---|
+| --num-nodes <INT> |   |
+
+#+begin_src shell
+gcloud container clusters resize kiada --size 0
+#+end_src
+
+** auth
+*** login
