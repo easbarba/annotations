@@ -2,3 +2,12 @@
 
 * sha256sum
 * md5sum
+* base64
+* openssl
+** passwd
+|               |                              |
+|---------------+------------------------------|
+| -6            | sha512                       |
+| --salt <SALT> |                              |
+| -in <FILE>    | use file containing password |
+|               |                              |
