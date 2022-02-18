@@ -25,14 +25,11 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: basic-cluster
-  region: eu-north-1
-
+  name: forevis-cluster
+  region: sa-east-1
+  version: 1.21
 nodeGroups:
-  - name: ng-1
-    instanceType: m5.large
-    desiredCapacity: 10
-  - name: ng-2
-    instanceType: m5.xlarge
+  - name: forevis-1
+    instanceType: t2.micro
     desiredCapacity: 2
 #+end_src
