@@ -1,50 +1,93 @@
 #+TITLE: Kubernetes
 
-* summary
+* Summary
 :PROPERTIES:
 :TOC:      :include all
 :END:
 :CONTENTS:
-- [[#summary][summary]]
+- [[#summary][Summary]]
 - [[#progress][Progress]]
   - [[#books][Books]]
-- [[#kubectl][kubectl]]
-  - [[#commands][commands]]
-    - [[#cluster-info][cluster-info]]
-    - [[#logs][logs]]
-    - [[#get][get]]
-      - [[#services][services]]
-      - [[#deployments][deployments]]
-      - [[#pods][pods]]
-      - [[#namespaces][namespaces]]
-    - [[#config][config]]
-    - [[#explain][explain]]
-      - [[#pods][pods]]
-      - [[#deployment][deployment]]
-    - [[#expose][expose]]
-  - [[#kubeconfig][kubeconfig]]
-    - [[#clusters][Clusters]]
-    - [[#users][Users]]
+- [[#base][Base]]
+  - [[#namespace][namespace]]
+  - [[#replicaset][ReplicaSet]]
+  - [[#deployment][Deployment]]
+  - [[#cluster][Cluster]]
+    - [[#cluster-master][Cluster master]]
+    - [[#worker-nodes][Worker nodes]]
+      - [[#components][components]]
+        - [[#kubelet][kubelet]]
+        - [[#kube-proxy][kube-proxy]]
+        - [[#container-runtime][container runtime]]
+  - [[#node][Node]]
+  - [[#secret][Secret]]
+  - [[#configmap][ConfigMap]]
+  - [[#service][Service]]
+  - [[#jobs--cronjobs][Jobs & CronJobs]]
+  - [[#volumes][Volumes]]
+  - [[#container][Container]]
+  - [[#master][Master]]
+    - [[#api-server][API server]]
+    - [[#etcd][etcd]]
+    - [[#scheduler][scheduler]]
+    - [[#kube-controller-manager][kube-controller-manager]]
+    - [[#cloud-controller-manager][cloud-controller-manager]]
     - [[#contexts][Contexts]]
-- [[#pods][Pods]]
-  - [[#multi-container-pod][multi-container pod]]
-    - [[#patterns][patterns]]
-      - [[#sidecar-pattern][Sidecar pattern]]
-      - [[#adapter-pattern][Adapter pattern]]
-      - [[#ambassador-pattern][Ambassador pattern]]
-      - [[#init-pattern][Init pattern]]
-  - [[#single-container-pod][single-container pod]]
-- [[#controllers][Controllers]]
-  - [[#long-lived][Long-lived]]
-    - [[#deployments][Deployments]]
-    - [[#statefulsets][StatefulSets]]
-    - [[#daemonsets][DaemonSets]]
-  - [[#short-lived][Short-lived]]
-    - [[#jobs][Jobs]]
-    - [[#cronjobs][CronJobs]]
+  - [[#pods][Pods]]
+    - [[#multi-container-pod][multi-container pod]]
+      - [[#patterns][patterns]]
+        - [[#sidecar-pattern][Sidecar pattern]]
+        - [[#adapter-pattern][Adapter pattern]]
+        - [[#ambassador-pattern][Ambassador pattern]]
+        - [[#init-pattern][Init pattern]]
+    - [[#single-container-pod][single-container pod]]
+  - [[#controllers][Controllers]]
+    - [[#long-lived][Long-lived]]
+      - [[#deployments][Deployments]]
+      - [[#statefulsets][StatefulSets]]
+      - [[#daemonsets][DaemonSets]]
+    - [[#short-lived][Short-lived]]
+      - [[#jobs][Jobs]]
+      - [[#cronjobs][CronJobs]]
+- [[#commands][Commands]]
+  - [[#cluster-info][cluster-info]]
+  - [[#create][create]]
+    - [[#deployment][deployment]]
+  - [[#logs][logs]]
+  - [[#proxy][proxy]]
+  - [[#get][get]]
+    - [[#services][services]]
+    - [[#secret][secret]]
+    - [[#containers][containers]]
+    - [[#replicaset][replicaset]]
+    - [[#deployments][deployments]]
+    - [[#deployment][deployment]]
+    - [[#componentstatuses][componentstatuses]]
+    - [[#pods][pods]]
+    - [[#namespaces][namespaces]]
+  - [[#edit][edit]]
+    - [[#deployment][deployment]]
+  - [[#exec][exec]]
+  - [[#config][config]]
+    - [[#set-context][set-context]]
+    - [[#use-contex][use-contex]]
+    - [[#current-context][current-context]]
+  - [[#describe][describe]]
+    - [[#nodes][nodes]]
+  - [[#explain][explain]]
+    - [[#pods][pods]]
+    - [[#deployment][deployment]]
+  - [[#expose][expose]]
+  - [[#options][options]]
+- [[#k8s-config][K8s config]]
+  - [[#clusters][Clusters]]
+  - [[#users][Users]]
 - [[#alternatives][Alternatives]]
   - [[#kind][Kind]]
+  - [[#k3d][k3d]]
   - [[#minikube][MiniKube]]
+- [[#challenges][Challenges]]
+  - [[#on-premisses-1m2n][On premisses 1m/2n]]
 :END:
 
 * Progress
@@ -54,11 +97,79 @@
 | Kubernetes Book      | 4: Working with Pods |   |
 | Kubernetes in Action | 2 - first steps      |   |
 
-* kubectl
-** commands
-*** cluster-info
-*** logs
-*** get
+* Base
+** namespace
+
+** ReplicaSet
+** Deployment
+** Cluster
+*** Cluster master
+*** Worker nodes
+- machine or vm
+**** components
+***** kubelet
+-
+***** kube-proxy
+***** container runtime
+** Node
+** Secret
+** ConfigMap
+** Service
+** Jobs & CronJobs
+** Volumes
+** Container
+** Master
+*** API server
+*** etcd
+*** scheduler
+*** kube-controller-manager
+*** cloud-controller-manager
+
+*** Contexts
+** Pods
+a group of one or more closely related containers that run together on the same
+worker node and need to share certain Linux namespaces, so that they can
+interact more closely than with other pods.
+
+- immutable objects
+- single-container
+- multi-container
+- defined declaratively in manifest files
+- deployed via higher-level controllers
+
+*** multi-container pod
+**** patterns
+***** Sidecar pattern
+- sidecar augments or performs a secondary task for the main application container.
+***** Adapter pattern
+the helper container translate output from the main container to a format required B an external system
+
+- variation of the sidecar pattern
+
+eg: translate NGINX logs to Prometheus.
+
+***** Ambassador pattern
+brokers connectivity to an external system.
+
+- variation of the sidecar pattern
+***** Init pattern
+init container starts and completes before the main app container, only once.
+*** single-container pod
+** Controllers
+*** Long-lived
+**** Deployments
+**** StatefulSets
+**** DaemonSets
+*** Short-lived
+**** Jobs
+**** CronJobs
+* Commands
+** cluster-info
+** create
+*** deployment
+** logs
+** proxy
+** get
 Display one or many resources.
 
 Prints a table of the most important information about the specified resources.
@@ -69,69 +180,66 @@ namespace unless you pass --all-namespaces.
 By specifying the output as 'template' and providing a Go template as the value
 of the --template flag, you can filter the attributes of the fetched resources.
 
-**** services
+*** services
 
-**** deployments
-**** pods
-**** namespaces
+*** secret
 
-*** config
-|                 |                                   |
-|-----------------+-----------------------------------|
-| current-context |                                   |
-| use-context     | change the current active context |
-|                 |                                   |
-*** explain
-**** pods
+*** containers
+
+*** replicaset
+*** deployments
+*** deployment
+*** componentstatuses
+
+*** pods
+*** namespaces
+** edit
+*** deployment
+** exec
+** config
+*** set-context
+Set a context entra in kubeconfig
+#+begin_src shell
+kubectl config set-context my-context --namespace=mystuff
+#+end_src
+*** use-contex
+Set the current-context in a kubeconfig file
+
+#+begin_src shell
+kubectl config use-context my-context
+#+end_src
+*** current-context
+Display the current-context
+** describe
+*** nodes
+#+begin_src sh
+kubectl describe node
+#+end_src
+** explain
+*** pods
 |             |   |
 |-------------+---|
 | --recursive |   |
-**** deployment
-*** expose
+*** deployment
+** expose
+** options
+|                 |   |
+|-----------------+---|
+| --namespace     |   |
+| --all-namespace |   |
 
-** kubeconfig
-*** Clusters
-*** Users
-*** Contexts
-* Pods
-- immutable objects
-- single-container
-- multi-container
-- defined declaratively in manifest files
-- deployed via higher-level controllers
-
-** multi-container pod
-*** patterns
-**** Sidecar pattern
-- sidecar augments or performs a secondary task for the main application container.
-**** Adapter pattern
-the helper container translate output from the main container to a format required B an external system
-
-- variation of the sidecar pattern
-
-eg: translate NGINX logs to Prometheus.
-
-**** Ambassador pattern
-brokers connectivity to an external system.
-
-- variation of the sidecar pattern
-**** Init pattern
-init container starts and completes before the main app container, only once.
-** single-container pod
-
-* Controllers
-** Long-lived
-*** Deployments
-*** StatefulSets
-*** DaemonSets
-** Short-lived
-*** Jobs
-*** CronJobs
-
+* K8s config
+** Clusters
+** Users
 * Alternatives
 ** Kind
+** k3d
 ** MiniKube
      |                       |                             |
      |-----------------------+-----------------------------|
      | start --driver=<NAME> | select what driver to start |
      |                       |                             |
+
+* Challenges
+** On premisses 1m/2n
+Tenta instalar um k8s onprime Com 2 nodes E 1 Master
