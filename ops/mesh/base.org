@@ -1,0 +1,15 @@
+#+TITLE: Base
+
+* categories
+- connect
+- secure
+- monitor
+
+* features
+- mTLS
+- latency-aware
+- load balancing
+- retries
+- traffic shifting
+- circuit breaking
+- observability
