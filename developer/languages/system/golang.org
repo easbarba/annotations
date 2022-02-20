@@ -81,8 +81,10 @@
   - [[#doc][doc]]
   - [[#mod][mod]]
     - [[#init][init]]
+    - [[#download][download]]
     - [[#vendor][vendor]]
     - [[#graph][graph]]
+  - [[#list][list]]
   - [[#install][install]]
   - [[#run][run]]
   - [[#env][env]]
@@ -1160,12 +1162,22 @@ package meh
 #+begin_src shell
 go mod init MODULE_PATH
 #+end_src
+*** download
+Download downloads the named modules, which can be module patterns selecting
+dependencies of the main module or module queries of the form path@version.
+With no arguments, download applies to all dependencies of the main module
+(equivalent to 'go mod download all').
+
+The go command will automatically download modules as needed during ordinary
+execution. The "go mod download" command is useful mainly for pre-filling
+the local cache or to compute the answers for a Go module proxy.
+
 *** vendor
 #+begin_src shell
 go mod vendor
 #+end_src
 *** graph
-
+** list
 ** install
 |               |                            |
 |---------------+----------------------------|
