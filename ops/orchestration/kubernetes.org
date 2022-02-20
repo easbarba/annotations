@@ -53,11 +53,14 @@
   - [[#cluster-info][cluster-info]]
   - [[#create][create]]
     - [[#deployment][deployment]]
+  - [[#scale][scale]]
+    - [[#deployment][deployment]]
   - [[#logs][logs]]
   - [[#proxy][proxy]]
   - [[#get][get]]
     - [[#services][services]]
     - [[#secret][secret]]
+    - [[#all][all]]
     - [[#containers][containers]]
     - [[#replicaset][replicaset]]
     - [[#deployments][deployments]]
@@ -79,9 +82,15 @@
     - [[#deployment][deployment]]
   - [[#expose][expose]]
   - [[#options][options]]
-- [[#k8s-config][K8s config]]
+- [[#config-file][Config File]]
   - [[#clusters][Clusters]]
   - [[#users][Users]]
+- [[#manifest][Manifest]]
+  - [[#type][type]]
+  - [[#object][Object]]
+  - [[#spec][Spec]]
+  - [[#status][Status]]
+  - [[#minimum-manifest][minimum manifest]]
 - [[#alternatives][Alternatives]]
   - [[#kind][Kind]]
   - [[#k3d][k3d]]
@@ -167,6 +176,12 @@ init container starts and completes before the main app container, only once.
 ** cluster-info
 ** create
 *** deployment
+** scale
+*** deployment
+|                  |   |
+|------------------+---|
+| --replicas <INT> |   |
+
 ** logs
 ** proxy
 ** get
@@ -183,6 +198,11 @@ of the --template flag, you can filter the attributes of the fetched resources.
 *** services
 
 *** secret
+
+*** all
+|                  |   |
+|------------------+---|
+| --all-namespaces |   |
 
 *** containers
 
@@ -222,15 +242,50 @@ kubectl describe node
 | --recursive |   |
 *** deployment
 ** expose
+Expose a resource as a new Kubernetes service.
+
+ Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector for that
+resource as the selector for a new service on the specified port. A deployment or replica set will be exposed as a
+service only if its selector is convertible to a selector that service supports, i.e. when the selector contains only
+the matchLabels component. Note that if no port is specified via --port and the exposed resource has multiple ports, all
+will be re-used by the new service. Also if no labels are specified, the new service will re-use the labels from the
+resource it exposes.
+
+ Possible resources include (case insensitive):
+
+ pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)
 ** options
 |                 |   |
 |-----------------+---|
 | --namespace     |   |
 | --all-namespace |   |
 
-* K8s config
+* Config File
 ** Clusters
 ** Users
+* Manifest
+** type
+** Object
+** Spec
+** Status
+
+** minimum manifest
+
+#+BEGIN_SRC yaml
+apiVersion: apps/v1
+Kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+  namespace: monitoring
+#+END_SRC
+
+
+,#+BEGIN_SRC yaml
+
+#+END_SRC
+
 * Alternatives
 ** Kind
 ** k3d
@@ -238,7 +293,6 @@ kubectl describe node
      |                       |                             |
      |-----------------------+-----------------------------|
      | start --driver=<NAME> | select what driver to start |
-     |                       |                             |
 
 * Challenges
 ** On premisses 1m/2n
