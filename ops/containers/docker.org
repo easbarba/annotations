@@ -9,6 +9,11 @@
 - [[#progress][Progress]]
 - [[#traits][Traits]]
 - [[#commands][Commands]]
+- [[#locations][locations]]
+  - [[#docker-images-location][Docker images location]]
+  - [[#docker-volumes-location][Docker volumes location]]
+- [[#cleaning][cleaning]]
+  - [[#removing-dangling-only-images][removing dangling only images]]
 :END:
 * Progress
 |                       |                        |
@@ -38,3 +43,17 @@
    | run -p              | port                                   |
    | exec -it            | run command in container interactively |
    |                     |                                        |
+* locations
+ /var/lib/docker/
+
+
+** Docker images location
+/var/lib/docker/overlay2
+** Docker volumes location
+/var/lib/docker/volumes/
+
+* cleaning
+** removing dangling only images
+#+begin_src shell
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+#+end_src
