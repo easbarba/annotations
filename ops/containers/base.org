@@ -84,6 +84,7 @@
 - [[#example][Example]]
 - [[#tips][Tips]]
   - [[#remove-all][Remove all]]
+- [[#makefile][Makefile]]
 :END:
 * Progresso
 ** books
@@ -279,6 +280,7 @@ docker ps --filter "status=exited"
 ** login
 #+begin_src shell
 docker login -u gnschenker -p <my secret password>
+ docker login private.registry.tld:8080 -u <username> -p <password>
 #+end_src
 ** images
 ** image
@@ -481,4 +483,38 @@ docker volume rm $(docker volume ls -qf)
 
 # Remove all networks
 docker network rm `docker network ls -q`
+#+end_src
+* Makefile
+#+begin_src makefile
+# Compose
+
+cbuild:
+	$(COMPOSER) build
+
+crun:
+	$(COMPOSER) up --detach --build --force-recreate
+
+cshell:
+	$(COMPOSER) run --rm pak sh
+
+cstop:
+	$(COMPOSER) stop
+
+# Runner
+
+rbuild:
+	$(RUNNER) build --tag $(IMAGE_NAME) .
+
+rrun:
+	$(RUNNER) run -it --name $(CONTAINER_NAME) $(IMAGE_NAME)
+
+rshell:
+	$(RUNNER) run -it --name $(CONTAINER_NAME) $(IMAGE_NAME) sh
+
+runit:
+	$(RUNNER) run --name $(CONTAINER_NAME) $(IMAGE_NAME) go test -race -v $(go list ./...)
+
+rpurge:
+	$(RUNNER) rm $(CONTAINER_NAME)
+	$(RUNNER) stop $(CONTAINER_NAME)
 #+end_src

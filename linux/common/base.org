@@ -1,0 +1,92 @@
+#+TITLE: Linux Distros - base
+
+* Progress
+** Books
+| Books              | capitulo                   | em                  |
+|--------------------+----------------------------+---------------------|
+| RHCSA 8 Asghar 2ed | 4 Advanced File Management | Default Permissions |
+
+* / - Root folders
+** opt
+holds additional software that may need to be installed on the system. A
+subdirectory is created for each installed software.
+** usr
+*** src
+store source code.
+*** bin
+*** sbin
+commands are required at system boot, and those that require the root user
+privileges in order to run are located in this system binary directory.
+*** lib
+*** lib64
+*** include
+contains header files for C language.
+*** local
+serves as a system administrator repository
+*** share
+ manual pages, documentation, sample templates, configuration files,
+** usr
+** var
+*** log
+ system log files
+*** opt
+*** spool
+hold print jobs, cron jobs, mail messages, and other queued items before being
+sent out to their intended destinations
+*** tmp
+- survives longer than /tmp
+- files survives reboot
+- deleted if not accessed in a period of 30 days
+** tmp
+- survives system reboots
+- removed if not accessed in a period of 10 days.
+** dev
+stores device nodes for physical hardware and virtual devices
+
+-  automatically created and deleted by the udevd
+** mnt
+** boot
+Linux kernel, boot support files, and boot configuration files
+
+-  types of device files: character (or raw) device files, and block device files.
+- Character devices are accessed serially with streams of bits transferred during kernel and device communication.
+- Block devices are accessed in a parallel fashion with data exchanged in blocks (parallel) during kernel and device communication
+|                   |                                                          |
+|-------------------+----------------------------------------------------------|
+| Character devices | serial printers, mice, keyboards, terminals              |
+|                   | hard disk drives, optical drives, parallel printers, etc |
+|                   |                                                          |
+
+
+devices is accessed randomly. Examples of block devices are .
+** proc
+Procs - process file system
+
+details for current hardware configuration and status information on CPU,
+memory, disks, partitioning, file systems, networking, running processes
+
+- zero-length pseudo files.
+- created in memory at system boot time, updated during runtime, and destroyed at system shutdown
+** run
+data for processes running on the system.
+-  /run/media, is also used to automatically mount external file systems such as those that are on optical and flash USB.
+** sys
+
+* dictionary
+/usr/share/dict/words
+* Sumario
+  :PROPERTIES:
+  :TOC:      :include all :depth 2 :ignore this
+  :END:
+:CONTENTS:
+- [[#progress][Progress]]
+- [[#---root-folders][/ - Root folders]]
+- [[#dictionary][dictionary]]
+- [[#tips][Tips]]
+:END:
+
+* Tips
+** Get Distro Release
+#+begin_src shell
+cat /etc/issue
+#+end_src

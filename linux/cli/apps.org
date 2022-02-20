@@ -18,6 +18,7 @@
   - [[#mv][mv]]
   - [[#cp][cp]]
   - [[#rm][rm]]
+  - [[#rmdir][rmdir]]
   - [[#ln][ln]]
 - [[#network][Network]]
   - [[#whois][whois]]
@@ -39,6 +40,7 @@
     - [[#increase-volume][increase volume]]
 - [[#information][Information]]
   - [[#man][man]]
+    - [[#5][5]]
   - [[#apropos][apropos]]
   - [[#info][info]]
   - [[#pinfo][pinfo]]
@@ -69,6 +71,7 @@
 - [[#open][open]]
 - [[#uname][uname]]
 - [[#lscpu][lscpu]]
+- [[#passwd][passwd]]
 - [[#scanelf][scanelf]]
 - [[#dirs][dirs]]
 - [[#popd][popd]]
@@ -136,6 +139,7 @@
   - [[#week-number][week number]]
 - [[#ts][ts]]
 - [[#stat][stat]]
+- [[#file][file]]
 - [[#text-manipulation][Text Manipulation]]
   - [[#grep][grep]]
   - [[#seq][seq]]
@@ -299,6 +303,8 @@ remove files or directories
 | -d                    | remove empty dir  |
 | --preserve-root[=all] | do not remove '/' |
 
+** rmdir
+
 ** ln
 In  the  1st form, create a link to TARGET with the name LINK_NAME.  In the 2nd form, create a link to TARGET in the
 current directory.  In the 3rd and 4th forms, create links to each TARGET in DIRECTORY.  Create hard  links  by  de‐
@@ -318,6 +324,8 @@ ative link is interpreted in relation to its parent directory.
 * Permissions
 ** chroot
 ** umask
+sets  the  calling process's file mode creation mask (umask) to mask & 0777 (i.e., only the file permission
+bits of mask are used), and returns the previous value of the mask.
 
 ** chmod
 |    |                                                    |
@@ -325,6 +333,12 @@ ative link is interpreted in relation to its parent directory.
 | -R | change files and directories recursively           |
 | -c | like verbose but report only when a change is made |
 |    |                                                    |
+
+#+begin_src shell
+chmod a=rwx -v mehfile
+chmod go+w mehfile
+chmod g-w,o-wx mehfile
+#+end_src
 
 ** chown
 This  manual  page  documents the GNU version of chown.  chown changes the user and/or group ownership of each given
@@ -435,6 +449,9 @@ ffmpeg -i TUNE.ogg -filter:a "volume=5dB" TUNE_increased.ogg
 |----+---|
 | -k |   |
 | -f |   |
+*** 5
+configuration files
+
 ** apropos
 search the manual page names and descriptions
 ** info
@@ -506,6 +523,7 @@ open file in its default application
 | -p |   |
 | -i |   |
 * lscpu
+* passwd
 * scanelf
  --needed --nobanner --format
 * dirs
@@ -783,7 +801,7 @@ date +%V
 #+end_src
 * ts
 * stat
-
+* file
 * Text Manipulation
 ** grep
 ** seq
