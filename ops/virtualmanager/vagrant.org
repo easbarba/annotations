@@ -20,6 +20,16 @@
 |-------------+---|
 | --provision |   |
 ** share
+
+* Vagrantfile
+** config
+*** vm
+**** hostname
+**** box
+**** network
+**** synced_folder
+**** provider
+**** provision
 * boxes
 https://app.vagrantup.com/boxes/search
 
