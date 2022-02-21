@@ -1,11 +1,5 @@
 #+TITLE: Dots | .local/bin
 
-* e_golang
-#+begin_src shell
-
-
-#+end_src
-
 * e_debian
 #+begin_src shell
 
@@ -55,10 +49,414 @@ front() {
 #+begin_src shell
 element-desktop telegram-desktop transmission-gtk winetricks ripgrep parcellite
 #+end_src
-* e_gnome
-#+begin_src shell
+* e_distro
+   #+begin_src shell-script
 
-#+end_src
+
+
+
+	    #!/usr/bin/env bash
+
+	    # set -e
+
+	    # * NIXOS
+	    # Descricao: Distro Pacotes
+
+	    nixos-packages ()
+	    {
+		echo "-- NixOS Packages"
+
+		languages=(ruby lua luarocks python3 postgresql sqlite3 zenity bash-completion)
+		languages_nixos=(nixos.shellcheck nixos.lua53Packages.luacheck)
+
+		wm_packages=(network-manager-applet aria2 dunst maim udiskie unclutter lxqt-openssh-askpass mpv libnotify
+			     dmenu imagemagick pandoc xdg-utils lm-sensors aspell mpd mpc ncmpc ncmpcpp wofi rofi ffmpeg
+			     vorbis-tools)
+		wm_packages_nixos=(nixos.xfce.xfce4-clipman-plugin nixos.perl530Packages.FileMimeInfo nixos.screenfetch nixos.aspellDicts.en nixos.aspellDicts.br)
+
+		user_packages=(emacs firefox libreoffice kdeconnect calibre inkscape screenkey kdenlive cheese gimp obs-studio
+			       vlc kate syncthing steam)
+		user_packages_nixos=(nixos.deluge nixos.gnome3.gnome-keyring)
+
+		virtualization=(qemu aqemu qemu-utils virt-manager OVMF)
+		virtualization=(nixos.qemu_kvm)
+
+		wine=(wine winetricks)
+
+		gnu=(gnutls gnused gdb texinfo autoconf parallel findutils stow screen automake)
+		gnu_nixos=(nixos.xsel)
+
+		system_tools=(lshw at usbutils lsof time net-tools iproute2 curl entr tree git xclip ctags fontconfig
+			      subversion bc htop strace ltrace openssh cpio lhasa lzop atool wmctrl
+			      perf-tools mercurial sysstat jq dialog ncdu nnn fzf fzy rsync bat rclone xonsh pv
+			      neovim zsh unrar ripgrep socat fish)
+		system_tools=(nixos.poppler)
+
+		ruby_tools=(ruby)
+
+		laptop=(brightnessctl tlp iw libinput-gestures acpi acpid)
+		laptop_nixos=(nixos.wirelesstools)
+
+		local command='nix-env -i'
+		local command_nixos='nix-env --installi -A'
+
+		e_dolist "$command" "${essentials[@]}"
+		e_dolist "$command" "${wm[@]}"
+		e_dolist "$command" "${languages[@]}"
+		e_dolist "$command" "${devops[@]}"
+		e_dolist "$command" "${wm_packges[@]}"
+		e_dolist "$command" "${user_packages[@]}"
+		e_dolist "$command" "${media[@]}"
+		e_dolist "$command" "${virtualization[@]}"
+		e_dolist "$command" "${wine[@]}"
+		e_dolist "$command" "${fonts[@]}"; sudo fc-cache -fv
+		e_dolist "$command" "${ruby_tools[@]}"
+		e_dolist "$command" "${emacs_deps[@]}"
+		# e_dolist "$command" "${misc_deps[@]}"
+		e_dolist "$command" "${laptop[@]}"
+
+		echo "-- Preparacoes finais: limpando e arrumando o sistema"
+		sudo apt -y autoremove
+
+		echo "Done"
+	    }
+
+	    nixos-services()
+	    {
+		echo "systemctl"
+		sudo systemctl disable mpd.service
+		sudo systemctl disable mpd.socket
+	    }
+
+	    nixos-foreign()
+	    {
+		if [ ! $(command -v google-chrome) ]; then
+		    cd ${HOME}
+		    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+		    sudo apt install -y ${HOME}/google-chrome-stable_current_amd64.deb
+		    sudo apt update
+		fi
+
+		if [ ! $(command -v code) ]; then
+		    cd ${HOME}
+		    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+		    sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+		    sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+		    sudo apt-get install apt-transport-https
+		    sudo apt-get update
+		    sudo apt install -y code
+		fi
+
+		if [ -x "$(command -v pgadmin)" ]; then
+		    # Install the public key for the repository (if not done previously):
+		    curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+
+		    # Create the repository configuration file:
+		    sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/buster pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+
+		    # Install for both desktop and web modes:
+		    sudo apt install pgadmin4 pgadmin4-desktop pgadmin4-web
+
+		    # Configure the webserver, if you installed pgadmin4-web:
+		    python -m pip install --user flask
+		    sudo /usr/pgadmin4/bin/setup-web.sh
+		fi
+	    }
+
+	    nixos-upgrade()
+	    {
+		echo "-- Atualizando Sistema"
+		nix-env --upgrade
+	    }
+
+	    run()
+	    {
+
+	    }
+
+
+	    # * RUN
+
+	    nixos-packages
+	    nixos-services
+	    nixos-foreign
+	    nixos-upgrade
+
+
+
+	 #!/usr/bin/env bash
+
+	 # set -e
+
+	 # * ARCH LINUX
+
+	 arch-upgrade()
+	 {
+	     echo "-- Atualizando Sistema" sudo pacman -Syy && sudo pacman -Syu
+	 }
+
+	 arch-packages ()
+	 {
+	     echo "-- Debian Packages"
+
+	     essentials=(base-devel coreutils wget git p7zip zip unzip util-linux bash tmux zile)
+
+	     languages=(gcc clang postgresql sqlite3 postgresql-libs shellcheck zenity bash-completion python-pip)
+
+	     user_packages=(emacs firefox libreoffice kdeconnect calibre inkscape screenkey kdenlive cheese deluge gimp obs-studio gnome-keyring vlc kate syncthing steam imagemagick pandoc xdg-utils screenfetch lm_sensors aspell aspell-en  mpv)
+
+	     media=(ffmpeg vorbis-tools gst-libav gst-plugins-bad gst-plugins-base gst-plugins-good  gst-plugins-ugly)
+
+	     virtualization=(qemu qemu-system-gui qemu-utils qemu-efi qemu-kvm virt-manager ovmf) # qemu-system-x86
+
+	     wine=(wine winetricks)
+
+	     fonts=(ttf-fira-code gnu-free-fonts ttf-dejavu) # ttf-ancient-fonts fonts-nanum
+
+	     system_tools=(lshw at usbutils lsof time net-tools iproute2 curl entr tree git xsel xclip ctags fontconfig
+			   freetype2 subversion bc htop strace ltrace openssh cpio lhasa lzop atool wmctrl poppler
+			   perf mercurial sysstat jq dialog ncdu nnn fzf fzy rsync bat rclone xonsh pv
+			   parallel findutils wget stow screen neovim zsh parted texinfo gcc gdb make autoconf
+			   automake gnutls gdb nftables firewalld unrar ripgrep socat fish)  # console-data
+
+	     emacs_deps=(libjansson-dev libbrotli-dev libwebkit2gtk-4.0-dev libpng-dev zlib1g-dev libpoppler-glib-dev
+			 libpoppler-private-dev ghostscript mupdf-tools
+			 poppler-utils texlive-binaries unoconv djvulibre-bin ncurses-dev
+			 texlive-latex-base texlive-fonts-recommended  texlive-latex-extra
+			 uuid-dev libicu-dev icu-devtools libedit-dev libxml2-dev
+			 libsqlite3-dev swig libpython-dev libncurses5-dev pkg-config
+			 libcurl4-openssl-dev systemtap-sdt-dev tzdata rsync)
+
+	     laptop=(iw wireless_tools libinput-gestures acpi acpid) # apmd pbbuttonsd pmud libiw-dev laptop-mode-tools
+
+	     local command='sudo pacman -S --noconfirm'
+
+	     e_dolist "$command" "${essentials[@]}"
+	     e_dolist "$command" "${languages[@]}"
+	     e_dolist "$command" "${devops[@]}"
+	     e_dolist "$command" "${wm_packges[@]}"
+	     e_dolist "$command" "${user_packages[@]}"
+	     e_dolist "$command" "${media[@]}"
+	     e_dolist "$command" "${virtualization[@]}"
+	     e_dolist "$command" "${wine[@]}"
+	     e_dolist "$command" "${fonts[@]}"; sudo fc-cache -fv
+	     e_dolist "$command" "${ruby_tools[@]}"
+	     # e_dolist "$command" "${emacs_deps[@]}"
+	     # e_dolist "$command" "${misc_deps[@]}"
+	     e_dolist "$command" "${laptop[@]}"
+	 }
+
+	 arch-services()
+	 {
+	     echo "systemctl"
+	     sudo systemctl disable mpd.service
+	     sudo systemctl disable mpd.socket
+	 }
+
+	 arch-foreign()
+	 {
+	     if [ ! $(command -v google-chrome) ]; then
+		 cd ${HOME}
+		 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+		 sudo apt install -y ${HOME}/google-chrome-stable_current_amd64.deb
+		 sudo apt update
+	     fi
+
+	     if [ ! $(command -v code) ]; then
+		 cd ${HOME}
+		 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+		 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+		 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+		 sudo apt-get install apt-transport-https
+		 sudo apt-get update
+		 sudo apt install -y code
+	     fi
+
+	     if [ -x "$(command -v pgadmin)" ]; then
+		 # Install the public key for the repository (if not done previously):
+		 curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+
+		 # Create the repository configuration file:
+		 sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/buster pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+
+		 # Install for both desktop and web modes:
+		 sudo apt install pgadmin4 pgadmin4-desktop pgadmin4-web
+
+		 # Configure the webserver, if you installed pgadmin4-web:
+		 python -m pip install --user flask
+		 sudo /usr/pgadmin4/bin/setup-web.sh
+	     fi
+	 }
+
+	 # * RUN
+
+	 arch-upgrade
+	 arch-packages
+	 arch-services
+	 # arch-foreign
+
+
+      #!/usr/bin/env bash
+
+      # set -e
+
+      fedora-packages ()
+      {
+	  essentials=(zip unzip git tmux wget bash zile emacs)
+
+	  system=(p7zip p7zip-plugins openssh acpi lshw at usbutils lsof time net-tools iproute entr ntfs-3g tree xsel xclip ctags fontconfig freetype subversion bc htop strace ltrace cpio lzop atool wmctrl poppler-utils perf sysstat jq dialog ncdu ripgrep nnn fzf rsync bat rclone xonsh pv info stow screen autoconf texinfo firewall-config automake m4 libtool bzip2)
+
+	  programming=(ShellCheck zenity bash-completion cmake zsh fish gcc neovim gcc-c++ gdb clang clang-tools-extra lldb mercurial ncurses-devel)
+
+	  ruby=(openssl-devel python2 libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel)
+
+	  infra=(vagrant vagrant-libvirt VirtualBox qemu qemu-system-x86 qemu-kvm virt-manager wine) # podman edk2-ovmf
+
+	  user=(firefox kde-connect ImageMagick gimp pandoc libreoffice calibre inkscape krita atril liveusb-creator perl-File-MimeInfo aspell aspell-en syncthing lm_sensors xdg-utils dmenu xprop screenfetch numix-gtk-theme numix-icon-theme)
+
+	  fonts=(mozilla-fira-mono-fonts powerline-fonts google-noto-emoji-fonts google-noto-sans-fonts google-droid-sans-mono-fonts)
+
+	  media=(vorbis-tools gstreamer1-devel gstreamer1-plugins-base-tools gstreamer1-plugins-base-devel gstreamer1-plugins-good gstreamer1-plugins-good-extras gstreamer1-plugins-bad-free-devel gstreamer1-plugins-bad-free-extras)
+
+	  echo "Instalando pacotes."
+
+	  local command='sudo dnf install -y'
+
+	  e_dolist "$command ${essentials[@]}"
+	  e_dolist "$command ${ruby[@]}"
+	  e_dolist "$command ${programming[@]}"
+	  e_dolist "$command ${system[@]}"
+	  e_dolist "$command ${infra[@]}"
+	  e_dolist "$command ${user[@]}"
+	  e_dolist "$command ${fonts[@]}"; sudo fc-cache -fv
+	  e_dolist "$command ${media[@]}"
+      }
+
+      fedora-upgrade()
+      {
+	  sudo dnf upgrade -y
+	  sudo dnf autoremove -y
+      }
+
+      fedora-services()
+      {
+	  sudo hostnamectl set-hostname 'fedora'
+      }
+
+      fedora-foreign()
+      {
+	  rpmfusion()
+	  {
+	      # RPM FUSION
+	      if [ ! -x "$(command -v mpv)" ]; then
+		  sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+		  sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+		  sudo dnf install -y ffmpeg mpv steam unrar
+	      fi
+	  }
+
+	  vscode()
+	  {
+	      if [ ! -x "$(command -v code)" ]; then
+		  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+		  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+		  sudo dnf check-update -y
+		  sudo dnf install -y code
+	      fi
+	  }
+
+	  docker()
+	  {
+	      echo 'docker'
+	  }
+
+	  podman()
+	  {
+	      echo 'podman'
+	  }
+
+	  rpmfusion
+	  podman
+	  vscode
+	  docker
+      }
+
+      # * RUN
+
+      fedora-upgrade
+      fedora-packages
+      # fedora-services
+      # fedora-foreign
+
+
+   #!/usr/bin/env bash
+
+   # set -e
+
+   # * UBUNTU
+
+   ubuntu-packages()
+   {
+       essentials=(ssh make build-essential git p7zip p7zip-full zip unzip zile neovim tmux curl wget bash emacs gcc)
+
+       ruby=(python2 autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev)
+
+       programming=(shellcheck zenity bash-completion m4 libtool libtool-bin default-jdk clang clangd lldb cmake)
+
+       virtualization=(wine wine32 winetricks qemu qemu-system-x86 qemu-system-gui qemu-utils qemu-efi qemu-kvm virt-manager ovmf virt-manager) # libvirt-clients libvirt-daemon-system libvirt-dev libvirt0
+
+       toolings=(htop zsh screen gdb ripgrep lshw at usbutils lsof time entr tree git xsel xclip exuberant-ctags fontconfig libfreetype6 subversion bc gdebi strace ltrace cpio lhasa lzop atool wmctrl poppler-utils brz mercurial sysstat jq dialog ncdu nnn fzf fzy rsync bat rclone xonsh pv vrms info stow parted texinfo autoconf automake gnutls-bin bash-doc gcc-doc gdb-doc gdbserver wget2 parallel nftables libiw-dev)
+
+       fonts=(fonts-firacode fonts-dejavu ttf-ancient-fonts fonts-nanum)
+
+       de=(firefox syncthing libreoffice calibre inkscape kdenlive deluge obs-studio vlc mpv steam inxi fish imagemagick pandoc screenfetch lm-sensors aspell gimp numix-icon-theme numix-gtk-theme)
+
+       media=(ffmpeg vorbis-tools gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly)
+
+       echo "Instalando pacotes."
+
+       local command='sudo apt install -y'
+       e_dolist "$command" "${essentials[@]}"
+       e_dolist "$command" "${ruby[@]}"
+       e_dolist "$command" "${fonts[@]}"; sudo fc-cache -fv
+       e_dolist "$command" "${programming[@]}"
+       e_dolist "$command" "${virtualization[@]}"
+       e_dolist "$command" "${toolings[@]}"
+       e_dolist "$command" "${de[@]}"
+       e_dolist "$command" "${media[@]}"
+   }
+
+   ubuntu-upgrade()
+   {
+       echo "-- Updating System"
+
+       sudo apt -y update && sudo apt -y upgrade
+       sudo apt -y autoremove
+   }
+
+   ubuntu-services()
+   {
+       enable-all-repos()
+       {
+	   echo ""
+       }
+
+       enable-all-repos
+   }
+
+   # * RUN
+
+   ubuntu-upgrade
+   ubuntu-packages
+   #ubuntu-services
+
+   #+end_src
 * e_arch_pre
 #+begin_src shell
 #!/usr/bin/env bash
@@ -167,68 +565,6 @@ misc() {
 switch
 move
 misc
-
-#+end_src
-* e_emacs
-#+begin_src shell
-
-#!/usr/bin/env bash
-
-# Debug Options
-set -euo pipefail
-
-BUILDS="$HOME/Builds"
-EMACS_DIR="$BUILDS/emacs"
-PREFIX="$HOME/.local"
-TAG=emacs-27.1
-
-check_deps()
-{
-    [[ ! -x $(command -v git) ]] && exit
-}
-
-repo_get()
-{
-    [[ -d $EMACS_DIR ]] && return
-
-    git clone "https://git.savannah.gnu.org/git/emacs" "$BUILDS/emacs"
-}
-
-repo_update()
-{
-    [[ -d "$EMACS_DIR/.git" ]] && git pull
-}
-
-repo_checkout()
-{
-    git checkout ${TAG}
-}
-
-install()
-{
-    cd "$EMACS_DIR" || return
-
-    make distclean
-
-    sh autogen.sh
-
-    sh configure --prefix="$PREFIX" --with-modules --with-gif --with-jpeg --with-png --with-rsvg --with-tiff --with-xft --with-xpm --with-x --with-dbus --with-imagemagick --with-mailutils --with-gnutls --with-x-toolkit=gtk3
-
-    make -j2
-
-    make install
-}
-
-# * RUN
-
-echo "Emacs - Installing local build"
-
-check_deps
-repo_get
-repo_update
-repo_checkout
-
-install
 
 #+end_src
 * e_gitconfig
@@ -340,63 +676,6 @@ misc
 workspaces
 power
 # default
-
-#+end_src
-* e_nix
-#+begin_src shell
-#!/usr/bin/env bash
-
-# Debug Options
-set -euo pipefail
-
-# Description: boostrap Nix
-# Dependencies: sudo, curl, bash
-
-install()
-{
-    [[ -x $(command -v nix-env) ]] && return
-
-    curl -L https://nixos.org/nix/install | sh
-}
-
-packages()
-{
-    local packs=(direnv cpufetch ) # mcfly
-    e_dolist 'nix-env --uninstall' "${packs[@]}"
-}
-
-languages()
-{
-    local packs2=(nixpkgs.ruby_2_7 nixpkgs.nodejs nixpkgs.nodePackages.npm)
-    e_dolist 'nix-env --uninstall' "${packs2[@]}"
-}
-
-install
-packages
-
-#+end_src
-* e_quicklisp
-#+begin_src shell
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-boot() {
-    wget -c https://beta.quicklisp.org/quicklisp.lisp
-}
-
-install() {
-    sbcl --no-sysinit --no-userinit --load quicklisp.lisp \
-        --eval '(quicklisp-quickstart:install)' \
-        --eval "(ql:quickload '(:quicklisp-slime-helper :clx :cl-ppcre :alexandria :xembed :xml-emitter :dbus :prove :swank))" \
-        --eval "(quit)"
-
-}
-
-# * RUN
-
-boot
-install
 
 #+end_src
 * e_wine
