@@ -1,0 +1,224 @@
+#+TITLE: Dots Config Legacy
+
+
+* Guix Config
+   #+begin_src scheme
+
+   (locale "pt_BR.utf8")
+
+   (locale-definitions
+    (list (locale-definition (source "en_US") (name "en_US.utf8"))
+	  (locale-definition (source "pt_BR") (name "pt_BR.utf8"))))
+
+   ("/usr/bin/sh"
+    ,(file-append (canonical-package coreutils)
+		  "/bin/sh"))
+   ("/usr/bin/bash"
+    ,(file-append (canonical-package coreutils)
+		  "/bin/bash"))
+
+   ("/bin/pwd"
+    ,(file-append (canonical-package coreutils)
+		  "/bin/pwd"))
+
+
+   ("/bin/startx" ,(xorg-start-command))
+
+   #+end_src
+* Nixos
+** Config
+    #+begin_src nix
+    #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
+
+    #boot.loader.systemd-boot.enable = true;
+
+	  # services.xserver.xkbOptions = "eurosign:e";
+
+	  # Some programs need SUID wrappers, can be configured further or are
+	  # started in user sessions.
+	  # programs.mtr.enable = true;
+	  # programs.gnupg.agent = {
+	  #   enable = true;
+	  #   enableSSHSupport = true;
+	  #   pinentryFlavor = "gnome3";
+	  # };
+
+	  # * Firewall
+	  # networking.firewall.allowedTCPPorts = [ ... ];
+	  # networking.firewall.allowedUDPPorts = [ ... ];
+	  # Or disable the firewall altogether.
+	  # networking.firewall.enable = false;
+
+	  # Enable CUPS to print documents.
+	  # services.printing.enable = true;
+
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+    # Select internationalisation properties.
+    # i18n.defaultLocale = "en_US.UTF-8";
+    # console = {
+    #   font = "Lat2-Terminus16";
+    #   keyMap = "us";
+    # };
+
+    #+end_src
+* Nyxt
+   #+begin_src conf ~/.config/nyxt/init.lisp :mkdirp yes
+   (in-package :next-user)
+
+   ;; Search Engines
+   (defvar a/search-engines
+     '(("bi" . "https://bing.com/?q=~a")
+       ("dg" . "https://duckduckgo.com/?q=~a")
+       ("g" . "https://www.google.com/search?ion=1&q=~a")
+       ("gh" . "https://github.com/search?ref=simplesearch&q=~a")
+       ("q" .  "http://quickdocs.org/search?q=~a")
+       ("s" .  "http://stackoverflow.com/search?q=~a")
+       ("wp" . "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=~a")
+       ("yt" . "https://www.youtube.com/results?search_query=~a")))
+
+   (defclass my-browser (gtk-browser)
+     ((search-engines :initform
+		      (append
+		       a/search-engines
+		       (get-default 'browser 'search-engines)))))
+
+   (setf *browser-class* 'my-browser)
+   #+end_src
+** Config
+    #+begin_src lisp
+    (defvar *my-keymap* (make-keymap)  "My keymap.")
+
+    (define-command play-page-video (&optional (buffer (current-buffer)))
+      "Play video in the currently open buffer."
+      (uiop:run-program (list "mpv" (url buffer))))
+    (define-key :keymap *my-keymap*  "C-M-c v" #'play-page-video)
+
+    (define-command play-video-in-current-page (&optional (buffer (current-buffer)))
+      "Play video in the currently open buffer."
+      (uiop:run-program (list "mpv" (url buffer))))
+
+    (defvar *my-keymap* (make-keymap)
+      "My keymap.")
+
+    (define-mode my-mode ()
+      "Dummy mode for the custom key bindings in `*my-keymap*'."
+      ((keymap-schemes :initform (list :emacs *my-keymap*
+				       :vi-normal *my-keymap*))))
+
+    Debugging
+    (setf *swank-port* 4006)
+
+
+    Use development platform port.
+    (setf +platform-port-command+
+	  "~/.local/bin/next-gtk-webkit")
+
+    open-file
+    (defun my-open-videos (filename)
+      "Open videos with mpv."
+      (handler-case (let ((extension (pathname-type filename)))
+		      (match extension
+			     ((or "webm" "mkv" "mp4")
+			      (uiop:launch-program (list "mpv" filename)))
+			     (_
+			      (next/file-manager-mode:open-file-function filename))))
+	(error (c) (log:error "Error opening ~a: ~a" filename c))))
+
+    (setf next/file-manager-mode:*open-file-function* #'my-open-videos)
+
+
+    (define-key :keymap *my-keymap* "C-M-c v" #'play-video-in-current-page)
+
+
+    -- a-FUNCTIONS (m-x)
+    (defun a-play-video ()
+      "Play current page's video"
+      (with-result (url (buffer-get-url))
+	(uiop:launch-program (list "mpv" url))))
+
+    (define-command a-get-video ()
+      "Download current page's video"
+      (with-result (url (buffer-get-url))
+	(uiop:launch-program (list "youtube-dl" url "&"))))
+
+    (define-command a-bookmark-url ()
+      "Allow the user to bookmark a URL via minibuffer input."
+      (with-result (url (read-from-minibuffer (minibuffer *interface*)))
+	(%bookmark-url url)))
+
+    ;; Zoom
+    ;; (setf *zoom-ratio-default* 1.6)
+
+    HOME PAGE
+    (setf (get-default 'remote-interface 'start-page-url) "https://cnn.com")
+
+    ;; Minibuffer
+    (setf (get-default 'minibuffer 'minibuffer-style)
+	  (cl-css:inline-css
+	   '((body :border-top "14px solid red"))))
+
+    #+end_src
+* gtk-3.0
+   #+begin_src conf
+   [Settings]
+   gtk-fallback-icon-theme=Numix
+   gtk-icon-theme-name=Canta
+   gtk-key-theme-name=Emacs
+   gtk-theme-name=Canta
+   #+end_src
+* pycodestyle
+   #+begin_src conf
+   [pycodestyle]
+   max-line-length = 90
+   #+end_src
+* flake
+   #+begin_src conf
+   [flake8]
+   max-line-length = 88
+   exclude = tests/*
+   max-complexity = 10
+   #+end_src
+* tmux
+   #+begin_src conf
+   set-option -g default-shell "/usr/bin/bash"
+
+   24-bit color
+   set -ga terminal-overrides ",xterm-termite:Tc"
+
+   24 Colors
+   set -g default-terminal "screen-256color-italic"
+   set-option -ga terminal-overrides ",xterm-256color*:Tc:smso"
+
+   mouse
+   bind-key m set-option -g mouse on \; display 'Mouse: ON'
+   bind-key M set-option -g mouse off \; display 'Mouse: OFF'
+
+   #+end_src
+* fontconfig
+   #+begin_src conf
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+   <fontconfig>
+     <alias>
+       <family>serif</family>
+       <prefer>
+	 <family>Noto Color Emoji</family>
+       </prefer>
+     </alias>
+     <alias>
+       <family>sans-serif</family>
+       <prefer>
+	 <family>Noto Color Emoji</family>
+       </prefer>
+     </alias>
+     <alias>
+       <family>monospace</family>
+       <prefer>
+	 <family>Noto Color Emoji</family>
+       </prefer>
+     </alias>
+   </fontconfig>
+   #+end_src
