@@ -944,6 +944,9 @@ Control write access of other users to your terminal.
 * Getters
 ** wget
 ** curl
+#+begin_src shell
+curl -X GET http://localhost:8080
+#+end_src
 * Text Manipulation
 ** grep
 ** seq
