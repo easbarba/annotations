@@ -8,8 +8,15 @@
 - [[#summary][summary]]
 - [[#kind][kind]]
 - [[#minikube][minikube]]
+  - [[#commands][commands]]
+    - [[#ip][ip]]
+    - [[#service][service]]
 - [[#k3s][k3s]]
 :END:
 * kind
 * minikube
+** commands
+*** ip
+*** service
+
 * k3s

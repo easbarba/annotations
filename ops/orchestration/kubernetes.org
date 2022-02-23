@@ -9,8 +9,12 @@
 - [[#progress][Progress]]
   - [[#books][Books]]
 - [[#base][Base]]
-  - [[#namespace][namespace]]
+  - [[#namespace][Namespace]]
+    - [[#kube-system][kube-system]]
+    - [[#kube-public][kube-public]]
+    - [[#default][default]]
   - [[#replicaset][ReplicaSet]]
+    - [[#replicacontroller-old-way][ReplicaController (old way)]]
   - [[#deployment][Deployment]]
   - [[#cluster][Cluster]]
     - [[#cluster-master][Cluster master]]
@@ -20,12 +24,24 @@
         - [[#kube-proxy][kube-proxy]]
         - [[#container-runtime][container runtime]]
   - [[#node][Node]]
-  - [[#secret][Secret]]
+  - [[#secrets][Secrets]]
+    - [[#env-vars][Env Vars]]
+    - [[#file][File]]
+    - [[#vaults][Vaults]]
   - [[#configmap][ConfigMap]]
+  - [[#endpoints][Endpoints]]
   - [[#service][Service]]
+    - [[#nodeport][NodePort]]
+      - [[#targetport][TargetPort]]
+      - [[#port][Port]]
+    - [[#clusterip][ClusterIP]]
+    - [[#loadbalancer][LoadBalancer]]
   - [[#jobs--cronjobs][Jobs & CronJobs]]
   - [[#volumes][Volumes]]
   - [[#container][Container]]
+    - [[#lifecycle][lifecycle]]
+      - [[#prestop][PreStop]]
+      - [[#poststart][PostStart]]
   - [[#master][Master]]
     - [[#api-server][API server]]
     - [[#etcd][etcd]]
@@ -41,6 +57,14 @@
         - [[#ambassador-pattern][Ambassador pattern]]
         - [[#init-pattern][Init pattern]]
     - [[#single-container-pod][single-container pod]]
+    - [[#state][state]]
+      - [[#status][status]]
+      - [[#condition][condition]]
+      - [[#container][container]]
+      - [[#pending][pending]]
+      - [[#succeded][succeded]]
+      - [[#failed][failed]]
+      - [[#unknown][unknown]]
   - [[#controllers][Controllers]]
     - [[#long-lived][Long-lived]]
       - [[#deployments][Deployments]]
@@ -49,52 +73,97 @@
     - [[#short-lived][Short-lived]]
       - [[#jobs][Jobs]]
       - [[#cronjobs][CronJobs]]
+  - [[#healthchecks][HealthChecks]]
+    - [[#livenessprobe][livenessProbe]]
+    - [[#readinessprobe][readinessProbe]]
+    - [[#startup][startup]]
+  - [[#ingress][Ingress]]
 - [[#commands][Commands]]
+  - [[#apply][apply]]
   - [[#cluster-info][cluster-info]]
   - [[#create][create]]
+    - [[#options][options]]
+    - [[#namespace][namespace]]
     - [[#deployment][deployment]]
-  - [[#scale][scale]]
-    - [[#deployment][deployment]]
-  - [[#logs][logs]]
-  - [[#proxy][proxy]]
-  - [[#get][get]]
-    - [[#services][services]]
     - [[#secret][secret]]
-    - [[#all][all]]
-    - [[#containers][containers]]
-    - [[#replicaset][replicaset]]
-    - [[#deployments][deployments]]
-    - [[#deployment][deployment]]
-    - [[#componentstatuses][componentstatuses]]
-    - [[#pods][pods]]
-    - [[#namespaces][namespaces]]
-  - [[#edit][edit]]
-    - [[#deployment][deployment]]
-  - [[#exec][exec]]
+      - [[#generic][generic]]
+        - [[#db-user-pass][db-user-pass]]
   - [[#config][config]]
     - [[#set-context][set-context]]
     - [[#use-contex][use-contex]]
     - [[#current-context][current-context]]
+  - [[#cordon][cordon]]
   - [[#describe][describe]]
     - [[#nodes][nodes]]
+  - [[#delete][delete]]
+  - [[#edit][edit]]
+    - [[#deployment][deployment]]
   - [[#explain][explain]]
     - [[#pods][pods]]
     - [[#deployment][deployment]]
   - [[#expose][expose]]
-  - [[#options][options]]
+  - [[#exec][exec]]
+  - [[#get][get]]
+    - [[#all][all]]
+    - [[#componentstatuses][componentstatuses]]
+    - [[#containers][containers]]
+    - [[#deployments][deployments]]
+    - [[#deployment][deployment]]
+    - [[#endpoint][endpoint]]
+    - [[#limitrange][limitrange]]
+    - [[#namespaces][namespaces]]
+    - [[#replicaset][replicaset]]
+    - [[#services][services]]
+    - [[#secret][secret]]
+    - [[#pods][pods]]
+  - [[#taint][taint]]
+  - [[#top][top]]
+  - [[#logs][logs]]
+  - [[#labels][labels]]
+  - [[#proxy][proxy]]
+  - [[#replace][replace]]
+  - [[#rollout][rollout]]
+    - [[#status][status]]
+    - [[#history][history]]
+  - [[#scale][scale]]
+    - [[#deployment][deployment]]
+  - [[#set][set]]
+    - [[#image][image]]
+  - [[#uncordon][uncordon]]
+  - [[#--options][--options]]
+- [[#manifest][Manifest]]
+  - [[#apiversion][apiVersion]]
+    - [[#v1][v1]]
+    - [[#apps][apps]]
+  - [[#kind][kind]]
+    - [[#deployment][Deployment]]
+    - [[#namespace][Namespace]]
+    - [[#pod][Pod]]
+    - [[#replicaset][ReplicaSet]]
+    - [[#replicacontroller][ReplicaController]]
+    - [[#service][Service]]
+    - [[#replicator][Replicator]]
+  - [[#metadata][metadata]]
+    - [[#name][name]]
+    - [[#namespace][namespace]]
+    - [[#labels][labels]]
+      - [[#type][type]]
+      - [[#app][app]]
+  - [[#spec][spec]]
+    - [[#labels][labels]]
+    - [[#hard][hard]]
+      - [[#pods][pods]]
+    - [[#containers][containers]]
+      - [[#name][name]]
+        - [[#image][image]]
+    - [[#initcontainers][initContainers]]
+    - [[#nodeselector][NodeSelector]]
+  - [[#object][Object]]
+  - [[#status][Status]]
+  - [[#example][example]]
 - [[#config-file][Config File]]
   - [[#clusters][Clusters]]
   - [[#users][Users]]
-- [[#manifest][Manifest]]
-  - [[#type][type]]
-  - [[#object][Object]]
-  - [[#spec][Spec]]
-  - [[#status][Status]]
-  - [[#minimum-manifest][minimum manifest]]
-- [[#alternatives][Alternatives]]
-  - [[#kind][Kind]]
-  - [[#k3d][k3d]]
-  - [[#minikube][MiniKube]]
 - [[#challenges][Challenges]]
   - [[#on-premisses-1m2n][On premisses 1m/2n]]
 :END:
@@ -107,10 +176,33 @@
 | Kubernetes in Action | 2 - first steps      |   |
 
 * Base
-** namespace
-
+** Namespace
+*** kube-system
+ The namespace for objects created by the Kubernetes system
+*** kube-public
+This namespace is created automatically and is readable by all users (including
+those not authenticated). This namespace is mostly reserved for cluster usage,
+in case that some resources should be visible and readable publicly throughout
+the whole cluster. The public aspect of this namespace is only a convention, not
+a requirement.
+*** default
+The default namespace for objects with no other namespace
 ** ReplicaSet
+A ReplicaSet's purpose is to maintain a stable set of replica Pods running at
+any given time. As such, it is often used to guarantee the availability of a
+specified number of identical Pods.
+
+*** ReplicaController (old way)
+A ReplicationController ensures that a specified number of pod replicas are
+running at any one time. In other words, a ReplicationController makes sure that
+a pod or a homogeneous set of pods is always up and available.
 ** Deployment
+A Deployment provides declarative updates for Pods and ReplicaSets.
+
+You describe a desired state in a Deployment, and the Deployment Controller
+changes the actual state to the desired state at a controlled rate. You can
+define Deployments to create new ReplicaSets, or to remove existing Deployments
+and adopt all their resources with new Deployments.
 ** Cluster
 *** Cluster master
 *** Worker nodes
@@ -121,12 +213,32 @@
 ***** kube-proxy
 ***** container runtime
 ** Node
-** Secret
+** Secrets
+*** Env Vars
+*** File
+- dotenv
+- yaml files
+
+*** Vaults
 ** ConfigMap
+** Endpoints
 ** Service
+An abstract way to expose an application running on a set of Pods as a network service.
+
+*** NodePort
+
+**** TargetPort
+
+**** Port
+
+*** ClusterIP
+*** LoadBalancer
 ** Jobs & CronJobs
 ** Volumes
 ** Container
+*** lifecycle
+**** PreStop
+**** PostStart
 ** Master
 *** API server
 *** etcd
@@ -136,9 +248,11 @@
 
 *** Contexts
 ** Pods
-a group of one or more closely related containers that run together on the same
-worker node and need to share certain Linux namespaces, so that they can
-interact more closely than with other pods.
+Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.
+
+A Pod (as in a pod of whales or pea pod) is a group of one or more containers,
+with shared storage and network resources, and a specification for how to run
+the containers.
 
 - immutable objects
 - single-container
@@ -164,6 +278,16 @@ brokers connectivity to an external system.
 ***** Init pattern
 init container starts and completes before the main app container, only once.
 *** single-container pod
+*** state
+**** status
+**** condition
+**** container
+- running
+- terminated
+**** pending
+**** succeded
+**** failed
+**** unknown
 ** Controllers
 *** Long-lived
 **** Deployments
@@ -172,50 +296,32 @@ init container starts and completes before the main app container, only once.
 *** Short-lived
 **** Jobs
 **** CronJobs
+** HealthChecks
+*** livenessProbe
+*** readinessProbe
+*** startup
+** Ingress
+An API object that manages external access to the services in a cluster, typically HTTP.
+
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services
+within the cluster. Traffic routing is controlled by rules defined on the
+Ingress resource.
 * Commands
+** apply
 ** cluster-info
 ** create
+*** options
+|                       |   |
+|-----------------------+---|
+| --namespace=NAMESPACE |   |
+*** namespace
 *** deployment
-** scale
-*** deployment
-|                  |   |
-|------------------+---|
-| --replicas <INT> |   |
-
-** logs
-** proxy
-** get
-Display one or many resources.
-
-Prints a table of the most important information about the specified resources.
-You can filter the list using a label selector and the --selector flag. If the
-desired resource type is namespaced you will only see results in your current
-namespace unless you pass --all-namespaces.
-
-By specifying the output as 'template' and providing a Go template as the value
-of the --template flag, you can filter the attributes of the fetched resources.
-
-*** services
-
 *** secret
-
-*** all
-|                  |   |
-|------------------+---|
-| --all-namespaces |   |
-
-*** containers
-
-*** replicaset
-*** deployments
-*** deployment
-*** componentstatuses
-
-*** pods
-*** namespaces
-** edit
-*** deployment
-** exec
+**** generic
+***** db-user-pass
+|             |   |
+|-------------+---|
+| --from-file |   |
 ** config
 *** set-context
 Set a context entra in kubeconfig
@@ -230,11 +336,15 @@ kubectl config use-context my-context
 #+end_src
 *** current-context
 Display the current-context
+** cordon
 ** describe
 *** nodes
 #+begin_src sh
 kubectl describe node
 #+end_src
+** delete
+** edit
+*** deployment
 ** explain
 *** pods
 |             |   |
@@ -253,23 +363,106 @@ resource it exposes.
 
  Possible resources include (case insensitive):
 
- pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)
-** options
+ pod (PO), service (svc), replicationcontroller (RC), deployment (deploy), replicaset (rs)
+** exec
+|       |   |
+|-------+---|
+| --tty |   |
+| -t    |   |
+| -i    |   |
+
+** get
+Display one or many resources.
+
+Prints a table of the most important information about the specified resources.
+You can filter the list using a label selector and the --selector flag. If the
+desired resource type is namespaced you will only see results in your current
+namespace unless you pass --all-namespaces.
+
+By specifying the output as 'template' and providing a Go template as the value
+of the --template flag, you can filter the attributes of the fetched resources.
+
+*** all
+|                  |   |
+|------------------+---|
+| --all-namespaces |   |
+
+*** componentstatuses
+*** containers
+*** deployments
+*** deployment
+*** endpoint
+*** limitrange
+*** namespaces
+*** replicaset
+*** services
+
+*** secret
+
+*** pods
+|                       |   |
+|-----------------------+---|
+| --namespace=NAMESPACE |   |
+
+** taint
+
+** top
+** logs
+** labels
+** proxy
+** replace
+** rollout
+*** status
+*** history
+** scale
+*** deployment
+|                  |   |
+|------------------+---|
+| --replicas <INT> |   |
+** set
+*** image
+** uncordon
+** --options
 |                 |   |
 |-----------------+---|
 | --namespace     |   |
 | --all-namespace |   |
-
-* Config File
-** Clusters
-** Users
+| --dry-run       |   |
+| --output        |   |
 * Manifest
-** type
+** apiVersion
+*** v1
+*** apps
+** kind
+*** Deployment
+*** Namespace
+*** Pod
+*** ReplicaSet
+*** ReplicaController
+*** Service
+*** Replicator
+
+** metadata
+*** name
+*** namespace
+*** labels
+**** type
+**** app
+** spec
+*** labels
+*** hard
+**** pods
+*** containers
+**** name
+***** image
+*** initContainers
+specialized containers that run before app containers in a Pod. Init containers
+can contain utilities or setup scripts not present in an app image.
+*** NodeSelector
 ** Object
-** Spec
 ** Status
 
-** minimum manifest
+** example
 
 #+BEGIN_SRC yaml
 apiVersion: apps/v1
@@ -280,20 +473,9 @@ metadata:
   name: grafana
   namespace: monitoring
 #+END_SRC
-
-
-,#+BEGIN_SRC yaml
-
-#+END_SRC
-
-* Alternatives
-** Kind
-** k3d
-** MiniKube
-     |                       |                             |
-     |-----------------------+-----------------------------|
-     | start --driver=<NAME> | select what driver to start |
-
+* Config File
+** Clusters
+** Users
 * Challenges
 ** On premisses 1m/2n
 Tenta instalar um k8s onprime Com 2 nodes E 1 Master
