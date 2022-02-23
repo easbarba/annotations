@@ -84,6 +84,7 @@
     - [[#download][download]]
     - [[#vendor][vendor]]
     - [[#graph][graph]]
+    - [[#edit][edit]]
   - [[#list][list]]
   - [[#install][install]]
   - [[#run][run]]
@@ -158,6 +159,7 @@
 |-------------------------+------------------------+----------------------------|
 | Go Programming Language | 4.4.1. Struct Literals |                            |
 | Learning go             | 9 modules              | Importing Third-Party Code |
+| cli applications in go  |                        |                            |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -1177,7 +1179,13 @@ the local cache or to compute the answers for a Go module proxy.
 go mod vendor
 #+end_src
 *** graph
+*** edit
 ** list
+|        |   |
+|--------+---|
+| -m all |   |
+|        |   |
+
 ** install
 |               |                            |
 |---------------+----------------------------|
