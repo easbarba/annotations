@@ -183,8 +183,6 @@
   - [[#tmux][Tmux]]
   - [[#gnu-screen][GNU Screen]]
 - [[#getters][Getters]]
-  - [[#wget][wget]]
-  - [[#curl][curl]]
 - [[#text-manipulation][Text Manipulation]]
   - [[#grep][grep]]
   - [[#seq][seq]]
@@ -942,11 +940,7 @@ Control write access of other users to your terminal.
 ** Tmux
 ** GNU Screen
 * Getters
-** wget
-** curl
-#+begin_src shell
-curl -X GET http://localhost:8080
-#+end_src
+
 * Text Manipulation
 ** grep
 ** seq

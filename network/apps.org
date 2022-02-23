@@ -11,7 +11,10 @@
 - [[#ping][ping]]
 - [[#resolvectl][resolvectl]]
   - [[#status][status]]
+- [[#wget][wget]]
 - [[#curl][curl]]
+  - [[#read-local-file][read local file]]
+  - [[#examples][examples]]
 - [[#ngrep][ngrep]]
 - [[#ssh][ssh]]
   - [[#--][--]]
@@ -27,8 +30,6 @@
 - [[#dhcpd][dhcpd]]
 - [[#iw][iw]]
 - [[#wpa_supplicant][wpa_supplicant]]
-- [[#curl][curl]]
-  - [[#read-local-file][read local file]]
 - [[#nmap][nmap]]
 - [[#nmcli][nmcli]]
 - [[#nslookup][nslookup]]
@@ -54,9 +55,24 @@
 * ping
 * resolvectl
 ** status
+* wget
 * curl
+curl - transfer a URL
+
+|         |   |
+|---------+---|
+| -v <ip> |   |
+| -<N>    |   |
+
+** read local file
+#+begin_src shell-script
+curl file:///home/user/.bashrc
+#+end_src
+
+** examples
 #+begin_src shell
 curl -o /tmp/minikube -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+curl -X GET http://localhost:8080
 #+end_src
 * ngrep
 * ssh
@@ -111,19 +127,6 @@ ip a
 * dhcpd
 * iw
 * wpa_supplicant
-* curl
-curl - transfer a URL
-
-|         |   |
-|---------+---|
-| -v <ip> |   |
-| -<N>    |   |
-
-** read local file
-#+begin_src shell-script
-curl file:///home/user/.bashrc
-#+end_src
-
 * nmap
 * nmcli
 |                               |                                                                |
@@ -154,7 +157,6 @@ Then to actually connect to a wireless AP:
 # nmcli device wifi rescan
 # nmcli device wifi list
 # nmcli device wifi connect SSID-Name --ask
-
 
 
 
