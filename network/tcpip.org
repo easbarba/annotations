@@ -1,5 +1,47 @@
-#+TITLE: Tcpip
+#+TITLE: TCP/IP
 
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#layers][Layers]]
+  - [[#internet][Internet]]
+    - [[#internet-protocol-ip][Internet Protocol (IP)]]
+      - [[#ipv4][IPV4]]
+      - [[#ipv6][IPV6]]
+      - [[#icmp][ICMP]]
+      - [[#14-fields][14 Fields]]
+  - [[#transport][Transport]]
+    - [[#transport-layer-protocols-tcp][Transport Layer Protocols (TCP)]]
+    - [[#user-datagram-protocol-udp][User Datagram Protocol (UDP)]]
+  - [[#application][Application]]
+- [[#dod-model][DoD Model]]
+- [[#ip][IP]]
+  - [[#def][def]]
+  - [[#ipv4][IPv4]]
+    - [[#mac---media-access-control][MAC - Media Access Control]]
+    - [[#arp---address-resolution-protocol][ARP - Address Resolution Protocol]]
+  - [[#ipv6][IPv6]]
+  - [[#types-of-ip-addresses][Types of IP Addresses]]
+    - [[#private-ip-addresses][private IP addresses]]
+      - [[#def][def]]
+      - [[#range][range]]
+      - [[#automatic-private-ip-addressing][Automatic Private IP Addressing]]
+      - [[#reserved-ip-addresses][Reserved IP Addresses]]
+        - [[#127001][127.0.0.1.]]
+    - [[#public-ip-addresses][public IP addresses]]
+    - [[#static-ip-addresses][static IP addresses]]
+    - [[#dynamic-ip-addresses][dynamic IP addresses]]
+- [[#ipam][IPAM]]
+- [[#icmp][ICMP]]
+- [[#udp][UDP]]
+- [[#tcp][TCP]]
+- [[#dns][DNS]]
+- [[#dhcp][DHCP]]
+- [[#definition][definition]]
+:END:
 * Layers
 ** Internet
 *** Internet Protocol (IP)
@@ -48,6 +90,9 @@ communicate with other devices over an IP-based network like the internet.
 #+begin_src conf
 151.101.65.121
 #+end_src
+
+**** MAC - Media Access Control
+**** ARP - Address Resolution Protocol
 
 *** IPv6
 - 340 trillion, trillion, trillion addresses (2128)
@@ -108,6 +153,22 @@ you should memorize that 0 = 00000000 and 255 = 11111111.
 * IPAM
 IP address management (IPAM) is a means of planning, tracking, and managing IP addresses within
 the network. IPAM has both DNS and DHCP services, so each service is notified of changes in the other.
+* ICMP
+ICMP handles low-level connectivity messages between hosts.
+* UDP
+
+- carry application data between hosts
+- flexibility
+- simplicity
+* TCP
+offers the minimal services needed to transmit data over the
+network.
+
+- carry application data between hosts
+- error-checking
+- congestion control
+- retransmission of lost data
+
 * DNS
 * DHCP
 Dynamic Host Configuration Protocol

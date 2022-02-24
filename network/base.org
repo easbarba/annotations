@@ -1,12 +1,113 @@
 #+TITLE: Network
 
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+- [[#load-balancing][Load balancing]]
+- [[#layers][Layers]]
+  - [[#layer-1][Layer 1:]]
+  - [[#layer-2-datalink][Layer 2: Datalink]]
+    - [[#troubleshooting][troubleshooting]]
+  - [[#layer-3-network][Layer 3: Network]]
+    - [[#troubleshooting][troubleshooting]]
+  - [[#layer-4-transport][Layer 4: Transport]]
+    - [[#troubleshooting][troubleshooting]]
+  - [[#session-layer][session layer]]
+  - [[#presentation-layer][presentation layer]]
+  - [[#application-layer][application layer]]
+- [[#ports][Ports]]
+  - [[#well-known-ports][Well-known Ports]]
+  - [[#registered-ports][Registered Ports]]
+  - [[#dynamic-ports][Dynamic Ports]]
+- [[#subneting][Subneting]]
+- [[#osi-model][OSI Model]]
+  - [[#concepts][Concepts]]
+  - [[#layers][Layers]]
+    - [[#layer-7-application][Layer 7 Application]]
+    - [[#layer-6-presentation][Layer 6 Presentation]]
+    - [[#layer-5-session][Layer 5 Session]]
+    - [[#layer-4-transport][Layer 4 Transport]]
+    - [[#layer-3-network][Layer 3 Network]]
+    - [[#layer-2-data-link][Layer 2 Data Link]]
+    - [[#layer-1-physical][Layer 1 Physical]]
+- [[#lan][LAN]]
+- [[#physical][Physical]]
+  - [[#cable][Cable]]
+    - [[#utp][UTP]]
+    - [[#central-box][central box]]
+- [[#terms][Terms]]
+  - [[#mac-adress][Mac Adress]]
+  - [[#osi-layers][OSI layers]]
+  - [[#tcpip][TCP/IP]]
+  - [[#nic][NIC]]
+  - [[#fcs][FCS]]
+  - [[#pans][PANs]]
+  - [[#lan][LAN]]
+  - [[#man][MAN]]
+  - [[#subnet-mask][Subnet Mask]]
+  - [[#mac-adress][Mac adress]]
+- [[#hostname][hostname]]
+  - [[#def][def]]
+- [[#url][url]]
+  - [[#def][def]]
+:END:
 * Progress
-|                              |             |        |
-|------------------------------+-------------+--------|
-| Network+ N10-008 Todd lameun | 6 Protocols | TCP/IP |
+|                                     |                     |   |
+|-------------------------------------+---------------------+---|
+| Networking for System Administrator | Chapter 2: Ethernet |   |
 
 * Load balancing
+* Layers
+** Layer 1:
+- physical link light, ipconfig/ifconfig, cable replacement
+** Layer 2: Datalink
+The datalink layer transforms the network’s upper layers into the signals transmitted over
+the wire.
 
+- ethernet
+-  datalink arp, ND, tcpdump
+
+*** troubleshooting
+- tcpdump
+- arp
+
+** Layer 3: Network
+maps connectivity between hosts
+
+- packet
+- network ping, traceroute
+
+*** troubleshooting
+- ping
+- traceroute
+
+** Layer 4: Transport
+The data you care about flows at the transport layer. The lower layers of the stack exist to
+support the transport layer. A piece of transport layer data is a segment.
+
+- Control Message Protocol (ICMP)
+- Transmission Control Protocol (TCP)
+- and the User Datagram Protocol (UDP)
+- transport netstat, netcat, tcpdump
+
+*** troubleshooting
+- netstat
+** session layer
+ handles opening, using, and closing transport layer connections.
+
+- logs, debuggers
+
+** presentation layer
+  lets programs exchange data with one another,
+- logs, debuggers
+** application layer
+is the actual protocol spoken over these connections.
+
+- logs, debuggers
 * Ports
 ** Well-known Ports
 also known as system ports

@@ -35,15 +35,17 @@
 - [[#nslookup][nslookup]]
 - [[#route][route]]
 - [[#netstat][netstat]]
+- [[#netcat][netcat]]
+- [[#tcpdump][tcpdump]]
+  - [[#http-get][HTTP GET]]
+  - [[#http-post][HTTP POST:]]
+- [[#ethtool][ethtool]]
 - [[#telnet][telnet]]
 - [[#rlogin][rlogin]]
 - [[#traceroute][traceroute]]
 - [[#ethtool][ethtool]]
-- [[#netcat][netcat]]
+- [[#arp][arp]]
 - [[#socat][socat]]
-- [[#tcpdump][tcpdump]]
-  - [[#http-get][HTTP GET]]
-  - [[#http-post][HTTP POST:]]
 - [[#wireshark][wireshark]]
 - [[#ngrep][ngrep]]
 - [[#iftop][iftop]]
@@ -159,7 +161,6 @@ Then to actually connect to a wireless AP:
 # nmcli device wifi connect SSID-Name --ask
 
 
-
 * nslookup
 * route
 * netstat
@@ -167,17 +168,40 @@ Then to actually connect to a wireless AP:
 |--------+---|
 | -natp  |   |
 | -tulpn |   |
-* telnet
-* rlogin
-* traceroute
-* ethtool
+
 * netcat
-* socat
 * tcpdump
+Tcpdump  prints  out  a description of the contents of packets on a network interface that match the Boolean expres‐
+sion; the description is preceded by a time stamp, printed, by default, as hours, minutes, seconds, and fractions of
+a second since midnight.  It can also be run with the -w flag, which causes it to save the packet data to a file for
+later analysis, and/or with the -r flag, which causes it to read from a saved packet file rather than to read  pack‐
+ets  from  a network interface.  It can also be run with the -V flag, which causes it to read a list of saved packet
+files. In all cases, only packets that match expression will be processed by tcpdump.
+
+
 ** HTTP GET
 tcpdump -i any -s 0 -A 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
 ** HTTP POST:
 tcpdump -i any -s 0 -A 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504F5354'
+* ethtool
+* telnet
+The telnet command is used for interactive communication with another host using the TELNET protocol. It begins in
+command mode, where it prints a telnet prompt ("telnet> "). If telnet is invoked with a host argument, it performs an
+open command implicitly; see the description below.
+
+* rlogin
+* traceroute
+traceroute tracks the route packets taken from an IP network on their way to a given host. It utilizes the IP protocol's time to live (TTL) field and attempts to elicit an ICMP TIME_EXCEEDED response from each gateway along the path to the host.
+* ethtool
+* arp
+Arp manipulates or displays the kernel's IPv4 network neighbour cache. It can
+add entries to the table, delete one or display the current content.
+
+ARP stands for Address Resolution Protocol, which is used to find the
+media access control address of a network neighbour for a given IPv4
+Address.
+
+* socat
 * wireshark
 * ngrep
 * iftop
