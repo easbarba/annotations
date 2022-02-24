@@ -42,6 +42,7 @@
     - [[#ls][ls]]
     - [[#inspect][inspect]]
   - [[#login][login]]
+  - [[#inspect][inspect]]
   - [[#images][images]]
   - [[#image][image]]
     - [[#ls][ls]]
@@ -282,6 +283,11 @@ docker ps --filter "status=exited"
 docker login -u gnschenker -p <my secret password>
  docker login private.registry.tld:8080 -u <username> -p <password>
 #+end_src
+** inspect
+|          |   |
+|----------+---|
+| --format |   |
+
 ** images
 ** image
 *** ls
