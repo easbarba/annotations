@@ -84,6 +84,12 @@
 +-------------------+---------------------------------------------------|
 | –d or --database= | use the database management system of your choice |
 | new <name>        |                                                   |
+
+
+#+begin_src shell
+rails _6.1.4.6_ new app --database=postgresql
+#+end_src
+
 ** test
 |                  |   |
 |------------------+---|
