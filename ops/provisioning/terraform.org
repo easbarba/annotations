@@ -9,11 +9,13 @@
 - [[#progresso][Progresso]]
   - [[#livros][Livros]]
 - [[#base][Base]]
-  - [[#resouce][resouce]]
+  - [[#resouces][resouces]]
     - [[#ami][ami]]
     - [[#instance_type][instance_type]]
     - [[#tags][tags]]
     - [[#data][data]]
+    - [[#local][local]]
+  - [[#terraform][terraform]]
   - [[#expression][expression]]
     - [[#for][for]]
   - [[#output][output]]
@@ -56,6 +58,8 @@
       - [[#aws_instance][aws_instance]]
       - [[#aws_launch_configuration][aws_launch_configuration]]
       - [[#aws_autoscaling_group][aws_autoscaling_group]]
+      - [[#aws_lb_listener][aws_lb_listener]]
+      - [[#aws_lb][aws_lb]]
     - [[#data][data]]
       - [[#aws_vpc][aws_vpc]]
 - [[#features][features]]
@@ -72,17 +76,20 @@
 
 * Progresso
 ** Livros
-| Livros                   | Capitulo        | em                        |
-|--------------------------+-----------------+---------------------------|
-| Terraform Up and running | Getting started | Deploying a Load Balancer |
+| Livros              | Capitulo             | em |
+|---------------------+----------------------+----|
+| Terraform in Action | 2.6 Performing No-Op |    |
 * Base
-** resouce
+** resouces
 *** ami
 The Amazon Machine Image (AMI) to run on the EC2 Instance.
 *** instance_type
 The type of EC2 Instance to run.
 *** tags
 *** data
+*** local
+** terraform
+special configuration block responsible for configuring Terraform
 ** expression
  anything that returns a value.
 *** for
@@ -224,6 +231,8 @@ confirmation prompt.
 ** refresh
 - get from provider current state
 * Providers
+- providers have only inputs.
+
 ** aws
 *** "aws"
 *** resources
@@ -231,6 +240,8 @@ confirmation prompt.
 **** aws_instance
 **** aws_launch_configuration
 **** aws_autoscaling_group
+**** aws_lb_listener
+**** aws_lb
 *** data
 **** aws_vpc
 

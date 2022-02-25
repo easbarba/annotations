@@ -25,6 +25,7 @@
     - [[#boolean][boolean]]
     - [[#runes][runes]]
     - [[#nil][nil]]
+    - [[#type][Type]]
   - [[#agreggate-types][Agreggate Types]]
     - [[#arrays][Arrays]]
       - [[#functions][functions]]
@@ -157,11 +158,11 @@
 
 * Progress
 ** Books
-| name                    | chapter                | @                       |
-|-------------------------+------------------------+-------------------------|
-| Go Programming Language | 4.4.1. Struct Literals |                         |
-| Learning go             | 6 Pointers             | Don’t Fear the Pointers |
-| cli applications in go  |                        |                         |
+| name                    | chapter                | @                          |
+|-------------------------+------------------------+----------------------------|
+| Go Programming Language | 4.4.1. Struct Literals |                            |
+| Learning go             | 6 Pointers             | Pointers Are a Last Resort |
+| Cli applications in go  |                        |                            |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -293,6 +294,21 @@ an untyped identifier that represents the lack of a value for certain types.
 - may be assigned to any variable of interface or reference type.
 - new creates a pointer variable.
 - use a helper function to turn a constant value into a pointer.
+*** Type
+- can be declared at any block level
+- can use any primitive type or compound type literal to define a concrete type.
+
+#+begin_src go
+type Person struct {
+	FirstName string
+	LastName  string
+	Age       int
+}
+
+type Score int
+type Converter func(string)Score
+type TeamScores map[string]Score
+#+end_src
 ** Agreggate Types
 *** Arrays
 - == and != to compare arrays
@@ -318,6 +334,14 @@ var x [2][3]int // simulate multidemensional array
   append to change the length isn’t reflected in the original variable, even if
   the slice has a capacity greater than its length.
 - test whether a slice is empty w/ len(s) == 0
+
+|           |                     |
+|-----------+---------------------|
+| int field | for length,         |
+| int       | field for capacity, |
+| pointer   | to a block          |
+
+
 
 #+begin_src go
 var x = []int{10, 20, 30}
@@ -1043,6 +1067,9 @@ A variable whose value is a memory address.
 - type uintptr, holds all bits of a pointer value
 - new() creates a pointer variable. It returns a pointer to a zero value instance of the provided
 - return a pointer set to nil from a function, use the comma ok idiom maps and return a value type and a boolean.
+- when passing megabytes of data between functions, use a  pointer even if the data is meant to be immutable.
+- less than megabytes will make perfomance slower
+- avoid using maps for input parameters or return values
 
 #+begin_src go
 def main() {
@@ -1211,6 +1238,12 @@ Extensive doc comments are often place d in a file of their own, convent ion all
 // Package tempconv performs Celsius and Fahrenheit conversions.
 package meh
 #+end_src
+
+Zero Value Versus No Value
+
+- as exception, use a pointer field to indicate no value.
+- prefer to use the comma ok idiom that we saw for maps and return a value type and a boolean.
+
 * Commands
 ** vet
       Examines Go source code and reports suspicious constructs

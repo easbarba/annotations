@@ -1,5 +1,73 @@
 #+TITLE: SSH
 
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+- [[#base][Base]]
+  - [[#encryption][encryption]]
+    - [[#symmetric-algorithm][symmetric algorithm]]
+    - [[#asymmetric-algorithm][asymmetric algorithm]]
+- [[#config-file][config file]]
+  - [[#ssh_config][ssh_config]]
+  - [[#sshd_config][sshd_config]]
+  - [[#ssh__key][ssh_*_key]]
+  - [[#ssh__keypub][ssh_*_key.pub]]
+- [[#definition][definition]]
+- [[#traits][traits]]
+- [[#commands][commands]]
+  - [[#options][options]]
+    - [[#-p][-p]]
+- [[#openssh][openssh]]
+  - [[#ssh-add][ssh-add]]
+  - [[#ssh-agent][ssh-agent]]
+  - [[#ssh-copy-id][ssh-copy-id]]
+  - [[#scp][scp]]
+:END:
+
+* Progress
+| book        | chapter                         | @                                        |
+|-------------+---------------------------------+------------------------------------------|
+| SSH Mastery | Chapter 2: Common Configuration | Wildcards in OpenSSH Configuration Files |
+|             |                                 |                                          |
+* Base
+- Every SSH server has a key pair.
+
+** encryption
+- cannot decrypt the message without the secret encryption key.
+
+*** symmetric algorithm
+uses the same key for both encryption and encryption.
+
+*** asymmetric algorithm
+ uses different keys for encryption and decryption.
+
+* config file
+- Port 22
+
+| default location |                    |
+|------------------+--------------------|
+| linux            | /etc/ssh           |
+| freebsd          | /usr/local/etc/ssh |
+| osx              | /private/etc/ssh   |
+
+** ssh_config
+** sshd_config
+server configuration
+** ssh_*_key
+server’s private keys
+
+- should only be readable by root.
+- ssh_host_ed25519_key
+- ssh_host_rsa_key
+- ssh_host_ecdsa_key
+
+** ssh_*_key.pub
+public key for that private keys
+
 * definition
 The Secure Shell (SSH) protocol sets up a secure Telnet session over a standard TCP/IP con-
 nection and is employed for doing things like logging into other systems, running programs on

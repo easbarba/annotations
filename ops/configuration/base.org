@@ -37,7 +37,6 @@
     - [[#disk-space-and-partition][Disk Space and Partition]]
     - [[#sync][Sync]]
     - [[#laptop][Laptop]]
-    - [[#steam][Steam]]
     - [[#boot][Boot]]
     - [[#xorg][X.org]]
     - [[#network][Network]]

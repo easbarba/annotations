@@ -11,6 +11,11 @@
 - [[#commands][Commands]]
   - [[#configure][configure]]
 - [[#ami][AMI]]
+- [[#ec2][EC2]]
+- [[#ebs][EBS]]
+- [[#elb][ELB]]
+- [[#nlb][NLB]]
+- [[#s3][S3]]
 - [[#storage][Storage]]
   - [[#ebs][EBS]]
   - [[#ec2][EC2]]
@@ -40,6 +45,11 @@
 * Commands
 ** configure
 * AMI
+* EC2
+* EBS
+* ELB
+* NLB
+* S3
 * Storage
 ** EBS
 - survive shutdowns and system crashes
