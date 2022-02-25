@@ -43,6 +43,8 @@
   - [[#import][import]]
   - [[#functions][Functions]]
     - [[#parameters][parameters]]
+    - [[#blank-return][blank return]]
+    - [[#anonymous-functions][anonymous functions]]
     - [[#usage][usage]]
   - [[#defer][Defer]]
   - [[#variables][Variables]]
@@ -155,11 +157,11 @@
 
 * Progress
 ** Books
-| name                    | chapter                | @                          |
-|-------------------------+------------------------+----------------------------|
-| Go Programming Language | 4.4.1. Struct Literals |                            |
-| Learning go             | 9 modules              | Importing Third-Party Code |
-| cli applications in go  |                        |                            |
+| name                    | chapter                | @                       |
+|-------------------------+------------------------+-------------------------|
+| Go Programming Language | 4.4.1. Struct Literals |                         |
+| Learning go             | 6 Pointers             | Don’t Fear the Pointers |
+| cli applications in go  |                        |                         |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -285,8 +287,12 @@ fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 D 'D'"
 #+end_src
 
 *** nil
+an untyped identifier that represents the lack of a value for certain types.
+
 - has no type
 - may be assigned to any variable of interface or reference type.
+- new creates a pointer variable.
+- use a helper function to turn a constant value into a pointer.
 ** Agreggate Types
 *** Arrays
 - == and != to compare arrays
@@ -684,6 +690,70 @@ another package.
 func Println(a ...interface{}) (n int, err error)
 #+end_src
 
+*** blank return
+- avoid always
+#+begin_src go
+func divAndRemainder(numerator, denominator int) (result int, remainder int,
+	err error) {
+	if denominator == 0 {
+		err = errors.New("cannot divide by zero")
+		return
+	}
+	result, remainder = numerator/denominator, numerator%denominator
+	return
+}
+#+end_src
+
+*** anonymous functions
+Declared with the keyword func, input parameters, return values, and the opening brace.
+
+#+begin_src go
+func(j int) {
+  fmt.Println("printing", j, "from inside of an anonymous function")
+}
+
+#+end_src
+
+Don’t have a name.
+
+Write anonymous function and call them immediately
+
+#+begin_src go
+func(j int) {
+	fmt.Println("printing", j, "from inside of an anonymous function")
+}(i)
+#+end_src
+
+Its a compile-time error by naming an anonymous function
+
+*Closure* - functions that are able to access and modify variables declared in the outer function.
+
+*Functions as Parameters*
+#+begin_src go
+sort.Slice(people, func(i int, j int) bool {
+	return people[i].Age < people[j].Age
+})
+#+end_src
+
+Functions as return value
+
+#+begin_src go
+func makeMult(base int) func(int) int {
+	return func(factor int) int {
+		return base * factor
+	}
+}
+
+
+func main() {
+	twoBase := makeMult(2)
+	threeBase := makeMult(3)
+	for i := 0; i < 3; i++ {
+		fmt.Println(twoBase(i), threeBase(i))
+	}
+}
+#+end_src
+
 *** usage
 
 #+begin_src go
@@ -790,8 +860,9 @@ func main() {
 
 #+end_src
 ** Defer
-- can defer multiple closures in a Go function
 - runs after the return
+- can defer multiple closures in a Go function
+- last defer registered runs first.
 - can supply a function that returns values to a defer, but there’s no way to read those values.
 - must suply parentheses when specifying a closure for defer.
 
@@ -961,12 +1032,12 @@ the values returned by functions or import for side-effects.
 _, err = os.Read(x)
 #+end_src
 *** Pointers
-a variable whose value is a memory address.
+A variable whose value is a memory address.
 
 |            |                      |                                                                       |
 |------------+----------------------+-----------------------------------------------------------------------|
 | &          | address operator     | returns the address of the memory location where the value is stored. |
-| *          | indirection operator | pointer type and returns the pointed-to value. dereferencing.                                                                      |
+| *          | indirection operator | pointer type and returns the pointed-to value. dereferencing.         |
 | zero value | nil                  |                                                                       |
 
 - type uintptr, holds all bits of a pointer value
@@ -1081,9 +1152,11 @@ for _, word := range words {
         fmt.Println(word, "is a long word!")
     }
 }
+#+end_src
 
-// blank switch
+- blank switch
 
+#+begin_src go
 words := []string{"hi", "salutations", "hello"}
 for _, word := range words {
     switch wordLen := len(word); {
@@ -1095,8 +1168,8 @@ for _, word := range words {
         fmt.Println(word, "is exactly the right length.")
     }
 }
-
 #+end_src
+
 *** goto
 ** Stop-flow
 *** continue
