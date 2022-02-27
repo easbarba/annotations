@@ -95,6 +95,36 @@ ssh nixcraft@server1.cyberciti.biz -- command1 --arg1 --arg2
 ping 1.1
 #+end_src
 * ss
+ss is used to dump socket statistics. It allows showing information similar to netstat.
+It can display more TCP and state information than other tools.
+
+
+|    |              |
+|----+--------------|
+| -s |              |
+| -l |              |
+| -p |              |
+| -t | TCP sockets  |
+| -u | UDP sockets  |
+| -w | raw sockets  |
+| -x | unix sockets |
+
+Established connections
+
+#+begin_src conf
+ss -o state established '( dport = :smtp or sport = :smtp )'
+ss -o state established '( dport = :http or sport = :http )'
+#+end_src
+
+IPv4/IPv6
+
+#+begin_src shell
+ss -tl -f inet
+
+# ipv6 only
+ss -tl6
+#+end_src
+
 * dig
 * ip
 * ifconfig
@@ -159,7 +189,6 @@ Then to actually connect to a wireless AP:
 # nmcli device wifi rescan
 # nmcli device wifi list
 # nmcli device wifi connect SSID-Name --ask
-
 
 * nslookup
 * route
