@@ -128,7 +128,7 @@
     - [[#filepath][filepath]]
   - [[#runtime][runtime]]
     - [[#runtimegoos][runtime.GOOS]]
-- [[#config][Config]]
+- [[#config-files][Config Files]]
   - [[#gomod][go.mod]]
     - [[#require][require]]
     - [[#replace][replace]]
@@ -146,6 +146,7 @@
 - [[#environment-variables][Environment Variables]]
   - [[#gopath][GOPATH]]
   - [[#goroot][GOROOT]]
+- [[#files][Files]]
 - [[#terms][Terms]]
 - [[#packages][Packages]]
   - [[#tool][tool]]
@@ -594,6 +595,14 @@ type Bar = Foo
 *** methods
 - can be assigned to vars
 - methods expression
+- can be pointer receivers
+- value receivers
+
+Rationale:
+Any time your logic depends on values that are configured at startup or changed while your
+program is running, those values should be stored in a struct and that logic should be
+implemented as a method.
+
 
 #+begin_src go
 f1 := myAdder.AddTo
@@ -603,8 +612,77 @@ fmt.Println(f1(10))           // prints 20
 
 f2 := Adder.AddTo
 fmt.Println(f2(myAdder, 15))  // prints 25
+#+end_src
+
+#+begin_src go
+type Counter struct {
+	total
+	int
+	lastUpdated time.Time
+}
 
 #+end_src
+
+Pointer receiver
+- can check for nil and handle it.
+
+#+begin_src go
+func (c *Counter) Increment() {
+	c.total++
+	c.lastUpdated = time.Now()
+}
+#+end_src
+
+Value receiver
+- can’t check for nil and as mentioned earlier, panics if invoked with a nil receiver.
+
+#+begin_src go
+func (c Counter) String() string {
+	return fmt.Sprintf("total: %d, last updated: %v", c.total, c.lastUpdated)
+}
+#+end_src
+
+Method value
+
+#+begin_src go
+f1 := myAdder.AddTo
+fmt.Println(f1(10)) // prints 20
+#+end_src
+
+Method expression
+
+#+begin_src go
+f2 := Adder.AddTo
+fmt.Println(f2(myAdder, 15)) // prints 25
+#+end_src
+
+Type Declarations Aren’t Inheritance
+
+- there is no hierarchy between these types.
+- needs type conversion to assign an instance of type HighScore to a variable of type Score or vice versa
+- methods defined on Score aren’t defined on HighScore
+
+
+#+begin_src go
+type HighScore Score
+type Employee Person
+
+// assigning untyped constants is valid
+var i int = 300
+var s Score = 100
+var hs HighScore = 200
+hs = s
+// compilation error!
+s = i
+// compilation error!
+s = Score(i)
+// ok
+hs = HighScore(s)
+// ok
+#+end_src
+
+
+
 
 *** emb
 #+begin_src go
@@ -1332,6 +1410,7 @@ make([]T, len, cap) // same as make([]T, cap)[:len]
 #+end_src
 
 *** iota
+- starts numbering from 0
 - repeats the type and the assignment to all of the subsequent constants in the block
 
 #+begin_src go
@@ -1440,7 +1519,7 @@ t.Run("AddNewTask", func(t *testing.T) {
 ** runtime
 *** runtime.GOOS
 
-* Config
+* Go Project Structure
 ** go.mod
 *** require
 lists the modules that your module depends on and the minimum version required
@@ -1461,8 +1540,57 @@ go 1.15
 #+begin_src conf
 module meh.com/gojail/money
 #+end_src
-
 ** go.sum
+** 
+** *.go
+Package clause
+
+- first line in a Go source file
+- a keyword package and the name for the package
+
+#+begin_src go
+package forevis
+#+end_src
+
+Import
+
+- must specify an import path when importing from anywhere besides the standard library. 
+- The import path is built by appending the path to the package within the module to the module path.
+- imported and unused modules will compile-time error
+
+*cmd* folder
+
+- one or more applications per directory
+- one directory for each binary
+- main as the package name within each of these directories
+
+*pkg* folder
+
+- limit the dependencies between packages
+
+*documenting*
+
+#+begin_src go
+// meh
+var meh int
+#+end_src
+
+package-leval documenting
+
+#+begin_src go
+// Package money provides various utilities to make it easy to manage money.
+package money
+#+end_src
+
+
+#+begin_src 
+// Money represents the combination of an amount of money
+// and the currency the money is in.
+type Money struct {
+	Value    decimal.Decimal
+	Currency string
+}
+#+end_src
 
 * Structure
 ** internal
@@ -1496,6 +1624,8 @@ current appointed workspace on your machine. It is an environment variable that
 tells the Go compiler about where your source code, binaries, and packages are
 placed.
 ** GOROOT
+
+* Files
 
 * Terms
 - runes: single characthers
