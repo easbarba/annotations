@@ -34,6 +34,9 @@
     - [[#layer-3-network][Layer 3 Network]]
     - [[#layer-2-data-link][Layer 2 Data Link]]
     - [[#layer-1-physical][Layer 1 Physical]]
+- [[#terms][Terms]]
+  - [[#mac-address][Mac Address]]
+  - [[#duplex][Duplex]]
 - [[#lan][LAN]]
 - [[#physical][Physical]]
   - [[#cable][Cable]]
@@ -52,8 +55,9 @@
   - [[#mac-adress][Mac adress]]
 - [[#hostname][hostname]]
   - [[#def][def]]
-- [[#url][url]]
+- [[#url][URL]]
   - [[#def][def]]
+- [[#to-learn][TO LEARN]]
 :END:
 * Progress
 |                                     |                     |   |
@@ -137,6 +141,22 @@ also known as system ports
 - doesn’t care what data goes through
 - it just moves the data from one system to another system
 - NIC interface between the PC and the network
+
+* Terms
+** Mac Address
+An Ethernet unique identifier.
+
+- three groups of four hexadecimal characters each, separated by periods.
+- first six numbers of the MAC address identifies the Ethernet card manufacturer.
+
+#+begin_src conf
+52:54:00:3b:2b:25
+
+# WINDOWS
+9C-B6-54-1C-D4-E3
+#+end_src
+** Duplex
+how each end handles transmitting and receiving data
 * LAN
 - IP address
 - Ethernet MAC Adress
@@ -186,10 +206,28 @@ A hostname is a label assigned to a device (a host) on a network. It
 distinguishes one device from another on a specific network or over the
 internet. The hostname for a computer on a home network may be something like
 new laptop, Guest-Desktop, or FamilyPC.
-* url
+* URL
 Uniform Resource Locator
 ** def
 Abbreviated as URL, a Uniform Resource Locator is a way of identifying the
 location of a file on the internet. They're what we use to open not only
 websites, but also to download images, videos, software programs, and other
 types of files that are hosted on a server.
+* TO LEARN
+OSI Model
+
+IP Addresses
+
+MAC Addresses
+
+Routing and Switching
+
+TCP/IP
+
+TCP and UDP
+
+DNS
+
+VPN tunneling
+
+TLS and SSL

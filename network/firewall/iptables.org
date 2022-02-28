@@ -1,1 +1,5 @@
 #+TITLE: Iptables
+
+* Feats
+ - only have one target per rule
+- several tables and chains by default.

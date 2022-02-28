@@ -127,6 +127,19 @@ ss -tl6
 
 * dig
 * ip
+
+Neighbor Discovery
+
+|           |   |
+|-----------+---|
+| Stale     |   |
+| Permanent |   |
+| Reachable |   |
+| Failed    |   |
+
+#+begin_src shell
+ip -6 neigh show
+#+end_src
 * ifconfig
 configure a network interface
 * whois
@@ -229,6 +242,13 @@ add entries to the table, delete one or display the current content.
 ARP stands for Address Resolution Protocol, which is used to find the
 media access control address of a network neighbour for a given IPv4
 Address.
+
+- IPv4
+
+|    |                                                                                             |
+|----+---------------------------------------------------------------------------------------------|
+| -a | Use alternate BSD style output format (with no fixed columns).                              |
+| -n | shows numerical addresses instead of trying to determine symbolic host, port or user names. |
 
 * socat
 * wireshark

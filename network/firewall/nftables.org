@@ -1,1 +1,12 @@
-#+TITLE: Nftables
+#+TITLE: NFtables
+
+* Feats
+- can perform several actions in one single rule
+- there are no default tables/chains
+- includes built-in data sets capabilities
+- manage all families in one single CLI tool
+
+* commands
+
+** add
+nft add table inet filter
