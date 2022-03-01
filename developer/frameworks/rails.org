@@ -101,7 +101,7 @@
 ** Books
 |                         |                               |                                      |
 |-------------------------+-------------------------------+--------------------------------------|
-| Beginning Rails 6       | Active Record                 | Finding a Single Record Using first  |
+| Beginning Rails 6       | Advanced Active Record        | Adding Methods                       |
 | Agile Development Rails | 11 Task F: Add a Dash of Ajax |                                      |
 | Sustainable Rails       | 5 Bussines logic              | 5.3 Business Logic in Active Records |
 | Rails Guide             | Action Controller             | 4.4 default_url_options              |
@@ -362,31 +362,58 @@ article.attributes
 article.id
 #+end_src
 
-misc
+Order
 
 #+begin_src ruby
-begin
-  Article.find(1037)
-rescue ActiveRecord::RecordNotFound
-  puts "We couldn't find that record"
-end
+Article.order(:title)
+Article.order(published_at: :desc)
+Article.order(published_at: :asc)
+#+end_src
 
+Conditions
 
-article.update_attributes(title: "RailsConf2020", published_at: 1.day.ago)
+#+begin_src ruby.
+Article.where(title: 'RailsConf').first
+#+end_src
+
+Updating
+
+#+begin_src ruby
+article.update(title: "RailsConf2020", published_at: 1.day.ago)
+article.update!(title: "RailsConf2020", published_at: 1.day.ago)
+#+end_src
+
+Deleting
+
+- destroy style works on the instance
+- delete style operates on the class
+- delete must be supplied with an array object explicitly
+
+#+begin_src ruby
+Article.last.destroy
+Article.destroy(2)
+Article.destroy([2,3])
+
 article.destroy
+
+# Remove the row immediately from the database
+
+Article.delete(4) # don’t instantiate or perform callbacks on the object they’re deleting
+Article.delete_all
+Article.delete_by("published_at < '2011-01-01'") # with conditions
+Article.delete([5, 6])
+#+end_src
+
+Misc
+
+#+begin_src ruby
 article.valid?
 article.errors.size
 article.errors.messages[:title]
 article.errors.full_messages
 
 articles.size
-
 Article.count
-Article.order(:title)
-Article.where(title: 'RailsConf').first
-Article.destroy([2,3])
-Article.delete(4) # don’t instantiate or perform callbacks on the object they’re deleting
-Article.delete_by("published_at < '2011-01-01'")
 #+end_src
 
 Find
@@ -398,6 +425,18 @@ Article.first
 Article.last
 Article.all
 #+end_src
+
+Errors
+
+#+begin_src ruby
+article.errors.any?
+article.errors.full_messages
+article.errors.messages[:title]
+article.errors.messages(:nonexistent) # []
+article.errors.size
+article.valid?
+#+end_src
+
 *** associations
 |                         |                                                                                    |
 |-------------------------+------------------------------------------------------------------------------------|
