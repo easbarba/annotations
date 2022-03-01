@@ -1,61 +1,107 @@
 #+TITLE: Ruby On Rails
 
 * Summary
-    :PROPERTIES:
-    :TOC:      :include all :depth 3 :ignore this
-    :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-  - [[#cli][Cli]]
-    - [[#database][Database]]
-    - [[#misc][Misc]]
-    - [[#tasks-rake][Tasks (rake)]]
-    - [[#log][Log]]
-    - [[#migration][Migration]]
-    - [[#models][Models]]
-    - [[#console][Console]]
-    - [[#enviroment][Enviroment]]
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#commands][Commands]]
+  - [[#database][database]]
+  - [[#new][new]]
+  - [[#test][test]]
+  - [[#destroy][destroy]]
+  - [[#routes][routes]]
+  - [[#generate][generate]]
+    - [[#resource][resource]]
+    - [[#scaffold][scaffold]]
+    - [[#models][models]]
+  - [[#server][server]]
+  - [[#misc][misc]]
+  - [[#tasks][tasks]]
+  - [[#log][log]]
+  - [[#migration][migration]]
+  - [[#console][console]]
+- [[#bin-folder][bin folder]]
+  - [[#run][run]]
+  - [[#setup][setup]]
+  - [[#rails][rails]]
+  - [[#ci][ci]]
+- [[#models][Models]]
+  - [[#validations][validations]]
+    - [[#validates][validates]]
+  - [[#concerns][concerns]]
+  - [[#best-pratices][best pratices]]
+    - [[#fat-models][fat models]]
+- [[#routes][Routes]]
+  - [[#eg][eg]]
+  - [[#named-routes][named routes]]
+- [[#controller][Controller]]
+- [[#views][Views]]
+  - [[#templates][Templates]]
+    - [[#embedded-ruby][Embedded Ruby]]
+      - [[#evaluation-embedding-tags--][evaluation embedding tags (<% %>)]]
+      - [[#output-embedding-tags--][output embedding tags (<%= %>)]]
+- [[#enviroment][Enviroment]]
+- [[#logger][Logger]]
   - [[#methods][Methods]]
-  - [[#logger][Logger]]
-    - [[#methods][Methods]]
+- [[#debugging][Debugging]]
+  - [[#views][Views]]
+  - [[#-console-][<% console %>]]
+- [[#components][Components]]
+  - [[#action-cable][Action Cable]]
+    - [[#concept][concept]]
+    - [[#cli][cli]]
+- [[#database][Database]]
   - [[#active-record][Active Record]]
-    - [[#associations][Associations]]
+    - [[#methods][methods]]
+    - [[#associations][associations]]
+    - [[#exceptions][exceptions]]
     - [[#validations][Validations]]
     - [[#migrations][Migrations]]
-    - [[#callbacks][Callbacks]]
+    - [[#migration][Migration]]
+      - [[#drop_table][drop_table]]
+    - [[#filters][Filters]]
     - [[#query-interface][Query Interface]]
-    - [[#find][Find]]
+    - [[#finding][Finding]]
       - [[#sql-syntax][SQL Syntax]]
-      - [[#array-condition][Array Condition]]
+      - [[#array-condition-syntax][Array Condition Syntax]]
       - [[#association-proxies][Association Proxies]]
       - [[#more][more]]
+      - [[#methods][methods]]
+        - [[#where][where]]
+        - [[#find][find]]
+        - [[#findby][findby]]
+        - [[#order][order]]
+        - [[#limit][limit]]
+        - [[#joins][joins]]
+        - [[#includes][includes]]
     - [[#named-scope][Named Scope]]
-  - [[#database][Database]]
-  - [[#views][Views]]
-  - [[#controller][Controller]]
-  - [[#models][Models]]
-    - [[#fat-models][Fat models]]
-  - [[#tests][Tests]]
-    - [[#rspec][RSpec]]
-    - [[#unit][Unit]]
-    - [[#rails][Rails]]
-      - [[#cli][cli]]
-      - [[#files][files]]
+  - [[#seeds][Seeds]]
+    - [[#methods][methods]]
+- [[#cache][Cache]]
+- [[#tests][Tests]]
+  - [[#rspec][RSpec]]
+  - [[#unit][Unit]]
+- [[#traits][Traits]]
   - [[#rest][REST]]
   - [[#json][JSON]]
-  - [[#traits][Traits]]
-  - [[#i18n][i18n]]
-  - [[#models][Models]]
-  - [[#misc][Misc]]
-  - [[#priorities][Priorities]]
-  :END:
+  - [[#terms][Terms]]
+- [[#internationalization][Internationalization]]
+  - [[#methods][methods]]
+- [[#external-toolings][External Toolings]]
+  - [[#direnv][Direnv]]
+  - [[#docker][Docker]]
+    - [[#docker-compose][docker-compose]]
+:END:
 * Progress
 ** Books
 |                         |                               |                                      |
 |-------------------------+-------------------------------+--------------------------------------|
-| Beginning Rails 6       | Active Record                 | Introducing Active Record:           |
+| Beginning Rails 6       | Active Record                 | Finding a Single Record Using first  |
 | Agile Development Rails | 11 Task F: Add a Dash of Ajax |                                      |
 | Sustainable Rails       | 5 Bussines logic              | 5.3 Business Logic in Active Records |
 | Rails Guide             | Action Controller             | 4.4 default_url_options              |
@@ -65,7 +111,7 @@
 |-------+--------------------------------------+-----------------|
 | rails | actioncable/lib/action_cable/channel | broadcasting.rb |
 
-* cli
+* Commands
 ** database
 | cmd              | desc                                                                   |
 |------------------+------------------------------------------------------------------------|
@@ -175,7 +221,7 @@ Rails 6 uses rake as task runner
 | routes --expanded |                                                                    |                                                                                                                                    |
 | byebug            |                                                                    |                                                                                                                                    |
 
-* bin
+* bin folder
 Useful personal scripts
 
 - brakeman
@@ -218,7 +264,6 @@ class Article < ApplicationRecord
   validates :title, :body, presence: true
 end
 #+end_src
-
 
 ** concerns
 ** best pratices
@@ -271,7 +316,7 @@ Rails.logger.warn "This will show in all environments"
 ** Views
 
 ** <% console %>
- abre um console na página que vc coloca <% console %> aí vc pode chamar as variáveis daquela página pra entender o que tá rolando
+ abre um console na página que vc coloca <% console %> aí vc pode chamar as variáveis daquela página pra entender o que tá Rolando
 #+begin_src ruby
 <% console %>
 #+end_src
@@ -289,8 +334,13 @@ Rails.logger.warn "This will show in all environments"
 * Database
 ** Active Record
 - Single-Table Inheritance
+- maps tables to classes, table rows to objects, and table columns to object attributes.
+- Class names are singular; table names are plural.
+- Tables contain an identity column named id.
 
 *** methods
+New/create
+
 #+begin_src ruby
 # new
 Article.new(title: "Introduction to Active Record",
@@ -300,10 +350,28 @@ body: "Active Record is Rails's default ORM..", published_at: Time.zone.now)
 Article.create(title: "RubyConf 2020", body: "The annual RubyConf will
 take place in..", published_at: '2020-01-31')
 
+# then save
 article.save
+#+end_src
+
+Inspecting
+
+#+begin_src ruby
 article.new_record?
 article.attributes
 article.id
+#+end_src
+
+misc
+
+#+begin_src ruby
+begin
+  Article.find(1037)
+rescue ActiveRecord::RecordNotFound
+  puts "We couldn't find that record"
+end
+
+
 article.update_attributes(title: "RailsConf2020", published_at: 1.day.ago)
 article.destroy
 article.valid?
@@ -314,15 +382,21 @@ article.errors.full_messages
 articles.size
 
 Article.count
-Article.find(3)
-Article.first
-Article.last
-Article.all
 Article.order(:title)
 Article.where(title: 'RailsConf').first
 Article.destroy([2,3])
 Article.delete(4) # don’t instantiate or perform callbacks on the object they’re deleting
 Article.delete_by("published_at < '2011-01-01'")
+#+end_src
+
+Find
+
+#+begin_src ruby
+Article.find 3
+Article.find [2,4]
+Article.first
+Article.last
+Article.all
 #+end_src
 *** associations
 |                         |                                                                                    |
