@@ -274,14 +274,12 @@ DROP ROLE IF EXISTS saitama;
 * Tips
 ** local and non-root database
 #+begin_src shell-script
-
 initdb -D .postgres -A md5 -U $USER --pwprompt
 # or
 initdb -D .postgres -A md5 -U $USER --pwfile=/path/to/passfile
 
 pg_ctl -D .postgres -w start
 createdb -U $USER mydb
-
 #+end_src
 * Errors
 
