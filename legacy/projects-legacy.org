@@ -5,20 +5,17 @@
   :TOC:      :include all :depth 2 :ignore this
   :END:
 :CONTENTS:
-- [[#cejo][cejo]]
 - [[#distro][distro]]
 - [[#floss][floss]]
-  - [[#ruby][ruby]]
-  - [[#nodejs][nodejs]]
   - [[#python][python]]
   - [[#misc][misc]]
+- [[#cejo][cejo]]
 - [[#ports][Ports]]
   - [[#ruby][Ruby]]
   - [[#net][.NET]]
   - [[#python][Python]]
 :END:
 
-* cejo
 * distro
     #+begin_src yaml
     ---
@@ -121,33 +118,6 @@
 
     #+end_src
 * floss
-** ruby
-#+begin_src csv
-name,repository
-faker,https://github.com/faker-ruby/faker
-solargraph,https://github.com/castwide/solargraph
-rake,https://github.com/ruby/rake
-ruby,https://github.com/ruby/ruby
-#+end_src
-** nodejs
-#+begin_src csv
-name,repository
-deno,https://github.com/denoland/deno
-commander.js,https://github.com/tj/commander.js
-node,https://github.com/nodejs/node
-hapi,https://github.com/hapijs/hapi
-request,https://github.com/request/request
-koa-workshop,https://github.com/koajs/workshop
-kick-off-koa,https://github.com/koajs/kick-off-koa
-koa,https://github.com/koajs/koa
-ejs,https://github.com/mde/ejs
-aleph.js,https://github.com/alephjs/aleph.js
-pug,https://github.com/pugjs/pug
-hbs,https://github.com/pillarjs/hbs
-handlebars.js,https://github.com/handlebars-lang/handlebars.js
-express-generator,https://github.com/expressjs/generator
-express,https://github.com/expressjs/express
-#+end_src
 ** python
 #+begin_src csv
 name,repository
@@ -276,6 +246,7 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/laravel/laravel
    - https://github.com/php/php-src
    #+end_src
+* cejo
 * Ports
 ** Ruby
      #+begin_src ruby
