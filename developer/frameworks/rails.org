@@ -25,6 +25,7 @@
   - [[#log][log]]
   - [[#migration][migration]]
   - [[#console][console]]
+    - [[#reload][reload!]]
 - [[#bin-folder][bin folder]]
   - [[#run][run]]
   - [[#setup][setup]]
@@ -101,7 +102,7 @@
 ** Books
 |                         |                               |                                      |
 |-------------------------+-------------------------------+--------------------------------------|
-| Beginning Rails 6       | Advanced Active Record        | Adding Methods                       |
+| Beginning Rails 6       | Advanced Active Record        | Creating One-to-Many Associations    |
 | Agile Development Rails | 11 Task F: Add a Dash of Ajax |                                      |
 | Sustainable Rails       | 5 Bussines logic              | 5.3 Business Logic in Active Records |
 | Rails Guide             | Action Controller             | 4.4 default_url_options              |
@@ -217,10 +218,13 @@ Rails 6 uses rake as task runner
 | delete_by         |                                                                    |                                                                                                                                    |
 | errors            | a.errors.any? / a.errors.full_messages / a.errors.messages[:title] |                                                                                                                                    |
 |                   | a.valid?                                                           |                                                                                                                                    |
-| reload            |                                                                    | reloads the Rails application environment within your console session. You need to call it when you make changes to existing code. |
 | routes --expanded |                                                                    |                                                                                                                                    |
 | byebug            |                                                                    |                                                                                                                                    |
 
+
+*** reload!
+reloads the Rails application environment within your console session. You need
+to call it when you make changes to existing code.
 * bin folder
 Useful personal scripts
 
@@ -446,7 +450,6 @@ article.valid?
 | many_to_many            |                                                                                    |
 | has_and_belongs_to_many | join table that keeps a reference to the foreign keys involved in the relationship |
 |                         |                                                                                    |
-
 
 #+begin_src ruby
 class Message < ApplicationRecord
