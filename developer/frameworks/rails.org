@@ -80,6 +80,7 @@
         - [[#limit][limit]]
         - [[#joins][joins]]
         - [[#includes][includes]]
+    - [[#default-scope][Default Scope]]
     - [[#named-scope][Named Scope]]
   - [[#seeds][Seeds]]
     - [[#methods][methods]]
@@ -102,7 +103,7 @@
 ** Books
 |                         |                               |                                      |
 |-------------------------+-------------------------------+--------------------------------------|
-| Beginning Rails 6       | Advanced Active Record        | Creating One-to-Many Associations    |
+| Beginning Rails 6       | Advanced Active Record        | Using Built-in Validations           |
 | Agile Development Rails | 11 Task F: Add a Dash of Ajax |                                      |
 | Sustainable Rails       | 5 Bussines logic              | 5.3 Business Logic in Active Records |
 | Rails Guide             | Action Controller             | 4.4 default_url_options              |
@@ -266,6 +267,7 @@ bin/ci # perform all checks
 #+begin_src ruby
 class Article < ApplicationRecord
   validates :title, :body, presence: true
+
 end
 #+end_src
 
@@ -297,9 +299,12 @@ get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and sea
 **** evaluation embedding tags (<% %>)
 **** output embedding tags (<%= %>)
 * Enviroment
-|                      |                                                                          |
-|----------------------+--------------------------------------------------------------------------|
-| RAILS_ENV=production |                                                                          |
+|                      |                                                |
+|----------------------+------------------------------------------------|
+| RAILS_ENV=production |                                                |
+| DATABASE_URL         | database credentials                           |
+| SECRET_KEY_BASE      | general secret key used for encrypting cookies |
+|                      |                                                |
 
 * Logger
 - live log feed: tail -f log/development.log
@@ -510,12 +515,14 @@ Article.where("created_at > '2020-02-04' AND body NOT LIKE '%model%'")
 #+begin_src ruby
 User.first.articles.all
 current_user.articles.find(1)
+# creates a new article for the current_user.
 current_user.articles.create(title: 'Private', body: ‘Body here..’)
 #+end_src
 **** more
 #+begin_src ruby
 Article.order("published_at DESC")
-Article.limit(1) Article.joins(:comments)
+Article.limit(1)
+Article.joins(:comments)
 Article.includes(:comments)
 Article.order("title DESC").limit(2)
 
@@ -552,11 +559,22 @@ Specifies associated tables to be joined and loaded as Active Record objects in 
 #+begin_src ruby
 Article.includes(:comments)
 #+end_src
+*** Default Scope
+Use this macro in your model to set a default scope for all operations on the model.
+
+- will reset order everytime, costly.
+
+#+begin_src ruby
+default_scope { order :name }
+#+end_src
+
 *** Named Scope
-     #+begin_src ruby
-     scope :published, -> { where.not(published_at: nil) }
-     scope :draft, -> { where(published_at: nil) }
-     #+end_src
+#+begin_src ruby
+scope :published, -> { where.not(published_at: nil) }
+scope :draft, -> { where(published_at: nil) }
+scope :recent, -> { where('articles.published_at > ?', 1.week.ago.to_date) }
+scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
+#+end_src
 ** Seeds
 *** methods
 #+begin_src ruby
