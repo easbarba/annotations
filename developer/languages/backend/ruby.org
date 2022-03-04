@@ -116,7 +116,7 @@
 ** Books
 | Books                            | Chapter                            | late                                    |
 |----------------------------------+------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 2                                  | Inside the Object Model                 |
+| Programming Ruby                 | 5                                  | Inheritance and Messages                |
 | Metaprogramming ruby             | 2                                  | Monday: The Object Mode                 |
 | Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
 | Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
@@ -1027,22 +1027,62 @@ autoload :SharedContext, 'rspec/core/shared_context'
 
 ** Methods
 *** Parameters
-**** do end as param
-   #+begin_src ruby
-   x = (do  1 + 2 end)
-   x = (do 'a' + 'b' end).join(',')
-   #+end_src
-**** takes no keywords
+*Required arguments*
+
+#+begin_src ruby
+def foo(meh)
+  p meh
+end
+#+end_src
+
+*Default arguments*
+
+#+begin_src ruby
+def aMethod( a=10, b=20 )
+   return a, b
+end
+#+end_src
+
+*Optional arguments*
+
+#+begin_src ruby
+def forevis(*meh)
+  meh.each { |x|  p x }
+end
+#+end_src
+
+*Takes no keywords*
 #+begin_src ruby
 def x(**nil)
 end
 #+end_src
-**** argument forwarding
+
+*Argument forwarding*
 #+begin_src ruby
 def x(...)
 end
 #+end_src
+
+*do end as param*
+
+#+begin_src ruby
+x = (do  1 + 2 end)
+x = (do 'a' + 'b' end).join(',')
+#+end_src
+
+*Block as argument*
+#+begin_src ruby
+def cevadis(meh, &block)
+  block.call
+end
+#+end_src
+
 *** name=
+#+begin_src ruby
+def leite=()
+end
+#+end_src
+
 *** name
 
 ** Pattern Matching

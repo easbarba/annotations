@@ -1,5 +1,4 @@
 #+TITLE: Ruby Packages
-lxbarbosa@outlook.com
 
 * Summary
   :PROPERTIES:
@@ -115,9 +114,9 @@ lxbarbosa@outlook.com
   :END:
 * Progress
 ** Books
-| Books                      | Chapter                          | late              |
-|----------------------------+----------------------------------+-------------------|
-| Effective Testing - RSpec3 | Testing in Isolation: Unit Specs | Handling Failures |
+| Books                      | Chapter                          | late |
+|----------------------------+----------------------------------+------|
+| Effective Testing - RSpec3 | Testing in Isolation: Unit Specs |      |
 
 ** SLOC
 | Project    | folder | file           | @ |

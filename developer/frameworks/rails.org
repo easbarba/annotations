@@ -39,7 +39,6 @@
     - [[#fat-models][fat models]]
 - [[#routes][Routes]]
   - [[#eg][eg]]
-  - [[#named-routes][named routes]]
 - [[#controller][Controller]]
 - [[#views][Views]]
   - [[#templates][Templates]]
@@ -103,7 +102,7 @@
 ** Books
 |                         |                               |                                      |
 |-------------------------+-------------------------------+--------------------------------------|
-| Beginning Rails 6       | Advanced Active Record        | Using Built-in Validations           |
+| Beginning Rails 6       | Advanced Active Record        | Validating Confirmation              |
 | Agile Development Rails | 11 Task F: Add a Dash of Ajax |                                      |
 | Sustainable Rails       | 5 Bussines logic              | 5.3 Business Logic in Active Records |
 | Rails Guide             | Action Controller             | 4.4 default_url_options              |
@@ -150,6 +149,10 @@ rails _6.1.4.6_ new app --database=postgresql
 | destroy model Artile        |      |
 
 ** routes
+|            |   |
+|------------+---|
+| -g <GROUP> |   |
+
 ** generate
 *** resource
 *** scaffold
@@ -265,10 +268,10 @@ bin/ci # perform all checks
 ** validations
 *** validates
 #+begin_src ruby
-class Article < ApplicationRecord
-  validates :title, :body, presence: true
-
-end
+validates :title, :body, presence: true
+validates :email, uniqueness: true
+valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+validates :email, length: { in: 5..50 }
 #+end_src
 
 ** concerns
@@ -278,20 +281,42 @@ An intelligent model like this is often called fat. Instead of performing model-
 other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
 makes your models easier to work with and helps your code stay DRY.
 * Routes
+The Rails router recognizes URLs and dispatches them to a controller's action,
+or to a Rack application. It can also generate paths and URLs, avoiding the need
+to hardcode strings in your views.
+
 - localhost:xxxx/rails/info/routes
+
+*Named routes*
+
+#+begin_src ruby
+get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and search_path
+#+end_src
+
+*only*
+
+#+begin_src ruby
+resources :articles, only: [:index, :show]
+#+end_src
+
+*Except*
+
+#+begin_src ruby
+resources :articles, except: [ :destroy ]
+#+end_src
+
+*Redirect*
+
+#+begin_src ruby
+get "/amazing", to: redirect("/widgets")
+#+end_src
 
 ** eg
 #+begin_src ruby
 get '/teams/home', to: 'teams#index' # http://example.com/teams
 get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search/toronto
 #+end_src
-** named routes
 
-
-#+begin_src ruby
-get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and search_path
-
-#+end_src
 * Controller
 * Views
 ** Templates
