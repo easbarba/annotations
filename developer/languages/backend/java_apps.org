@@ -1,7 +1,49 @@
 #+TITLE: Java_apps
 
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#spring][Spring]]
+- [[#spring-boot][Spring Boot]]
+- [[#spring-data][Spring Data]]
+- [[#spring-security][Spring Security]]
+- [[#spring-integration][Spring Integration]]
+- [[#spring-batch][Spring Batch]]
+- [[#spring-cloud][Spring Cloud]]
+- [[#spring-native][Spring Native]]
+- [[#maven][Maven]]
+  - [[#mvnw][mvnw]]
+    - [[#spring-bootrun][spring-boot:run]]
+    - [[#test][test]]
+    - [[#package][package]]
+:END:
+* Progress
+** Books
+| name             | chapter                       | @ |
+|------------------+-------------------------------+---|
+| Spring in Action | 2 Developing web applications |   |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| spring-boot |        |      |   |
+
 * Spring
-* mvnw
-** spring-boot:run
-** test
-** package
+* Spring Boot
+* Spring Data
+* Spring Security
+* Spring Integration
+* Spring Batch
+* Spring Cloud
+* Spring Native
+* Maven
+** mvnw
+*** spring-boot:run
+*** test
+*** package
