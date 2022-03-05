@@ -1,0 +1,164 @@
+#+TITLE: Java
+
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
+  - [[#types][Types]]
+    - [[#integers][Integers]]
+      - [[#byte][byte]]
+      - [[#short][short]]
+      - [[#int][int]]
+      - [[#long][long]]
+    - [[#floating][Floating]]
+      - [[#float][float]]
+      - [[#double][double]]
+    - [[#strings][Strings]]
+    - [[#characters][Characters]]
+    - [[#boolean][Boolean]]
+  - [[#variables][Variables]]
+:END:
+* Progress
+** Books
+| name                    | chapter | @                            |
+|-------------------------+---------+------------------------------|
+| Java Complete Reference |       3 | Writing a Spring application |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| jdk         |        |      |   |
+
+* Base
+** Types
+*** Integers
+- are signed, positive and negative values
+
+**** byte
+- smallest integer type
+- –128 to 127
+
+#+begin_src java
+byte b, c;
+#+end_src
+
+**** short
+- range from –32,768 to 32,767
+
+#+begin_src java
+short s;
+short t;
+#+end_src
+**** int
+- range from –2,147,483,648 to 2,147,483,647
+- byte and short values in expressions are promoted to int when evaluated
+#+begin_src java
+int x = 0b1010; // integer binary
+int y = 123_456_789;
+int y = 123___456___789;
+#+end_src
+**** long
+*** Floating
+- real numbers
+- IEEE–754
+- defaults to double precision
+- supports hexadecimal floating-point
+
+#+begin_src java
+0x12.2P2 // hexadecimal fp
+double num = 9_423_497_862.0;
+#+end_src
+
+**** float
+- 1.4e–045 to 3.4e+038
+- single-precision
+- takes half as much space as double precision
+- imprecise when the values are either very large or very small
+
+#+begin_src java
+float hightemp, lowtemp;
+#+end_src
+**** double
+- 4.9e–324 to 1.8e+308
+
+#+begin_src java
+// Compute the area of a circle.
+class Area {
+    public static void main(String[] args) {
+        double pi, r, a;
+        r = 10.8; // radius of circle
+        pi = 3.1416; // pi, approximately
+        a = pi * r * r; // compute area
+        System.out.println("Area of circle is " + a);
+    }
+}
+#+end_src
+*** Strings
+#+begin_src java
+"Hello World"
+"two\nlines"
+" \"This is in quotes\""
+#+end_src
+*** Characters
+- store characters
+- range of 0 to 65,535
+- able to manipulate with the integer operators
+
+#+begin_src java
+'\u0061' // ISO-Latin-1 'a'
+'\ua432 ' // ꐲ - Japanese Katakana character.
+
+// Demonstrate char data type.
+class CharDemo {
+    public static void main(String[] args) {
+        char ch1, ch2;
+        ch1 = 88; // code for X
+        ch2 = 'Y';
+        System.out.print("ch1 and ch2: ");
+        System.out.println(ch1 + " " + ch2);
+    }
+}
+#+end_src
+
+*** Boolean
+- true
+- false
+- wont convert into any numerical representation
+
+#+begin_src java
+// Demonstrate boolean values.
+class BoolTest {
+    public static void main(String[] args) {
+        boolean b;
+        b = false;
+        System.out.println("b is " + b);
+        b = true;
+        System.out.println("b is " + b);
+        // a boolean value can control the if statement
+        if(b) System.out.println("This is executed.");
+        b = false;
+        if(b) System.out.println("This is not executed.");
+        // outcome of a relational operator is a boolean value
+        System.out.println("10 > 9 is " + (10 > 9));
+
+    }
+}
+#+end_src
+** Variables
+- an identifier, a type, and an optional initialize
+- has a scope, which defines their visibility, and lifetime
+- must be declared before being used
+
+#+begin_src java
+int a, b, c;
+int d = 3, e, f = 5;
+byte z = 22;
+double pi = 3.14159;
+char x = 'x';
+#+end_src
