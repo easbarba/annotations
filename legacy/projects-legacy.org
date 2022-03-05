@@ -5,10 +5,15 @@
   :TOC:      :include all :depth 2 :ignore this
   :END:
 :CONTENTS:
-- [[#distro][distro]]
 - [[#floss][floss]]
   - [[#python][python]]
+  - [[#guile][guile]]
+  - [[#ruby][ruby]]
+  - [[#php][php]]
+  - [[#go][go]]
+  - [[#js][js]]
   - [[#misc][misc]]
+- [[#distro][distro]]
 - [[#cejo][cejo]]
 - [[#ports][Ports]]
   - [[#ruby][Ruby]]
@@ -16,107 +21,6 @@
   - [[#python][Python]]
 :END:
 
-* distro
-    #+begin_src yaml
-    ---
-    builddep: builddep
-    clean: autoremove
-    depends: repoquery --requires --resolve
-    download: ''
-    fix: fix
-    help: help
-    info: info
-    install: install
-    installed: list installed
-    remove: remove
-    search: search
-    sysupgrade: sysupgrade
-    update: update
-    upgrade: upgrade
-
-    ---
-    builddep: ''
-    clean: autoremove
-    depends: ''
-    download: fetch
-    fix: fix
-    help: help
-    info: query
-    install: install
-    installed: version
-    remove: remove
-    search: search
-    sysupgrade: ''
-    update: update
-    upgrade: upgrade
-    ---
-    builddep: ''
-    clean: autoremove
-    depends: ''
-    download: fetch
-    fix: fix
-    help: help
-    info: query
-    install: install
-    installed: version
-    remove: remove
-    search: search
-    sysupgrade: ''
-    update: update
-    upgrade: upgrade
-
-    ---
-    builddep: build-dep
-    clean: nix-store --gc
-    depends: depends
-    download: download
-    fix: install -f
-    help: help
-    info: show
-    install: nix-env --install
-    install+: nix-env --install -A
-    installed: nix-env -qa
-    remove: nix-env --uninstall
-    search: nix-env -qa
-    sysupgrade: ''
-    update: nix-env --update
-    upgrade: nix-env --upgrade
-
-
-    ---
-    builddep: ''
-    clean: ''
-    depends: ''
-    download: ''
-    fix: ''
-    help: help
-    info: ''
-    install: "-S"
-    installed: ''
-    remove: "-R"
-    search: "-Ss"
-    sysupgrade: ''
-    update: "-Syy"
-    upgrade: "-Syu"
-
-
-    ---
-    builddep: ''
-    clean: autoremove
-    depends: ''
-    download: fetch
-    fix: fix
-    help: help
-    info: query
-    install: install
-    installed: version
-    remove: remove
-    search: search
-    sysupgrade: ''
-    update: update
-    upgrade: upgrade
-
-    #+end_src
 * floss
 ** python
 #+begin_src csv
@@ -128,7 +32,79 @@ black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
 #+end_src
+** guile
+#+begin_src csv
+name,repository
+guile-json,https://github.com/aconchillo/guile-json
+guile-git,https://gitlab.com/guile-git/guile-git
+guile-filesystem,https://gitlab.com/leoprikler/guile-filesystem
+guile-libyaml,https://github.com/mwette/guile-libyaml
+geiser-guile,https://gitlab.com/emacs-geiser/guile
+pjotrp-guix-notesz,https://github.com/pjotrp/guix-notes
+alezost-guix-config,https://github.com/alezost/guix-config
+fibers,https://github.com/wingo/fibers
+nonguix,https://gitlab.com/nonguix/nonguix
+guix,https://git.savannah.gnu.org/git/guix
+guile,https://git.sv.gnu.org/git/guile
+akku,https://gitlab.com/akkuscm/akku
+lokke,https://github.com/lokke-org/lokke
+#+end_src
+** ruby
+#+begin_src csv
+name,repository
+sustainable-rails-docker,https://github.com/davetron5000/sustainable-rails-docker
+solargraph,https://github.com/castwide/solargraph
+faker,https://github.com/faker-ruby/faker
+sinatra,https://github.com/sinatra/sinatra
+rake,https://github.com/ruby/rake
+jekyll,https://github.com/jekyll/jekyll
+sidekiq,https://github.com/mperham/sidekiq
+fluentd,https://github.com/fluent/fluentd
+rails,https://github.com/rails/rails
+ruby,https://github.com/ruby/ruby
+
+#+end_src
+** php
+#+begin_src csv
+name,repository
+guzzle,https://github.com/guzzle/guzzle
+phpunit,https://github.com/sebastianbergmann/phpunit
+composer,https://github.com/composer/composer
+laravel-framework,https://github.com/laravel/framework
+laravel,https://github.com/laravel/laravel
+php-doc-en,https://github.com/php/doc-en
+php-src,https://github.com/php/php-src
+#+end_src
+** go
+#+begin_src csv
+name,repository
+pro-go,https://github.com/Apress/pro-go
+learn-go-with-tests,https://github.com/quii/learn-go-with-tests
+goplio,https://github.com/adonovan/gopl.io
+linkerd2,https://github.com/linkerd/linkerd2
+flux2,https://github.com/fluxcd/flux2
+terraform,https://github.com/hashicorp/terraform
+k3d,https://github.com/k3d-io/k3d
+kind,https://github.com/kubernetes-sigs/kind
+crossplane,https://github.com/crossplane/crossplane
+kubectl,https://github.com/kubernetes/kubectl
+go-tools,https://github.com/golang/tools
+go,https://go.googlesource.com/go
+#+end_src
+** js
+#+begin_src csv
+name,repository
+commander.js,https://github.com/tj/commander.js
+axios,https://github.com/axios/axios
+node,https://github.com/nodejs/node
+#+end_src
 ** misc
+#+begin_src csv
+name,repository
+zero.sh,https://github.com/zero-sh/zero.sh
+ansible,https://github.com/ansible/ansible
+#+end_src
+
 
 #+begin_src csv
 name,repository
@@ -246,6 +222,107 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/laravel/laravel
    - https://github.com/php/php-src
    #+end_src
+* distro
+    #+begin_src yaml
+    ---
+    builddep: builddep
+    clean: autoremove
+    depends: repoquery --requires --resolve
+    download: ''
+    fix: fix
+    help: help
+    info: info
+    install: install
+    installed: list installed
+    remove: remove
+    search: search
+    sysupgrade: sysupgrade
+    update: update
+    upgrade: upgrade
+
+    ---
+    builddep: ''
+    clean: autoremove
+    depends: ''
+    download: fetch
+    fix: fix
+    help: help
+    info: query
+    install: install
+    installed: version
+    remove: remove
+    search: search
+    sysupgrade: ''
+    update: update
+    upgrade: upgrade
+    ---
+    builddep: ''
+    clean: autoremove
+    depends: ''
+    download: fetch
+    fix: fix
+    help: help
+    info: query
+    install: install
+    installed: version
+    remove: remove
+    search: search
+    sysupgrade: ''
+    update: update
+    upgrade: upgrade
+
+    ---
+    builddep: build-dep
+    clean: nix-store --gc
+    depends: depends
+    download: download
+    fix: install -f
+    help: help
+    info: show
+    install: nix-env --install
+    install+: nix-env --install -A
+    installed: nix-env -qa
+    remove: nix-env --uninstall
+    search: nix-env -qa
+    sysupgrade: ''
+    update: nix-env --update
+    upgrade: nix-env --upgrade
+
+
+    ---
+    builddep: ''
+    clean: ''
+    depends: ''
+    download: ''
+    fix: ''
+    help: help
+    info: ''
+    install: "-S"
+    installed: ''
+    remove: "-R"
+    search: "-Ss"
+    sysupgrade: ''
+    update: "-Syy"
+    upgrade: "-Syu"
+
+
+    ---
+    builddep: ''
+    clean: autoremove
+    depends: ''
+    download: fetch
+    fix: fix
+    help: help
+    info: query
+    install: install
+    installed: version
+    remove: remove
+    search: search
+    sysupgrade: ''
+    update: update
+    upgrade: upgrade
+
+    #+end_src
 * cejo
 * Ports
 ** Ruby

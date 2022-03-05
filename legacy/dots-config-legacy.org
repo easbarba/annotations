@@ -1,6 +1,5 @@
 #+TITLE: Dots Config Legacy
 
-
 * Guix Config
    #+begin_src scheme
 
