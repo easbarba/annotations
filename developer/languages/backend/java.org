@@ -26,9 +26,9 @@
 :END:
 * Progress
 ** Books
-| name                    | chapter | @ |
-|-------------------------+---------+---|
-| Java Complete Reference |       3 |   |
+| name                    | chapter   | @                |
+|-------------------------+-----------+------------------|
+| Java Complete Reference | 6 Classes | The this Keyword |
 
 ** SLOC
 | Source Code | folder | file | @ |
