@@ -1,11 +1,119 @@
 #+TITLE: PHP
 
-* [[https://getcomposer.org/][Composer]]
-A Dependency Manager for PHP
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
+  - [[#types][types]]
+    - [[#boolean][boolean]]
+    - [[#integers][integers]]
+      - [[#functions][functions]]
+    - [[#floating][floating]]
+  - [[#variables][variables]]
+    - [[#functions][functions]]
+- [[#library][Library]]
+  - [[#functions][functions]]
+:END:
+* Progress
+** Books
+| name | chapter | @ |
+|------+---------+---|
+|      |         |   |
 
-** phar
+** SLOC
+| Source Code | folder | file      | @ |
+|-------------+--------+-----------+---|
+|             |        |           |   |
 
-* Frameworks
-** drupal
-*** drush
-** laravel
+* Base
+** types
+*** boolean
+A bool expresses a truth value. It can be either *True* or *False*.
+
+*Falsy values*
+
+- the boolean false itself
+- the integer 0 (zero)
+- the floats 0.0 and -0.0 (zero)
+- the empty string, and the string "0"
+- an array with zero elements
+- the special type NULL (including unset variables)
+- SimpleXML objects created from attributeless empty elements, i.e. elements which have neither children nor attributes.
+
+*Truthy values*
+
+- every other value is considered true (including any resource and NAN).
+- non-zero integers include negatives ones: -1 or 1
+
+#+begin_src php
+<?php
+$foo = True;
+$bar = False;
+?>
+#+end_src
+
+*** integers
+An int is a number of the set ℤ = {..., -2, -1, 0, 1, 2, ...}.
+
+ - decimal (base 10), hexadecimal (base 16), octal (base 8) or binary (base 2) notation
+
+#+begin_src php
+<?php
+$a = 1234; // decimal number
+$a = 0123; // octal number (equivalent to 83 decimal)
+$a = 0o123; // octal number (as of PHP 8.1.0)
+$a = 0x1A; // hexadecimal number (equivalent to 26 decimal)
+$a = 0b11111111; // binary number (equivalent to 255 decimal)
+$a = 1_234_567; // decimal number (as of PHP 7.4.0)
+?>
+#+end_src
+
+#+begin_src php
+
+<?php
+var_dump(25/7);         // float(3.5714285714286)
+var_dump((int) (25/7)); // int(3)
+var_dump(round(25/7));  // float(4)
+?>
+
+#+end_src
+
+**** functions
+- intdiv()
+- intval()
+- round()
+
+*** floating
+#+begin_src php
+
+<?php
+$a = 1.234;
+$b = 1.2e3;
+$c = 7E-10;
+$d = 1_234.567; // as of PHP 7.4.0
+?>
+
+#+end_src
+
+** variables
+*** functions
+
+*var_dump*
+Dumps information about a variable
+
+#+begin_src php
+<? php
+var_dump((bool) "");
+#+end_src
+
+* Library
+
+** functions
+- abs()
+- error_reporting(E_ALL)
