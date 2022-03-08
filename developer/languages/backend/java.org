@@ -23,13 +23,15 @@
     - [[#characters][Characters]]
     - [[#boolean][Boolean]]
   - [[#variables][Variables]]
+  - [[#objects][Objects]]
+    - [[#passed-as-param][Passed as Param]]
 - [[#scripting][Scripting]]
 :END:
 * Progress
 ** Books
-| name                    | chapter   | @                |
-|-------------------------+-----------+------------------|
-| Java Complete Reference | 6 Classes | The this Keyword |
+| name                    | chapter   | @                          |
+|-------------------------+-----------+----------------------------|
+| Java Complete Reference | 6 Classes | Introducing Access Control |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -163,11 +165,15 @@ byte z = 22;
 double pi = 3.14159;
 char x = 'x';
 #+end_src
+** Objects
+*** Passed as Param
+- Pass as reference, will change the object passsed as param outside of method.
 
 * Scripting
 - remove .java extension
 - chmod +x
 - add shebang w/ *--source N*
+- java dependencies can be added w/ *-cp /path/to/xxx.jar*
 
 #+begin_src java
 #!/usr/bin/java --source 17
