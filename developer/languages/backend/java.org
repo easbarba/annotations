@@ -23,6 +23,7 @@
     - [[#characters][Characters]]
     - [[#boolean][Boolean]]
   - [[#variables][Variables]]
+- [[#scripting][Scripting]]
 :END:
 * Progress
 ** Books
@@ -161,4 +162,20 @@ int d = 3, e, f = 5;
 byte z = 22;
 double pi = 3.14159;
 char x = 'x';
+#+end_src
+
+* Scripting
+- remove .java extension
+- chmod +x
+- add shebang w/ *--source N*
+
+#+begin_src java
+#!/usr/bin/java --source 17
+
+public class HelloScripting {
+	public static void main(String[] args) {
+		System.out.println("Hello " + args[0]);
+	}
+}
+
 #+end_src
