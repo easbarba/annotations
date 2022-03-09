@@ -25,13 +25,26 @@
   - [[#variables][Variables]]
   - [[#objects][Objects]]
     - [[#passed-as-param][Passed as Param]]
+  - [[#classes][Classes]]
+    - [[#access-control][Access Control]]
+      - [[#public][Public]]
+      - [[#private][Private]]
+      - [[#protected][Protected]]
+    - [[#static][Static]]
+    - [[#final][Final]]
+    - [[#seal][Seal]]
+    - [[#inheritance][inheritance]]
+    - [[#super][super]]
+    - [[#abstract-classes][Abstract Classes]]
+- [[#library][Library]]
+  - [[#string][String]]
 - [[#scripting][Scripting]]
 :END:
 * Progress
 ** Books
-| name                    | chapter   | @                          |
-|-------------------------+-----------+----------------------------|
-| Java Complete Reference | 6 Classes | Introducing Access Control |
+| name                    | chapter   | @                                             |
+|-------------------------+-----------+-----------------------------------------------|
+| Java Complete Reference | 6 Classes | Local Variable Type Inference and Inheritance |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -168,7 +181,84 @@ char x = 'x';
 ** Objects
 *** Passed as Param
 - Pass as reference, will change the object passsed as param outside of method.
+** Classes
+*** Access Control
+**** Public
+- can be accessed by any other code
+- default access
+**** Private
+- can only be accessed by other members of its class.
+**** Protected
+- applies only when inheritance is involved
+*** Static
+- can only directly call other static methods of their class
+- can only directly access static variables of their class.
+- cannot refer to this or super
+- are, essentially, global variables
+*** Final
+- prevents its contents from being modified, making it, essentially, a constant.
+- you must initialize a final field when it is declared.
+- can give it a value when it is declared or assign it a value within a constructor
 
+
+- prevents methods overriding
+- sometimes provide a performance enhancement (inline calls)
+
+#+begin_src java
+class A {
+	final void meth() {
+		System.out.println("This is a final method.");
+	}
+}
+class B extends A {
+	void meth() { // ERROR! Can't override.
+		System.out.println("Illegal!");
+	}
+}
+#+end_src
+
+- prevents inheritance
+
+#+begin_src java
+final class A {
+	//...
+}
+// The following class is illegal.
+class B extends A { // ERROR! Can't subclass A
+	//...
+}
+#+end_src
+*** Seal
+*** inheritance
+- inherits all from super object
+- single-inheritance
+- private on superclass elements are not inherited by subclasses
+
+#+begin_src java
+class A {
+	int i, j;
+	void showij() {
+		System.out.println("i and j: " + i + " " + j);
+	}
+}
+// Create a subclass by extending class A.
+class B extends A {
+	int k;
+	void showk() {
+		System.out.println("k: " + k);
+	}
+	void sum() {
+		System.out.println("i+j+k: " + (i+j+k));
+	}
+}
+
+#+end_src
+*** super
+- must always be the first statement executed inside a subclass’ constructor.
+*** Abstract Classes
+
+* Library
+** String
 * Scripting
 - remove .java extension
 - chmod +x
