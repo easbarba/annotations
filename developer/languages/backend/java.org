@@ -38,13 +38,16 @@
     - [[#abstract-classes][Abstract Classes]]
 - [[#library][Library]]
   - [[#string][String]]
+  - [[#object][Object]]
+    - [[#methods][methods]]
 - [[#scripting][Scripting]]
 :END:
 * Progress
 ** Books
-| name                    | chapter   | @                                             |
-|-------------------------+-----------+-----------------------------------------------|
-| Java Complete Reference | 6 Classes | Local Variable Type Inference and Inheritance |
+| name                    | chapter                   | @ |
+|-------------------------+---------------------------+---|
+| Java Complete Reference | 9 Packages and Interfaces |   |
+| Effective Java 9        |                           |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -259,6 +262,23 @@ class B extends A {
 
 * Library
 ** String
+** Object
+- superclass of all other classes
+- reference variable of type Object can refer to an object of any other class.
+*** methods
+|           |   |
+|-----------+---|
+| clone     |   |
+| equals    |   |
+| finalize  |   |
+| getClass  |   |
+| hashCode  |   |
+| notify    |   |
+| notifyAll |   |
+| toString  |   |
+| wait      |   |
+
+
 * Scripting
 - remove .java extension
 - chmod +x
