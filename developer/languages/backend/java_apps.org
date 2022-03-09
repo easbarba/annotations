@@ -31,10 +31,10 @@
 :END:
 * Progress
 ** Books
-| name             | chapter                       | @ |
-|------------------+-------------------------------+---|
-| Spring in Action | 2 Developing web applications |   |
-| JUnit in Action  | 2 Core                        |   |
+| name             | chapter                       | @                             |
+|------------------+-------------------------------+-------------------------------|
+| Spring in Action | 2 Developing web applications | 2.1.1 Establishing the domain |
+| JUnit in Action  | 2 Core                        |                               |
 ** SLOC
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
