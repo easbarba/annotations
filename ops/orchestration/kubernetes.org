@@ -170,9 +170,9 @@
 
 * Progress
 ** Books
-| Books                            | Chapters | @ |
-|----------------------------------+----------+---|
-| Kubernetes – An Enterprise Guide |        1 |   |
+| Books                            | Chapters                          | @ |
+|----------------------------------+-----------------------------------+---|
+| Kubernetes – An Enterprise Guide | 2 Deploying Kubernetes Using KinD |   |
 
 * Base
 ** Namespace
