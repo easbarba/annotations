@@ -1,9 +1,10 @@
 #+TITLE: Bash
 
 * Progress
-   | book                  | chapter | @ | revision |
-   |-----------------------+---------+---+----------|
-   | Bash Reference Manual |         |   |          |
+   | book                            | chapter | @          |
+   |---------------------------------+---------+------------|
+   | Bash Reference Manual           |         |            |
+   | Shell Scripting Hwo to Automate |         | File Types |
 
 * Features
 ** Redirection
@@ -678,8 +679,21 @@ ls -l ch?.1 # ch1.1 ch2.1
 
 #+end_src
 * set
-** set
 display all environment variables and Shell functions
+
+|             |                                                                                                                                    |
+|-------------+------------------------------------------------------------------------------------------------------------------------------------|
+| -e          | exit immediately if it returns a non-zero status                                                                                   |
+| -x          | Print commands and their arguments as they are executed.                                                                           |
+| -u          | Treat unset variables and parameters other than the special parameters ‘@’ or ‘*’ as an error when performing parameter expansion. |
+| -o          |                                                                                                                                    |
+| -f          | disable filename expansion (globbing).                                                                                             |
+| -b          | Cause the status of terminated background jobs to be reported immediately,                                                         |
+| -n          | Read commands but do not execute them.                                                                                             |
+| -p          | Turn on privileged mode.                                                                                                           |
+| -t          | Exit after reading and executing one command.                                                                                      |
+| -o pipefail |                                                                                                                                    |
+
 * Redirection
 - > : add or overwrite
 - >>: add or append
