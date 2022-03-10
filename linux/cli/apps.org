@@ -522,6 +522,16 @@ open file in its default application
 | -i |   |
 * lscpu
 * passwd
+The passwd command changes passwords for user accounts. A normal user may only change the password for their own
+account, while the superuser may change the password for any account.  passwd also changes the account or associated
+password validity period.
+
+|           |                                         |
+|-----------+-----------------------------------------|
+| -l --lock | Lock the password of the named account. |
+| -q        |                                         |
+
+
 * scanelf
  --needed --nobanner --format
 * dirs
