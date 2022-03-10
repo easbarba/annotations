@@ -26,6 +26,16 @@ dialog
 sysstat
 awesome-extra
 
+
+micro kate
+
+	wayland=(wl-clipboard sway swaybg swaylock foot clipman grimshot xwayland)
+
+zathura
+
+books=( texlive texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-latex-base)
+	user=(		inkscape gaupol kdeconnect)
+
 #+end_src
 
 ** foreign
@@ -119,5 +129,5 @@ p# qemu-system-gui qemu-utils qemu-efi qemu-kvm
 			libinput-tools  acpid hddtemp
 wofi xonsh x11proto-dev bat  dialog arc-icon-theme
 
-picom network-manage-applet flameshot inkscape screenkey micro kdenlive shotcut
+flameshot inkscape screenkey micro kdenlive shotcut
 #+end_src
