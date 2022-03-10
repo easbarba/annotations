@@ -40,14 +40,15 @@
   - [[#string][String]]
   - [[#object][Object]]
     - [[#methods][methods]]
+  - [[#interfaces][Interfaces]]
 - [[#scripting][Scripting]]
 :END:
 * Progress
 ** Books
-| name                    | chapter                   | @ |
-|-------------------------+---------------------------+---|
-| Java Complete Reference | 9 Packages and Interfaces |   |
-| Effective Java 9        |                           |   |
+| name                    | chapter                   | @                         |
+|-------------------------+---------------------------+---------------------------|
+| Java Complete Reference | 9 Packages and Interfaces | Default Interface Methods |
+| Effective Java 9        |                           |                           |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -277,7 +278,143 @@ class B extends A {
 | notifyAll |   |
 | toString  |   |
 | wait      |   |
+** Interfaces
+- Prior to JDK 8, an interface could not define any implementation whatsoever.
+- Beginning with JDK 8, it is possible to add a default implementation to an interface method.
+- JDK 8 also added static interface methods
+- W/ JDK 9 can include private methods
 
+#+begin_src java
+interface Callback {
+    void callback(int param);
+}
+#+end_src
+
+- implicitly final and static
+- methods and variables are implicitly public.
+- interface's method must be public
+
+#+begin_src java
+class Client implements Callback { // interface's method must be public
+// Implement Callback's interface
+    public void callback(int p) {
+        System.out.println("callback called with " + p);
+    }
+}
+#+end_src
+
+#+begin_src java
+class Client implements Callback {
+    // Implement Callback's interface
+    public void callback(int p) {
+        System.out.println("callback called with " + p);
+    }
+
+    void nonIfaceMeth() {
+        System.out.println("Classes that implement interfaces " + "may also define other members, too.");
+    }
+}
+#+end_src
+
+Interface as variable reference
+- An interface reference variable has knowledge only of the methods declared by its interface declaration.
+
+#+begin_src java
+class TestIface {
+    public static void main(String[] args) {
+        Callback c = new Client();
+        c.callback(42);
+    }
+}
+#+end_src
+
+Partial Implementations
+- not fully implement the methods required by that interface, then that class must be declared as abstract.
+- Any class that inherits Incomplete must implement callback( ) or be declared abstract itself.
+
+#+begin_src java
+abstract class Incomplete implements Callback {
+    int a, b;
+
+    void show() {
+        System.out.println(a + " " + b);
+    }
+    // ...
+}
+#+end_src
+
+Nested Interfaces
+
+- can be declared as public, private, or protected.
+
+#+begin_src java
+class A {
+    // this is a nested interface
+    public interface NestedIF {
+        boolean isNotNegative(int x);
+    }
+}
+
+// B implements the nested interface.
+class B implements A.NestedIF {
+    public boolean isNotNegative(int x) {
+        return x < 0 ? false : true;
+    }
+}
+
+class NestedIFDemo {
+    public static void main(String[] args) {
+        // use a nested interface reference
+        A.NestedIF nif = new B();
+        if (nif.isNotNegative(10))
+            System.out.println("10 is not negative");
+        if (nif.isNotNegative(-12))
+            System.out.println("this won't be displayed");
+    }
+}
+#+end_src
+
+Extends
+
+- must provide implementations for all methods required by the interface inheritance chain
+
+#+begin_src java
+// One interface can extend another.
+interface A {
+    void meth1();
+
+    void meth2();
+}
+
+// B now includes meth1() and meth2() -- it adds meth3().
+interface B extends A {
+    void meth3();
+}
+
+// This class must implement all of A and B
+class MyClass implements B {
+    public void meth1() {
+        System.out.println("Implement meth1().");
+    }
+
+    public void meth2() {
+        System.out.println("Implement meth2().");
+    }
+
+    public void meth3() {
+        System.out.println("Implement meth3().");
+    }
+}
+
+class IFExtend {
+    public static void main(String[] args) {
+        MyClass ob = new MyClass();
+        ob.meth1();
+        ob.meth2();
+        ob.meth3();
+    }
+}
+#+end_src
 
 * Scripting
 - remove .java extension
