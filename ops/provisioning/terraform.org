@@ -31,9 +31,6 @@
   - [[#misc][misc]]
     - [[#splat][splat]]
   - [[#lifecycle][lifecycle]]
-- [[#files][Files]]
-  - [[#mehtfvars][meh.tfvars]]
-  - [[#mehtf][meh.tf]]
 - [[#commands][Commands]]
   - [[#--options][--options]]
     - [[#-var][-var]]
@@ -45,11 +42,15 @@
   - [[#graph][graph]]
   - [[#output][output]]
   - [[#plan][plan]]
-    - [[#--][--]]
+    - [[#options][options]]
   - [[#show][show]]
   - [[#state][state]]
     - [[#list][list]]
   - [[#refresh][refresh]]
+- [[#files][Files]]
+  - [[#tfvars][.tfvars]]
+  - [[#tf][.tf]]
+  - [[#terraformtfstate][terraform.tfstate]]
 - [[#providers][Providers]]
   - [[#aws][aws]]
     - [[#aws]["aws"]]
@@ -62,23 +63,14 @@
       - [[#aws_lb][aws_lb]]
     - [[#data][data]]
       - [[#aws_vpc][aws_vpc]]
-- [[#features][features]]
-- [[#providers][Providers]]
-  - [[#docker][docker]]
-- [[#hcl][hcl]]
-  - [[#variables][variables]]
-    - [[#input-vars][input vars]]
-    - [[#output-vars][output vars]]
-- [[#core][core]]
-  - [[#providers][providers]]
-  - [[#configuration][configuration]]
+- [[#features][Features]]
 :END:
 
 * Progresso
 ** Livros
-| Livros              | Capitulo             | em |
-|---------------------+----------------------+----|
-| Terraform in Action | 2.6 Performing No-Op |    |
+| Livros              | Capitol      | em                |
+|---------------------+--------------+-------------------|
+| Terraform in Action | 2 Life-cycle | 2.9 Fireside chat |
 * Base
 ** resouces
 *** ami
@@ -185,14 +177,11 @@ key3 = "value3"
 *** splat
 container_name[*]
 ** lifecycle
-* Files
-** meh.tfvars
-** meh.tf
 * Commands
 ** --options
 *** -var
 ** apply
-reates or updates infrastructure according to Terraform configuration
+relates or updates infrastructure according to Terraform configuration
 files in the current directory.
 
 By default, Terraform will generate a new plan and present it for your
@@ -208,7 +197,21 @@ confirmation prompt.
 | --auto-approve |   |
 ** console
 ** refresh
+Update the state file of your infrastructure with metadata that matches
+the physical resources they are tracking.
+
+This will not modify your infrastructure, but it can modify your
+state file to update metadata. This metadata might cause new changes
+to occur when you generate a plan or call apply next.
+
+ - does not modify managed existing infrastructure, just Terraform state
+
 ** destroy
+Destroy Terraform-managed infrastructure.
+
+This command is a convenience alias for:
+    terraform apply -destroy
+
 - destroy resources/infrastructure
 - remove one by one
 - clean up resources
@@ -221,15 +224,23 @@ confirmation prompt.
   outputs are printed.
 ** plan
 - create an execution plan
-*** --
+
+*** options
 |                 |   |
 |-----------------+---|
 | --out=PLAN_NAME |   |
 ** show
+#+begin_src shell
+terraform show -json plan.out > plan.json
+#+end_src
 ** state
 *** list
 ** refresh
 - get from provider current state
+* Files
+** .tfvars
+** .tf
+** terraform.tfstate
 * Providers
 - providers have only inputs.
 
@@ -245,7 +256,7 @@ confirmation prompt.
 *** data
 **** aws_vpc
 
-* features
+* Features
 - IaC
 - declarative
 - mainly provisioning
@@ -254,78 +265,3 @@ confirmation prompt.
 - more advanced in orchestration
 - better for infrastructure
 
-* Providers
-** docker
-
-* hcl
-** variables
-*** input vars
-
-#+begin_src hcl
-variable "NAME" {
-  [CONFIG ...]
-}
-#+end_src
-
-#+begin_src hcl
-variable "number_example" {
-  description = "An example of a number variable in Terraform"
-  type = number
-  default = 42
-}
-
-variable "list_example" {
-  description = "An example of a list in Terraform"
-  type = list
-  default = ["a", "b", "c"]
-}
-
-variable "map_example" {
-  description = "An example of a map in Terraform"
-  type        = map(string)
-  default = {
-    key1 = "value1"
-    key2 = "value2"
-    key3 = "value3"
-  }
-}
-
-variable "list_numeric_example" {
-  description = "An example of a numeric list in WOW! eBookwww.wowebook.orgTerraform"
-  type        = list(number)
-  default     = [1, 2, 3]
-}
-#+end_src
-
-#+begin_src hcl
-variable "server_port" {
-  description = "The port the server will use for HTTPrequests"
-  type        = number
-  default     = 8080
-}
-
-resource "aws_security_group" "instance" {
-...
-   ingress {
-    from_port   = var.server_port
-    to_port     = var.server_port
-  }
-}
-#+end_src
-*** output vars
-#+begin_src hcl
-output "<NAME>" {
-  value = <VALUE>
-  [CONFIG ...]
-}
-#+end_src
-
-* core
-** providers
-     - IaaS: aws, azure
-     - PaaS: Kubernetes
-     - SaaS: Fastly
-** configuration
-     - user
-     - state
-     - providers
