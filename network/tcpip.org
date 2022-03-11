@@ -9,22 +9,11 @@
 - [[#progress][Progress]]
   - [[#books][Books]]
 - [[#definition][Definition]]
-- [[#layers][Layers]]
-  - [[#internet][Internet]]
-    - [[#internet-protocol-ip][Internet Protocol (IP)]]
-      - [[#ipv4][IPV4]]
-      - [[#ipv6][IPV6]]
-      - [[#14-fields][14 Fields]]
-  - [[#transport][Transport]]
-    - [[#transport-layer-protocols-tcp][Transport Layer Protocols (TCP)]]
-    - [[#user-datagram-protocol-udp][User Datagram Protocol (UDP)]]
-  - [[#application][Application]]
-- [[#dod-model][DoD Model]]
 - [[#ip][IP]]
-  - [[#def][def]]
   - [[#ipv4][IPv4]]
     - [[#mac---media-access-control][MAC - Media Access Control]]
     - [[#arp---address-resolution-protocol][ARP - Address Resolution Protocol]]
+    - [[#14-fields][14 Fields]]
   - [[#ipv6][IPv6]]
   - [[#types-of-ip-addresses][Types of IP Addresses]]
     - [[#private-ip-addresses][private IP addresses]]
@@ -43,61 +32,37 @@
 - [[#arp][ARP]]
 - [[#dns][DNS]]
 - [[#dhcp][DHCP]]
+- [[#dod-model][DoD Model]]
 :END:
 * Progress
 ** Books
-| name                                   | chapter              | @             |
-|----------------------------------------+----------------------+---------------|
-| Unix Linux System Administration Books | 13 Networking Basics | IPv4 and IPv6 |
+| name                                   | chapter              | @                |
+|----------------------------------------+----------------------+------------------|
+| Unix Linux System Administration Books | 13 Networking Basics | Ethernet framing |
 
 * Definition
 A protocol that provides quick, automatic, and central management for the
 distribution of IP addresses within a network. It's also used to configure the
 subnet mask, default gateway, and DNS server information on the device.
-* Layers
-** Internet
-*** Internet Protocol (IP)
-**** IPV4
-This type of address—four values ranging from 0 to 255, separated by three
-periods: 192.168.1.115
-**** IPV6
-2001:0:4137:9e76:43e:2599:3f57:fe9a
-
-**** 14 Fields
-- Version
-- Length
-- Protocol
-- Time to live
-- Differentiated services code point (DSCP)
-** Transport
-*** Transport Layer Protocols (TCP)
-- connection-oriented protocol
-*** User Datagram Protocol (UDP)
-- connectionless protocol
-- voip
-
-** Application
-* DoD Model
-- Process Application
-- Host-to-Host
-- Internet
-- Network Access
 * IP
 The Internet Protocol, which routes data packets from one machine to another
 
-- 32 bits integers converted to decimal: 11000000.10101000.00000100.00000010 -> 192.168.1.1
-- MAC and IP address must be unique on a network
-
-
-*** def
 An IP address, short for Internet Protocol address, is an identifying number for
 network hardware connected to a network. Having an IP address allows a device to
 communicate with other devices over an IP-based network like the internet.
 
+
+- 32 bits integers converted to decimal: 11000000.10101000.00000100.00000010 -> 192.168.1.1
+- MAC and IP address must be unique on a network
+
 *** IPv4
+This type of address—four values ranging from 0 to 255, separated by three
+periods: 192.168.1.115
+
 - 4 billion unique IP addresses (232)
 - 32-bit numerical number
 - hexadecimal
+- uses 4-byte IP addresses
 
 #+begin_src conf
 151.101.65.121
@@ -105,7 +70,12 @@ communicate with other devices over an IP-based network like the internet.
 
 **** MAC - Media Access Control
 **** ARP - Address Resolution Protocol
-
+**** 14 Fields
+- Version
+- Length
+- Protocol
+- Time to live
+- Differentiated services code point (DSCP)
 *** IPv6
 - 340 trillion, trillion, trillion addresses (2128)
 - no IP address collisions caused by private addresses
@@ -114,7 +84,7 @@ communicate with other devices over an IP-based network like the internet.
 - Efficient routing
 - Easier administration
 - Built-in privacy
-
+- 16 bytes
 
 #+begin_src conf
 3ffe:1900:4545:3:200:f8ff:fe21:67cf
@@ -178,12 +148,16 @@ way data delivery
 - carry application data between hosts
 - flexibility
 - simplicity
+- connectionless protocol
+- voip
+
 * TCP
 The Transmission Control Protocol, which implements reliable, full
 duplex, flow-controlled, error-corrected conversations.
 
 Offers the minimal services needed to transmit data over the network.
 
+- connection-oriented protocol
 - carry application data between hosts
 - error-checking
 - congestion control
@@ -195,3 +169,8 @@ hardware addresses
 * DNS
 * DHCP
 Dynamic Host Configuration Protocol
+* DoD Model
+- Process Application
+- Host-to-Host
+- Internet
+- Network Access
