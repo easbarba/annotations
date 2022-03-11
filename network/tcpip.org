@@ -6,12 +6,14 @@
 :END:
 :CONTENTS:
 - [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+- [[#definition][Definition]]
 - [[#layers][Layers]]
   - [[#internet][Internet]]
     - [[#internet-protocol-ip][Internet Protocol (IP)]]
       - [[#ipv4][IPV4]]
       - [[#ipv6][IPV6]]
-      - [[#icmp][ICMP]]
       - [[#14-fields][14 Fields]]
   - [[#transport][Transport]]
     - [[#transport-layer-protocols-tcp][Transport Layer Protocols (TCP)]]
@@ -38,10 +40,20 @@
 - [[#icmp][ICMP]]
 - [[#udp][UDP]]
 - [[#tcp][TCP]]
+- [[#arp][ARP]]
 - [[#dns][DNS]]
 - [[#dhcp][DHCP]]
-- [[#definition][definition]]
 :END:
+* Progress
+** Books
+| name                                   | chapter              | @             |
+|----------------------------------------+----------------------+---------------|
+| Unix Linux System Administration Books | 13 Networking Basics | IPv4 and IPv6 |
+
+* Definition
+A protocol that provides quick, automatic, and central management for the
+distribution of IP addresses within a network. It's also used to configure the
+subnet mask, default gateway, and DNS server information on the device.
 * Layers
 ** Internet
 *** Internet Protocol (IP)
@@ -51,7 +63,6 @@ periods: 192.168.1.115
 **** IPV6
 2001:0:4137:9e76:43e:2599:3f57:fe9a
 
-**** ICMP
 **** 14 Fields
 - Version
 - Length
@@ -72,10 +83,11 @@ periods: 192.168.1.115
 - Internet
 - Network Access
 * IP
-Internet Protocol address
+The Internet Protocol, which routes data packets from one machine to another
 
 - 32 bits integers converted to decimal: 11000000.10101000.00000100.00000010 -> 192.168.1.1
 - MAC and IP address must be unique on a network
+
 
 *** def
 An IP address, short for Internet Protocol address, is an identifying number for
@@ -154,25 +166,32 @@ you should memorize that 0 = 00000000 and 255 = 11111111.
 IP address management (IPAM) is a means of planning, tracking, and managing IP addresses within
 the network. IPAM has both DNS and DHCP services, so each service is notified of changes in the other.
 * ICMP
+The Internet Control Message Protocol, which defines several kinds
+of low-level support for IP, including error messages, routing assistance,
+and debugging help
+
 ICMP handles low-level connectivity messages between hosts.
 * UDP
+The User Datagram Protocol, which implements unverified, one-
+way data delivery
 
 - carry application data between hosts
 - flexibility
 - simplicity
 * TCP
-offers the minimal services needed to transmit data over the
-network.
+The Transmission Control Protocol, which implements reliable, full
+duplex, flow-controlled, error-corrected conversations.
+
+Offers the minimal services needed to transmit data over the network.
 
 - carry application data between hosts
 - error-checking
 - congestion control
 - retransmission of lost data
+* ARP
+The Address Resolution Protocol, which translates IP addresses to
+hardware addresses
 
 * DNS
 * DHCP
 Dynamic Host Configuration Protocol
-* definition
-a protocol that provides quick, automatic, and central management for the
-distribution of IP addresses within a network. It's also used to configure the
-subnet mask, default gateway, and DNS server information on the device.
