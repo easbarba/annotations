@@ -68,9 +68,9 @@
 
 * Progresso
 ** Livros
-| Livros              | Capitol      | em                |
-|---------------------+--------------+-------------------|
-| Terraform in Action | 2 Life-cycle | 2.9 Fireside chat |
+| Livros              | Capitol                  | em |
+|---------------------+--------------------------+----|
+| Terraform in Action | 3 Functional programming |    |
 * Base
 ** resouces
 *** ami
