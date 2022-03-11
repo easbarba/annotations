@@ -1,0 +1,81 @@
+#+TITLE: Terraform HCL
+
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progresso][Progresso]]
+  - [[#livros][Livros]]
+- [[#variables][Variables]]
+  - [[#input-vars][input vars]]
+  - [[#output-vars][output vars]]
+:END:
+
+* Progresso
+** Livros
+| Livros | Capitol | em |
+|--------+---------+----|
+|        |         |    |
+* Variables
+** input vars
+
+#+begin_src hcl
+variable "NAME" {
+  [CONFIG ...]
+}
+#+end_src
+
+#+begin_src hcl
+variable "number_example" {
+  description = "An example of a number variable in Terraform"
+  type = number
+  default = 42
+}
+
+variable "list_example" {
+  description = "An example of a list in Terraform"
+  type = list
+  default = ["a", "b", "c"]
+}
+
+variable "map_example" {
+  description = "An example of a map in Terraform"
+  type        = map(string)
+  default = {
+    key1 = "value1"
+    key2 = "value2"
+    key3 = "value3"
+  }
+}
+
+variable "list_numeric_example" {
+  description = "An example of a numeric list in WOW! eBookwww.wowebook.orgTerraform"
+  type        = list(number)
+  default     = [1, 2, 3]
+}
+#+end_src
+
+#+begin_src hcl
+variable "server_port" {
+  description = "The port the server will use for HTTPrequests"
+  type        = number
+  default     = 8080
+}
+
+resource "aws_security_group" "instance" {
+...
+   ingress {
+    from_port   = var.server_port
+    to_port     = var.server_port
+  }
+}
+#+end_src
+** output vars
+#+begin_src hcl
+output "<NAME>" {
+  value = <VALUE>
+  [CONFIG ...]
+}
+#+end_src

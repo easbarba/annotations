@@ -7,6 +7,7 @@
 :CONTENTS:
 - [[#floss][floss]]
   - [[#python][python]]
+  - [[#java][java]]
   - [[#guile][guile]]
   - [[#ruby][ruby]]
   - [[#php][php]]
@@ -31,6 +32,18 @@ requests,https://github.com/psf/requests
 black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
+#+end_src
+** java
+#+begin_src csv
+name,repository
+bazel,https://github.com/bazelbuild/bazel
+jbang,https://github.com/jbangdev/jbang
+picocli,https://github.com/remkop/picocli
+eclipse-jdt-ls,https://github.com/eclipse/eclipse.jdt.ls
+junit5,https://github.com/junit-team/junit5
+spring-boot,https://github.com/spring-projects/spring-boot
+spring-framework,https://github.com/spring-projects/spring-framework
+openjdk,https://github.com/openjdk/jdk
 #+end_src
 ** guile
 #+begin_src csv
@@ -77,19 +90,7 @@ php-src,https://github.com/php/php-src
 #+end_src
 ** go
 #+begin_src csv
-name,repository
-pro-go,https://github.com/Apress/pro-go
-learn-go-with-tests,https://github.com/quii/learn-go-with-tests
-goplio,https://github.com/adonovan/gopl.io
-linkerd2,https://github.com/linkerd/linkerd2
-flux2,https://github.com/fluxcd/flux2
-terraform,https://github.com/hashicorp/terraform
-k3d,https://github.com/k3d-io/k3d
-kind,https://github.com/kubernetes-sigs/kind
-crossplane,https://github.com/crossplane/crossplane
-kubectl,https://github.com/kubernetes/kubectl
-go-tools,https://github.com/golang/tools
-go,https://go.googlesource.com/go
+
 #+end_src
 ** js
 #+begin_src csv
