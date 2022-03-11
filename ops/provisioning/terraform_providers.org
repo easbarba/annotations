@@ -1,6 +1,16 @@
 #+TITLE: Terraform Providers
 
 * aws
+** "aws"
+** resources
+*** aws_security_group
+*** aws_instance
+*** aws_launch_configuration
+*** aws_autoscaling_group
+*** aws_lb_listener
+*** aws_lb
+** data
+*** aws_vpc
 * azure
 * Fastly
 * docker

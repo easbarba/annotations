@@ -9,8 +9,13 @@
 - [[#progresso][Progresso]]
   - [[#livros][Livros]]
 - [[#variables][Variables]]
-  - [[#input-vars][input vars]]
+  - [[#input-variables][Input variables]]
   - [[#output-vars][output vars]]
+- [[#functions][Functions]]
+  - [[#shuffle][shuffle()]]
+  - [[#uuid][uuid()]]
+  - [[#timestamp][timestamp()]]
+  - [[#templatefile][templatefile()]]
 :END:
 
 * Progresso
@@ -19,7 +24,10 @@
 |--------+---------+----|
 |        |         |    |
 * Variables
-** input vars
+** Input variables
+
+- variable blocks accept four input arguments: default, description, type, validation
+- can be accessed within a given module by using the expression var.<VARIABLE_NAME>
 
 #+begin_src hcl
 variable "NAME" {
@@ -72,10 +80,58 @@ resource "aws_security_group" "instance" {
   }
 }
 #+end_src
+
+*Variable definition file*
+
+- files ending in either .tfvars or .tfvars.Jason.
+
+#+begin_src terraform
+words = {
+  nouns      = ["army", "panther", "walnuts", "sandwich", "Zeus", "banana", "cat", "jellyfish", "jigsaw", "violin", "milk", "sun"]
+  adjectives = ["bitter", "sticky", "thundering", "abundant", "chubby", "grumpy"]
+  verbs      = ["run", "dance", "love", "respect", "kicked", "baked"]
+  adverbs    = ["delicately", "beautifully", "quickly", "truthfully", "wearily"]
+  numbers    = [42, 27, 101, 73, -5, 0]
+}
+#+end_src
+
+*Validating variables*
+
+-  invalid expressions will exit with an error, and the error message error_message.
+
+#+begin_src terraform
+variable "words" {
+  description = "A word pool to use for Mad Libs"
+  type = object({
+    nouns      = list(string),
+    adjectives = list(string),
+    verbs      = list(string),
+    adverbs    = list(string),
+    numbers    = list(number),
+  })
+  validation {
+    condition     = length(var.words["nouns"]) >= 20
+    error_message = "At least 20 nouns must be supplied."
+  }
+}
+#+end_src
+
 ** output vars
 #+begin_src hcl
 output "<NAME>" {
   value = <VALUE>
   [CONFIG ...]
 }
+#+end_src
+* Functions
+- expressions that transform inputs into outputs.
+- no support for user-defined functions
+- cant import functions from external libraries
+
+** shuffle()
+** uuid()
+** timestamp()
+** templatefile()
+#+begin_src terraform
+templatefile("templates/alice.txt" ,{nouns = ["cat","milk","sun"] ...})
 #+end_src
