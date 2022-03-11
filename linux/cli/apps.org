@@ -73,6 +73,7 @@
 - [[#lscpu][lscpu]]
 - [[#passwd][passwd]]
 - [[#scanelf][scanelf]]
+- [[#logger][logger]]
 - [[#dirs][dirs]]
 - [[#popd][popd]]
 - [[#watch][watch]]
@@ -531,9 +532,9 @@ password validity period.
 | -l --lock | Lock the password of the named account. |
 | -q        |                                         |
 
-
 * scanelf
  --needed --nobanner --format
+* logger
 * dirs
 print directory stack
 * popd
