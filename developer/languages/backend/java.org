@@ -47,7 +47,7 @@
 ** Books
 | name                    | chapter                   | @                         |
 |-------------------------+---------------------------+---------------------------|
-| Java Complete Reference | 9 Packages and Interfaces | Default Interface Methods |
+| Java Complete Reference | 9 Packages and Interfaces | Private Interface Methods |
 | Effective Java 9        |                           |                           |
 
 ** SLOC
@@ -416,6 +416,58 @@ class IFExtend {
 }
 #+end_src
 
+Default method
+
+- provide a body, rather than being abstract.
+- supplies an implementation that will be used if no other implementation is explicitly provided
+- JDK 8
+
+
+#+begin_src java
+interface IntStack {
+    void push(int item); // store an item
+    int pop(); // retrieve an item
+    // Because clear( ) has a default, it need not be
+    // implemented by a preexisting class that uses IntStack.
+    default void clear() {
+        System.out.println("clear() not implemented.");
+    }
+}
+#+end_src
+
+- explicitly refer to a default implementation in an inherited interface by using super.
+
+#+begin_src
+Alpha.super.reset();
+#+end_src
+
+*Interface static Methods*
+
+#+begin_src java
+public interface MyIF {
+    // This is a "normal" interface method declaration.
+    // It does NOT define a default implementation.
+    int getNumber();
+
+    // This is a default method. Notice that it provides
+    // a default implementation.
+    default String getString() {
+        return "Default String";
+    }
+
+    // This is a static interface method.
+    static int getDefaultNumber() {
+        return 0;
+    }
+}
+
+// ...
+int defNum = MyIF.getDefaultNumber();
+#+end_src
+
+*Private Interface Methods*
+
+- can be called only by a default method or another private method defined by the same interface.
 * Scripting
 - remove .java extension
 - chmod +x
