@@ -23,8 +23,6 @@
     - [[#characters][Characters]]
     - [[#boolean][Boolean]]
   - [[#variables][Variables]]
-  - [[#objects][Objects]]
-    - [[#passed-as-param][Passed as Param]]
   - [[#classes][Classes]]
     - [[#access-control][Access Control]]
       - [[#public][Public]]
@@ -36,19 +34,20 @@
     - [[#inheritance][inheritance]]
     - [[#super][super]]
     - [[#abstract-classes][Abstract Classes]]
+  - [[#interfaces][Interfaces]]
 - [[#library][Library]]
   - [[#string][String]]
   - [[#object][Object]]
     - [[#methods][methods]]
-  - [[#interfaces][Interfaces]]
+    - [[#passed-as-param][Passed as Param]]
 - [[#scripting][Scripting]]
 :END:
 * Progress
 ** Books
-| name                    | chapter                   | @                         |
-|-------------------------+---------------------------+---------------------------|
-| Java Complete Reference | 9 Packages and Interfaces | Private Interface Methods |
-| Effective Java 9        |                           |                           |
+| name                    | chapter               | @ |
+|-------------------------+-----------------------+---|
+| Java Complete Reference | 10 Exception Handling |   |
+| Effective Java 9        |                       |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -182,9 +181,6 @@ byte z = 22;
 double pi = 3.14159;
 char x = 'x';
 #+end_src
-** Objects
-*** Passed as Param
-- Pass as reference, will change the object passsed as param outside of method.
 ** Classes
 *** Access Control
 **** Public
@@ -260,24 +256,6 @@ class B extends A {
 *** super
 - must always be the first statement executed inside a subclass’ constructor.
 *** Abstract Classes
-
-* Library
-** String
-** Object
-- superclass of all other classes
-- reference variable of type Object can refer to an object of any other class.
-*** methods
-|           |   |
-|-----------+---|
-| clone     |   |
-| equals    |   |
-| finalize  |   |
-| getClass  |   |
-| hashCode  |   |
-| notify    |   |
-| notifyAll |   |
-| toString  |   |
-| wait      |   |
 ** Interfaces
 - Prior to JDK 8, an interface could not define any implementation whatsoever.
 - Beginning with JDK 8, it is possible to add a default implementation to an interface method.
@@ -467,7 +445,66 @@ int defNum = MyIF.getDefaultNumber();
 
 *Private Interface Methods*
 
-- can be called only by a default method or another private method defined by the same interface.
+- only called by a default method or another private method defined by the same interface.
+- cannot be used by code outside the interface in which it is defined, including subinterfaces
+- used as a shared common piece of code
+
+#+begin_src java
+// Another version of IntStack that has a private interface
+// method that is used by two default methods.
+interface IntStack {
+    void push(int item); // store an item
+
+    int pop();
+    // retrieve an item
+
+    // A default method that returns an array that contains
+    // the top n elements on the stack.
+    default int[] popNElements(int n) {
+        // Return the requested elements.
+        return getElements(n);
+    }
+
+    // A default method that returns an array that contains
+    // the next n elements on the stack after skipping elements.
+    default int[] skipAndPopNElements(int skip, int n) {
+        // Skip the specified number of elements.
+        getElements(skip);
+        // Return the requested elements.
+        return getElements(n);
+    }
+
+    // A private method that returns an array containing
+    // the top n elements on the stack
+    private int[] getElements(int n) {
+        int[] elements = new int[n];
+        for (int i = 0; i < n; i++)
+            elements[i] = pop();
+        return elements;
+    }
+}
+#+end_src
+
+* Library
+** String
+** Object
+- superclass of all other classes
+- reference variable of type Object can refer to an object of any other class.
+*** methods
+|           |   |
+|-----------+---|
+| clone     |   |
+| equals    |   |
+| finalize  |   |
+| getClass  |   |
+| hashCode  |   |
+| notify    |   |
+| notifyAll |   |
+| toString  |   |
+| wait      |   |
+
+*** Passed as Param
+- Pass as reference, will change the object passsed as param outside of method.
 * Scripting
 - remove .java extension
 - chmod +x
