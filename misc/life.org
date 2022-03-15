@@ -1,63 +1,4 @@
-#+TILE: Life Annotations
-
-* Sumario
-:PROPERTIES:
-:TOC:      :include all :depth 2 :ignore this
-:END:
-:CONTENTS:
-- [[#movies][Movies]]
-  - [[#korean][Korean]]
-  - [[#chinese][Chinese]]
-  - [[#japanese][Japanese]]
-  - [[#thailand][Thailand]]
-  - [[#american][American]]
-  - [[#swedish][Swedish]]
-- [[#tv-shows][TV Shows]]
-  - [[#progress][Progress]]
-  - [[#american][American]]
-  - [[#mexican][Mexican]]
-  - [[#british][British]]
-  - [[#korean][Korean]]
-  - [[#japan][Japan]]
-  - [[#wishlist][Wishlist]]
-- [[#anime][Anime]]
-  - [[#japan][Japan]]
-- [[#lectures][Lectures]]
-  - [[#teacher][Teacher]]
-- [[#manga][Manga]]
-  - [[#progresso][Progresso]]
-  - [[#favorites][Favorites]]
-- [[#games][Games]]
-  - [[#steam][Steam]]
-  - [[#fallout-1][Fallout 1]]
-  - [[#wineproton][Wine/Proton]]
-  - [[#alien-isolation][alien isolation]]
-- [[#contas][Contas]]
-- [[#music][Music]]
-  - [[#classic-composers][Classic Composers]]
-  - [[#classic-guitar][Classic Guitar]]
-  - [[#disco][Disco]]
-  - [[#rb][RB]]
-  - [[#japan][Japan]]
-  - [[#bass][Bass]]
-  - [[#cuba][Cuba]]
-  - [[#instrumental][Instrumental]]
-  - [[#christian][Christian]]
-  - [[#guitar][Guitar]]
-  - [[#djent][Djent]]
-  - [[#death-metal][Death Metal]]
-  - [[#progressive-metal][Progressive Metal]]
-  - [[#rock][Rock]]
-  - [[#mpb][MPB]]
-  - [[#violao][Violao]]
-- [[#books][Books]]
-  - [[#books-videos][Books, Videos]]
-  - [[#favs][Favs]]
-- [[#gifts][Gifts]]
-  - [[#nephew][Nephew]]
-- [[#paintings][Paintings]]
-- [[#donations][Donations]]
-:END:
+#+TILE: Life
 
 * Movies
 ** Korean
@@ -319,36 +260,6 @@ http://steamcommunity.com/id/elxbarbosa
 
 ** alien isolation
    0340
-* Contas
-#+OPTIONS: toc:nil author:nil date:nil num:nil
-
-| Pagamento              |       R$ | data |
-|------------------------+----------+------|
-| Industrializados       |   726.88 |      |
-| limpeza                |   323.25 |      |
-| Luvas                  |    41.04 |      |
-| Escova sanitaria       |    19.06 |      |
-| Assento Sanitario      |    56.03 | 1/11 |
-| Itau master anuidade   |    14.70 |      |
-| Fogao                  |    62.27 | 2/11 |
-| Carnes                 |      398 | 3/11 |
-| Verduras               |      221 | 4/11 |
-| Remedios               |   412,23 | 5/11 |
-| Mangueira fogao        |    43,54 | 5/11 |
-| Bobina 30x40           |    64,79 | 5/11 |
-| Dizimo                 |    1,140 | 5/11 |
-| Condominio             |      600 | 5/11 |
-| Energia                |   204,39 | 5/11 |
-| Cartao BRB             |   780,34 | 5/11 |
-| Cartao Itau Mastercard | 3.201,87 | 5/11 |
-| Cartao Carrefour       |     4,99 | 5/11 |
-| Vivo Ruth              |    67,26 | 5/11 |
-| Nazare Ajuda           |      200 | 5/11 |
-| Vivo Fixo              |   129,89 | 5/11 |
-|------------------------+----------+------|
-| TOTAL                  | 5039.431 |      |
-#+TBLFM: @>$2=vsum(@2..@-1)
-
 * Music
 ** Classic Composers
 - Berlioz
@@ -423,6 +334,8 @@ http://steamcommunity.com/id/elxbarbosa
 ** Death Metal
 - Meshuggah
 - Suffocation
+- Krisiun
+- Crypta
 - Nile
 
 ** Progressive Metal
@@ -461,12 +374,3 @@ http://steamcommunity.com/id/elxbarbosa
 * Paintings
 - Candido Portinari
 - J. M. W. Turner
-* Donations
-https://apoia.se/cozinhasolidaria
-
-| pix                         | nome            |
-|-----------------------------+-----------------|
-| CPF 333.766.248-01          | Rodrigo Jalloul |
-| mariaparecida5021@gmail.com |                 |
-| fabynascim77@gmail.com      |                 |
-| 991907636                   | Jona Otavio     |
