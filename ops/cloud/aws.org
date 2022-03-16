@@ -1,16 +1,27 @@
 #+TITLE: AWS
 
-* summary
+* Summary
 :PROPERTIES:
 :TOC:      :include all
 :END:
 :CONTENTS:
-- [[#summary][summary]]
+- [[#summary][Summary]]
 - [[#progress][Progress]]
   - [[#books][Books]]
 - [[#commands][Commands]]
   - [[#configure][configure]]
+  - [[#iam][iam]]
+    - [[#list-users][list-users]]
+  - [[#s3][s3]]
+  - [[#elasticbeanstalk][elasticbeanstalk]]
 - [[#ami][AMI]]
+  - [[#permissions][Permissions]]
+  - [[#groups][Groups]]
+  - [[#policy][Policy]]
+    - [[#version][version]]
+    - [[#id][id]]
+    - [[#statement][statement]]
+  - [[#roles][Roles]]
 - [[#ec2][EC2]]
 - [[#ebs][EBS]]
 - [[#elb][ELB]]
@@ -44,7 +55,18 @@
 
 * Commands
 ** configure
+** iam
+*** list-users
+** s3
+** elasticbeanstalk
 * AMI
+** Permissions
+** Groups
+** Policy
+*** version
+*** id
+*** statement
+** Roles
 * EC2
 * EBS
 * ELB
