@@ -160,11 +160,11 @@
 
 * Progress
 ** Books
-| name                    | chapter                | @                          |
-|-------------------------+------------------------+----------------------------|
-| Go Programming Language | 4.4.1. Struct Literals |                            |
-| Learning go             | 6 Pointers             | Pointers Are a Last Resort |
-| Cli applications in go  |                        |                            |
+| name                    | chapter    | @                           |
+|-------------------------+------------+-----------------------------|
+| Go Programming Language | Functions  | 5.3. Multiple Return Values |
+| Learning go             | 6 Pointers | Pointers Are a Last Resort  |
+| Cli applications in go  |            |                             |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -735,6 +735,7 @@ type Outer struct {
 - depends on behavior allows swap implementations
 - accept interfaces, return structs.
 - not returning interfaces avoid wversioning.
+- can embed an interface in an interface.
 
 #+begin_src go
 type Stringer interface {
