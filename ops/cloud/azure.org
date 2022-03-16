@@ -1,1 +1,4 @@
 #+TITLE: Azure
+
+* azurerm storage account
+* azurerm storage container
