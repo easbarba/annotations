@@ -128,7 +128,7 @@
     - [[#filepath][filepath]]
   - [[#runtime][runtime]]
     - [[#runtimegoos][runtime.GOOS]]
-- [[#config-files][Config Files]]
+- [[#go-project-structure][Go Project Structure]]
   - [[#gomod][go.mod]]
     - [[#require][require]]
     - [[#replace][replace]]
@@ -136,6 +136,7 @@
     - [[#version][version]]
     - [[#module][module]]
   - [[#gosum][go.sum]]
+  - [[#go][*.go]]
 - [[#structure][Structure]]
   - [[#internal][internal]]
   - [[#import][import]]
@@ -154,7 +155,7 @@
   - [[#golangci-lint][golangci-lint]]
   - [[#golint][golint]]
   - [[#goimports][goimports]]
-- [[#carrer][carrer]]
+- [[#carrer][Carrer]]
 :END:
 
 * Progress
@@ -1541,7 +1542,6 @@ go 1.15
 module meh.com/gojail/money
 #+end_src
 ** go.sum
-** 
 ** *.go
 Package clause
 
@@ -1626,7 +1626,6 @@ placed.
 ** GOROOT
 
 * Files
-
 * Terms
 - runes: single characthers
 * Packages
@@ -1650,7 +1649,7 @@ vet is a tool for static analysis of Go programs.
 #+begin_src shell-script
 goimports -l -w .
 #+end_src
-* carrer
+* Carrer
 - Rest GPC
 - API
 - Networking knowledge and in depth understanding of network concepts, such as
