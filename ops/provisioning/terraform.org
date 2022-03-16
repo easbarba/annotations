@@ -19,8 +19,15 @@
   - [[#terraform][terraform]]
   - [[#expression][expression]]
     - [[#for][for]]
+    - [[#conditional-expressionternary][conditional expression(ternary)]]
+    - [[#splat][splat]]
+  - [[#modules][modules]]
+    - [[#minimal-structure][minimal structure]]
   - [[#output][output]]
   - [[#variables][variables]]
+  - [[#data][data]]
+    - [[#archive_file][archive_file]]
+  - [[#locals][locals]]
   - [[#types][types]]
     - [[#string][string]]
     - [[#number][number]]
@@ -29,6 +36,10 @@
     - [[#map][map]]
   - [[#functions][functions]]
     - [[#join][join]]
+    - [[#tolist][tolist]]
+    - [[#fileset][fileset]]
+    - [[#templatefile][templatefile]]
+    - [[#count][count]]
   - [[#misc][misc]]
     - [[#splat][splat]]
   - [[#lifecycle][lifecycle]]
@@ -56,9 +67,9 @@
 
 * Progress
 ** Books
-| Books               | chapter                  | @               |
-|---------------------+--------------------------+-----------------|
-| Terraform in Action | 3 Functional programming | 3.1.7 Templates |
+| Books               | chapter                | @ |
+|---------------------+------------------------+---|
+| Terraform in Action | 5 Serverless made easy |   |
 
 * Base
 ** Features
@@ -89,6 +100,29 @@ special configuration block responsible for configuring Terraform
 {for s in var.list : s => upper(s)}
 [for s in var.list : upper(s) if s != ""]
 #+end_src
+
+#+begin_src terraform
+{for k,v in var.words : k => v }
+[for s in v : upper(s)]
+{for k,v in var.words : k => [for s in v : upper(s)] if k != "numbers"}
+#+end_src
+*** conditional expression(ternary)
+#+begin_src terraform
+locals {
+  v = length(var.words["nouns"])>=1 ? var.words["nouns"] : [][0]
+}
+#+end_src
+*** splat
+** modules
+*** minimal structure
+- main.tf
+- outputs.tf
+- variables.tf
+- terraform.tfvars
+- providers.tf
+- versions.tf
+- README.md
+
 ** output
 #+begin_src hcl
 output "container_name" {
@@ -151,8 +185,38 @@ resource "some_resource" "a" {
 }
 
 #+end_src
+** data
+*** archive_file
+#+begin_src terraform
+data "archive_file" "mad_libs" {
+  depends_on  = [local_file.mad_libs]
+  type        = "zip"
+  source_dir  = "${path.module}/madlibs"
+  output_path = "${path.cwd}/madlibs.zip"
+}
+#+end_src
+
+** locals
+#+begin_src terraform
+locals {
+  uppercase_words = {for k, v in var.words : k => [for s in v : upper(s)]}
+}
+
+resource "random_shuffle" "random_nouns" {
+  input = local.uppercase_words["nouns"]
+}
+#+end_src
 ** types
 *** string
+
+interpolation
+
+#+begin_src terraform
+"Hello, ${var.name}!"
+ %{ for ip in var.list.*.ip }
+server ${ip}
+%{ endfor }
+#+end_src
 *** number
 *** list
 #+begin_src hcl
@@ -171,6 +235,15 @@ key3 = "value3"
 
 ** functions
 *** join
+*** tolist
+*** fileset
+*** templatefile
+*** count
+references current value
+
+#+begin_src terraform
+count.index
+#+end_src
 ** misc
 *** splat
 container_name[*]
