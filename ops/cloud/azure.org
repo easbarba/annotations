@@ -1,4 +1,9 @@
 #+TITLE: Azure
 
-* azurerm storage account
-* azurerm storage container
+* Functions
+Execute event-driven serverless code with an end-to-end development experience
+* Storage Account
+azurerm
+* Storage Container
+azurerm
+* Azure Resource Manager

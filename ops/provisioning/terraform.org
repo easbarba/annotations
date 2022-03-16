@@ -40,6 +40,13 @@
     - [[#fileset][fileset]]
     - [[#templatefile][templatefile]]
     - [[#count][count]]
+    - [[#substr][substr]]
+  - [[#provisioners][provisioners]]
+    - [[#local][local]]
+    - [[#local-exec][local-exec]]
+    - [[#random][random]]
+    - [[#archive][archive]]
+    - [[#random_string][random_string]]
   - [[#misc][misc]]
     - [[#splat][splat]]
   - [[#lifecycle][lifecycle]]
@@ -67,9 +74,9 @@
 
 * Progress
 ** Books
-| Books               | chapter                | @ |
-|---------------------+------------------------+---|
-| Terraform in Action | 5 Serverless made easy |   |
+| Books               | chapter                  | @ |
+|---------------------+--------------------------+---|
+| Terraform in Action | 6 Terraform with friends |   |
 
 * Base
 ** Features
@@ -244,6 +251,40 @@ references current value
 #+begin_src terraform
 count.index
 #+end_src
+*** substr
+#+begin_src terraformsubstr(join("-", [var.namespace, random_string.rand.result]), 0, 24)
+
+#+end_src
+** provisioners
+*** local
+#+begin_src terraform
+terraform {
+  required_version = ">= 0.15"
+  required_providers {
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.0"
+    }
+  }
+}
+
+
+resource "local_file" "literature" {
+  filename             = "art_of_war.txt"
+  directory_permission = "0744"
+  file_permission      = "0744"
+  content              = <<-EOT
+Sun Tzu said: The art of war is of vital importance to the State.
+It is a matter of life and death, a road either to safety or to
+ruin. Hence it is a subject of inquiry which can on no account be
+neglected.
+EOT
+}
+#+end_src
+*** local-exec
+*** random
+*** archive
+*** random_string
 ** misc
 *** splat
 container_name[*]

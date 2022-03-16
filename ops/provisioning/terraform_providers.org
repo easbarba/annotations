@@ -6,10 +6,6 @@
 :END:
 :CONTENTS:
 - [[#summary][Summary]]
-- [[#hashicorp][hashicorp]]
-  - [[#local][local]]
-  - [[#random][random]]
-  - [[#archive][archive]]
 - [[#aws][aws]]
   - [[#aws]["aws"]]
   - [[#resources][resources]]
@@ -22,38 +18,11 @@
   - [[#data][data]]
     - [[#aws_vpc][aws_vpc]]
 - [[#azure][azure]]
+  - [[#resources][resources]]
 - [[#fastly][Fastly]]
 - [[#docker][docker]]
 :END:
 
-* hashicorp
-** local
-#+begin_src terraform
-terraform {
-  required_version = ">= 0.15"
-  required_providers {
-    local = {
-      source  = "hashicorp/local"
-      version = "~> 2.0"
-    }
-  }
-}
-
-
-resource "local_file" "literature" {
-  filename             = "art_of_war.txt"
-  directory_permission = "0744"
-  file_permission      = "0744"
-  content              = <<-EOT
-Sun Tzu said: The art of war is of vital importance to the State.
-It is a matter of life and death, a road either to safety or to
-ruin. Hence it is a subject of inquiry which can on no account be
-neglected.
-EOT
-}
-#+end_src
-** random
-** archive
 * aws
 ** "aws"
 ** resources
@@ -66,5 +35,14 @@ EOT
 ** data
 *** aws_vpc
 * azure
+** resources
+- azurerm_storage_blob
+- azurerm_storage_account
+- azurerm_storage_container
+- azurerm_resource_group
+- azurerm_storage_account_sas
+- azurerm_app_service_plan
+- azurerm_application_insights
+- azurerm_function_app
 * Fastly
 * docker
