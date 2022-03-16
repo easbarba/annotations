@@ -114,14 +114,12 @@
     :END:
 * Progress
 ** Books
-| name                    | chapter     | @                            |
-|-------------------------+-------------+------------------------------|
-| Go Programming Language | 5 Functions | 5.8. Deferred Function Calls |
-| Learning go             | 9 modules   | Importing Third-Party Code   |
+| name | chapter | @                          |
+|------+---------+----------------------------|
+|      |         |                            |
 
 ** SLOC
-| Source Code | folder                | file      | @                 |
-|-------------+-----------------------+-----------+-------------------|
-| go          | src/archive/tar       | reader.go |                   |
-| podman      | cmd/podman/containers | cp.go     | copyFromContainer |
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+|             |        |      |   |
 * base
