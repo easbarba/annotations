@@ -1,9 +1,151 @@
 #+TITLE: Jenkins
 
-* summary
+* Summary
 :PROPERTIES:
 :TOC:      :include all
 :END:
 :CONTENTS:
-- [[#summary][summary]]
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
+  - [[#stages][stages]]
+  - [[#blocks][blocks]]
+    - [[#try-catch][try-catch]]
+    - [[#finally][finally]]
+  - [[#declarative][declarative]]
+    - [[#agent][agent]]
+    - [[#environment][environment]]
+    - [[#post][post]]
+    - [[#stages][stages]]
+    - [[#steps][steps]]
+- [[#plugins][Plugins]]
+- [[#oficial][Oficial]]
 :END:
+
+* Progress
+** Books
+| name             | chapter | @                                       |
+|------------------+---------+-----------------------------------------|
+| Pipeline as Code |       2 | 2.2 Understanding multibranch pipelines |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+|             |        |      |   |
+
+* Base
+** stages
+** blocks
+*** try-catch
+*** finally
+** declarative
+*** agent
+Defines the worker or machine where the pipeline will be executed.
+
+- worker or node
+- container, dockerfile
+- k8s pod
+
+#+begin_src groovy
+pipeline{
+  agent {
+    node {
+      label 'workers'
+    }
+    dockerfile {
+      filename 'Dockerfile'
+      label 'workers'
+    }
+    kubernetes {
+      label 'workers'
+      yaml """
+kind: Pod
+metadata:
+name: jenkins-worker
+spec:
+containers:
+- name: nodejs
+image: node:lts
+tty: true
+"""
+    }
+  }
+}
+#+end_src
+
+*** environment
+Specifies a sequence of key-value pairs which will be defined as environment
+variables for all steps, or stage-specific steps, depending on where the
+environment directive is located within the Pipeline.
+
+
+#+begin_src groovy
+pipeline{
+  environment {
+    REGISTRY_CREDENTIALS= credentials('DOCKER_REGISTRY')
+    REGISTRY_URL = 'https://registry.domain.com'
+  }
+  stages {
+    stage('Push'){
+      steps{
+        sh 'docker login $REGISTRY_URL --username
+$REGISTRY_CREDENTIALS_USR --password $REGISTRY_CREDENTIALS_PSW'
+      }
+    }
+  }
+}
+#+end_src
+
+*** post
+commands or scripts that will be run upon the completion of a pipeline or stage
+run, depending on the location of this section within the pipeline.
+
+#+begin_src groovy
+pipeline{
+  post {
+    always {
+      echo 'Cleaning up workspace'
+    }
+
+    success {
+      slackSend (color: 'GREEN', message: \
+                 "${env.JOB_NAME} Successful build")
+    }
+    failure {
+      slackSend (color: 'RED', message: "${env.JOB_NAME} Failed build")
+    }
+  }
+}
+#+end_src
+*** stages
+Containing a sequence of one or more stage directives, the stages section is
+where the bulk of the "work" described by a Pipeline will be located. At a
+minimum, it is recommended that stages contain at least one stage directive for
+each discrete part of the continuous delivery process, such as Build, Test, and
+Deploy.
+*** steps
+Defines a series of one or more steps to be executed in a given stage directive.
+
+#+begin_src groovy
+pipeline{
+  agent any
+  stages {
+    stage('Test'){
+      steps {
+        sh 'npm run test'
+        sh 'npm run coverage'
+      }
+    }
+  }
+}
+#+end_src
+
+* Plugins
+- Pipeline Stage View
+- Blue Ocean
+
+* Oficial
+https://www.jenkins.io/
+https://plugins.jenkins.io/
