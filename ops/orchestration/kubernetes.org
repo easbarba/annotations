@@ -79,10 +79,11 @@
     - [[#startup][startup]]
   - [[#ingress][Ingress]]
 - [[#commands][Commands]]
+  - [[#--options][--options]]
   - [[#apply][apply]]
   - [[#cluster-info][cluster-info]]
   - [[#create][create]]
-    - [[#options][options]]
+    - [[#--options][--options]]
     - [[#namespace][namespace]]
     - [[#deployment][deployment]]
     - [[#secret][secret]]
@@ -107,6 +108,7 @@
     - [[#all][all]]
     - [[#componentstatuses][componentstatuses]]
     - [[#containers][containers]]
+    - [[#csinodes][csinodes]]
     - [[#deployments][deployments]]
     - [[#deployment][deployment]]
     - [[#endpoint][endpoint]]
@@ -115,12 +117,15 @@
     - [[#replicaset][replicaset]]
     - [[#services][services]]
     - [[#secret][secret]]
+    - [[#storageclasses][storageclasses]]
     - [[#pods][pods]]
+    - [[#persistentvolume][persistentvolume]]
   - [[#taint][taint]]
   - [[#top][top]]
   - [[#logs][logs]]
   - [[#labels][labels]]
   - [[#proxy][proxy]]
+  - [[#patch][patch]]
   - [[#replace][replace]]
   - [[#rollout][rollout]]
     - [[#status][status]]
@@ -130,7 +135,6 @@
   - [[#set][set]]
     - [[#image][image]]
   - [[#uncordon][uncordon]]
-  - [[#--options][--options]]
 - [[#manifest][Manifest]]
   - [[#apiversion][apiVersion]]
     - [[#v1][v1]]
@@ -139,6 +143,7 @@
     - [[#deployment][Deployment]]
     - [[#namespace][Namespace]]
     - [[#pod][Pod]]
+    - [[#persistentvolumeclaim][PersistentVolumeClaim]]
     - [[#replicaset][ReplicaSet]]
     - [[#replicacontroller][ReplicaController]]
     - [[#service][Service]]
@@ -170,9 +175,9 @@
 
 * Progress
 ** Books
-| Books                            | Chapters                          | @ |
-|----------------------------------+-----------------------------------+---|
-| Kubernetes – An Enterprise Guide | 2 Deploying Kubernetes Using KinD |   |
+| Books                            | Chapters              | @ |
+|----------------------------------+-----------------------+---|
+| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp |   |
 
 * Base
 ** Namespace
@@ -306,10 +311,17 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to services
 within the cluster. Traffic routing is controlled by rules defined on the
 Ingress resource.
 * Commands
+** --options
+|                 |   |
+|-----------------+---|
+| --namespace     |   |
+| --all-namespace |   |
+| --dry-run       |   |
+| --output        |   |
 ** apply
 ** cluster-info
 ** create
-*** options
+*** --options
 |                       |   |
 |-----------------------+---|
 | --namespace=NAMESPACE |   |
@@ -388,6 +400,7 @@ of the --template flag, you can filter the attributes of the fetched resources.
 
 *** componentstatuses
 *** containers
+*** csinodes
 *** deployments
 *** deployment
 *** endpoint
@@ -398,10 +411,13 @@ of the --template flag, you can filter the attributes of the fetched resources.
 
 *** secret
 
+*** storageclasses
 *** pods
-|                       |   |
-|-----------------------+---|
-| --namespace=NAMESPACE |   |
+|                                       |   |
+|---------------------------------------+---|
+| -n NAMESPACE or --namespace=NAMESPACE |   |
+*** persistentvolume
+pv
 
 ** taint
 
@@ -409,6 +425,8 @@ of the --template flag, you can filter the attributes of the fetched resources.
 ** logs
 ** labels
 ** proxy
+** patch
+Update fields of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.
 ** replace
 ** rollout
 *** status
@@ -421,13 +439,6 @@ of the --template flag, you can filter the attributes of the fetched resources.
 ** set
 *** image
 ** uncordon
-** --options
-|                 |   |
-|-----------------+---|
-| --namespace     |   |
-| --all-namespace |   |
-| --dry-run       |   |
-| --output        |   |
 * Manifest
 ** apiVersion
 *** v1
@@ -436,11 +447,11 @@ of the --template flag, you can filter the attributes of the fetched resources.
 *** Deployment
 *** Namespace
 *** Pod
+*** PersistentVolumeClaim
 *** ReplicaSet
 *** ReplicaController
 *** Service
 *** Replicator
-
 ** metadata
 *** name
 *** namespace

@@ -1,22 +1,30 @@
 #+TITLE: K8s Apps
 
-* summary
+* Summary
 :PROPERTIES:
 :TOC:      :include all
 :END:
 :CONTENTS:
-- [[#summary][summary]]
+- [[#summary][Summary]]
 - [[#kind][kind]]
+  - [[#commands][commands]]
+    - [[#create][create]]
+    - [[#delete][delete]]
 - [[#minikube][minikube]]
   - [[#commands][commands]]
     - [[#ip][ip]]
     - [[#service][service]]
 - [[#k3s][k3s]]
+- [[#calico][calico]]
 :END:
 * kind
+** commands
+*** create
+*** delete
 * minikube
 ** commands
 *** ip
 *** service
 
 * k3s
+* calico
