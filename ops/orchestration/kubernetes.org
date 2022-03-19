@@ -9,13 +9,19 @@
 - [[#progress][Progress]]
   - [[#books][Books]]
 - [[#base][Base]]
-  - [[#namespace][Namespace]]
-    - [[#kube-system][kube-system]]
-    - [[#kube-public][kube-public]]
-    - [[#default][default]]
+  - [[#container][Container]]
+    - [[#lifecycle][lifecycle]]
+      - [[#prestop][PreStop]]
+      - [[#poststart][PostStart]]
+  - [[#controllers][Controllers]]
+    - [[#long-lived][Long-lived]]
+      - [[#deployments][Deployments]]
+      - [[#statefulsets][StatefulSets]]
+      - [[#daemonsets][DaemonSets]]
+    - [[#short-lived][Short-lived]]
+      - [[#jobs][Jobs]]
+      - [[#cronjobs][CronJobs]]
   - [[#control-plane][Control Plane]]
-  - [[#replicaset][ReplicaSet]]
-    - [[#replicacontroller-old-way][ReplicaController (old way)]]
   - [[#deployment][Deployment]]
   - [[#cluster][Cluster]]
     - [[#cluster-master][Cluster master]]
@@ -24,25 +30,15 @@
         - [[#kubelet][kubelet]]
         - [[#kube-proxy][kube-proxy]]
         - [[#container-runtime][container runtime]]
-  - [[#node][Node]]
-  - [[#secrets][Secrets]]
-    - [[#env-vars][Env Vars]]
-    - [[#file][File]]
-    - [[#vaults][Vaults]]
   - [[#configmap][ConfigMap]]
   - [[#endpoints][Endpoints]]
-  - [[#service][Service]]
-    - [[#nodeport][NodePort]]
-      - [[#targetport][TargetPort]]
-      - [[#port][Port]]
-    - [[#clusterip][ClusterIP]]
-    - [[#loadbalancer][LoadBalancer]]
+  - [[#events][Events]]
+  - [[#healthchecks][HealthChecks]]
+    - [[#livenessprobe][livenessProbe]]
+    - [[#readinessprobe][readinessProbe]]
+    - [[#startup][startup]]
   - [[#jobs--cronjobs][Jobs & CronJobs]]
-  - [[#volumes][Volumes]]
-  - [[#container][Container]]
-    - [[#lifecycle][lifecycle]]
-      - [[#prestop][PreStop]]
-      - [[#poststart][PostStart]]
+  - [[#ingress][Ingress]]
   - [[#master][Master]]
     - [[#api-server][API server]]
     - [[#etcd][etcd]]
@@ -50,6 +46,14 @@
     - [[#kube-controller-manager][kube-controller-manager]]
     - [[#cloud-controller-manager][cloud-controller-manager]]
     - [[#contexts][Contexts]]
+  - [[#namespaces][Namespaces]]
+    - [[#kube-system][kube-system]]
+    - [[#kube-public][kube-public]]
+    - [[#default][default]]
+  - [[#nodes][Nodes]]
+  - [[#volumes][Volumes]]
+  - [[#persistent-volume-claims][Persistent Volume Claims]]
+  - [[#persistent-volume][Persistent Volume]]
   - [[#pods][Pods]]
     - [[#multi-container-pod][multi-container pod]]
       - [[#patterns][patterns]]
@@ -66,38 +70,20 @@
       - [[#succeded][succeded]]
       - [[#failed][failed]]
       - [[#unknown][unknown]]
-  - [[#controllers][Controllers]]
-    - [[#long-lived][Long-lived]]
-      - [[#deployments][Deployments]]
-      - [[#statefulsets][StatefulSets]]
-      - [[#daemonsets][DaemonSets]]
-    - [[#short-lived][Short-lived]]
-      - [[#jobs][Jobs]]
-      - [[#cronjobs][CronJobs]]
-  - [[#healthchecks][HealthChecks]]
-    - [[#livenessprobe][livenessProbe]]
-    - [[#readinessprobe][readinessProbe]]
-    - [[#startup][startup]]
-  - [[#ingress][Ingress]]
-- [[#components][Components]]
-  - [[#kube-apiserver][kube-apiserver]]
-  - [[#kube-scheduler][kube-scheduler]]
-  - [[#kube-controller-manager][kube-controller-manager]]
-    - [[#node][node]]
-    - [[#replication][replication]]
-    - [[#endpoints][endpoints]]
-    - [[#serviceaccounts][serviceaccounts]]
-    - [[#namespace][namespace]]
-  - [[#etcd][Etcd]]
-  - [[#cloud-controller-manager][cloud-controller-manager]]
-    - [[#node][node]]
-    - [[#route][route]]
-    - [[#service][service]]
-    - [[#volume-controllers][volume controllers]]
-  - [[#worker-nodes][worker nodes]]
-    - [[#kubelet][kubelet]]
-    - [[#kube-proxy][kube-proxy]]
-  - [[#container-runtime][Container runtime]]
+  - [[#replicaset][ReplicaSet]]
+    - [[#replicacontroller-old-way][ReplicaController (old way)]]
+  - [[#resource-quotas][Resource Quotas]]
+  - [[#secrets][Secrets]]
+    - [[#env-vars][Env Vars]]
+    - [[#file][File]]
+    - [[#vaults][Vaults]]
+  - [[#service][Service]]
+    - [[#nodeport][NodePort]]
+      - [[#targetport][TargetPort]]
+      - [[#port][Port]]
+    - [[#clusterip][ClusterIP]]
+    - [[#loadbalancer][LoadBalancer]]
+  - [[#service-account][Service Account]]
 - [[#commands][Commands]]
   - [[#--options][--options]]
   - [[#apply][apply]]
@@ -108,7 +94,7 @@
     - [[#deployment][deployment]]
     - [[#secret][secret]]
       - [[#generic][generic]]
-        - [[#db-user-pass][db-user-pass]]
+        - [[#--options][--options]]
   - [[#config][config]]
     - [[#set-context][set-context]]
     - [[#use-contex][use-contex]]
@@ -132,9 +118,12 @@
     - [[#clusterrolebinding][clusterrolebinding]]
     - [[#deployments][deployments]]
     - [[#deployment][deployment]]
-    - [[#endpoint][endpoint]]
+    - [[#endpoints][endpoints]]
+    - [[#events][events]]
     - [[#limitrange][limitrange]]
     - [[#namespaces][namespaces]]
+    - [[#node][node]]
+    - [[#nodes][nodes]]
     - [[#replicaset][replicaset]]
     - [[#services][services]]
     - [[#secret][secret]]
@@ -156,6 +145,25 @@
   - [[#set][set]]
     - [[#image][image]]
   - [[#uncordon][uncordon]]
+- [[#components][Components]]
+  - [[#kube-apiserver][kube-apiserver]]
+  - [[#kube-scheduler][kube-scheduler]]
+  - [[#kube-controller-manager][kube-controller-manager]]
+    - [[#node][node]]
+    - [[#replication][replication]]
+    - [[#endpoints][endpoints]]
+    - [[#serviceaccounts][serviceaccounts]]
+    - [[#namespace][namespace]]
+  - [[#etcd][Etcd]]
+  - [[#cloud-controller-manager][cloud-controller-manager]]
+    - [[#node][node]]
+    - [[#route][route]]
+    - [[#service][service]]
+    - [[#volume-controllers][volume controllers]]
+  - [[#worker-nodes][worker nodes]]
+    - [[#kubelet][kubelet]]
+    - [[#kube-proxy][kube-proxy]]
+  - [[#container-runtime][Container runtime]]
 - [[#manifest][Manifest]]
   - [[#apiversion][apiVersion]]
     - [[#v1][v1]]
@@ -196,33 +204,24 @@
 
 * Progress
 ** Books
-| Books                            | Chapters              | @ |
-|----------------------------------+-----------------------+---|
-| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp |   |
-
+| Books                            | Chapters              | @                |
+|----------------------------------+-----------------------+------------------|
+| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | Service accounts |
 * Base
-** Namespace
-*** kube-system
- The namespace for objects created by the Kubernetes system
-*** kube-public
-This namespace is created automatically and is readable by all users (including
-those not authenticated). This namespace is mostly reserved for cluster usage,
-in case that some resources should be visible and readable publicly throughout
-the whole cluster. The public aspect of this namespace is only a convention, not
-a requirement.
-*** default
-The default namespace for objects with no other namespace
+** Container
+*** lifecycle
+**** PreStop
+**** PostStart
+** Controllers
+*** Long-lived
+**** Deployments
+**** StatefulSets
+**** DaemonSets
+*** Short-lived
+**** Jobs
+**** CronJobs
 ** Control Plane
 - suggested that you have at least three master nodes
-** ReplicaSet
-A ReplicaSet's purpose is to maintain a stable set of replica Pods running at
-any given time. As such, it is often used to guarantee the availability of a
-specified number of identical Pods.
-
-*** ReplicaController (old way)
-A ReplicationController ensures that a specified number of pod replicas are
-running at any one time. In other words, a ReplicationController makes sure that
-a pod or a homogeneous set of pods is always up and available.
 ** Deployment
 A Deployment provides declarative updates for Pods and ReplicaSets.
 
@@ -239,33 +238,28 @@ and adopt all their resources with new Deployments.
 -
 ***** kube-proxy
 ***** container runtime
-** Node
-** Secrets
-*** Env Vars
-*** File
-- dotenv
-- yaml files
-
-*** Vaults
 ** ConfigMap
+A ConfigMap is an API object used to store non-confidential data in key-value
+pairs. Pods can consume ConfigMaps as environment variables, command-line
+arguments, or as configuration files in a volume.
+
+A ConfigMap allows you to decouple environment-specific configuration from your
+container images, so that your applications are easily portable.
 ** Endpoints
-** Service
-An abstract way to expose an application running on a set of Pods as a network service.
-
-*** NodePort
-
-**** TargetPort
-
-**** Port
-
-*** ClusterIP
-*** LoadBalancer
+Maps a service to a Pod or Pods.
+** Events
+Displays any events for a namespace.
+** HealthChecks
+*** livenessProbe
+*** readinessProbe
+*** startup
 ** Jobs & CronJobs
-** Volumes
-** Container
-*** lifecycle
-**** PreStop
-**** PostStart
+** Ingress
+An API object that manages external access to the services in a cluster, typically HTTP.
+
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services
+within the cluster. Traffic routing is controlled by rules defined on the
+Ingress resource.
 ** Master
 *** API server
 *** etcd
@@ -274,6 +268,26 @@ An abstract way to expose an application running on a set of Pods as a network s
 *** cloud-controller-manager
 
 *** Contexts
+** Namespaces
+is a resource to divide a cluster into logical units.
+
+*** kube-system
+ The namespace for objects created by the Kubernetes system
+*** kube-public
+This namespace is created automatically and is readable by all users (including
+those not authenticated). This namespace is mostly reserved for cluster usage,
+in case that some resources should be visible and readable publicly throughout
+the whole cluster. The public aspect of this namespace is only a convention, not
+a requirement.
+*** default
+The default namespace for objects with no other namespace
+** Nodes
+a cluster-level resource that is used to interact with the cluster's nodes.
+** Volumes
+** Persistent Volume Claims
+used by a Pod to consume persistent storage.
+** Persistent Volume
+used by PVCs to create a link between the PVC and the underlying storage system.
 ** Pods
 Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
@@ -315,45 +329,60 @@ init container starts and completes before the main app container, only once.
 **** succeded
 **** failed
 **** unknown
-** Controllers
-*** Long-lived
-**** Deployments
-**** StatefulSets
-**** DaemonSets
-*** Short-lived
-**** Jobs
-**** CronJobs
-** HealthChecks
-*** livenessProbe
-*** readinessProbe
-*** startup
-** Ingress
-An API object that manages external access to the services in a cluster, typically HTTP.
+** ReplicaSet
+A ReplicaSet's purpose is to maintain a stable set of replica Pods running at
+any given time. As such, it is often used to guarantee the availability of a
+specified number of identical Pods.
 
-Ingress exposes HTTP and HTTPS routes from outside the cluster to services
-within the cluster. Traffic routing is controlled by rules defined on the
-Ingress resource.
-* Components
-** kube-apiserver
-** kube-scheduler
-** kube-controller-manager
-*** node
-*** replication
-*** endpoints
-*** serviceaccounts
-*** namespace
-** Etcd
-** cloud-controller-manager
-*** node
-*** route
-*** service
-*** volume controllers
-** worker nodes
-*** kubelet
-- responsible for running the actual containers
-*** kube-proxy
-- responsible for routing network communication between a Pod and the network
-** Container runtime
+*** ReplicaController (old way)
+A ReplicationController ensures that a specified number of pod replicas are
+running at any one time. In other words, a ReplicationController makes sure that
+a pod or a homogeneous set of pods is always up and available.
+** Resource Quotas
+When several users or teams share a cluster with a fixed number of nodes, there
+is a concern that one team could use more than its fair share of resources.
+
+Resource quotas are a tool for administrators to address this concern.
+
+A resource quota, defined by a ResourceQuota object, provides constraints that
+limit aggregate resource consumption per namespace. It can limit the quantity of
+objects that can be created in a namespace by type, as well as the total amount
+of compute resources that may be consumed by resources in that namespace.
+
+#+begin_src yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: base-memory-cpu
+spec:
+  hard:
+    requests.cpu: "2"
+    requests.memory: 8Gi
+    limits.cpu: "4"
+    limits.memory: 16Gi
+#+end_src
+
+** Secrets
+- Base64-encoded strings
+
+*** Env Vars
+*** File
+- dotenv
+- yaml files
+
+*** Vaults
+** Service
+An abstract way to expose an application running on a set of Pods as a network service.
+
+*** NodePort
+
+**** TargetPort
+
+**** Port
+
+*** ClusterIP
+*** LoadBalancer
+** Service Account
 * Commands
 ** --options
 |                 |   |
@@ -373,7 +402,7 @@ Ingress resource.
 *** deployment
 *** secret
 **** generic
-***** db-user-pass
+***** --options
 |             |   |
 |-------------+---|
 | --from-file |   |
@@ -449,9 +478,12 @@ of the --template flag, you can filter the attributes of the fetched resources.
  cluster-admin -o yaml
 *** deployments
 *** deployment
-*** endpoint
+*** endpoints
+*** events
 *** limitrange
 *** namespaces
+*** node
+*** nodes
 *** replicaset
 *** services
 
@@ -485,6 +517,27 @@ Update fields of a resource using strategic merge patch, a JSON merge patch, or 
 ** set
 *** image
 ** uncordon
+* Components
+** kube-apiserver
+** kube-scheduler
+** kube-controller-manager
+*** node
+*** replication
+*** endpoints
+*** serviceaccounts
+*** namespace
+** Etcd
+** cloud-controller-manager
+*** node
+*** route
+*** service
+*** volume controllers
+** worker nodes
+*** kubelet
+- responsible for running the actual containers
+*** kube-proxy
+- responsible for routing network communication between a Pod and the network
+** Container runtime
 * Manifest
 ** apiVersion
 *** v1
