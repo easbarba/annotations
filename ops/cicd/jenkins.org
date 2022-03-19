@@ -26,9 +26,9 @@
 
 * Progress
 ** Books
-| name             | chapter | @                                       |
-|------------------+---------+-----------------------------------------|
-| Pipeline as Code |       2 | 2.2 Understanding multibranch pipelines |
+| name             | chapter                       | @ |
+|------------------+-------------------------------+---|
+| Pipeline as Code | Defining Jenkins architecture |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
