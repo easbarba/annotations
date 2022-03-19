@@ -13,6 +13,7 @@
     - [[#kube-system][kube-system]]
     - [[#kube-public][kube-public]]
     - [[#default][default]]
+  - [[#control-plane][Control Plane]]
   - [[#replicaset][ReplicaSet]]
     - [[#replicacontroller-old-way][ReplicaController (old way)]]
   - [[#deployment][Deployment]]
@@ -78,6 +79,25 @@
     - [[#readinessprobe][readinessProbe]]
     - [[#startup][startup]]
   - [[#ingress][Ingress]]
+- [[#components][Components]]
+  - [[#kube-apiserver][kube-apiserver]]
+  - [[#kube-scheduler][kube-scheduler]]
+  - [[#kube-controller-manager][kube-controller-manager]]
+    - [[#node][node]]
+    - [[#replication][replication]]
+    - [[#endpoints][endpoints]]
+    - [[#serviceaccounts][serviceaccounts]]
+    - [[#namespace][namespace]]
+  - [[#etcd][Etcd]]
+  - [[#cloud-controller-manager][cloud-controller-manager]]
+    - [[#node][node]]
+    - [[#route][route]]
+    - [[#service][service]]
+    - [[#volume-controllers][volume controllers]]
+  - [[#worker-nodes][worker nodes]]
+    - [[#kubelet][kubelet]]
+    - [[#kube-proxy][kube-proxy]]
+  - [[#container-runtime][Container runtime]]
 - [[#commands][Commands]]
   - [[#--options][--options]]
   - [[#apply][apply]]
@@ -109,6 +129,7 @@
     - [[#componentstatuses][componentstatuses]]
     - [[#containers][containers]]
     - [[#csinodes][csinodes]]
+    - [[#clusterrolebinding][clusterrolebinding]]
     - [[#deployments][deployments]]
     - [[#deployment][deployment]]
     - [[#endpoint][endpoint]]
@@ -191,6 +212,8 @@ the whole cluster. The public aspect of this namespace is only a convention, not
 a requirement.
 *** default
 The default namespace for objects with no other namespace
+** Control Plane
+- suggested that you have at least three master nodes
 ** ReplicaSet
 A ReplicaSet's purpose is to maintain a stable set of replica Pods running at
 any given time. As such, it is often used to guarantee the availability of a
@@ -310,6 +333,27 @@ An API object that manages external access to the services in a cluster, typical
 Ingress exposes HTTP and HTTPS routes from outside the cluster to services
 within the cluster. Traffic routing is controlled by rules defined on the
 Ingress resource.
+* Components
+** kube-apiserver
+** kube-scheduler
+** kube-controller-manager
+*** node
+*** replication
+*** endpoints
+*** serviceaccounts
+*** namespace
+** Etcd
+** cloud-controller-manager
+*** node
+*** route
+*** service
+*** volume controllers
+** worker nodes
+*** kubelet
+- responsible for running the actual containers
+*** kube-proxy
+- responsible for routing network communication between a Pod and the network
+** Container runtime
 * Commands
 ** --options
 |                 |   |
@@ -401,6 +445,8 @@ of the --template flag, you can filter the attributes of the fetched resources.
 *** componentstatuses
 *** containers
 *** csinodes
+*** clusterrolebinding
+ cluster-admin -o yaml
 *** deployments
 *** deployment
 *** endpoint
