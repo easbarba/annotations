@@ -26,7 +26,7 @@
   - [[#migration][migration]]
   - [[#console][console]]
     - [[#reload][reload!]]
-- [[#bin-folder][bin folder]]
+- [[#bin][bin]]
   - [[#run][run]]
   - [[#setup][setup]]
   - [[#rails][rails]]
@@ -34,6 +34,7 @@
 - [[#models][Models]]
   - [[#validations][validations]]
     - [[#validates][validates]]
+    - [[#validate][validate]]
   - [[#concerns][concerns]]
   - [[#best-pratices][best pratices]]
     - [[#fat-models][fat models]]
@@ -55,32 +56,38 @@
   - [[#action-cable][Action Cable]]
     - [[#concept][concept]]
     - [[#cli][cli]]
-- [[#database][Database]]
-  - [[#active-record][Active Record]]
+- [[#active-record][Active Record]]
+  - [[#methods][methods]]
+  - [[#associations][associations]]
+  - [[#exceptions][exceptions]]
+  - [[#validations][Validations]]
+  - [[#callbacks][Callbacks]]
+    - [[#before_create][before_create]]
+    - [[#after_create][after_create]]
+    - [[#before_save][before_save]]
+    - [[#after_save][after_save]]
+    - [[#before_destroy][before_destroy]]
+    - [[#after_destroy][after_destroy]]
+  - [[#migrations][Migrations]]
+  - [[#migration][Migration]]
+    - [[#drop_table][drop_table]]
+  - [[#filters][Filters]]
+  - [[#query-interface][Query Interface]]
+  - [[#finding][Finding]]
+    - [[#sql-syntax][SQL Syntax]]
+    - [[#array-condition-syntax][Array Condition Syntax]]
+    - [[#association-proxies][Association Proxies]]
+    - [[#more][more]]
     - [[#methods][methods]]
-    - [[#associations][associations]]
-    - [[#exceptions][exceptions]]
-    - [[#validations][Validations]]
-    - [[#migrations][Migrations]]
-    - [[#migration][Migration]]
-      - [[#drop_table][drop_table]]
-    - [[#filters][Filters]]
-    - [[#query-interface][Query Interface]]
-    - [[#finding][Finding]]
-      - [[#sql-syntax][SQL Syntax]]
-      - [[#array-condition-syntax][Array Condition Syntax]]
-      - [[#association-proxies][Association Proxies]]
-      - [[#more][more]]
-      - [[#methods][methods]]
-        - [[#where][where]]
-        - [[#find][find]]
-        - [[#findby][findby]]
-        - [[#order][order]]
-        - [[#limit][limit]]
-        - [[#joins][joins]]
-        - [[#includes][includes]]
-    - [[#default-scope][Default Scope]]
-    - [[#named-scope][Named Scope]]
+      - [[#where][where]]
+      - [[#find][find]]
+      - [[#findby][findby]]
+      - [[#order][order]]
+      - [[#limit][limit]]
+      - [[#joins][joins]]
+      - [[#includes][includes]]
+  - [[#default-scope][Default Scope]]
+  - [[#named-scope][Named Scope]]
   - [[#seeds][Seeds]]
     - [[#methods][methods]]
 - [[#cache][Cache]]
@@ -100,12 +107,10 @@
 :END:
 * Progress
 ** Books
-|                         |                               |                                      |
-|-------------------------+-------------------------------+--------------------------------------|
-| Beginning Rails 6       | Advanced Active Record        | Validating Confirmation              |
-| Agile Development Rails | 11 Task F: Add a Dash of Ajax |                                      |
-| Sustainable Rails       | 5 Bussines logic              | 5.3 Business Logic in Active Records |
-| Rails Guide             | Action Controller             | 4.4 default_url_options              |
+|                   |                        |                                      |
+|-------------------+------------------------+--------------------------------------|
+| Beginning Rails 6 | Advanced Active Record | Reviewing the Updated Models         |
+| Sustainable Rails | 5 Bussines logic       | 5.3 Business Logic in Active Records |
 
 ** SLOC
 |       |                                      |                 |
@@ -229,7 +234,7 @@ Rails 6 uses rake as task runner
 *** reload!
 reloads the Rails application environment within your console session. You need
 to call it when you make changes to existing code.
-* bin folder
+* bin
 Useful personal scripts
 
 - brakeman
@@ -267,12 +272,49 @@ bin/ci # perform all checks
 
 ** validations
 *** validates
+make sure a user has entered something into a field.
+
 #+begin_src ruby
-validates :title, :body, presence: true
-validates :email, uniqueness: true
 valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
 validates :email, length: { in: 5..50 }
 #+end_src
+
+*:presence*
+
+#+begin_src ruby
+validates :title, :body, presence: true
+#+end_src
+
+*:uniqueness*
+validates whether the value of the specified attribute is unique across the system.
+
+#+begin_src ruby
+validates :email, uniqueness: true
+valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+#+end_src
+
+*:length*
+
+#+begin_src ruby
+validates :email, length: { in: 5..50 }
+#+end_src
+
+*:format*
+checks whether a value is in the correct format.
+
+#+begin_src ruby
+validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
+#+end_src
+
+*:confirmation*
+
+#+begin_src ruby
+validates :password, confirmation: true
+#+end_src
+
+*:acceptance*
+*** validate
+
 
 ** concerns
 ** best pratices
@@ -300,6 +342,8 @@ resources :articles, only: [:index, :show]
 #+end_src
 
 *Except*
+
+Create all of the standard routes except those listed
 
 #+begin_src ruby
 resources :articles, except: [ :destroy ]
@@ -329,7 +373,6 @@ get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search
 | RAILS_ENV=production |                                                |
 | DATABASE_URL         | database credentials                           |
 | SECRET_KEY_BASE      | general secret key used for encrypting cookies |
-|                      |                                                |
 
 * Logger
 - live log feed: tail -f log/development.log
@@ -365,14 +408,13 @@ Rails.logger.warn "This will show in all environments"
 |--------------------------+-----------------|
 | generate channels <name> | in /app/channel |
 |                          |                 |
-* Database
-** Active Record
+* Active Record
 - Single-Table Inheritance
 - maps tables to classes, table rows to objects, and table columns to object attributes.
 - Class names are singular; table names are plural.
 - Tables contain an identity column named id.
 
-*** methods
+** methods
 New/create
 
 #+begin_src ruby
@@ -471,7 +513,7 @@ article.errors.size
 article.valid?
 #+end_src
 
-*** associations
+** associations
 |                         |                                                                                    |
 |-------------------------+------------------------------------------------------------------------------------|
 | has_many                |                                                                                    |
@@ -498,34 +540,42 @@ user.create_profile name: 'Jane Doe', color: 'pink'
 user.build_profile(bio: 'eats leaves')
 #+end_src
 
-*** exceptions
+** exceptions
 |                |                                             |
 |----------------+---------------------------------------------|
 | RecordNotFound | couldn’t find any record with the id given. |
 
-*** Validations
-*** Migrations
-*** Migration
-**** drop_table
+** Validations
+** Callbacks
+*** before_create
+*** after_create
+*** before_save
+*** after_save
+*** before_destroy
+*** after_destroy
+
+** Migrations
+** Migration
+*** drop_table
 drop existing migration table
 #+begin_src
 ActiveRecord::Migration.drop_table :articles
 #+end_src
 
-*** Filters
+** Filters
 - before_create
 - after_create
 - before_save
 - after_save
 - before_destroy
 - after_destroy
-*** Query Interface
-*** Finding
-**** SQL Syntax
+** Query Interface
+** Finding
+*** SQL Syntax
 #+begin_src ruby
 Obj.where(title: 'AwesomeWM is really awesome')
 #+end_src
-**** Array Condition Syntax
+*** Array Condition Syntax
 #+begin_src ruby
 Article.where("published_at < ?", Time.now)
 Article.where("published_at < ?", Time.now).to_sql # inspect the issued SQL statement
@@ -534,7 +584,7 @@ Article.where("title LIKE :search OR body LIKE :search", {search: '%association%
 Article.where("created_at > '2020-02-04' AND body NOT LIKE '%model%'")
 #+end_src
 
-**** Association Proxies
+*** Association Proxies
 - Chain together multiple calls to Active Record
 
 #+begin_src ruby
@@ -543,7 +593,7 @@ current_user.articles.find(1)
 # creates a new article for the current_user.
 current_user.articles.create(title: 'Private', body: ‘Body here..’)
 #+end_src
-**** more
+*** more
 #+begin_src ruby
 Article.order("published_at DESC")
 Article.limit(1)
@@ -552,39 +602,39 @@ Article.includes(:comments)
 Article.order("title DESC").limit(2)
 
 #+end_src
-**** methods
-***** where
+*** methods
+**** where
 Specifies the conditions in which the records are returned as a WHERE SQL
 fragment.
 #+begin_src ruby
 Article.where("title = 'Advanced Active Record'")
 #+end_src
 
-***** find
-***** findby
-***** order
+**** find
+**** findby
+**** order
 Specifies the order in which the records are returned as an ORDER BY SQL
 fragment.
 
 #+begin_src ruby
 Article.order("published_at DESC")
 #+end_src
-***** limit
+**** limit
 Specifies the number of records to be returned as a LIMIT SQL fragment.
 #+begin_src ruby
 Article.limit(1)
 #+end_src
-***** joins
+**** joins
 Specifies associated tables to be joined in as a JOIN SQL fragment.
 #+begin_src ruby
 Article.joins(:comments)
 #+end_src
-***** includes
+**** includes
 Specifies associated tables to be joined and loaded as Active Record objects in a JOIN SQL fragment.
 #+begin_src ruby
 Article.includes(:comments)
 #+end_src
-*** Default Scope
+** Default Scope
 Use this macro in your model to set a default scope for all operations on the model.
 
 - will reset order everytime, costly.
@@ -593,7 +643,7 @@ Use this macro in your model to set a default scope for all operations on the mo
 default_scope { order :name }
 #+end_src
 
-*** Named Scope
+** Named Scope
 #+begin_src ruby
 scope :published, -> { where.not(published_at: nil) }
 scope :draft, -> { where(published_at: nil) }
@@ -633,10 +683,6 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 - stylesheet_tag bootstrap_url @ application_html.erb
 - HTTP status codes: Rack::Atolls::HTTP_STATUS_CODES
 * Internationalization
-
-#+begin_src ruby
-
-#+end_src
 ** methods
 - i18n.t()
 - i18n.l()

@@ -9,7 +9,6 @@
   - [[#python][python]]
   - [[#java][java]]
   - [[#guile][guile]]
-  - [[#ruby][ruby]]
   - [[#php][php]]
   - [[#go][go]]
   - [[#js][js]]
@@ -61,21 +60,6 @@ guix,https://git.savannah.gnu.org/git/guix
 guile,https://git.sv.gnu.org/git/guile
 akku,https://gitlab.com/akkuscm/akku
 lokke,https://github.com/lokke-org/lokke
-#+end_src
-** ruby
-#+begin_src csv
-name,repository
-sustainable-rails-docker,https://github.com/davetron5000/sustainable-rails-docker
-solargraph,https://github.com/castwide/solargraph
-faker,https://github.com/faker-ruby/faker
-sinatra,https://github.com/sinatra/sinatra
-rake,https://github.com/ruby/rake
-jekyll,https://github.com/jekyll/jekyll
-sidekiq,https://github.com/mperham/sidekiq
-fluentd,https://github.com/fluent/fluentd
-rails,https://github.com/rails/rails
-ruby,https://github.com/ruby/ruby
-
 #+end_src
 ** php
 #+begin_src csv
