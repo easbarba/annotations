@@ -22,7 +22,6 @@
       - [[#jobs][Jobs]]
       - [[#cronjobs][CronJobs]]
   - [[#control-plane][Control Plane]]
-  - [[#deployment][Deployment]]
   - [[#cluster][Cluster]]
     - [[#cluster-master][Cluster master]]
     - [[#worker-nodes][Worker nodes]]
@@ -31,13 +30,18 @@
         - [[#kube-proxy][kube-proxy]]
         - [[#container-runtime][container runtime]]
   - [[#configmap][ConfigMap]]
+  - [[#cronjob][Cronjob]]
+  - [[#customresourcedefinitions][CustomResourceDefinitions]]
+  - [[#daemonsets][DaemonSets]]
+  - [[#deployments][Deployments]]
   - [[#endpoints][Endpoints]]
   - [[#events][Events]]
   - [[#healthchecks][HealthChecks]]
     - [[#livenessprobe][livenessProbe]]
     - [[#readinessprobe][readinessProbe]]
     - [[#startup][startup]]
-  - [[#jobs--cronjobs][Jobs & CronJobs]]
+  - [[#horizontalpodautoscalers][HorizontalPodAutoscalers]]
+  - [[#jobs][Jobs]]
   - [[#ingress][Ingress]]
   - [[#master][Master]]
     - [[#api-server][API server]]
@@ -83,10 +87,13 @@
       - [[#port][Port]]
     - [[#clusterip][ClusterIP]]
     - [[#loadbalancer][LoadBalancer]]
+    - [[#externalname][ExternalName]]
   - [[#service-account][Service Account]]
+  - [[#statefulsets][StatefulSets]]
 - [[#commands][Commands]]
   - [[#--options][--options]]
   - [[#apply][apply]]
+  - [[#autoscale][autoscale]]
   - [[#cluster-info][cluster-info]]
   - [[#create][create]]
     - [[#--options][--options]]
@@ -222,13 +229,6 @@
 **** CronJobs
 ** Control Plane
 - suggested that you have at least three master nodes
-** Deployment
-A Deployment provides declarative updates for Pods and ReplicaSets.
-
-You describe a desired state in a Deployment, and the Deployment Controller
-changes the actual state to the desired state at a controlled rate. You can
-define Deployments to create new ReplicaSets, or to remove existing Deployments
-and adopt all their resources with new Deployments.
 ** Cluster
 *** Cluster master
 *** Worker nodes
@@ -245,6 +245,42 @@ arguments, or as configuration files in a volume.
 
 A ConfigMap allows you to decouple environment-specific configuration from your
 container images, so that your applications are easily portable.
+** Cronjob
+#+begin_src yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+#+end_src
+
+** CustomResourceDefinitions
+** DaemonSets
+A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are
+added to the cluster, Pods are added to them. As nodes are removed from the
+cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up
+the Pods it created.
+** Deployments
+A Deployment provides declarative updates for Pods and ReplicaSets.
+
+You describe a desired state in a Deployment, and the Deployment Controller
+changes the actual state to the desired state at a controlled rate. You can
+define Deployments to create new ReplicaSets, or to remove existing Deployments
+and adopt all their resources with new Deployments.
 ** Endpoints
 Maps a service to a Pod or Pods.
 ** Events
@@ -253,7 +289,9 @@ Displays any events for a namespace.
 *** livenessProbe
 *** readinessProbe
 *** startup
-** Jobs & CronJobs
+** HorizontalPodAutoscalers
+provide the ability to scale an application based on a set of criteria.
+** Jobs
 ** Ingress
 An API object that manages external access to the services in a cluster, typically HTTP.
 
@@ -374,6 +412,24 @@ spec:
 ** Service
 An abstract way to expose an application running on a set of Pods as a network service.
 
+- defaults to ClusterIP.
+
+#+begin_src yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx-web-frontend
+  name: nginx-web
+spec:
+ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: nginx-web
+#+end_src
+
 *** NodePort
 
 **** TargetPort
@@ -382,7 +438,10 @@ An abstract way to expose an application running on a set of Pods as a network s
 
 *** ClusterIP
 *** LoadBalancer
+*** ExternalName
 ** Service Account
+A service account provides an identity for processes that run in a Pod.
+** StatefulSets
 * Commands
 ** --options
 |                 |   |
@@ -392,6 +451,22 @@ An abstract way to expose an application running on a set of Pods as a network s
 | --dry-run       |   |
 | --output        |   |
 ** apply
+** autoscale
+#+begin_src yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-deployment
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-deployment
+  targetCPUUtilizationPercentage: 50
+#+end_src
+
 ** cluster-info
 ** create
 *** --options
