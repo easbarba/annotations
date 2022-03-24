@@ -39,13 +39,22 @@
   - [[#best-pratices][best pratices]]
     - [[#fat-models][fat models]]
 - [[#routes][Routes]]
-  - [[#eg][eg]]
 - [[#controller][Controller]]
+  - [[#methods][methods]]
+    - [[#layout][layout]]
+- [[#parameters][Parameters]]
 - [[#views][Views]]
   - [[#templates][Templates]]
-    - [[#embedded-ruby][Embedded Ruby]]
-      - [[#evaluation-embedding-tags--][evaluation embedding tags (<% %>)]]
-      - [[#output-embedding-tags--][output embedding tags (<%= %>)]]
+  - [[#embedded-ruby][Embedded Ruby]]
+    - [[#evaluation-embedding-tags--][evaluation embedding tags <% %>]]
+    - [[#output-embedding-tags--][output embedding tags <%= %>]]
+- [[#helpers][Helpers]]
+  - [[#formhelper][FormHelper]]
+    - [[#label][label]]
+    - [[#text_field][text_field]]
+    - [[#text_area][text_area]]
+    - [[#datetime_select][datetime_select]]
+  - [[#formtaghelper][FormTagHelper]]
 - [[#enviroment][Enviroment]]
 - [[#logger][Logger]]
   - [[#methods][Methods]]
@@ -90,6 +99,10 @@
   - [[#named-scope][Named Scope]]
   - [[#seeds][Seeds]]
     - [[#methods][methods]]
+- [[#action-pack][Action Pack]]
+- [[#action-controller][Action Controller]]
+- [[#action-view][Action View]]
+- [[#action-dispatch][Action Dispatch]]
 - [[#cache][Cache]]
 - [[#tests][Tests]]
   - [[#rspec][RSpec]]
@@ -107,10 +120,10 @@
 :END:
 * Progress
 ** Books
-|                   |                        |                                      |
-|-------------------+------------------------+--------------------------------------|
-| Beginning Rails 6 | Advanced Active Record | Reviewing the Updated Models         |
-| Sustainable Rails | 5 Bussines logic       | 5.3 Business Logic in Active Records |
+|                   |                  |                                      |
+|-------------------+------------------+--------------------------------------|
+| Beginning Rails 6 | Action Pack      | Staying DRY with Partials            |
+| Sustainable Rails | 5 Bussines logic | 5.3 Business Logic in Active Records |
 
 ** SLOC
 |       |                                      |                 |
@@ -119,18 +132,22 @@
 
 * Commands
 ** database
-| cmd              | desc                                                                   |
-|------------------+------------------------------------------------------------------------|
-| dbconsole        |                                                                        |
-| console          |                                                                        |
-| db:create        |                                                                        |
-| db:create:all    | create test,production and development database                        |
-| db:migrate       | create schema                                                          |
-| db:rollback      | rollback recently created schema                                       |
-| db:system:change | switch databases                                                       |
-| db:seed          |                                                                        |
-| db:setup         | recreate database and adds the seed data as you may expect.            |
-| db:reset         | drop database, recreates it, loads the schema, and seeds your database |
+| cmd                             | desc                                                                          |
+|---------------------------------+-------------------------------------------------------------------------------|
+| dbconsole                       |                                                                               |
+| console                         |                                                                               |
+| db:create                       |                                                                               |
+| db:create:all                   | create test,production and development database                               |
+| db:migrate                      | create schema                                                                 |
+| db:rollback                     | rollback recently created schema                                              |
+| db:load_config                  |                                                                               |
+| db:check_protected_environments |                                                                               |
+| db:truncate_all                 |                                                                               |
+| db:system:change                | switch databases                                                              |
+| db:seed                         |                                                                               |
+| db:seed:replant                 | truncates tables of each database for current environment and loads the seeds |
+| db:setup                        | recreate database and adds the seed data as you may expect.                   |
+| db:reset                        | drop database, recreates it, loads the schema, and seeds your database        |
 ** new
 | how               | desc                                              |
 +-------------------+---------------------------------------------------|
@@ -355,18 +372,69 @@ resources :articles, except: [ :destroy ]
 get "/amazing", to: redirect("/widgets")
 #+end_src
 
-** eg
+*Inline variable* (:foo)
+
 #+begin_src ruby
-get '/teams/home', to: 'teams#index' # http://example.com/teams
+# :query as an inline variable
 get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search/toronto
 #+end_src
 
+#+begin_src ruby
+get '/teams/home', to: 'teams#index' # http://example.com/teams
+#+end_src
+
+*Named routes*
+
+#+begin_src ruby
+get '/teams/search/:query', to: 'teams#search', as: 'search'
+#+end_src
+
+*Root*
+
+#+begin_src ruby
+root to: "articles#index"
+#+end_src
+
 * Controller
+** methods
+*** layout
+#+begin_src ruby
+layout 'my_layout' # Will use a layout in app/views/layouts/my_layout.
+#+end_src
+
+* Parameters
+- hash-like
+
 * Views
 ** Templates
-*** Embedded Ruby
-**** evaluation embedding tags (<% %>)
-**** output embedding tags (<%= %>)
+** Embedded Ruby
+*** evaluation embedding tags <% %>
+*** output embedding tags <%= %>
+* Helpers
+help views by providing a convenient location to encapsulate code that would
+otherwise clutter the view and violate the terms of the MVC. They offer a middle
+ground between controllers and views and help to keep your application organized
+and easy to maintain.
+** FormHelper
+*** label
+#+begin_src html
+<label for="article_title">Title</label>
+#+end_src
+*** text_field
+#+begin_src html
+<input type="text" name="article[title]" id="article_title" />
+<input class="large" type="text" name="article[title]" id="article_title" />
+#+end_src
+*** text_area
+#+begin_src html
+<textarea name="article[body]" id="article_body"></textarea>
+#+end_src
+*** datetime_select
+#+begin_src html
+<input type="submit" name="commit" value="Create Article" data-disable-with="Create Article" />
+#+end_src
+
+** FormTagHelper
 * Enviroment
 |                      |                                                |
 |----------------------+------------------------------------------------|
@@ -657,7 +725,20 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .create({})
 .find_or_create_by({})
 #+end_src
+* Action Pack
+- controller and the view
+* Action Controller
+Action Controller is the C in MVC. After the router has determined which
+controller to use for a request, the controller is responsible for making sense
+of the request and producing the appropriate output. Luckily, Action Controller
+does most of the groundwork for you and uses smart conventions to make this as
+straightforward as possible.
 
+- unless otherwise stated, when an action is finished firing, it renders a view.
+* Action View
+* Action Dispatch
+- handles routing
+- decides which controller should handle a given request
 * Cache
 |                      |                                                                          |
 |----------------------+--------------------------------------------------------------------------|
