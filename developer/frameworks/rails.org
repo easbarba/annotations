@@ -45,9 +45,11 @@
 - [[#parameters][Parameters]]
 - [[#views][Views]]
   - [[#templates][Templates]]
+    - [[#partials][partials]]
   - [[#embedded-ruby][Embedded Ruby]]
     - [[#evaluation-embedding-tags--][evaluation embedding tags <% %>]]
     - [[#output-embedding-tags--][output embedding tags <%= %>]]
+- [[#session][Session]]
 - [[#helpers][Helpers]]
   - [[#formhelper][FormHelper]]
     - [[#label][label]]
@@ -55,6 +57,9 @@
     - [[#text_area][text_area]]
     - [[#datetime_select][datetime_select]]
   - [[#formtaghelper][FormTagHelper]]
+  - [[#number-helpers][Number helpers]]
+  - [[#text-helpers][Text helpers]]
+  - [[#url-helpers][URL helpers]]
 - [[#enviroment][Enviroment]]
 - [[#logger][Logger]]
   - [[#methods][Methods]]
@@ -122,7 +127,7 @@
 ** Books
 |                   |                  |                                      |
 |-------------------+------------------+--------------------------------------|
-| Beginning Rails 6 | Action Pack      | Staying DRY with Partials            |
+| Beginning Rails 6 | Active Storage   |                                      |
 | Sustainable Rails | 5 Bussines logic | 5.3 Business Logic in Active Records |
 
 ** SLOC
@@ -395,7 +400,30 @@ get '/teams/search/:query', to: 'teams#search', as: 'search'
 root to: "articles#index"
 #+end_src
 
+Nested resources
+
+- on their own because they’re conceptually meaningless
+
+#+begin_src ruby
+resources :articles do
+  resources :comments
+end
+#+end_src
+
+Resource (single)
+
+- no index (6 paths)
+
+#+begin_src ruby
+resource :session
+#+end_src
+
 * Controller
+> rails g controller ControllerName [action action] [options]
+
+- name its controller as CamelCase, MixedCase or snake_case
+- every specified actions generates an empty method in the controller and a template in app/views/#{controller_name}.
+
 ** methods
 *** layout
 #+begin_src ruby
@@ -405,11 +433,54 @@ layout 'my_layout' # Will use a layout in app/views/layouts/my_layout.
 * Parameters
 - hash-like
 
+*Permit*
+
+- specify which parameters are acceptable
+
+#+begin_src ruby
+params.require(:user).permit(:email, :password, :password_confirmation
+#+end_src
+
 * Views
 ** Templates
+*** partials
+- look for _* files
+
+#+begin_src html
+<%= render 'header', title: 'My Blog' %>
+<%= render @article %>
+<%= render 'articles/article', article: @article %>
+#+end_src
+
+Collections
+
+- automatically loops across this collection and renders the partial of every object inside that array accordingly.
+
+#+begin_src html
+<%= render @articles
+<!-- Same as, but w/ better perf than -->
+
+<% @articles.each do |object| %>
+  <%= render object %>
+<% end %>
+
+#+end_src
+
 ** Embedded Ruby
 *** evaluation embedding tags <% %>
 *** output embedding tags <%= %>
+* Session
+- implemented as a hash
+- flash is a session
+
+#+begin_src ruby
+session[:account_id] = @account.id
+session[:account_id] # => 1
+
+session['message'] = "Hello world!"
+session['message'] # => "Hello world!"
+#+end_src
+
 * Helpers
 help views by providing a convenient location to encapsulate code that would
 otherwise clutter the view and violate the terms of the MVC. They offer a middle
@@ -435,6 +506,27 @@ and easy to maintain.
 #+end_src
 
 ** FormTagHelper
+** Number helpers
+** Text helpers
+
+#+begin_src ruby
+simple_format
+#+end_src
+** URL helpers
+link_to(name, options={}, html_options={})
+
+#+begin_src ruby
+link_to 'New', new_article_path, id: 'new_article_link'
+link_to 'New', {controller: 'articles', action: 'new'}, class: 'large'
+link_to 'New', {controller: 'articles', action: 'new'}, {class: 'large'}
+#+end_src
+
+ajax
+
+#+begin_src ruby
+<%= link_to "new comment", new_article_comment_path(@article), remote: true, id: 'new_comment_link' %>
+#+end_src
+
 * Enviroment
 |                      |                                                |
 |----------------------+------------------------------------------------|
@@ -637,6 +729,26 @@ ActiveRecord::Migration.drop_table :articles
 - after_save
 - before_destroy
 - after_destroy
+
+:only :except
+
+#+begin_src ruby
+before_action :authenticate, only: :destroy
+#+end_src
+
+skip
+
+#+begin_src ruby
+class ApplicationController < ActionController::Base
+  before_action :authenticate_with_token
+end
+
+class PublicController < ApplicationController
+  # We don't want to check for a token on this controller
+  skip_before_action :authenticate_with_token
+end
+#+end_src
+
 ** Query Interface
 ** Finding
 *** SQL Syntax
