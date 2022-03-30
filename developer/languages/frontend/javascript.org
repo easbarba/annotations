@@ -1180,6 +1180,27 @@ return undefined;
 
 
 Asynchronous Control Flow Patterns with Promises and Async Await
+
+* DOM
+insertAdjacentHTML
+
+#+begin_src js
+insertAdjacentHTML(position, text)
+#+end_src
+
+
+insertAdjacentElement
+
+#+begin_src js
+insertAdjacentElement(position, element)
+#+end_src
+
+insertAdjacentText
+
+#+begin_src js
+insertAdjacentText(position, text)
+#+end_src
+
 * Concepts
 ** Hoisting
 ** Import/Export
