@@ -49,6 +49,7 @@
   - [[#embedded-ruby][Embedded Ruby]]
     - [[#evaluation-embedding-tags--][evaluation embedding tags <% %>]]
     - [[#output-embedding-tags--][output embedding tags <%= %>]]
+- [[#html-templates][HTML Templates]]
 - [[#session][Session]]
 - [[#helpers][Helpers]]
   - [[#formhelper][FormHelper]]
@@ -104,6 +105,8 @@
   - [[#named-scope][Named Scope]]
   - [[#seeds][Seeds]]
     - [[#methods][methods]]
+- [[#action-text][Action Text]]
+- [[#active-storage][Active Storage]]
 - [[#action-pack][Action Pack]]
 - [[#action-controller][Action Controller]]
 - [[#action-view][Action View]]
@@ -125,10 +128,11 @@
 :END:
 * Progress
 ** Books
-|                   |                  |                                      |
-|-------------------+------------------+--------------------------------------|
-| Beginning Rails 6 | Active Storage   |                                      |
-| Sustainable Rails | 5 Bussines logic | 5.3 Business Logic in Active Records |
+|                         |                                     |                                                    |
+|-------------------------+-------------------------------------+----------------------------------------------------|
+| Beginning Rails 6       | Active Storage                      | Updating the Article View                          |
+| Sustainable Rails       | 7 HTML Templates                    | 7.2.1Name the Instance Variable After the Resource |
+| Agile WebDev w/ Rails 6 | Task B: Validation and Unit Testing |                                                    |
 
 ** SLOC
 |       |                                      |                 |
@@ -176,9 +180,11 @@ rails _6.1.4.6_ new app --database=postgresql
 | destroy model Artile        |      |
 
 ** routes
-|            |   |
-|------------+---|
-| -g <GROUP> |   |
+|                                        |   |
+|----------------------------------------+---|
+| -g GROUP, --grep=GROUP                 |   |
+| -E, --expanded                         |   |
+| -c CONTROLLER, --controller=CONTROLLER |   |
 
 ** generate
 *** resource
@@ -418,6 +424,16 @@ Resource (single)
 resource :session
 #+end_src
 
+Namespacing
+
+#+begin_src ruby
+namespace :customer_service do
+  resources :widgets, only: [ :show, :update, :destroy ]
+end
+#+end_src
+
+Don’t Create Custom Actions, Create More Resources
+
 * Controller
 > rails g controller ControllerName [action action] [options]
 
@@ -469,6 +485,55 @@ Collections
 ** Embedded Ruby
 *** evaluation embedding tags <% %>
 *** output embedding tags <%= %>
+
+* HTML Templates
+*Guidelines*
+
+- Mark up all content and controls using semantic HTML; use div and span to solve layout and styling problems.
+- Build templates around the controller’s resource as a single instance variable.
+- Extract shared components into partials
+- ERB is fine.
+
+
+Ideally, Expose One Instance Variable Per Action
+
+Name the Instance Variable After the Resource
+
+
+*image_tag*
+
+- returns an HTML image tag for the source. The source can be a full path, a file, or an Active Storage attachment.
+
+#+begin_src html
+<%= image_tag article.cover_image.variant(resize_to_limit: local_assigns.fetch(:cover_image_options, [200, 200])) %>
+#+end_src
+
+*cycle*
+
+- toggling between names on successive lines
+
+#+begin_src html
+<tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+#+end_src
+
+*truncate*
+
+- display the first N characters
+
+#+begin_src html
+<%= truncate(strip_tags(product.description), length: 80) %>
+#+end_src
+
+*strip_tags*
+
+- remove the HTML tags
+
+*link_to*
+
+#+begin_src html
+<li><%= link_to 'Show', product %></li>
+#+end_src
+
 * Session
 - implemented as a hash
 - flash is a session
@@ -837,6 +902,16 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .create({})
 .find_or_create_by({})
 #+end_src
+* Action Text
+
+Include Action Text’s JavaScript and CSS in the application.
+
+#+begin_src ruby
+rails action_text:install
+#+end_src
+
+* Active Storage
+
 * Action Pack
 - controller and the view
 * Action Controller
