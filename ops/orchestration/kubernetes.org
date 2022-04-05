@@ -90,7 +90,7 @@
     - [[#externalname][ExternalName]]
   - [[#service-account][Service Account]]
   - [[#statefulsets][StatefulSets]]
-- [[#commands][Commands]]
+- [[#kubectl][kubectl]]
   - [[#--options][--options]]
   - [[#apply][apply]]
   - [[#autoscale][autoscale]]
@@ -102,6 +102,7 @@
     - [[#secret][secret]]
       - [[#generic][generic]]
         - [[#--options][--options]]
+    - [[#configmap][configmap]]
   - [[#config][config]]
     - [[#set-context][set-context]]
     - [[#use-contex][use-contex]]
@@ -211,9 +212,9 @@
 
 * Progress
 ** Books
-| Books                            | Chapters              | @                |
-|----------------------------------+-----------------------+------------------|
-| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | Service accounts |
+| Books                            | Chapters              | @        |
+|----------------------------------+-----------------------+----------|
+| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | Services |
 * Base
 ** Container
 *** lifecycle
@@ -441,8 +442,16 @@ ports:
 *** ExternalName
 ** Service Account
 A service account provides an identity for processes that run in a Pod.
+
+#+begin_src yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: grafana
+  namespace: monitoring
+#+end_src
 ** StatefulSets
-* Commands
+* kubectl
 ** --options
 |                 |   |
 |-----------------+---|
@@ -481,6 +490,27 @@ spec:
 |             |   |
 |-------------+---|
 | --from-file |   |
+*** configmap
+Create a config map based on a file, directory, or specified literal value.
+
+*<name> <data>*
+
+*--from-file*
+
+#+begin_src sh
+kubectl create configmap config-test --from-file=/apps/nginx-config/nginx.conf
+#+end_src
+
+*folder*
+
+all files in folder
+
+#+begin_src sh
+ls myapp # config1 config2 config3
+
+kubectl create configmap config-test --from-file=/apps/config/myapp
+#+end_src
+
 ** config
 *** set-context
 Set a context entra in kubeconfig
