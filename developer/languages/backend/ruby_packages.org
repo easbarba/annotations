@@ -135,6 +135,7 @@
      | list              |                                                    |
      | which <name>      |                                                    |
      | gem search <name> |                                                    |
+*** add
 
 *** install
      bundle config set --local deployment 'true'
@@ -154,51 +155,7 @@
 ** [[https://rspec.info/][RSpec]]
 Behaviour Driven Development for Ruby
 
-*** Cli
-| cmd                          | desc                                             |
-|------------------------------+--------------------------------------------------|
-| --init                       | Initialize your project with RSpec.              |
-| --profile                    | test time                                        |
-| --format <type>              |                                                  |
-| folder                       | run allfolders specs                             |
-| spec                         | run just one spec                                |
-| -e <name>                    | run spec(s) begins w/ name                       |
-| <file>:N                     | run examples in lineN of file                    |
-| --only-failures              |                                                  |
-| --next-failure               |                                                  |
-| --tag last_run_status:failed |                                                  |
-| --tag focus                  |                                                  |
-| describe                     | creates an example group (set of related tests). |
-| expect                       | verifies an expected outcome (assertion)         |
-| example                      | individual test                                  |
-| --backtrace or -b            | display backtrace                                |
-
-*** Terms
- - Example group defines what you’re testing—in this case, a sandwich—and keeps related specs together.
- - Arrange/Act/Assert pattern
-
 *** Features
-**** before
-#+begin_src ruby
-before do
-  allow(ledger).to receive(:record)
-   .with(expense)
-   .and_return(RecordResult.new(false, 417, 'Expense incomplete'))
-end
-#+end_src
-**** matchers
-***** eq
-***** contain_exactly
-***** a_kind_of
-***** include
-***** be_success
-***** match [a_hash_including(...)]
-
-**** expect / to
-expect() and to() check a result in order to signal success or failure.
-They compare a value using a matcher.
-
-**** pending
 **** it
 ***** metadata
 ****** :aggregate_failures
@@ -207,45 +164,161 @@ record the first failure, but continue to try the second expectation
 ***** metadata
 ****** :aggregate_failures
 record the first failure, but continue to try the second expectation
-**** let
-#+begin_src ruby
-let(:expense) { { 'some' => 'data' } }
-#+end_src
-
 **** metadata
      |                               |   |
      |-------------------------------+---|
      | context 'foobar', focus: true |   |
      |                               |   |
-*** hooks
-**** suit-level
-*** Commands
-|                                   |                                      |
-|-----------------------------------+--------------------------------------|
-| RSpec.describe                    |                                      |
-| describe                          |                                      |
-| context                           |                                      |
-| it 'foo bar'                      |                                      |
-| expect(foo).to eq(bar)            |                                      |
-| expect(foo).to be > :bar          |                                      |
-| before(:xx)                       |                                      |
-| after(:xxx)                       |                                      |
-| before(:context)                  |                                      |
-| after(:context)                   |                                      |
-| let(:foo) { Bar.new }             |                                      |
-| pending 'foo not yet implemented' |                                      |
-| skip or xit 'foo bar'             | x prepended to it '' to skip example |
+
+*** metadata / tags
+*:aggregate_failures*
+
+continue to try the next expectation
+
+*pending*
+
+*** varibles
+*let*
+
+#+begin_src ruby
+let(:expense) { { 'some' => 'data' } }
+#+end_src
+
+*** setting up
+*before*
+
+#+begin_src ruby
+before do
+  allow(ledger).to receive(:record)
+   .with(expense)
+   .and_return(RecordResult.new(false, 417, 'Expense incomplete'))
+end
+#+end_src
+
+*** matchers
+
+*eq*
+
+*contain_exactly*
+
+*a_kind_of*
+
+*include*
+
+*be_success*
+
+
+*expect/to*
+
+expect() and to() check a result in order to signal success or failure.
+They compare a value using a matcher.
+
+
+*be_success*
+
+*a_hash_including*
+
+#+begin_src ruby
+expect(DB[:expenses].all).to match [a_hash_including(
+id: result.expense_id,
+payee: 'Starbucks',
+amount: 5.75,
+date: Date.iso8601('2017-06-10')
+)]
+#+end_src
+
+*** matches
+*match*
+
+
+*** Terms
+ - Example group defines what you’re testing—in this case, a sandwich—and keeps related specs together.
+ - Arrange/Act/Assert pattern
+
+*** Cli
+| cmd       | desc                                             |
+|-----------+--------------------------------------------------|
+| folder    | run allfolders specs                             |
+| spec      | run just one spec                                |
+| -e <name> | run spec(s) begins w/ name                       |
+| <file>:N  | run examples in lineN of file                    |
+| describe  | creates an example group (set of related tests). |
+| expect    | verifies an expected outcome (assertion)         |
+| example   | individual test                                  |
+
+**** --options
+
+--init
+
+Initialize your project with RSpec.
+
+--bisect
+
+repeatedly run subsets of your suite in order to isolate the minimal set of
+examples that reproduce the same failures.
+
+--seed
+
+--backtrace or -b
+
+display backtrace
+
+--tag focus
+
+--tag last_run_status:failed
+
+--next-failure
+
+--only-failures
+
+--format <type>
+
+--profile
+test time
+
+*** Doubles
+**** Mocks
+**** Stubs
+*** Hooks
+
+*around*
+
+#+begin_src ruby
+c.around(:example, :db) do |example|
+  DB.transaction(rollback: :always) { example.run }
+end
+#+end_src
+
+
+**** suite-level
 *** Methods
 - instance_double
 *** Config
+- by default, RSpec aborts the test on the first failure
+
 **** .rspec
 Default command-line flags
+**** spec/support/*.rb
+“partially shared” code goes here
+
+- runs just once
+
+#+begin_src ruby
+RSpec.configure do |c|
+  c.before(:suite) do
+    Sequel.extension :migration
+    Sequel::Migrator.run(DB, 'db/migrations')
+    DB[:expenses].truncate
+  end
+end
+#+end_src
 **** spec/spec_helper.rb
-|                                          |   |
-|------------------------------------------+---|
-| Configuration options                    |   |
-| config.filter_gems_from_backtrace <list> |   |
-| filter_gems_from_backtrace <list>        |   |
+
+*filter_gems_from_backtrace*
+
+*when_first_matching_example_defined*
+
+
 
 ***** Options
        - ENV['RACK_ENV'] = 'test'
