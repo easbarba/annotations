@@ -104,7 +104,7 @@ git merge feature main
 #+end_src
 
 ** mv
-      Move or rename a file, directory, or symlink.
+Move or rename a file, directory, or symlink.
 ** pull
       Fetch from, or integrate with, another repository or a local branch.
 ** push

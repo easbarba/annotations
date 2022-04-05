@@ -130,7 +130,7 @@
 ** Books
 |                         |                         |                                                    |
 |-------------------------+-------------------------+----------------------------------------------------|
-| Agile WebDev w/ Rails 6 | Task C: Catalog Display |                                                    |
+| Agile WebDev w/ Rails 6 | Task C: Catalog Display | Iteration C3: Using a Helper to Format the Price   |
 | Beginning Rails 6       | Active Storage          | Updating the Article View                          |
 | Sustainable Rails       | 7 HTML Templates        | 7.2.1Name the Instance Variable After the Resource |
 
@@ -533,6 +533,18 @@ Name the Instance Variable After the Resource
 #+begin_src html
 <li><%= link_to 'Show', product %></li>
 #+end_src
+
+*sanitize*
+
+#+begin_src html
+<%= sanitize(product.description) %>
+#+end_src
+
+*csrf_meta_tags*
+
+*javascript_pack_tag*
+
+*stylesheet_link_tag*
 
 * Session
 - implemented as a hash
