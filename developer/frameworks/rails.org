@@ -26,6 +26,7 @@
   - [[#migration][migration]]
   - [[#console][console]]
     - [[#reload][reload!]]
+  - [[#runner][runner]]
 - [[#bin][bin]]
   - [[#run][run]]
   - [[#setup][setup]]
@@ -33,15 +34,12 @@
   - [[#ci][ci]]
 - [[#models][Models]]
   - [[#validations][validations]]
-    - [[#validates][validates]]
-    - [[#validate][validate]]
   - [[#concerns][concerns]]
-  - [[#best-pratices][best pratices]]
-    - [[#fat-models][fat models]]
+  - [[#best-practices][best practices]]
 - [[#routes][Routes]]
 - [[#controller][Controller]]
+  - [[#concerns][Concerns]]
   - [[#methods][methods]]
-    - [[#layout][layout]]
 - [[#parameters][Parameters]]
 - [[#views][Views]]
   - [[#templates][Templates]]
@@ -51,6 +49,8 @@
     - [[#output-embedding-tags--][output embedding tags <%= %>]]
 - [[#html-templates][HTML Templates]]
 - [[#session][Session]]
+- [[#hook][Hook]]
+- [[#errors][Errors]]
 - [[#helpers][Helpers]]
   - [[#formhelper][FormHelper]]
     - [[#label][label]]
@@ -113,8 +113,6 @@
 - [[#action-dispatch][Action Dispatch]]
 - [[#cache][Cache]]
 - [[#tests][Tests]]
-  - [[#rspec][RSpec]]
-  - [[#unit][Unit]]
 - [[#traits][Traits]]
   - [[#rest][REST]]
   - [[#json][JSON]]
@@ -128,11 +126,11 @@
 :END:
 * Progress
 ** Books
-|                         |                         |                                                    |
-|-------------------------+-------------------------+----------------------------------------------------|
-| Agile WebDev w/ Rails 6 | Task C: Catalog Display | Iteration C3: Using a Helper to Format the Price   |
-| Beginning Rails 6       | Active Storage          | Updating the Article View                          |
-| Sustainable Rails       | 7 HTML Templates        | 7.2.1Name the Instance Variable After the Resource |
+|                         |                        |                                                    |
+|-------------------------+------------------------+----------------------------------------------------|
+| Agile WebDev w/ Rails 6 | Task E: A Smarter Cart | Iteration E2: Handling Errors                      |
+| Beginning Rails 6       | Active Storage         | Updating the Article View                          |
+| Sustainable Rails       | 7 HTML Templates       | 7.2.1Name the Instance Variable After the Resource |
 
 ** SLOC
 |       |                                      |                 |
@@ -143,7 +141,7 @@
 ** database
 | cmd                             | desc                                                                          |
 |---------------------------------+-------------------------------------------------------------------------------|
-| dbconsole                       |                                                                               |
+| db-console                       |                                                                               |
 | console                         |                                                                               |
 | db:create                       |                                                                               |
 | db:create:all                   | create test,production and development database                               |
@@ -157,6 +155,7 @@
 | db:seed:replant                 | truncates tables of each database for current environment and loads the seeds |
 | db:setup                        | recreate database and adds the seed data as you may expect.                   |
 | db:reset                        | drop database, recreates it, loads the schema, and seeds your database        |
+y
 ** new
 | how               | desc                                              |
 +-------------------+---------------------------------------------------|
@@ -262,6 +261,7 @@ Rails 6 uses rake as task runner
 *** reload!
 reloads the Rails application environment within your console session. You need
 to call it when you make changes to existing code.
+** runner
 * bin
 Useful personal scripts
 
@@ -299,7 +299,6 @@ bin/ci # perform all checks
 | naming convention | CamelCased or snake_cased  |
 
 ** validations
-*** validates
 make sure a user has entered something into a field.
 
 #+begin_src ruby
@@ -341,12 +340,13 @@ validates :password, confirmation: true
 #+end_src
 
 *:acceptance*
-*** validate
-
-
 ** concerns
-** best pratices
-*** fat models
+- any module that extends ActiveSupport::Concern module
+- share common code (even as little as a single method!)
+
+** best practices
+*Fat Models*
+
 An intelligent model like this is often called fat. Instead of performing model-related logic in
 other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
 makes your models easier to work with and helps your code stay DRY.
@@ -435,13 +435,40 @@ end
 Don’t Create Custom Actions, Create More Resources
 
 * Controller
-> rails g controller ControllerName [action action] [options]
+
+#+begin_src ruby
+rails g controller ControllerName [action action] [options]
+#+end_src
 
 - name its controller as CamelCase, MixedCase or snake_case
 - every specified actions generates an empty method in the controller and a template in app/views/#{controller_name}.
 
+** Concerns
+
+- any module that extends ActiveSupport::Concern module
+- share common code (even as little as a single method!)
+
+#+begin_src ruby
+# app/models/concerns/trashable.rb
+
+module Trashable
+  extend ActiveSupport::Concern
+
+  included do
+    scope :existing, -> { where(trashed: false) }
+    scope :trashed, -> { where(trashed: true) }
+  end
+
+  def trash
+    update_attribute :trashed, true
+  end
+end
+#+end_src
+
+
 ** methods
-*** layout
+*layout*
+
 #+begin_src ruby
 layout 'my_layout' # Will use a layout in app/views/layouts/my_layout.
 #+end_src
@@ -530,6 +557,8 @@ Name the Instance Variable After the Resource
 
 *link_to*
 
+- defaults to using HTTP GET
+
 #+begin_src html
 <li><%= link_to 'Show', product %></li>
 #+end_src
@@ -540,11 +569,25 @@ Name the Instance Variable After the Resource
 <%= sanitize(product.description) %>
 #+end_src
 
+*button_to*
+
+- POST
+
+#+begin_src ruby
+#+end_src
+
 *csrf_meta_tags*
 
 *javascript_pack_tag*
 
 *stylesheet_link_tag*
+
+*sprintf*
+
+*number_to_currency*
+
+Formats a number into a currency string (e.g., $13.65). You can customize the
+format in the options hash.
 
 * Session
 - implemented as a hash
@@ -556,6 +599,18 @@ session[:account_id] # => 1
 
 session['message'] = "Hello world!"
 session['message'] # => "Hello world!"
+#+end_src
+
+* Hook
+- a method that Rails calls automatically at a given point in an object’s life.
+
+*before_destroy*
+
+* Errors
+- can be associated with individual attributes
+
+#+begin_src ruby
+errors.add(:base, 'Line Items present') # associated error with the base object.
 #+end_src
 
 * Helpers
@@ -943,13 +998,10 @@ straightforward as possible.
 |----------------------+--------------------------------------------------------------------------|
 | dev:cache            | toggle caching on and off in the development environment(restart server) |
 * Tests
-|                 |             |
-|-----------------+-------------|
-| assert_select   | integration |
-| assert_response |             |
 
-** RSpec
-** Unit
+*assert_select*
+
+*assert_response*
 
 * Traits
 - Active Records: Ruby object-relational mapping (ORM) library
