@@ -114,17 +114,17 @@
   :END:
 * Progress
 ** Books
-| Books                            | Chapter                            | late                                    |
-|----------------------------------+------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 5                                  | Inheritance and Messages                |
-| Metaprogramming ruby             | 2                                  | Monday: The Object Mode                 |
-| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
-| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
-| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                        |
-| Design Patterns in Ruby          | Composite                          |                                         |
-| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                         |
-| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not               |
-| The Well Grounded Rubyist        | Functional                         | 16.2.1 Object#freeze and Object#frozen? |
+| Books                            | Chapter                                                   | late                                    |
+|----------------------------------+-----------------------------------------------------------+-----------------------------------------|
+| Programming Ruby                 | 5 Sharing Functionality: Inheritance, Modules, and Mixins |                                         |
+| Metaprogramming ruby             | 2                                                         | Monday: The Object Mode                 |
+| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs                          | Handling Failure                        |
+| Confident Ruby                   | Collecting input                                          | 3.8 Define conversion functions         |
+| Closure in Ruby                  | The Power of Procs and Lambdas                            | Implementing Lax                        |
+| Design Patterns in Ruby          | Composite                                                 |                                         |
+| Practical Object-Oriented Design | Sharing Role Behavior with Modules                        |                                         |
+| Eloquent Ruby                    | Embrace Dynamic Typing                                    | Shorter Programs, But Not               |
+| The Well Grounded Rubyist        | Functional                                                | 16.2.1 Object#freeze and Object#frozen? |
 
 ** SLOC
 | Project    | folder | file           | @ |
@@ -585,10 +585,44 @@ name = "Jesus"
 *** Array
 - index collection
 
-**** intersection (&)
-**** union (|)
-**** difference (-)
-**** queue
+#+begin_src ruby
+a = [ 3.14159, "pie", 99 ]
+a.class # => Array
+#+end_src
+
+*length*
+
+*sub-index*
+
+#+begin_src ruby
+a = [ 1, 3, 5, 7, 9 ]
+a[1, 3] # => [3, 5, 7]
+a[3, 1] # => [7]
+a[-3, 2] # => [5, 7]
+#+end_src
+
+*ranging*
+
+- two-period form includes the end position
+
+#+begin_src ruby
+a = [ 1, 3, 5, 7, 9 ]
+a[1..3]
+# => [3, 5, 7]
+a[1...3] # => [3, 5]
+a[3..3]
+# => [7]
+a[-3..-1] # => [5, 7, 9]
+#+end_src
+
+intersection (&)
+
+union (|)
+
+difference (-)
+
+queue
+
 #+begin_src ruby
 queue = []
 
@@ -604,21 +638,47 @@ queue.pop
 queue.pop
 # "orange"
 #+end_src
-**** new
+
+
+new
 #+begin_src ruby
 
 Array.new(4) # [nil, nil, nil, nil]
 Array.new(4) { |x| x + 1 } # [1, 2, 3, 4]
 
 #+end_src
-**** Kernel#Array
+
+Kernel#Array
 - More forgiving than .to_a
 
 #+begin_src ruby
 Array 1 # [1]
 #+end_src
 
-**** examples
+push
+pop
+access
+find
+delete
+max_by
+compact
+new
+#+begin_src ruby
+a = Array.new
+# shallow copy
+b = Array.new [1,2,3]
+#+end_src
+reverse_each
+each_index
+
+*More Examples*
+
+#+begin_src ruby
+array = [ 1, 2, 3, 4, 5, 6, 7 ]
+array.first(4) # => [1, 2, 3, 4]
+array.last(4) # => [4, 5, 6, 7]
+#+end_src
+
    #+begin_src ruby
    h = { a: 100, b: 20 }
    h.delete_if { |key, value| value < 25 }
@@ -670,21 +730,6 @@ Array 1 # [1]
    a.count(1)
    #+end_src
    [[file:path]]
-**** push
-**** pop
-**** access
-**** find
-**** delete
-**** max_by
-**** compact
-**** array
-#+begin_src ruby
-a = Array.new
-# shallow copy
-b = Array.new [1,2,3]
-#+end_src
-**** reverse_each
-**** each_index
 *** Queue
 - thread-safe, blocking.
 - If the queue is empty, calling pop will put your current thread to sleep &
@@ -736,15 +781,26 @@ que.push(:bacon, true) # raises ThreadError: queue full
 *** Hash
 - keys must be comparable
 - rehash force the hash to be reindexed whenever a key has changed
+- remains in initial order
 - index collection
-**** methods
-***** store
-***** acess
-***** delete
-***** each_key
-***** each_value
-***** find(<value>)
-***** more
+store
+acess
+delete
+
+has_key?
+
+#+begin_src ruby
+if counts.has_key?(next_word)
+counts[next_word] += 1
+else
+counts[next_word] = 1
+end
+#+end_src
+
+each_key
+each_value
+find(<value>)
+
 #+begin_src ruby
 # Strings keys
 h = { "one" => 1, "two" => 2 }
@@ -1396,6 +1452,17 @@ private_constant
 #+begin_src ruby
  private_constant :ADULT_AGE
 #+end_src
+
+#+begin_src ruby
+person1 = "Tim"
+person2 = person1.dup
+#+end_src
+
+
+#+begin_src ruby
+person1 = "Tim"
+person1.freeze
+#+end_src
 ** Comparison
    #+begin_src ruby
    # ==
@@ -1421,7 +1488,8 @@ private_constant
    not true
    #+end_src
 ** Blocks
-*** block-local variables
+*block-local variables*
+
    #+begin_src ruby
    square = "yes"
    total = 0
@@ -1433,11 +1501,15 @@ private_constant
    produces:
      Total = 14, square = yes
    #+end_src
-*** numbered parameters
+
+*numbered parameters*
+
 #+begin_src ruby
 [1,2,3].each { puts _1 }
 #+end_src
-*** yield
+
+*yield*
+
    #+begin_src ruby
 
    def foo
@@ -1455,7 +1527,9 @@ private_constant
      bar # => lol
      bar { p 'yahoo' } # => yahoo
    #+end_src
-*** yield_self
+
+*yield_self*
+
 refers to the object we’re calling the method on.
 
 #+begin_src ruby
@@ -1465,6 +1539,63 @@ n_squared = ->(n) { n ** 2 }
   .yield_self(&n_squared) # 16
 
 #+end_src
+
+as object
+
+#+begin_src ruby
+class ProcExample
+def pass_in_block(&action)
+@stored_proc = action
+end
+def use_proc(parameter)
+@stored_proc.call(parameter)
+end
+end
+#+end_src
+
+
+#+begin_src ruby
+def create_block_object(&block)
+  block
+end
+
+bo = create_block_object { |param| puts "You called me with #{param}" }
+bo.call 99
+bo.call "cat"
+#+end_src
+
+As Closures
+
+#+begin_src ruby
+def n_times(thing)
+  lambda {|n| thing * n }
+end
+p1 = n_times(23)
+p1.call(3) # => 69
+p1.call(4) # => 92
+p2 = n_times("Hello ")
+p2.call(3) # => "Hello Hello Hello "
+#+end_src
+
+
+#+begin_src ruby
+proc1 = lambda do |a, *b, &block|
+  puts "a = #{a.inspect}"
+  puts "b = #{b.inspect}"
+  block.call
+end
+proc1.call(1, 2, 3, 4) { puts "in block1" }
+#+end_src
+
+#+begin_src ruby
+proc2 = -> a, *b, &block do
+  puts "a = #{a.inspect}"
+  puts "b = #{b.inspect}"
+  block.call
+end
+proc2.call(1, 2, 3, 4) { puts "in block2" }
+#+end_src
+
 ** Regular Expressions
 - Regexp
 #+begin_src ruby
@@ -1681,6 +1812,23 @@ Callbacks and hooks methods are called when a particular event takes place durin
     - is an enumerable object
     - can add enumerability to objects
     - can stop and resume collection cycling
+
+#+begin_src ruby
+enum_in_threes = (1..10).enum_for(:each_slice, 3)
+enum_in_threes.to_a # => [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+#+end_src
+
+Lazy
+
+#+begin_src ruby
+def Integer.all
+Enumerator.new do |yielder, n: 0|
+loop { yielder.yield(n += 1) }
+end.lazy
+end
+p Integer.all.first(10) # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+#+end_src
+
 ** Instructions
 *** Rbenv
     rbenv global 2.3.0 && rbenv rehash
