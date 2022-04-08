@@ -32,10 +32,6 @@
   - [[#setup][setup]]
   - [[#rails][rails]]
   - [[#ci][ci]]
-- [[#models][Models]]
-  - [[#validations][validations]]
-  - [[#concerns][concerns]]
-  - [[#best-practices][best practices]]
 - [[#routes][Routes]]
 - [[#controller][Controller]]
   - [[#concerns][Concerns]]
@@ -83,9 +79,7 @@
     - [[#after_save][after_save]]
     - [[#before_destroy][before_destroy]]
     - [[#after_destroy][after_destroy]]
-  - [[#migrations][Migrations]]
   - [[#migration][Migration]]
-    - [[#drop_table][drop_table]]
   - [[#filters][Filters]]
   - [[#query-interface][Query Interface]]
   - [[#finding][Finding]]
@@ -105,6 +99,11 @@
   - [[#named-scope][Named Scope]]
   - [[#seeds][Seeds]]
     - [[#methods][methods]]
+- [[#models][Models]]
+  - [[#validations][validations]]
+  - [[#methods][methods]]
+  - [[#concerns][concerns]]
+  - [[#best-practices][best practices]]
 - [[#action-text][Action Text]]
 - [[#active-storage][Active Storage]]
 - [[#action-pack][Action Pack]]
@@ -126,11 +125,11 @@
 :END:
 * Progress
 ** Books
-|                         |                        |                                                    |
-|-------------------------+------------------------+----------------------------------------------------|
-| Agile WebDev w/ Rails 6 | Task E: A Smarter Cart | Iteration E2: Handling Errors                      |
-| Beginning Rails 6       | Active Storage         | Updating the Article View                          |
-| Sustainable Rails       | 7 HTML Templates       | 7.2.1Name the Instance Variable After the Resource |
+|                         |                  |                                                      |
+|-------------------------+------------------+------------------------------------------------------|
+| Agile WebDev w/ Rails 6 | F - Ajax         | Iteration F5: Broadcasting Updates with Action Cable |
+| Beginning Rails 6       | Active Storage   | Updating the Article View                            |
+| Sustainable Rails       | 7 HTML Templates | 7.2.1Name the Instance Variable After the Resource   |
 
 ** SLOC
 |       |                                      |                 |
@@ -293,63 +292,6 @@ bin/setup # ensure setup is idempotent
 bin/ci # perform all checks
 #+end_src
 
-* Models
-|                   |                            |
-|-------------------+----------------------------|
-| naming convention | CamelCased or snake_cased  |
-
-** validations
-make sure a user has entered something into a field.
-
-#+begin_src ruby
-valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
-validates :email, length: { in: 5..50 }
-#+end_src
-
-*:presence*
-
-#+begin_src ruby
-validates :title, :body, presence: true
-#+end_src
-
-*:uniqueness*
-validates whether the value of the specified attribute is unique across the system.
-
-#+begin_src ruby
-validates :email, uniqueness: true
-valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
-#+end_src
-
-*:length*
-
-#+begin_src ruby
-validates :email, length: { in: 5..50 }
-#+end_src
-
-*:format*
-checks whether a value is in the correct format.
-
-#+begin_src ruby
-validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
-#+end_src
-
-*:confirmation*
-
-#+begin_src ruby
-validates :password, confirmation: true
-#+end_src
-
-*:acceptance*
-** concerns
-- any module that extends ActiveSupport::Concern module
-- share common code (even as little as a single method!)
-
-** best practices
-*Fat Models*
-
-An intelligent model like this is often called fat. Instead of performing model-related logic in
-other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
-makes your models easier to work with and helps your code stay DRY.
 * Routes
 The Rails router recognizes URLs and dispatches them to a controller's action,
 or to a Rack application. It can also generate paths and URLs, avoiding the need
@@ -465,12 +407,17 @@ module Trashable
 end
 #+end_src
 
-
 ** methods
 *layout*
 
 #+begin_src ruby
 layout 'my_layout' # Will use a layout in app/views/layouts/my_layout.
+#+end_src
+
+rescue_from
+
+#+begin_src ruby
+rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 #+end_src
 
 * Parameters
@@ -846,13 +793,32 @@ user.build_profile(bio: 'eats leaves')
 *** before_destroy
 *** after_destroy
 
-** Migrations
 ** Migration
-*** drop_table
+*drop_table*
+
 drop existing migration table
 #+begin_src
 ActiveRecord::Migration.drop_table :articles
 #+end_src
+
+JoinTable
+
+#+begin_src sh
+bin/rails generate migration CreateJoinTableCustomerProduct customer product
+#+end_src
+
+#+begin_src ruby
+class CreateJoinTableCustomerProduct < ActiveRecord::Migration[7.0]
+  def change
+    create_join_table :customers, :products do |t|
+      # t.index [:customer_id, :product_id]
+      # t.index [:product_id, :customer_id]
+    end
+  end
+end
+#+end_src
+
+CreateXXX
 
 ** Filters
 - before_create
@@ -969,6 +935,111 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .create({})
 .find_or_create_by({})
 #+end_src
+* Models
+|                   |                            |
+|-------------------+----------------------------|
+| naming convention | CamelCased or snake_cased  |
+
+
+*Generators*
+
+#+begin_src ruby
+bin/rails generate model Product name:string description:text
+#+end_src
+
+#+begin_src ruby
+class CreateProducts < ActiveRecord::Migration[7.0]
+  def change
+    create_table :products do |t|
+      t.string :name
+      t.text :description
+
+      t.timestamps
+    end
+  end
+end
+#+end_src
+
+*Passing Modifiers*
+
+#+begin_src sh
+bin/rails generate migration AddDetailsToProducts 'price:decimal{5,2}' supplier:references{polymorphic}
+#+end_src
+
+#+begin_src ruby
+class AddDetailsToProducts < ActiveRecord::Migration[7.0]
+  def change
+    add_column :products, :price, :decimal, precision: 5, scale: 2
+    add_reference :products, :supplier, polymorphic: true
+  end
+end
+#+end_src
+
+** validations
+make sure a user has entered something into a field.
+
+#+begin_src ruby
+valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+validates :email, length: { in: 5..50 }
+#+end_src
+
+*:presence*
+
+#+begin_src ruby
+validates :title, :body, presence: true
+#+end_src
+
+*:uniqueness*
+validates whether the value of the specified attribute is unique across the system.
+
+#+begin_src ruby
+validates :email, uniqueness: true
+valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+#+end_src
+
+*:length*
+
+#+begin_src ruby
+validates :email, length: { in: 5..50 }
+#+end_src
+
+*:format*
+checks whether a value is in the correct format.
+
+#+begin_src ruby
+validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
+#+end_src
+
+*:confirmation*
+
+#+begin_src ruby
+validates :password, confirmation: true
+#+end_src
+
+*:acceptance*
+
+** methods
+*create_table*
+
+no
+
+#+begin_src ruby
+create_table :products do |t|
+  t.string :name
+end
+#+end_src
+
+
+** concerns
+- any module that extends ActiveSupport::Concern module
+- share common code (even as little as a single method!)
+
+** best practices
+*Fat Models*
+
+An intelligent model like this is often called fat. Instead of performing model-related logic in
+other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
+makes your models easier to work with and helps your code stay DRY.
 * Action Text
 
 Include Action Text’s JavaScript and CSS in the application.
