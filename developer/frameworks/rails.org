@@ -19,6 +19,7 @@
     - [[#resource][resource]]
     - [[#scaffold][scaffold]]
     - [[#models][models]]
+    - [[#channels][channels]]
   - [[#server][server]]
   - [[#misc][misc]]
   - [[#tasks][tasks]]
@@ -63,10 +64,7 @@
 - [[#debugging][Debugging]]
   - [[#views][Views]]
   - [[#-console-][<% console %>]]
-- [[#components][Components]]
-  - [[#action-cable][Action Cable]]
-    - [[#concept][concept]]
-    - [[#cli][cli]]
+- [[#action-cable][Action Cable]]
 - [[#active-record][Active Record]]
   - [[#methods][methods]]
   - [[#associations][associations]]
@@ -125,11 +123,11 @@
 :END:
 * Progress
 ** Books
-|                         |                  |                                                      |
-|-------------------------+------------------+------------------------------------------------------|
-| Agile WebDev w/ Rails 6 | F - Ajax         | Iteration F5: Broadcasting Updates with Action Cable |
-| Beginning Rails 6       | Active Storage   | Updating the Article View                            |
-| Sustainable Rails       | 7 HTML Templates | 7.2.1Name the Instance Variable After the Resource   |
+|                         |                       |                                                    |
+|-------------------------+-----------------------+----------------------------------------------------|
+| Agile WebDev w/ Rails 6 | 12 Task G: Check Out! | Iteration G1: Capturing an Order                   |
+| Beginning Rails 6       | Active Storage        | Updating the Article View                          |
+| Sustainable Rails       | 7 HTML Templates      | 7.2.1Name the Instance Variable After the Resource |
 
 ** SLOC
 |       |                                      |                 |
@@ -201,6 +199,11 @@ rails _6.1.4.6_ new app --database=postgresql
 | a      |                                                                        |      |
 |        | generate scaffold Article title:string body:text published_at:datetime |      |
 |        |                                                                        |      |
+
+*** channels
+#+begin_src
+generate channels <name>
+#+end_src
 
 ** server
 |                               |   |
@@ -637,16 +640,11 @@ Rails.logger.warn "This will show in all environments"
 <% console %>
 #+end_src
 
-* Components
-** Action Cable
-*** concept
+* Action Cable
 - create a channel, broadcast some data, and receive the data.
+- use the two-way WebSocket protocol
 - support multiple streams
-*** cli
-|                          |                 |
-|--------------------------+-----------------|
-| generate channels <name> | in /app/channel |
-|                          |                 |
+- its safe to disable request forgery if it will be sending only data over this channel, and not processing commands,
 * Active Record
 - Single-Table Inheritance
 - maps tables to classes, table rows to objects, and table columns to object attributes.
