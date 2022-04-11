@@ -1,37 +1,38 @@
 #+TITLE: Vue.js
 
 * Summary
-    :PROPERTIES:
-    :TOC:      :include all :depth 2 :ignore this
-    :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-  - [[#css-pre-processors][CSS Pre-Processors]]
-  - [[#css-resources][CSS Resources]]
-  - [[#frameworks][Frameworks]]
-  - [[#tools][Tools]]
-  - [[#css-properties][CSS Properties]]
-  - [[#css-articles][CSS Articles]]
-    - [[#css-grid][CSS Grid]]
-    - [[#css-flexbox][CSS Flexbox]]
-    - [[#css-misc][CSS Misc]]
-  - [[#css-blogssite][CSS Blogs/Site]]
-  - [[#css-frameworks][CSS Frameworks]]
-  - [[#css-backward-compatibility][CSS Backward Compatibility]]
-  :END:
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
+  - [[#directives][Directives]]
+    - [[#v-bind][v-bind]]
+    - [[#v-for][v-for]]
+    - [[#v-on][v-on]]
+    - [[#v-if][v-if]]
+  - [[#data-properties-props][Data Properties (Props)]]
+  - [[#components][Components]]
+    - [[#props][props]]
+  - [[#single-file-components][Single-File Components]]
+  - [[#data-binding][Data Binding]]
+:END:
+
 * Progress
 ** Books
-| Books         | Cap                         | @                                |
-|---------------+-----------------------------+----------------------------------|
-| Fullstack Vue | II - Single-file components | Breaking the app into components |
+| Books                   | Cap                         | @                                                     |
+|-------------------------+-----------------------------+-------------------------------------------------------|
+| Fullstack Vue           | II - Single-file components | Breaking the app into components                      |
+| Front-end dev w/ Vue.js | 2                           | Exercise 1.03: Importing SCSS into a Scoped Component |
 
 ** SLOC
-| SLOC     | folder                            | file            | @ |
-|----------+-----------------------------------+-----------------+---|
-| vue-next | packages/compiler-core/src/compat | compatConfig.ts |   |
-| vue      |                                   |                 |   |
+| SLOC | folder | file | @ |
+|------+--------+------+---|
+| vue  |        |      |   |
 * Base
 ** Directives
 *** v-bind
@@ -74,9 +75,25 @@ create event listeners within the DOM.
 <span @click="upvote(submission.id)"></span>
 #+end_src
 *** v-if
+** Data Properties (Props)
 
+#+begin_src html
+<template>
+    <div>{{color}}</div>
+</template>
+<script>
+    export default {
+        data() {
+          return {
+            color: 'red'
+          }
+        }
+    }
+</script>
+#+end_src
 ** Components
 Vue components are Vue instances.
 *** props
 
 ** Single-File Components
+** Data Binding
