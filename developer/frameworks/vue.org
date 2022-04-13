@@ -18,16 +18,21 @@
   - [[#data-properties-props][Data Properties (Props)]]
   - [[#components][Components]]
     - [[#props][props]]
+    - [[#hooks][hooks]]
   - [[#single-file-components][Single-File Components]]
   - [[#data-binding][Data Binding]]
+  - [[#directives][Directives]]
+- [[#commands][Commands]]
+  - [[#add][add]]
+  - [[#serve][serve]]
 :END:
 
 * Progress
 ** Books
-| Books                   | Cap                         | @                                                     |
-|-------------------------+-----------------------------+-------------------------------------------------------|
-| Fullstack Vue           | II - Single-file components | Breaking the app into components                      |
-| Front-end dev w/ Vue.js | 2                           | Exercise 1.03: Importing SCSS into a Scoped Component |
+| Books                   | Cap                         | @                                                                |
+|-------------------------+-----------------------------+------------------------------------------------------------------|
+| Front-end dev w/ Vue.js | 1                           | Activity 1.01: Building a Dynamic Shopping List App Using Vue.js |
+| Fullstack Vue           | II - Single-file components | Breaking the app into components                                 |
 
 ** SLOC
 | SLOC | folder | file | @ |
@@ -94,6 +99,139 @@ create event listeners within the DOM.
 ** Components
 Vue components are Vue instances.
 *** props
+*** hooks
+*beforeCreate*
+
+*created*
+
+*beforeMount*
+
+*mounted*
+
+*beforeUpdate*
+
+
+*updated*
+
 
 ** Single-File Components
 ** Data Binding
+** Directives
+*v-text*
+
+*v-once*
+
+*v-html*
+
+#+begin_src html
+<template>
+  <div>
+    <h1 v-once v-text="text">Loading...</h1>
+    <h2 v-html="html" />
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      // v-text
+      text: 'Directive text',
+      // v-html
+      html: 'Stylise</br>HTML in<br/><b>your data</b>',
+    }
+  },
+}
+</script>
+#+end_src
+
+*v-bind*
+
+*v-if*
+
+*v-else*
+
+*v-else-if*
+
+#+begin_src html
+<template>
+  <div>
+    <h1 v-if="false" v-once v-text="text">Loading...</h1>
+    <h2 v-else-if="false" v-html="html" />
+    <a
+      v-else
+      :href="link.url"
+      :target="link.target"
+      :tabindex="link.tabindex"
+      v-text="link.title"
+    />
+  </div>
+</template>
+#+end_src
+
+*v-show*
+
+#+begin_src html
+<template>
+  <div>
+    <h1 v-show="true" v-once v-text="text">Loading...</h1>
+    <h2 v-show="false" v-html="html" />
+    <a
+      :href="link.url"
+      :target="link.target"
+      :tabindex="link.tabindex"
+      v-text="link.title"
+    />
+  </div>
+</template>
+#+end_src
+
+*v-for*
+
+#+begin_src html
+<ul>
+    <li v-for="n in 5" :key="n">{{ n }}</li>
+</ul>
+#+end_src
+
+#+begin_src html
+<template>
+  <div>
+    <h1>Looping through arrays</h1>
+    <ul>
+      <li v-for="(item, n) in interests" :key="n">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      interests: ['TV', 'Games', 'Sports'],
+    }
+  },
+}
+</script>
+#+end_src
+
+*v-model*
+
+#+begin_src html
+<template>
+    <input v-model="name" />
+</template>
+<script>
+      export default {
+        data() {
+          return {
+            name: ''
+          }
+        }
+      }
+</script>
+#+end_src
+
+* Commands
+** add
+** serve
