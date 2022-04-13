@@ -212,9 +212,10 @@
 
 * Progress
 ** Books
-| Books                            | Chapters              | @        |
-|----------------------------------+-----------------------+----------|
-| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | Services |
+| Books                            | Chapters              | @          |
+|----------------------------------+-----------------------+------------|
+| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | DaemonSets |
+
 * Base
 ** Container
 *** lifecycle

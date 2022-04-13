@@ -48,6 +48,7 @@ properties in different browsers; for example, -webkit-backface-visibility.
 *** breakpoint
 a particular viewport width or height at which a responsive design should change
 significantly.
+** Modules
 * Best Practics
 ** images
 - set all images to a max-width of 100% in the CSS by default!
