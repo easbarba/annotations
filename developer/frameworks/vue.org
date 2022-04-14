@@ -22,6 +22,9 @@
   - [[#single-file-components][Single-File Components]]
   - [[#data-binding][Data Binding]]
   - [[#directives][Directives]]
+  - [[#computed-properties][Computed Properties]]
+  - [[#computed-setters][Computed Setters]]
+  - [[#watchers][Watchers]]
 - [[#commands][Commands]]
   - [[#add][add]]
   - [[#serve][serve]]
@@ -29,10 +32,10 @@
 
 * Progress
 ** Books
-| Books                   | Cap                         | @                                                                |
-|-------------------------+-----------------------------+------------------------------------------------------------------|
-| Front-end dev w/ Vue.js | 1                           | Activity 1.01: Building a Dynamic Shopping List App Using Vue.js |
-| Fullstack Vue           | II - Single-file components | Breaking the app into components                                 |
+| Books                   | Cap                         | @                                |
+|-------------------------+-----------------------------+----------------------------------|
+| Front-end dev w/ Vue.js | 2                           | Deep Watching Concepts           |
+| Fullstack Vue           | II - Single-file components | Breaking the app into components |
 
 ** SLOC
 | SLOC | folder | file | @ |
@@ -112,7 +115,6 @@ Vue components are Vue instances.
 
 
 *updated*
-
 
 ** Single-File Components
 ** Data Binding
@@ -231,6 +233,9 @@ export default {
       }
 </script>
 #+end_src
+** Computed Properties
+** Computed Setters
+** Watchers
 
 * Commands
 ** add
