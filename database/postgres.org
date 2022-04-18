@@ -20,6 +20,13 @@
     - [[#null][null]]
     - [[#truncate][truncate]]
     - [[#where][where]]
+    - [[#like][like]]
+    - [[#ilike][ilike]]
+    - [[#distinct][distinct]]
+  - [[#functions][functions]]
+  - [[#clause][clause]]
+  - [[#types][Types]]
+    - [[#null][NULL]]
   - [[#databases][Databases]]
     - [[#create][create]]
     - [[#drop][drop]]
@@ -64,9 +71,9 @@
 :END:
 
 * Progress
-| book                   | chapter             | @ |
-|------------------------+---------------------+---|
-| Learn PostgreSQL 12/13 | Advanced Statements |   |
+| book                   | chapter             | @                |
+|------------------------+---------------------+------------------|
+| Learn PostgreSQL 12/13 | Advanced Statements | Using subqueries |
 
 * Base
 ** Tables
@@ -89,6 +96,11 @@ pk int GENERATED ALWAYS AS IDENTITY
 , UNIQUE(username)
 );
 #+end_src
+
+#+begin_src sql
+create table new_categories as select * from categories limit 0;
+#+end_src
+
 *** drop
 
 #+begin_src sql
@@ -100,10 +112,10 @@ DROP TABLE IF EXISTS users;
 #+end_src
 *** insert
 #+begin_src sql
-forumdb=# INSERT INTO users (username,gecos,email) values
+INSERT INTO users (username,gecos,email) values
 ('myusername','mygecos','myemail');
 
-forumdb=# INSERT INTO categories (title,description) values
+INSERT INTO categories (title,description) values
 ('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable');
 #+end_src
 *** update
@@ -191,6 +203,54 @@ select * from categories where description ='vegetable';
 select * from categories where description ='fruits' and title='orange';
 
 select * from categories where description ='fruits' order by 2 desc;
+#+end_src
+*** like
+
+#+begin_src sql
+select * from categories where title like 'a%';
+select * from categories where title like '%e';
+select * from categories where title like '%ap%';
+select * from categories where title like 'A%';
+select * from categories where upper(title) like 'A%';  -- like case-insensitive search
+#+end_src
+*** ilike
+Performs case-insensitive search
+
+#+begin_src sql
+select * from categories where title ilike 'A%';
+#+end_src
+*** distinct
+** functions
+*coalesce*
+
+given two or more parameters, returns the first value that is not NULL.
+
+#+begin_src sql
+select coalesce(NULL,'test'); -- test
+select coalesce('orange','test'); -- orange
+select coalesce(description,'No description') as description from categories order by 1;
+#+end_src
+** clause
+*limit*
+limit the number of rows returned by a query
+
+#+begin_src sql
+select * from categories order by pk limit 1;
+select * from categories order by pk limit 2;
+#+end_src
+
+*offset*
+skip a specific number of rows returned by the query
+
+#+begin_src sql
+select * from categories order by pk offset 1 limit 1;
+#+end_src
+
+** Types
+*** NULL
+#+begin_src sql
+\pset null
+\pset null (NULL) -- change how NULL is represented to (NULL)
 #+end_src
 ** Databases
 *** create
