@@ -28,6 +28,8 @@
 - [[#commands][Commands]]
   - [[#add][add]]
   - [[#serve][serve]]
+- [[#tips][Tips]]
+  - [[#container][container]]
 :END:
 
 * Progress
@@ -240,3 +242,9 @@ export default {
 * Commands
 ** add
 ** serve
+* Tips
+** container
+
+#+begin_src shell
+docker run --rm -d -v $(pwd):/app/ -v /app/node_modules -w /app -p 8081:8080 debian:unstable bash -c 'apt-get update && apt install -y nodejs npm && npm i -g yarn && yarn && yarn serve'
+#+end_src
