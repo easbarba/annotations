@@ -116,7 +116,7 @@
 ** Books
 | Books                            | Chapter                                                   | late                                    |
 |----------------------------------+-----------------------------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 5 Sharing Functionality: Inheritance, Modules, and Mixins | Instance Variables in Mixins            |
+| Programming Ruby                 | 5 Sharing Functionality: Inheritance, Modules, and Mixins | 5.6Inheritance, Mixins, and Design      |
 | Metaprogramming ruby             | 2                                                         | Monday: The Object Mode                 |
 | Effective Testing - RSpec3       | Testing in Isolation: Unit Specs                          | Handling Failure                        |
 | Confident Ruby                   | Collecting input                                          | 3.8 Define conversion functions         |
@@ -796,6 +796,7 @@ que.push(:bacon, true) # raises ThreadError: queue full
 - rehash force the hash to be reindexed whenever a key has changed
 - remains in initial order
 - index collection
+
 store
 acess
 delete
@@ -2455,6 +2456,12 @@ https://rubular.com
    3. We must ensure the method's logic receives objects which can play those roles
 * Tips
 ** Container
+- keep gems in volume
+- keep current folder in volume
+- workdir is app
+- run commands as bash
+- apt distro
+
 #+begin_src shell
-docker run --rm -v $(pwd):/app/ -w /app ruby bundle install && mkdir -pv ~/.config/pak && cp docs/config_examples/*.yaml ~/.config/pak/ && rake
+docker run --rm -v $(pwd):/app/ -v bundle_apps:/usr/local/bundle -w /app ruby:3.1.1 bash -c 'bundle install'
 #+end_src
