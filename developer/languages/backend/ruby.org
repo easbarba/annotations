@@ -116,7 +116,7 @@
 ** Books
 | Books                            | Chapter                                                   | late                                    |
 |----------------------------------+-----------------------------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 5 Sharing Functionality: Inheritance, Modules, and Mixins |                                         |
+| Programming Ruby                 | 5 Sharing Functionality: Inheritance, Modules, and Mixins | Instance Variables in Mixins            |
 | Metaprogramming ruby             | 2                                                         | Monday: The Object Mode                 |
 | Effective Testing - RSpec3       | Testing in Isolation: Unit Specs                          | Handling Failure                        |
 | Confident Ruby                   | Collecting input                                          | 3.8 Define conversion functions         |
@@ -140,66 +140,6 @@
 - Math.sin(Math::PI/6.0) - access Math sin method
 - Names of classes and modules are just constants.
 - can nest classes and modules inside other classes and modules to any depth
-
-*** usage
-#+begin_src ruby
-# frozen_string_literal: true
-
-[].methods.grep /^re/ # finds methods begins with re
-
-    require 'pathname'
-
-    # Class Description
-    class Meh # Class name in Camel Case
-      OUCH = 'asdasd' # 1
-      attr_reader :lo, :fi # 2
-
-      # static method
-      def self.from_file(file_name) # 3
-	new(File.readlines(file_name))
-      end
-
-      def initialize(lo, fi) # 4
-	@alpha = OUCH
-	@lo = lo #
-	@fi = fi #
-      end
-
-      private_class_method :new
-
-      private
-
-      def alfa # instance method
-	@localVar = 1
-      end
-
-      def use_local_var # instance method
-	@localVar
-      end
-
-      def self.zeta #
-      end
-    end
-
-    Eija = Class.new #
-
-    def Eija.beta # singleton
-    end
-
-
-    # superclass
-
-    class Parent
-    end
-    class Child < Parent
-    end
-
-    Child.superclass # => Parent
-
-    #
-    meth.owner
-    #
-#+end_src
 
 *** Class methods
 - Class methods are singleton methods defined on objects of class `Class`.
@@ -283,6 +223,13 @@ MyClass.ancestors # => [Greeting, MyClass, Object, Kernel, BasicObject]
 
 
 #+end_src
+*** superclass
+#+begin_src ruby
+class Parent
+end
+Parent.superclass # => Object
+#+end_src
+
 *** super
    #+begin_src ruby
    def x(y,z)
@@ -301,6 +248,66 @@ string = "a string"
 string.singleton_class.ancestors # => [#<Class:#<String:0x0000563fb8797270>>, String, Comparable, Object,Kernel, BasicObject]
 #+end_src
 **** Singleton methods
+*** usage
+#+begin_src ruby
+# frozen_string_literal: true
+
+[].methods.grep /^re/ # finds methods begins with re
+
+    require 'pathname'
+
+    # Class Description
+    class Meh # Class name in Camel Case
+      OUCH = 'asdasd' # 1
+      attr_reader :lo, :fi # 2
+
+      # static method
+      def self.from_file(file_name) # 3
+	new(File.readlines(file_name))
+      end
+
+      def initialize(lo, fi) # 4
+	@alpha = OUCH
+	@lo = lo #
+	@fi = fi #
+      end
+
+      private_class_method :new
+
+      private
+
+      def alfa # instance method
+	@localVar = 1
+      end
+
+      def use_local_var # instance method
+	@localVar
+      end
+
+      def self.zeta #
+      end
+    end
+
+    Eija = Class.new #
+
+    def Eija.beta # singleton
+    end
+
+
+    # superclass
+
+    class Parent
+    end
+    class Child < Parent
+    end
+
+    Child.superclass # => Parent
+
+    #
+    meth.owner
+    #
+#+end_src
+
 ** Objects
 *** methods query
 Returns a list of the names of public and protected methods of obj.
@@ -448,6 +455,12 @@ An array of ancestors—essentially, the method-lookup path for instances of thi
    a -= 10 until a < 10
    #+end_src
 ** Modules
+- provide a namespace and prevent name clashes.
+- support the mixin facility.
+- can’t have instances,
+- can include a module within a class definition.
+
+
    #+begin_src ruby
 
    module A
@@ -481,7 +494,7 @@ An array of ancestors—essentially, the method-lookup path for instances of thi
    #+end_src
 
 *** Mixin
-
+- adds functionality to classes
 ** Types
 *** String
 **** methods
@@ -846,43 +859,45 @@ h.empty?
 | ..  | inclusive                            |
 | ... | exclusive, excludes its last element |
 
-   #+begin_src ruby
-   # create a new range object
-   r = 1..2
+#+begin_src ruby
+# create a new range object
+r = 1..2
 
-   # include all elements
-   r =  1..99
+# include all elements
+r =  1..99
 
-   # exclude last element
-   r = 1...199
+# exclude last element
+r = 1...199
 
-   # verbose object creation
-   r = Range.new(1,100)
-   r = Range.new(1,100, true)
+# verbose object creation
+r = Range.new(1,100)
+r = Range.new(1,100, true)
 
-   # methods
-   r.cover? 2
-   r.include? 3
-   r.max
-   r.reject {}
-   r.inject {}
+# range of object need to return the next object `succ` and be comparable <=>
 
-   # range of object need to return the next object `succ` and be comparable <=>
+# ranges as conditions
+while line = gets
+  puts line if line =~ /start/ .. line =~ /end/
+end
 
-   # ranges as conditions
-   while line = gets
-     puts line if line =~ /start/ .. line =~ /end/
-   end
+# ranges as intervals
+(1..10) === 5   # => true
+(1..10) === 15  # => false
 
-   # ranges as intervals
-   (1..10) === 5   # => true
-   (1..10) === 15  # => false
+('a'..'m').inject :+ # => "abcdefghijklm"
 
+#+end_src
 
+*methods*
 
+#+begin_src ruby
+r.cover? 2
+r.include? 3
+r.max
+r.reject {}
+r.inject {}
 
-
-   #+end_src
+#+end_src
 
 *** Symbols
 - undeclared constant names guaranteed to be unique.
@@ -1977,7 +1992,7 @@ module A
   ffi_lib 'c'
 end
 #+end_src
-* Modules
+* Standard Modules
 ** continuation
    - require 'continuation'
 ** Require
@@ -2126,6 +2141,22 @@ my_portfolio.any? {|account| account.balance > 2000}
 my_portfolio.all? {|account| account.balance > = 10}
 #+end_src
 
+
+#+begin_src ruby
+class VowelFinder
+  include Enumerable
+  def initialize(string)
+    @string = string
+  end
+
+  def each(&block)
+    @string.scan(/[aeiou]/, &block)
+  end
+end
+vf = VowelFinder.new('the quick brown fox jumped')
+vf.inject(:+) # => "euiooue"
+#+end_src
+
 #+begin_src ruby
 # iterate over only those lines that end with a d
 File.open("ordinal").grep(/d$/) do |line|
@@ -2244,6 +2275,33 @@ Enumerator.produce(1, &:next).take(5) # [1, 2, 3, 4, 5]
 *** upto
 #+begin_src ruby
 0.upto(9).each(&method(:puts))
+#+end_src
+** Comparable
+
+#+begin_src ruby
+class Person
+include Comparable
+attr_reader :name
+def initialize(name)
+@name = name
+end
+def to_s
+"#{@name}"
+end
+def <=>(other)
+self.name <=> other.name
+end
+end
+p1 = Person.new("Matz")
+p2 = Person.new("Guido")
+p3 = Person.new("Larry")
+# Compare a couple of names
+if p1 > p2
+puts "#{p1.name}'s name > #{p2.name}'s name"
+end
+# Sort an array of Person objects
+puts "Sorted list:"
+puts [ p1, p2, p3].sort
 #+end_src
 ** Iterators
 - internal iterator
@@ -2383,8 +2441,7 @@ export RI="--format ansi --width 70"
 * Toolings
 ** Online
 https://rubular.com
-* Videos
-  https://www.youtube.com/watch?v=hnGVFzZ0DuI - "300x faster ruby" - Dana Sherson
+
 * Best Practices
 ** Methods
 - methods have four parts
@@ -2396,11 +2453,8 @@ https://rubular.com
    1. We must identify the messages we want to send in order to accomplish the task at hand.
    2. We must identify the roles which correspond to those messages.
    3. We must ensure the method's logic receives objects which can play those roles
-* Blog feeds
-     "https://rubyweekly.com/rss/"
-     "https://feeds.transistor.fm/remote-ruby"
-     "https://dev.to/feed/leandronsp"
-     "https://videosdeti.com.br/feed/"
-     "https://railsguides.net/atom.xml"
-     "https://gettalong.org/posts.rss"
-     "https://leandronsp.com/rss.xml"
+* Tips
+** Container
+#+begin_src shell
+docker run --rm -v $(pwd):/app/ -w /app ruby bundle install && mkdir -pv ~/.config/pak && cp docs/config_examples/*.yaml ~/.config/pak/ && rake
+#+end_src
