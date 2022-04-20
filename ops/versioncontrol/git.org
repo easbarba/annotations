@@ -255,6 +255,13 @@ find .git/objects/ -size 0 -exec rm -f {} \;
 git fetch origin
 #+end_src
 
+or force garbage collection
+
+#+begin_src shell
+git gc --aggressive --prune=now
+#+end_src
+
+
 * Read later
     https://chris.beams.io/posts/git-commit/
     [[https://www.learnenough.com/git-tutorial][Learn enough to be dangerous]]
