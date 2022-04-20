@@ -249,6 +249,12 @@ man gitignore
      cd .git/objects
      ls -al
      sudo chown -R yourname:yourgroup *
+** Fatal Corrupt loose object
+#+begin_src shell
+find .git/objects/ -size 0 -exec rm -f {} \;
+git fetch origin
+#+end_src
+
 * Read later
     https://chris.beams.io/posts/git-commit/
     [[https://www.learnenough.com/git-tutorial][Learn enough to be dangerous]]
