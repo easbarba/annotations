@@ -11,22 +11,29 @@
   - [[#tables][Tables]]
     - [[#create][create]]
     - [[#drop][drop]]
+    - [[#truncate][truncate]]
+    - [[#delete][delete]]
     - [[#insert][insert]]
     - [[#update][update]]
-    - [[#delete][delete]]
     - [[#temporary][temporary]]
     - [[#update][update]]
     - [[#unlogged][unlogged]]
     - [[#null][null]]
-    - [[#truncate][truncate]]
     - [[#where][where]]
     - [[#like][like]]
     - [[#ilike][ilike]]
     - [[#distinct][distinct]]
-  - [[#functions][functions]]
-  - [[#clause][clause]]
+    - [[#subqueries][subqueries]]
+  - [[#operators][Operators]]
+    - [[#or][or]]
+    - [[#in][in]]
+    - [[#not][not]]
+    - [[#exist][exist]]
+  - [[#functions][Functions]]
+  - [[#clause][Clause]]
   - [[#types][Types]]
-    - [[#null][NULL]]
+    - [[#null][null]]
+    - [[#integer][integer]]
   - [[#databases][Databases]]
     - [[#create][create]]
     - [[#drop][drop]]
@@ -71,9 +78,9 @@
 :END:
 
 * Progress
-| book                   | chapter             | @                |
-|------------------------+---------------------+------------------|
-| Learn PostgreSQL 12/13 | Advanced Statements | Using subqueries |
+| book                   | chapter             | @              |
+|------------------------+---------------------+----------------|
+| Learn PostgreSQL 12/13 | Advanced Statements | Learning joins |
 
 * Base
 ** Tables
@@ -88,13 +95,26 @@
 CREATE TABLE dummytable (dummyfield integer not null primary key);
 
 CREATE TABLE users (
-pk int GENERATED ALWAYS AS IDENTITY
 , username text NOT NULL
 , gecos text
 , email text NOT NULL
 , PRIMARY KEY(pk)
 , UNIQUE(username)
 );
+
+INSERT INTO categories (title,description) values
+('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable'), ('pataya', NULL);
+#+end_src
+
+#+begin_src sql
+create table posts (pk int generated always as identity,
+title text not null,
+content text,
+author integer not NULL,
+category integer,
+primary key(pk),
+unique(author));
+
 #+end_src
 
 #+begin_src sql
@@ -102,6 +122,7 @@ create table new_categories as select * from categories limit 0;
 #+end_src
 
 *** drop
+Deletes the table structure from the database, along with any data stored in the table.
 
 #+begin_src sql
 DROP TABLE tablename;
@@ -110,6 +131,31 @@ DROP TABLE tablename;
 #+begin_src sql
 DROP TABLE IF EXISTS users;
 #+end_src
+*** truncate
+Deletes records from a table without removing table structure
+
+- ddl
+
+#+begin_src sql
+TRUNCATE TABLE categories;
+#+end_src
+*** delete
+- dml
+
+delete all records
+
+#+begin_src sql
+DELETE FROM name_table;
+#+end_src
+
+
+delete a group of records
+
+#+begin_src sql
+DELETE FROM name_table WHERE col=value;
+DELETE FROM product WHERE price<2.90;
+#+end_src
+
 *** insert
 #+begin_src sql
 INSERT INTO users (username,gecos,email) values
@@ -119,7 +165,6 @@ INSERT INTO categories (title,description) values
 ('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable');
 #+end_src
 *** update
-*** delete
 *** temporary
 table visible only in the session where it was created
 
@@ -192,10 +237,6 @@ select * from categories order by description NULLS first;
 
 select * from categories order by description NULLS first;
 #+end_src
-*** truncate
-#+begin_src sql
-truncate table temp_categories ;
-#+end_src
 *** where
 #+begin_src sql
 select * from categories where description ='vegetable';
@@ -220,7 +261,32 @@ Performs case-insensitive search
 select * from categories where title ilike 'A%';
 #+end_src
 *** distinct
-** functions
+
+*** subqueries
+** Operators
+*** or
+*** in
+#+begin_src sql
+select * from categories where pk in (10,11);
+#+end_src
+*** not
+#+begin_src sql
+select * from categories where not (pk=10 or pk=11);
+select * from categories where pk not in (10,11);
+select pk,title,content,author,category from posts where category
+       not in (select pk from categories where title ='orange');
+#+end_src
+*** exist
+#+begin_src sql
+select pk,title,content,author,category from posts where exists
+       (select 1 from categories where title ='orange' and posts.category=pk);
+
+
+select pk,title,content,author,category from posts where not
+       exists (select 1 from categories where title ='orange' and
+       posts.category=pk);
+#+end_src
+** Functions
 *coalesce*
 
 given two or more parameters, returns the first value that is not NULL.
@@ -230,7 +296,7 @@ select coalesce(NULL,'test'); -- test
 select coalesce('orange','test'); -- orange
 select coalesce(description,'No description') as description from categories order by 1;
 #+end_src
-** clause
+** Clause
 *limit*
 limit the number of rows returned by a query
 
@@ -247,11 +313,12 @@ select * from categories order by pk offset 1 limit 1;
 #+end_src
 
 ** Types
-*** NULL
+*** null
 #+begin_src sql
 \pset null
 \pset null (NULL) -- change how NULL is represented to (NULL)
 #+end_src
+*** integer
 ** Databases
 *** create
 #+begin_src sql
