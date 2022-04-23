@@ -114,18 +114,16 @@
   :END:
 * Progress
 ** Books
-| Books                   | Chapter                     | late | revision |
-|-------------------------+-----------------------------+------+----------|
-| Learn Functional Elixir | 7 Handling Impure Functions |      |          |
+| Books                   | Chapter                         | late |
+|-------------------------+---------------------------------+------|
+| Learn Functional Elixir | CHAPTER 4 Diving into Recursion |      |
 
 ** SLOC
-| Project   | folder        | file        | @ |
-|-----------+---------------+-------------+---|
-| elixir    | eex/lib/eex   | datetime.ex |   |
-| elixir-ls |               |             |   |
-| ecto      | /ecto/adapter | queryable   |   |
+| Project | folder      | file | @ |
+|---------+-------------+------+---|
+| elixir  | eex/lib/eex |      |   |
 
-* Features
+* Base
 ** Literals
 |         |                          |
 |---------+--------------------------|
@@ -138,6 +136,137 @@
 | list    | [1,23,4]                 |
 | map     | %{id: 123, name: "anna"} |
 | nil     | nil                      |
+** Types
+*** Strings
+#+begin_src elixir
+"meh"
+#+end_src
+
+*<>*
+Join strings
+
+#+begin_src elixir
+
+"Hello, " <> name <> "!"
+
+#+end_src
+
+*#{}*
+Interpolation
+
+#+begin_src elixir
+
+"Hello, #{name}!"
+
+"1 + 1 = #{1+1}"
+#+end_src
+
+Matching Parts of a String
+
+#+begin_src elixir
+"Authentication: " <> credentials = "Authentication: Basic dXNlcjpwYXNz"
+credentials # "Basic dXNlcjpwYXNz"
+#+end_src
+
+*** Lists
+- linked-lists
+
+**** | operator
+#+begin_src elixir
+
+[ head | tail ] = [1,2,3]
+head # 1
+tail # [2,3]
+
+#+end_src
+
+*** Keyword Lists
+data-structure used to pass options to functions.
+
+- 2-item tuples
+- first element (the key) is an atom
+- second element can be any value.
+- allows duplicated keys but they must be atoms
+
+#+begin_src elixir
+[b, c] = [a: 1, a: 12]
+b # {:a, 1}
+c # {:a, 12}
+#+end_src
+*** Tuples
+collections that are stored contiguously in memory, allowing fast access to their elements by index.
+
+- stored contiguously in memory
+ - represents a few items
+
+#+begin_src elixir
+iex> {a, b, c} = {4, 5, 6}
+{4, 5, 6}
+iex> a
+4
+iex> b
+5
+iex> c
+6
+#+end_src
+*** Maps
+Structured in key/value pairs
+
+- allow any value to be the key
+- key must be unique
+
+#+begin_src elixir
+user_signup = %{email: "johndoe@mail.com", password: "12345678"}
+user_signup = %{:email => "johndoe@mail.com", :password => "12345678"}
+
+%{
+  name: "John Doe",
+  age: 20,
+  programming_languages: ["Ruby", "Elixir", "JavaScript", "Java"],
+  location: %{city: "São Paulo", country: "Brazil", state: "SP"}
+}
+#+end_src
+
+#+begin_src elixir
+abilities = %{strength: 16, dexterity: 12, intelligence: 10}
+%{strength: strength_value} = abilities
+strength_value
+16
+#+end_src
+
+
+#+begin_src elixir
+iex> %{intelligence: 10, dexterity: dexterity_value} = abilities
+iex> dexterity_value
+12
+#+end_src
+
+Check and bind at the same time w/ =
+
+#+begin_src elixir
+iex> %{strength: strength_value = 16 } = abilities
+iex> strength_value
+16
+#+end_src
+*** Struct
+Structs are extensions built on top of maps that provide compile-time checks and default values.
+
+#+begin_src elixir
+
+defmodule DungeonCrawl.Character do
+  defstruct name: nil,
+    description: nil,
+    hit_points: 0,
+    max_hit_points: 0,
+    attack_description: nil,
+    damage_range: nil
+end
+
+%DungeonCrawl.Character{name: "Warrior"}
+
+
+#+end_src
+
 ** Arithmetic
 |    |                                       |                      |
 |----+---------------------------------------+----------------------|
@@ -151,6 +280,20 @@
 | >  |                                       |                      |
 | ++ | Concatenating two lists               | [1, 2] ++ [3, 4]     |
 | <> | Concatenating two strings or binaries | "Hello, " <> "World" |
+** Binding
+#+begin_src elixir
+x = y
+#+end_src
+
+*Pin operator* - Prevent rebindig
+
+#+begin_src elixir
+iex> x = 2
+2
+iex> ^x = 2
+2
+iex> ^x = 1 # (MatchError) no match of right hand side value: 1
+#+end_src
 
 ** Logical
 - left side of the operators and and or must be Boolean values
@@ -170,52 +313,6 @@
 | \\ |   |   |
 | !  |   |   |
 
-** Types
-*** Strings
-**** Functions
-*****  <>
-Join strings
-
-#+begin_src elixir
-
-"Hello, " <> name <> "!"
-
-#+end_src
-***** interpolation
-
-#+begin_src elixir
-
-"Hello, #{name}!"
-
-"1 + 1 = #{1+1}"
-
-#+end_src
-*** Lists
-**** | operator
-#+begin_src elixir
-
-[ head | tail ] = [1,2,3]
-head # 1
-tail # [2,3]
-
-#+end_src
-*** Struct
-#+begin_src elixir
-
-defmodule DungeonCrawl.Character do
-  defstruct name: nil,
-    description: nil,
-    hit_points: 0,
-    max_hit_points: 0,
-    attack_description: nil,
-    damage_range: nil
-end
-
-%DungeonCrawl.Character{name: "Warrior"}
-
-
-#+end_src
-
 ** Functions
 #+begin_src elixir
 
@@ -225,7 +322,11 @@ end
 
 #+end_src
 
-*** capture syntax
+*Function clauses*
+- must be defined in sequence
+
+capture syntax
+
 #+begin_src elixir
 
 t = &(&1 * &2)
@@ -234,7 +335,8 @@ t.(2,3)
 #+end_src
 - parens are optional
 
-*** private functions
+private functions
+
 Control acessibiltity from outside.
 
 #+begin_src elixir
@@ -247,7 +349,8 @@ end
 
 #+end_src
 
-*** default values \\
+
+*default values \\*
 
 #+begin_src elixir
 
@@ -257,7 +360,8 @@ end
 
 #+end_src
 
-*** guard clauses
+*Guard clauses*
+
 run func only if guard match
 
 #+begin_src elixir
@@ -272,26 +376,26 @@ number_compare = fn
 end
 
 number_compare.(1, 2) # returns 2
-
 #+end_src
 
-*** defguard
+*defguard*
 
 #+begin_src elixir
-
 defguard is_rate(value) when is_float(value) and value >= 0 and value <= 1
 defguard is_cents(value) when is_integer(value) and value >= 0
-
 #+end_src
 
-*** Tail-call
-*** Body recursive
-*** Unbounded recursion
+*Tail-call*
+
+*Body recursive*
+
+*Unbounded recursion*
 
 ** Sigil
 #+begin_src elixir
-
-~w(meh foo bar)
+~D[2018-01-01]
+~w(chocolate jelly mint) # ["chocolate", "jelly", "mint"]
+~w(meh foo bar) # list without worrying about double quotes and commas
 #+end_src
 
 ** Control Flow
@@ -310,6 +414,19 @@ end
 
 
 #+end_src
+
+#+begin_src elixir
+result =
+  case Integer.parse(user_input) do
+    :error ->
+      "Invalid ability score: #{user_input}"
+
+    {ability_score, _} when ability_score >= 0 ->
+      ability_modifier = (ability_score - 10) / 2
+      "Your ability modifier is #{ability_modifier}"
+  end
+#+end_src
+
 *** cond
 
 is useful when you need to match against different values. However, in many
@@ -352,8 +469,15 @@ iex> for n <- [1, 2, 3, 4, 5, 6, 7], n > 3, do: n
 
 #+end_src
 ** Pattern matching
-*** pin operator ^
-*** <>
+
+
+*Unpacking*
+
+#+begin_src elixir
+#+end_src
+
+Binary pattern-matching
+
 ** Anonymous Functions
 #+begin_src elixir
 
@@ -458,6 +582,11 @@ iex> h Ecto.Changeset.cast
 ** Integer
 ** Float
 ** IO
+
+* Files
+** *.exs
+Elixir scripts that don’t need to generate a compiled version.
+** *.ex
 * Packages
 ** Mix
 Run multiple tasks
