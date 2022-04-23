@@ -239,11 +239,11 @@ select * from categories order by description NULLS first;
 #+end_src
 *** where
 #+begin_src sql
-select * from categories where description ='vegetable';
+SELECT * FROM categories WHERE description ='vegetable';
 
-select * from categories where description ='fruits' and title='orange';
+SELECT * FROM categories WHERE description ='fruits' AND title='orange';
 
-select * from categories where description ='fruits' order by 2 desc;
+SELECT * FROM categories WHERE description ='fruits' ORDER by 2 desc;
 #+end_src
 *** like
 
@@ -349,6 +349,40 @@ select * from pg_database where datname='forumdb';
 #+end_src
 ** DDL - Data Definition Language
 commands are used to manage databases and tables
+
+Alter table person add constraint unique_email unique(email)
+Alter table person add  unique(email)
+Update person set f = ket where id = 5
+On conflict (id) do nothing;
+On conflict (id) do update set email = excluded.email;
+\dt
+Name Varchar(6) not null,
+Id integer not bull primary key
+Car bigint references car (id)
+Update person set car_I'd = 2 where id = 1
+Left join car on ....
+Where car.* is null;
+\copy ( select * from person left join car on car_id = person.car_id to 'home/.../p.csv'  delimiter ',' csv header;
+Alter sequence Orego person restart with 10;
+Create extension if not exists 'uuid-assp'
+\df
+
+Comparison
+Mockaroo
+Fetch
+Row only
+Between
+Like '___@%'
+Group by
+Having
+Count(*)
+Sum
+Min
+Max
+Avg
+Interval
+Extract
+
 ** DML - Data Manipulation Language
 used to insert, delete, update, and select data inside databases
 *** where
