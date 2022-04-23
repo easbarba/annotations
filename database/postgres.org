@@ -356,19 +356,23 @@ Update person set f = ket where id = 5
 On conflict (id) do nothing;
 On conflict (id) do update set email = excluded.email;
 \dt
+
 Name Varchar(6) not null,
 Id integer not bull primary key
 Car bigint references car (id)
+
+
 Update person set car_I'd = 2 where id = 1
 Left join car on ....
 Where car.* is null;
+
 \copy ( select * from person left join car on car_id = person.car_id to 'home/.../p.csv'  delimiter ',' csv header;
 Alter sequence Orego person restart with 10;
 Create extension if not exists 'uuid-assp'
 \df
 
 Comparison
-Mockaroo
+
 Fetch
 Row only
 Between
