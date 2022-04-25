@@ -116,7 +116,7 @@
 ** Books
 | Books                            | Chapter                            | late                                    |
 |----------------------------------+------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 8 More About Methods               |                                         |
+| Programming Ruby                 | 9 Expressions                      |                                         |
 | Metaprogramming ruby             | 2                                  | Monday: The Object Mode                 |
 | Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
 | Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
@@ -1178,6 +1178,51 @@ h.empty?
 - a signal that a method that modifies the receiver did not make a modification
 
 NilClass
+
+** Expression
+
+*<<*
+
+#+begin_src ruby
+
+class ScoreKeeper
+  def initialize
+    @total_score = @count = 0
+  end
+
+  def <<(score)
+    @total_score += score
+    @count += 1
+    self
+  end
+
+  def average
+    raise 'No scores' if @count.zero?
+
+    Float(@total_score) / @count
+  end
+end
+#+end_src
+
+*[]*
+
+#+begin_src ruby
+class SomeClass
+  def [](p1, p2, p3)
+    # ...
+  end
+
+  def []=(*params)
+    value = params.pop
+    puts "Indexed with #{params.join(', ')}"
+    puts "value = #{value.inspect}"
+  end
+end
+
+s = SomeClass.new
+s[1] = 2
+s['cat', 'dog'] = 'enemies'
+#+end_src
 
 ** Range
 |     |                                      |
