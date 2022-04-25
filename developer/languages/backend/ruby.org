@@ -116,7 +116,7 @@
 ** Books
 | Books                            | Chapter                            | late                                    |
 |----------------------------------+------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 6 Standard Types                   |                                         |
+| Programming Ruby                 | 8 More About Methods               |                                         |
 | Metaprogramming ruby             | 2                                  | Monday: The Object Mode                 |
 | Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
 | Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
@@ -134,12 +134,189 @@
 | solargraph |        | api_map.rb     |   |
 
 * Base
+** Objects
+*** methods query
+Returns a list of the names of public and protected methods of obj.
+#+begin_src ruby
+string = "aaa"
+string.methods.grep(/case/).sort
+#+end_src
+*** initialize
+#+begin_src ruby
+class Point
+  def initialize(x, y)
+    @x = x
+    @y = y
+  end
+end
+
+Meh.new('foo', 'bar') #  #<Meh:0x0000000003a33d80 @x="bar", @y="foo">
+
+#+end_src
+
+Default/Optional arguments
+
+#+begin_src ruby
+
+class Meh
+  def initialize(x='bar', y='foo')
+    @x = x
+    @y = y
+  end
+end
+
+Meh.new # #<Meh:0x0000000003a33d80 @x="bar", @y="foo">
+#+end_src
+*** attributes
+attr_accessor
+
+attr_writer
+
+attr_reader
+
+#+begin_src ruby
+attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
+#+end_src
+
+*** private_methods / protected_methods
+private and protected method names
+
+#+begin_src ruby
+Object.new.private_methods # 77
+Object.new.protected_methods # 0
+#+end_src
+*** instance variables
+*** freeze
+- make objects (nearly) immutable
+
+**** Add the following line to the top of any individual file:
+# frozen_string_literal: true
+
+**** Run your programs on the command line with a specific instruction.
+This will make every string in your program frozen by default:
+
+$ ruby --enable-frozen-string-literal my_program.rb
+
+#+begin_src ruby
+   person1.freeze # prevent modifications to the object
+#+end_src
+*** object_id
+- Returns an integer identifier for obj.
+- The same number will be returned on all calls to object_id for a given object, and no two active objects will share an id.
+
+*** self
+   - is a keyword
+   - It does this to allow the method chaining in the line scores << 10 << 20 << 40 . Because each call to << returns the scores object, you can then call << again, passing in a new score.
+
+     #+begin_src ruby
+
+     class tea
+       def self.drink () # Class-Level method (static)
+	 puts 'drinking'
+       end
+
+       def meh
+	 puts self # refers to tea class
+       end
+
+       def builder
+
+	 self # return class
+       end
+     end
+     #+end_src
+*** methods
+   default values, splat args (described later on page 120), keyword args, and a block parameter
+#+begin_src ruby
+def splating(*rest)
+  puts rest.each { |x| puts }
+end
+
+def split_apart(first, *, last) # get first and last args, ignore middle ones
+end
+
+#+end_src
+**** capture methods
+#+begin_src ruby
+
+class C
+  def talk
+    puts "Method-grabbing test!"
+  end
+end
+
+c = C.new
+
+meth = c.method(:talk)
+meth.owner
+meth.call # to exeute
+meth[]
+meth.()
+#+end_src
+**** unbind methods
+unbind the method from its object and then bind it to another object, as long as
+that other object is of the same class as the original object
+#+begin_src ruby
+class D < C
+end
+
+d = D.new
+unbound = meth.unbind
+unbound.bind(d).call
+#+end_src
+
+*** dup
+   #+begin_src ruby
+   person1 = "Tim"
+   person2 = person1.dup # not aliasing person1
+   #+end_src
+*** ancestor
+An array of ancestors—essentially, the method-lookup path for instances of this class.
+*** statement modifiers
+   if and unless Modifiers
+   #+begin_src ruby
+   puts "a = #{a}" if $DEBUG
+   print total unless total.zero?
+   a *= 2 while a < 100
+   a -= 10 until a < 10
+   #+end_src
 ** Classes
 - :: is Ruby’s namespace resolution operator.
 - Math::PI - access Math PI variable
 - Math.sin(Math::PI/6.0) - access Math sin method
 - Names of classes and modules are just constants.
 - can nest classes and modules inside other classes and modules to any depth
+
+*private*
+
+#+begin_src ruby
+
+class InvoiceWriter
+  def initialize(order)
+    @order = order
+  end
+
+  def write_on(output)
+    write_header_on(output)
+    write_body_on(output)
+    write_totals_on(output)
+  end
+
+  private
+
+  def write_header_on(output)
+    # ...
+  end
+
+  def write_body_on(output)
+    # ...
+  end
+
+  def write_totals_on(output)
+    # ...
+  end
+end
+#+end_src
 
 *** Class methods
 - Class methods are singleton methods defined on objects of class `Class`.
@@ -308,152 +485,6 @@ string.singleton_class.ancestors # => [#<Class:#<String:0x0000563fb8797270>>, St
     #
 #+end_src
 
-** Objects
-*** methods query
-Returns a list of the names of public and protected methods of obj.
-#+begin_src ruby
-string = "aaa"
-string.methods.grep(/case/).sort
-#+end_src
-*** initialize
-#+begin_src ruby
-class Point
-  def initialize(x, y)
-    @x = x
-    @y = y
-  end
-end
-
-Meh.new('foo', 'bar') #  #<Meh:0x0000000003a33d80 @x="bar", @y="foo">
-
-#+end_src
-
-Default/Optional arguments
-
-#+begin_src ruby
-
-class Meh
-  def initialize(x='bar', y='foo')
-    @x = x
-    @y = y
-  end
-end
-
-Meh.new # #<Meh:0x0000000003a33d80 @x="bar", @y="foo">
-#+end_src
-*** attributes
-attr_accessor
-
-attr_writer
-
-attr_reader
-
-#+begin_src ruby
-attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
-#+end_src
-
-*** private_methods / protected_methods
-private and protected method names
-
-#+begin_src ruby
-Object.new.private_methods # 77
-Object.new.protected_methods # 0
-#+end_src
-*** instance variables
-*** freeze
-- make objects (nearly) immutable
-
-**** Add the following line to the top of any individual file:
-# frozen_string_literal: true
-
-**** Run your programs on the command line with a specific instruction.
-This will make every string in your program frozen by default:
-
-$ ruby --enable-frozen-string-literal my_program.rb
-
-#+begin_src ruby
-   person1.freeze # prevent modifications to the object
-#+end_src
-*** object_id
-- Returns an integer identifier for obj.
-- The same number will be returned on all calls to object_id for a given object, and no two active objects will share an id.
-
-*** self
-   - is a keyword
-   - It does this to allow the method chaining in the line scores << 10 << 20 << 40 . Because each call to << returns the scores object, you can then call << again, passing in a new score.
-
-     #+begin_src ruby
-
-     class tea
-       def self.drink () # Class-Level method (static)
-	 puts 'drinking'
-       end
-
-       def meh
-	 puts self # refers to tea class
-       end
-
-       def builder
-
-	 self # return class
-       end
-     end
-     #+end_src
-*** methods
-   default values, splat args (described later on page 120), keyword args, and a block parameter
-#+begin_src ruby
-def splating(*rest)
-  puts rest.each { |x| puts }
-end
-
-def split_apart(first, *, last) # get first and last args, ignore middle ones
-end
-
-#+end_src
-**** capture methods
-#+begin_src ruby
-
-class C
-  def talk
-    puts "Method-grabbing test!"
-  end
-end
-
-c = C.new
-
-meth = c.method(:talk)
-meth.owner
-meth.call # to exeute
-meth[]
-meth.()
-#+end_src
-**** unbind methods
-unbind the method from its object and then bind it to another object, as long as
-that other object is of the same class as the original object
-#+begin_src ruby
-class D < C
-end
-
-d = D.new
-unbound = meth.unbind
-unbound.bind(d).call
-#+end_src
-
-*** dup
-   #+begin_src ruby
-   person1 = "Tim"
-   person2 = person1.dup # not aliasing person1
-   #+end_src
-*** ancestor
-An array of ancestors—essentially, the method-lookup path for instances of this class.
-*** statement modifiers
-   if and unless Modifiers
-   #+begin_src ruby
-   puts "a = #{a}" if $DEBUG
-   print total unless total.zero?
-   a *= 2 while a < 100
-   a -= 10 until a < 10
-   #+end_src
 ** Modules
 - provide a namespace and prevent name clashes.
 - support the mixin facility.
@@ -495,76 +526,236 @@ An array of ancestors—essentially, the method-lookup path for instances of thi
 
 *** Mixin
 - adds functionality to classes
+** Methods
+- ?, !, and = are the only characters allowed as method name suffixes.
+- parentheses around a method’s arguments are optional
+- can omit the parentheses around the argument list
+- can return a value
+- may omit the return if it isn’t needed
+
+*Required arguments*
+
+#+begin_src ruby
+def my_new_method(arg1, arg2, arg3)
+  # Code for the method would go here
+end
+
+def my_other_new_method
+  # Code for the method would go here
+end
+#+end_src
+
+*Default arguments*
+
+#+begin_src ruby
+def cool_dude(arg1="Miles", arg2="Coltrane", arg3="Roach")
+  "#{arg1}, #{arg2}, #{arg3}."
+end
+
+def surround(word, pad_width=word.length/2)
+  "[" * pad_width + word + "]" * pad_width
+end
+
+surround("elephant") # => "[[[[elephant]]]]"
+#+end_src
+
+*Variable-Length Argument Lists*
+- splatting an argument
+
+#+begin_src ruby
+def varargs(arg1, *rest)
+  "arg1=#{arg1}. rest=#{rest.inspect}"
+end
+varargs('one') # => arg1=one. rest = []
+varargs('one', 'two') # => arg1=one. rest = ['two']
+varargs 'one', 'two', 'three' # => arg1=one. rest = %w[two three]
+
+def split_apart(first, *splat, last)
+  puts "First: #{first.inspect}, splat: #{splat.inspect}, " +
+       "last: #{last.inspect}"
+end
+#+end_src
+
+*Block associated*
+- last parameter prefixed with an ampersand, any associated block is converted to a Proc object.
+
+#+begin_src ruby
+class TaxCalculator
+  def initialize(name, &block)
+    @name = name
+    @block = block
+  end
+
+  def get_tax(amount)
+    "#{@name} on #{amount} = #{@block.call(amount)}"
+  end
+end
+
+tc = TaxCalculator.new('Sales tax') { |amt| amt * 0.075 }
+tc.get_tax(100) # => "Sales tax on 100 = 7.5"
+tc.get_tax(250) # => "Sales tax on 250 = 18.75"
+#+end_src
+
+#+begin_src ruby
+def double(p1)
+  yield(p1 * 2)
+end
+
+double(3) { |val| "I got #{val}" } # => "I got 6"
+double('tom') { |val| "Then I got #{val}" } # => "Then I got tomtom"
+#+end_src
+
+*Optional arguments*
+
+#+begin_src ruby
+def forevis(*meh)
+  meh.each { |x|  p x }
+end
+#+end_src
+
+*Takes no keywords*
+
+#+begin_src ruby
+def x(**nil)
+end
+#+end_src
+
+*Argument forwarding*
+- ruby 3
+
+#+begin_src ruby
+def x(...)
+end
+#+end_src
+
+*do end as param*
+
+#+begin_src ruby
+x = (do  1 + 2 end)
+x = (do 'a' + 'b' end).join(',')
+#+end_src
+
+*Block as argument*
+
+#+begin_src ruby
+def cevadis(meh, &block)
+  block.call
+end
+#+end_src
+
+*name=*
+
+#+begin_src ruby
+def leite=()
+end
+#+end_src
+
+*return*
+
+#+begin_src ruby
+def meth_three
+100.times do |num|
+square = num*num
+return num, square if square > 1000
+end
+end
+meth_three # => [32, 1024]
+#+end_src
+
+*keyword argument list*
+
+#+begin_src ruby
+def search(field, genre: nil, duration: 120)
+  p [field, genre, duration ]
+end
+
+search(:title) # [:title, nil, 120]
+search(:title, duration: 432) # [:title, nil, 432]
+search(:title, duration: 432, genre: "jazz")  # [:title, "jazz", 432]
+
+def search(field, genre: nil, duration: 120, **rest)
+  p [field, genre, duration, rest ]
+end
+#+end_src
+
 ** Types
 *** String
-**** methods
-***** new
-#+begin_src ruby
-String.new("an unfrozen string")
-#+end_src
-***** concat
-#+begin_src ruby
-str = ""
+- objects of class String
 
-str.concat("a")
-str.concat("a")
-
-str
-# "aa"
+#+begin_src ruby
+'escape using "\\"' # => escape using "\"
+'That\'s right' # => That's right
 #+end_src
 
-***** dup
-****** freeze
-******* unfreezen
-unary plus operator
 #+begin_src ruby
-str = "frozen!"
-str.frozen? # true
+puts
+"now is #{ def the(a)
+'the ' + a
+end
+the('time')
+} for all bad coders..."
+#+end_src
 
-unfrozen_str = +str
-unfrozen_str.frozen? # false
-#+end_src
-***** each_byte
-***** scan
 #+begin_src ruby
-s = 'Peter Piper picked a peck of pickled peppers'
-s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
+%q/general single-quoted string/ # => general single-quoted string
+%Q!general double-quoted string! # => general double-quoted string
+%Q{Seconds/day: #{24*60*60}} # => Seconds/day: 86400
+
+# even simpler
+
+%!general double-quoted string! # => general double-quoted string
+%{Seconds/day: #{24*60*60}} # => Seconds/day: 86400
 #+end_src
-**** interpolation
+
+
+*Interpolation*
+
 #+begin_src ruby
 age  = 33
 name = "Jesus"
 
 "Hello, my name is #{name} & I'm #{age} years old."
 #+end_src
-**** here documents
-- <<-, minus sign, which the terminator can be indented from the margin.
 
-   #+begin_src ruby
-   <<EOL # double quote document
-      \n
-   #{Time.now}
-   EOL
+*HERE documents*
 
-   <<EOL.to_i * 10
-   EOL
+#+begin_src ruby
+<<EOL # double quote document
+   \n
+#{Time.now}
+EOL
 
-   <<'EOL' # single quote document
-      \n
-   #{Time.now}
-   EOL
+<<EOL.to_i * 10
+EOL
 
-   <<-EOL
-   EOL
+<<'EOL' # single quote document
+   \n
+#{Time.now}
+EOL
 
-   <<~EOL
-   EOL
+<<~EOL
+EOL
 
-   [1,2, <<EO asdasd EO]
+[1,2, <<EO asdasd EO]
 
-   a(false, <<EO asd... EO)
-   #+end_src
-**** quoting
+a(false, <<EO asd... EO)
+#+end_src
+
+*<<-  minus sign*
+
+- can be indented from the margin.
+
+#+begin_src ruby
+<<-EOL
+Concat
+        STRING1
+    enate
+EOL
+
+#+end_src
+
+*Quoting*
+
    %char{text}
    #+begin_src ruby
    a = %q(a b c d)
@@ -572,7 +763,42 @@ name = "Jesus"
    b = %Q(a b c)
    #+end_src
 
-**** examples
+*Encondig*
+
+#+begin_src ruby
+#encoding: utf-8
+#+end_src
+
+#+begin_src ruby
+plain_string = "dog"
+puts "Encoding of #{plain_string.inspect} is #{plain_string.encoding}" # Encoding of "dog" is UTF-8
+utf_string = "δog"
+puts "Encoding of #{utf_string.inspect} is #{utf_string.encoding}" # Encoding of "δog" is UTF-8
+#+end_src
+
+*Character Constants*
+
+- deprecated
+
+#+begin_src ruby
+?a
+?\n
+?\C-a
+?\M-a
+?\M-\C-a
+?\C-?
+# => "a"
+(printable character)
+# => "\n"
+(code for a newline (0x0a))
+# => "\u0001" (control a)
+# => "\xE1" (meta sets bit 7)
+# => "\x81" (meta and control a)
+# => "\u007F" (delete character)
+#+end_src
+
+*More examples*
+
 #+begin_src ruby
 "Test" + "Test" #TestTest
 "test".capitalize #Test
@@ -593,6 +819,100 @@ name = "Jesus"
 
 "".sub('i', '') # only does one substitution at a time, on the first instance of the text to match
 "".gsub('i', '') #  whereas gsub does multiple substitutions at once
+#+end_src
+
+
+
+
+new
+
+#+begin_src ruby
+String.new("an unfrozen string")
+#+end_src
+
+*concat*
+
+#+begin_src ruby
+str = ""
+
+str.concat("a")
+str.concat("a")
+
+str
+# "aa"
+#+end_src
+
+*dup*
+
+*freeze/ unfreezen*
+
+#+begin_src ruby
+str = "frozen!"
+str.frozen? # true
+
+unfrozen_str = +str
+unfrozen_str.frozen? # false
+#+end_src
+
+*each_byte*
+
+*scan*
+#+begin_src ruby
+s = 'Peter Piper picked a peck of pickled peppers'
+s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
+#+end_src
+*** Numbers
+- can be any length
+- objects of class Fixnum and Bignum
+- 0 for octal, 0d for decimal, 0x for hex, or 0b for binary
+- includes support for rational and complex numbers
+- all numbers are objects
+
+#+begin_src ruby
+num = 10001
+4.times do
+puts "#{num.class}: #{num}"
+num *= num
+end
+produces:
+
+Fixnum: 10001
+Fixnum: 100020001
+Fixnum: 10004000600040001
+Bignum: 100080028005600700056002800080001
+#+end_src
+
+#+begin_src ruby
+123456
+0d123456
+123_456
+-543
+0xaabb
+0377
+-0b10_1010
+123_456_789_123_456_789
+#+end_src
+
+#+begin_src ruby
+3.times
+{ print "X " }
+1.upto(5)
+{|i| print i, " " }
+99.downto(95) {|i| print i, " " }
+50.step(80, 5) {|i| print i, " " }
+10.downto(7).with_index {|num, index| puts "#{index}: #{num}"}
+#+end_src
+
+*Rational*
+
+#+begin_src ruby
+Rational(2,3)
+#+end_src
+
+*Complex*
+
+#+begin_src ruby
+Complex(1,2)
 #+end_src
 
 *** Array
@@ -853,6 +1173,11 @@ h = {...}.replace({...})
 h.key?
 h.empty?
 #+end_src
+*** nil
+
+- a signal that a method that modifies the receiver did not make a modification
+
+NilClass
 
 ** Range
 |     |                                      |
@@ -870,10 +1195,6 @@ r =  1..99
 # exclude last element
 r = 1...199
 
-# verbose object creation
-r = Range.new(1,100)
-r = Range.new(1,100, true)
-
 # range of object need to return the next object `succ` and be comparable <=>
 
 # ranges as conditions
@@ -881,23 +1202,88 @@ while line = gets
   puts line if line =~ /start/ .. line =~ /end/
 end
 
-# ranges as intervals
-(1..10) === 5   # => true
-(1..10) === 15  # => false
+r.cover? 2
+r.include? 3
+r.max
+r.reject {}
 
 ('a'..'m').inject :+ # => "abcdefghijklm"
 
+(1..10).to_a # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+('bar'..'bat').to_a # => ["bar", "bas", "bat"]
+#+end_src
+
+*as intervals*
+#+begin_src ruby
+(1..10) === 5   # => true
+(1..10) === 15  # => false
+
+car_age = gets.to_f
+# let's assume it's 9.5
+case car_age
+when 0...1
+  puts "Mmm.. new car smell"
+when 1...3
+  puts "Nice and new"
+when 3...10
+  puts "Reliable but slightly dinged"
+when 10...30
+  puts "Clunker"
+else
+  puts "Vintage gem"
+end
+
+# produces:
+  Reliable but slightly dinged
+
+#+end_src
+
+
+
+*new*
+
+#+begin_src ruby
+r = Range.new(1,100)
+r = Range.new(1,100, true)
+#+end_src
+
+*to_enum*
+
+#+begin_src ruby
+enum = ('bar'..'bat').to_enum
+enum.next # => "bar"
+enum.next # => "bas"
 #+end_src
 
 *methods*
 
 #+begin_src ruby
-r.cover? 2
-r.include? 3
-r.max
-r.reject {}
-r.inject {}
+class PowerOfTwo
+  attr_reader :value
 
+  def initialize(value)
+    @value = value
+  end
+
+  def <=>(other)
+    @value <=> other.value
+  end
+
+  def succ
+    PowerOfTwo.new(@value + @value)
+  end
+
+  def to_s
+    @value.to_s
+  end
+end
+p1 = PowerOfTwo.new(4)
+p2 = PowerOfTwo.new(32)
+puts (p1..p2).to_a
+4
+8
+16
+32
 #+end_src
 
 *** Symbols
@@ -1124,66 +1510,6 @@ end
 autoload :SharedContext, 'rspec/core/shared_context'
 #+end_src
 *** grep
-
-** Methods
-*** Parameters
-*Required arguments*
-
-#+begin_src ruby
-def foo(meh)
-  p meh
-end
-#+end_src
-
-*Default arguments*
-
-#+begin_src ruby
-def aMethod( a=10, b=20 )
-   return a, b
-end
-#+end_src
-
-*Optional arguments*
-
-#+begin_src ruby
-def forevis(*meh)
-  meh.each { |x|  p x }
-end
-#+end_src
-
-*Takes no keywords*
-#+begin_src ruby
-def x(**nil)
-end
-#+end_src
-
-*Argument forwarding*
-#+begin_src ruby
-def x(...)
-end
-#+end_src
-
-*do end as param*
-
-#+begin_src ruby
-x = (do  1 + 2 end)
-x = (do 'a' + 'b' end).join(',')
-#+end_src
-
-*Block as argument*
-#+begin_src ruby
-def cevadis(meh, &block)
-  block.call
-end
-#+end_src
-
-*** name=
-#+begin_src ruby
-def leite=()
-end
-#+end_src
-
-*** name
 
 ** Pattern Matching
 #+begin_src ruby
@@ -1728,7 +2054,6 @@ Callbacks and hooks methods are called when a particular event takes place durin
 *** Module#module_exec
 ** Misc
 *** table
-
 |                        |                                                                                                           |                                                                                                             |
 |------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------|
 | drop_while             | a.drop_while { true }                                                                                     |                                                                                                             |
