@@ -1,4 +1,4 @@
-#+TILE: Ruby Language - Annotations
+#+TILE: Ruby Language
 
 * Summary
   :PROPERTIES:
@@ -116,7 +116,7 @@
 ** Books
 | Books                            | Chapter                            | late                                    |
 |----------------------------------+------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 9 Expressions                      |                                         |
+| Programming Ruby                 | 10 Exceptions, catch, and throw    |                                         |
 | Metaprogramming ruby             | 2                                  | Monday: The Object Mode                 |
 | Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
 | Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
@@ -678,6 +678,13 @@ def search(field, genre: nil, duration: 120, **rest)
 end
 #+end_src
 
+*Methods chaining*
+creates a new object at it chains
+
+#+begin_src ruby
+puts animals.select {¦n¦ n[0] < 'M' }.map(&:upcase).join(", ")
+#+end_src
+
 ** Types
 *** String
 - objects of class String
@@ -914,6 +921,10 @@ Rational(2,3)
 #+begin_src ruby
 Complex(1,2)
 #+end_src
+*** Boolean
+- any value that is not nil or the constant false is true
+- nil is false
+- The number zero is not interpreted as a false value. Neither is a zero-length string.
 
 *** Array
 - index collection
@@ -1222,6 +1233,328 @@ end
 s = SomeClass.new
 s[1] = 2
 s['cat', 'dog'] = 'enemies'
+#+end_src
+
+*and &&*
+- _and_ binds lower than _&&_
+
+#+begin_src ruby
+nil
+&& 99 # => nil
+false && 99 # => false
+"cat" && 99 # => 99
+#+end_src
+
+*or ||*
+
+
+#+begin_src ruby
+nil
+|| 99 # => 99
+false || 99 # => 99
+"cat" || 99 # => "cat"
+#+end_src
+
+*not !*
+- not and ! differ only in precedence.
+
+*defined?*
+- returns nil
+- If the argument is yield, defined? returns the string “yield” if a code block is associated with the current context.
+
+#+begin_src ruby
+defined? 1 # => "expression"
+defined? dummy # => nil
+defined? printf # => "method"
+defined? String # => "constant"
+defined? $_ # => "global-variable"
+defined? Math::PI # => "constant"
+defined? a = 1 # => "assignment"
+defined? 42.abs # => "method"
+defined? nil # => "nil"
+#+end_src
+
+*if*
+- can have zero or more elsif clauses
+- can have an optional else clause.
+- then keyword is optional
+
+#+begin_src ruby
+if artist == "Gillespie" then
+  handle = "Dizzy"
+elsif artist == "Parker" then
+  handle = "Bird"
+else
+  handle = "unknown"
+end
+
+if artist == "Gillespie"
+  handle = "Dizzy"
+elsif artist == "Parker"
+  handle = "Bird"
+else
+  handle = "unknown"
+end
+#+end_src
+
+#+begin_src ruby
+handle = if artist == 'Gillespie'
+           'Dizzy'
+         elsif artist == 'Parker'
+           'Bird'
+         else
+           'unknown'
+         end
+#+end_src
+
+#+begin_src ruby
+mon, day, year = $1, $2, $3 if date =~ /(\d\d)-(\d\d)-(\d\d)/
+puts "a = #{a}" if $DEBUG
+#+end_src
+
+*unless*
+
+#+begin_src ruby
+unless duration > 180
+  listen_intently
+end
+#+end_src
+
+#+begin_src ruby
+print total unless total.zero?
+
+File.foreach('/etc/passwd') do |line|
+  next if line =~ /^#/ # Skip comments
+
+  parse(line) unless line =~ /^$/   # Don't parse empty lines
+end
+
+#+end_src
+
+*Ternary*
+
+#+begin_src ruby
+cost = duration > 180 ? 0.35 : 0.25
+#+end_src
+
+*case*
+
+- first true case
+
+#+begin_src ruby
+case
+when song.name == "Misty"
+  puts "Not again!"
+when song.duration > 120
+  puts "Too long!"
+when Time.now.hour > 21
+  puts "It's too late"
+else
+  song.play
+end
+#+end_src
+
+- pattern match
+
+#+begin_src ruby
+case command
+when "debug"
+  dump_debug_info
+  dump_symbols
+when /p\s+(\w+)/
+  dump_variable($1)
+when "quit", "exit"
+  exit
+else
+  print "Illegal command: #{command}"
+end
+#+end_src
+
+- comparison === target.
+
+#+begin_src ruby
+kind = case year
+       when 1850..1889 then "Blues"
+       when 1890..1909 then "Ragtime"
+       when 1910..1929 then "New Orleans Jazz"
+       when 1930..1939 then "Swing"
+       else
+         "Jazz"
+       end
+#+end_src
+- comparing objects
+
+#+begin_src ruby
+case shape
+when Square, Rectangle
+# ...
+when Circle
+# ...
+when Triangle
+# ...
+else
+# ...
+end
+#+end_src
+
+*while*
+   # WHILE , UNTIL , and FOR loops are built into the language and do not introduce new scope;
+#+begin_src ruby
+while line = gets
+  # ...
+end
+
+a = 1
+a *= 2 while a < 100
+a # => 128
+
+file = File.open("ordinal")
+while line = file.gets
+  puts(line) if line =~ /third/ .. line =~ /fifth/
+end
+
+print "Hello\n" while false
+begin
+  print "Goodbye\n"
+end while false
+#+end_src
+
+*until*
+
+#+begin_src ruby
+until play_list.duration > 60
+  play_list.add(song_list.pop)
+end
+
+a -= 10 until a < 100
+a # => 98
+#+end_src
+
+#+begin_src ruby
+# when an enumerator object runs out of values inside a loop , the loop will terminate cleanly.
+# newly local variables created in LOOP are not accessible outside the block
+loop do
+  puts "#{short_enum.next} - #{long_enum.next}"
+end
+
+# not a ruby way, translated by ruby to x.each
+for song in playlist
+  song.play
+end
+
+
+# NEXT skips to the end of the loop, effectively starting the next iteration
+# BREAKn
+
+i=0
+loop do
+  i += 1
+  next if i < 3
+  print i
+  break if i > 4 # If a conventional loop doesn’t execute a break , its value is nil .
+end
+
+# REDO repeats the current iteration of the loop from the start but without reevaluating
+# the condition or fetching the next element (in an iterator)
+while line = gets
+  next if line =~ /^\s*#/   # skip comments
+  break if line =~ /^END/   # stop at end
+
+  # substitute stuff in backticks and try again
+  redo if line.gsub!(/`(.*?)`/) { eval($1) }
+
+  # process line ...
+end
+#+end_src
+
+*times*
+
+#+begin_src ruby
+3.times do
+  print "Ho! "
+end
+#+end_src
+
+*upto*
+
+#+begin_src ruby
+0.upto(9) do |x|
+  print x, " "
+end # 0 1 2 3 4 5 6 7 8 9
+
+0.step(12, 3) {|x| print x, " " } #0 3 6 9 12
+
+[ 1, 1, 2, 3, 5 ].each {|val| print val, " " } # 1 1 2 3 5
+#+end_src
+
+*for ... in*
+
+#+begin_src ruby
+for song in playlist
+  song.play
+end
+
+for i in %w[fee fi fo fum]
+  print i, ' '
+end
+for i in 1..3
+  print i, ' '
+end
+for i in File.open('ordinal').find_all { |line| line =~ /d$/ }
+  print i.chomp, ' '
+end
+#+end_src
+
+#+begin_src ruby
+class Periods
+  def each
+    yield 'Classical'
+    yield 'Jazz'
+    yield 'Rock'
+  end
+end
+periods = Periods.new
+for genre in periods
+  print genre, ' '
+end
+#+end_src
+
+*break*
+#+begin_src ruby
+i = 0
+loop do
+  i += 1
+  next if i < 3
+
+  print i
+  break if i > 4
+end
+
+result = while line = gets
+           break(line) if line =~ /answer/
+         end
+#+end_src
+
+*redo*
+
+Repeats the current iteration of the loop from the start but without reevaluating
+the condition or fetching the next element (in an iterator)
+
+*next*
+
+Skips to the end of the loop,effectively starting the next iteration
+
+#+begin_src ruby
+while line = gets
+  next if line =~ /^\s*#/
+  break if line =~ /^END/
+
+  # skip comments
+  # stop at end
+  # substitute stuff in backticks and try again
+  redo if line.gsub!(/`(.*?)`/) { eval(Regexp.last_match(1)) }
+  # process line ...
+end
 #+end_src
 
 ** Range
@@ -1780,7 +2113,9 @@ multiple assignment
 @class_name, @receiver, @original_message = exception.name, exception.receiver, exception.original_message
 #+end_src
 
-delayed assignment
+*Delayed assignment ||=*
+
+- no assignment is made at all if the variable is already set.
 
 #+begin_src ruby
 @corrections ||= SpellChecker.new(dictionary: class_names)
@@ -1802,7 +2137,7 @@ class Meh
 end
 #+end_src
 
-instance variables
+*instance variables*
 
 #+begin_src ruby
 class Meh
@@ -1814,7 +2149,7 @@ class Meh
 end
 #+end_src
 
-global variables
+*Global variables*
 
 - available throughout a program.
 - references to it returns the same object.
@@ -1828,13 +2163,13 @@ $? # return global status of last command
 $SAFE
 #+end_src
 
-constant
+*constant*
 
 #+begin_src ruby
 ADULT_AGE = 18
 #+end_src
 
-private_constant
+*private_constant*
 
 #+begin_src ruby
  private_constant :ADULT_AGE
@@ -1845,22 +2180,125 @@ person1 = "Tim"
 person2 = person1.dup
 #+end_src
 
-
 #+begin_src ruby
 person1 = "Tim"
 person1.freeze
 #+end_src
+
+*Parallel Assignment*
+
+#+begin_src ruby
+a, b = 1, 2 # a=1, b=2
+a, b = b, a # b=2, a=1
+
+a = 1, 2, 3, 4 # a=[1, 2, 3, 4]
+b = [1, 2, 3, 4] # b=[1, 2, 3, 4]
+a, b, c, d, e = *(1..2), 3, *[4, 5] # a=1, b=2, c=3, d=4, e=5
+#+end_src
+
+*Excessive is discarded*
+
+#+begin_src ruby
+a, b = 1, 2, 3, 4 # a=1, b=2
+c, = 1, 2, 3, 4 # c=1
+#+end_src
+
+*Splat just a few*
+
+#+begin_src ruby
+*a, b = 1, 2, 3, 4# a=[1, 2, 3], b=4
+c, *d, e = 1, 2, 3, 4# c=1, d=[2, 3], e=4
+f, *g, h, i, j = 1, 2, 3, 4# f=1, g=[], h=2, i=3, j=4
+#+end_src
+
+*Ignoring values*
+
+#+begin_src ruby
+first, *, last = 1,2,3,4,5,6 # first=1, last=6
+#+end_src
+
+*Nested Assignments*
+
+#+begin_src ruby
+a, (b, c), d = 1,2,3,4# a=1, b=2, c=nil, d=3
+a, (b, c), d = [1,2,3,4]# a=1, b=2, c=nil, d=3
+a, (b, c), d = 1,[2,3],4# a=1, b=2, c=3, d=4
+a, (b, c), d = 1,[2,3,4],5# a=1, b=2, c=3, d=5
+a, (b,*c), d = 1,[2,3,4],5# a=1, b=2, c=[3, 4], d=5
+#+end_src
+
+*block-local variables*
+
+#+begin_src ruby
+square = 'yes'
+total = 0
+[1, 2, 3].each do |val; square|
+  square = val * val
+  total += square
+end
+puts "Total = #{total}, square = #{square}"
+#+end_src
+
 ** Comparison
-   #+begin_src ruby
-   # ==
-   # ===
-   # <=>
-   # =~
-   # eql?
-   # equal?
-   # !=
-   # !~
-   #+end_src
+*==*
+Test for equal value.
+
+#+begin_src ruby
+class T
+  def ==(other)
+    puts "Comparing self == #{other}"
+    other == 'value'
+  end
+end
+
+t = T.new
+p(t == "value")
+p(t != "value")
+#+end_src
+
+*===*
+Used to compare each of the items with the target in the when clause of a case
+statement.
+
+*<=>*
+General comparison operator. Returns -1, 0, or +1, depending on whether its
+receiver is less than, equal to, or greater than its argument.
+
+*<, <=, >=, >*
+Comparison operators for less than, less than or equal, greater than or equal,
+and greater than.
+
+*=~*
+Regular expression pattern match.
+
+*eql?*
+True if the receiver and argument have both the same type and equal values.
+
+*equal?*
+True if the receiver and argument have the same object ID.
+
+*!=*
+
+#+begin_src ruby
+class T
+  def ==(other)
+    puts "Comparing self == #{other}"
+    other == 'value'
+  end
+
+  def !=(other)
+    puts "Comparing self != #{other}"
+    other != 'value'
+  end
+end
+#+end_src
+
+
+*!~*
+
+#+begin_src ruby
+#+end_src
+
 ** Conditional
    #+begin_src ruby
    '11' || 11
@@ -2098,7 +2536,7 @@ Callbacks and hooks methods are called when a particular event takes place durin
 *** Module#class_exec
 *** Module#module_exec
 ** Misc
-*** table
+*** misc
 |                        |                                                                                                           |                                                                                                             |
 |------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------|
 | drop_while             | a.drop_while { true }                                                                                     |                                                                                                             |
@@ -2136,6 +2574,28 @@ Callbacks and hooks methods are called when a particular event takes place durin
 |                        | to_enum                                                                                                   |                                                                                                             |
 | dup                    |                                                                                                           |                                                                                                             |
 |------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------|
+*** system commands
+
+#+begin_src ruby
+`date` # => "Mon May 27 12:30:56 CDT 2013\n"
+
+`ls`.split[34] # => "newfile"
+
+%x{echo "hello there"} # => "hello there\n"
+
+system('ls -lh')
+#+end_src
+
+#+begin_src ruby
+alias old_backquote `
+def `(cmd)
+  result = old_backquote(cmd)
+  puts "*** Command #{cmd} failed: status = #{$?.exitstatus}" if $? != 0
+  result
+end
+print `ls -l /etc/passwd`
+print `ls -l /etc/wibble`
+#+end_src
 
 *** dig
 *** fetch
@@ -2183,12 +2643,7 @@ Callbacks and hooks methods are called when a particular event takes place durin
     - is a method
     - it start and finish in the same call
 *** Methods
-**** Methods chaining
-     creates a new object at it chains
-     #+begin_src ruby
-     puts animals.select {¦n¦ n[0] < 'M' }.map(&:upcase).join(", ")
-     #+end_src
-*** Enumerator
+****** Enumerator
     - is an object
     - chaining
     - block based
@@ -2725,56 +3180,6 @@ puts [ p1, p2, p3].sort
    #+begin_src ruby
    ['a'..'z').map.with_index {|letter,i| [letter, i] } // Output: [["a", 0], ["b", 1], etc.]
    my_enum.take(5).force // actual result rather than lazy enumerator
-   #+end_src
-*** loops
-   #+begin_src ruby
-   # WHILE , UNTIL , and FOR loops are built into the language and do not introduce new scope;
-
-   while line = gets
-     # ...
-   end
-
-   until play_list.duration > 60
-     play_list.add(song_list.pop)
-   end
-
-   # when an enumerator object runs out of values inside a loop , the loop will terminate cleanly.
-   # newly local variables created in LOOP are not accessible outside the block
-   loop do
-     puts "#{short_enum.next} - #{long_enum.next}"
-   end
-
-   # not a ruby way, translated by ruby to x.each
-   for song in playlist
-     song.play
-   end
-
-
-   # NEXT skips to the end of the loop, effectively starting the next iteration
-   # BREAKn
-
-   i=0
-   loop do
-     i += 1
-     next if i < 3
-     print i
-     break if i > 4 # If a conventional loop doesn’t execute a break , its value is nil .
-   end
-
-   # REDO repeats the current iteration of the loop from the start but without reevaluating
-   # the condition or fetching the next element (in an iterator)
-   while line = gets
-     next if line =~ /^\s*#/   # skip comments
-     break if line =~ /^END/   # stop at end
-
-     # substitute stuff in backticks and try again
-     redo if line.gsub!(/`(.*?)`/) { eval($1) }
-
-     # process line ...
-   end
-
-
-
    #+end_src
 *** times
 
