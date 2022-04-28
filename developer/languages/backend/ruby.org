@@ -1,5 +1,8 @@
 #+TILE: Ruby Language
 
+Anavitória | Preciso me encontrar
+
+https://www.youtube.com/watch?v=9d1x5VjQWqo
 * Summary
   :PROPERTIES:
   :TOC:      :include all :depth 3 :ignore this
@@ -125,6 +128,12 @@
 | Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                         |
 | Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not               |
 | The Well Grounded Rubyist        | Functional                         | 16.2.1 Object#freeze and Object#frozen? |
+** Videos
+|                     |      |     |
+|---------------------+------+-----|
+| Brett Codes - RSpec | ep 3 | 10m |
+|                     |      |     |
+
 
 ** SLOC
 | Project    | folder | file           | @ |
@@ -1710,7 +1719,7 @@ a.map! { |x| x.uppercase}
 [["1","2"],["3","4"]].flatten.map {|i| i[0] }  # => ["1", "2", "3", "4"]
 #+end_src
 
-** functional
+** Functional
 *proc*
 
 - if the last parameter in a method definition is prefixed with an ampersand,
@@ -1906,13 +1915,13 @@ p a # 1
    #+end_src
 ** Errors
 *** Exceptions
-   - class *Exception*
-   - Custom exceptions subclasses of StandardError or its children.
-   - Exception has an associated message string and a stack backtrace.
-   - Custom exceptions can add extra information
-   - rescue matches thrown Exception and use it. Similar to case statement
-   - rescue clause with no parameter list, the parameter defaults to StandardError .
-   - rescue clause can be arbitrary expressions (including method calls) that return an Exception class.
+- class *Exception*
+- Custom exceptions subclasses of StandardError or its children.
+- has an associated message string and a stack backtrace.
+- Custom exceptions can add extra information
+- rescue matches thrown Exception and use it. Similar to case statement
+- rescue clause with no parameter list, the parameter defaults to StandardError .
+- rescue clause can be arbitrary expressions (including method calls) that return an Exception class.
 **** Errors
     - StandardError
     -
