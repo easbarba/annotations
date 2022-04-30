@@ -920,9 +920,12 @@ Bignum: 100080028005600700056002800080001
 #+end_src
 
 *Rational*
+- Rationals are slower than floats, but since they are exact numbers,
+- use a rational whenever you need to do calculations with non-integer values and you need exact answers.
 
 #+begin_src ruby
 Rational(2,3)
+1.1r
 #+end_src
 
 *Complex*

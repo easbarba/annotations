@@ -155,15 +155,25 @@
 ** [[https://rspec.info/][RSpec]]
 Behaviour Driven Development for Ruby
 
-*** Features
+*** base
 **** it
 ***** metadata
 ****** :aggregate_failures
 record the first failure, but continue to try the second expectation
 **** describe
+#+begin_src ruby
+describe Array.new([1,2,3]), 'Array awesomeness' do
+  it '#include' do
+    expect(subject).to include(2)
+  end
+end
+#+end_src
+
 ***** metadata
 ****** :aggregate_failures
 record the first failure, but continue to try the second expectation
+**** specify
+**** example
 **** metadata
      |                               |   |
      |-------------------------------+---|
@@ -182,6 +192,18 @@ continue to try the next expectation
 
 #+begin_src ruby
 let(:expense) { { 'some' => 'data' } }
+#+end_src
+
+*let!*
+
+#+begin_src ruby
+
+#+end_src
+
+*subject*
+
+#+begin_src ruby
+subject(:pak) { pak.new }
 #+end_src
 
 *** setting up
@@ -218,6 +240,7 @@ They compare a value using a matcher.
 
 *a_hash_including*
 
+
 #+begin_src ruby
 expect(DB[:expenses].all).to match [a_hash_including(
 id: result.expense_id,
@@ -227,9 +250,15 @@ date: Date.iso8601('2017-06-10')
 )]
 #+end_src
 
+*instance_of*
+
+*respond_to*
+
+*be_an* *be_a*
+
+*have_attributes*
 *** matches
 *match*
-
 
 *** Terms
  - Example group defines what you’re testing—in this case, a sandwich—and keeps related specs together.
@@ -324,6 +353,14 @@ end
        - ENV['RACK_ENV'] = 'test'
 *** Terms
 - slimming the test
+*** external toolings
+**** pry
+
+#+begin_src ruby
+it 'sadsa' do
+  binding.pry
+end
+#+end_src
 
 * Console
 ** pry

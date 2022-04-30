@@ -1,4 +1,4 @@
-#+TILE: Emacs Lisp Programming Language - Study Annotations
+#+TILE: Emacs Lisp Programming Language
 
 * Summary
   :PROPERTIES:
@@ -8,7 +8,7 @@
 - [[#progress][Progress]]
   - [[#books][Books]]
   - [[#sloc][SLOC]]
-- [[#features][Features]]
+- [[#base][Base]]
   - [[#types][Types]]
   - [[#cons-cell][Cons Cell]]
   - [[#sequences][Sequences]]
@@ -34,9 +34,9 @@
 :END:
 * Progress
 ** Books
-| Books        | Cap       | @ |
-|--------------+-----------+---+
-| Emacs Lisp   | 3 Numbers |   |
+| Books      | Cap       | @ |
+|------------+-----------+---|
+| Emacs Lisp | 3 Numbers |   |
 
 ** SLOC
 | Source Code  | folder      | file           | @ |
@@ -45,7 +45,7 @@
 | use-package  |             |                |   |
 | emacs-elixir |             | elixir-mode.el |   |
 
-* Features
+* Base
 ** Types
 *** Integer
 - fixnums
@@ -79,6 +79,8 @@
      (eql 0 0)
      (= 0 0)
      #+end_src
+*** Number
+**** Arithmetic Operators
 
 *** Float
 *** Characters

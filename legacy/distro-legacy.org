@@ -3,11 +3,12 @@
 * Debian
 ** packages
 #+begin_src shell
-
+udiskie mpd mpc ncmpcpp
+network-manager-gnome
 linux-perf
-
+awesome feh scrot
 zsh
-
+evince cheese
 laptop-mode-tools falkon obs-studio
 
 locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2   parted
