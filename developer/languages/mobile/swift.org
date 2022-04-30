@@ -18,6 +18,7 @@
     - [[#string][String]]
     - [[#integer][Integer]]
     - [[#double][Double]]
+    - [[#boolean][Boolean]]
 - [[#cli][cli]]
   - [[#swiftc][swiftc]]
   - [[#swift][swift]]
@@ -50,9 +51,125 @@
 ** Types
 *** Float
 - Float16, Float32, Float64, and Float80
+
+#+begin_src swift
+var intVar = 32
+var floatVar = Float(intVar)
+var uint16Var = UInt16(intVar)
+#+end_src
+
 *** String
+- ordered collection of characters
+
+#+begin_src swift
+var stringOne = "Hello"
+var stringTwo = "World"
+
+let str = "The main character said \"hello\""
+#+end_src
+
+*multiline*
+
+#+begin_src swift
+var multiLine = """
+This is a multiline string literal.
+This shows how we can create a string over multiple lines.
+"""
+#+end_src
+
+*iterating*
+
+#+begin_src swift
+var stringOne = "Hello"
+
+for char in stringOne {
+    print(char)
+}
+
+stringOne.map {
+    print($0)
+}
+#+end_src
+
+*concat*
+
+#+begin_src swift
+var stringC = stringA + stringB
+stringA += string
+#+end_src
+
+*interporlation*
+
+#+begin_src swift
+var stringA = "Jon"
+var stringB = "Hello \(stringA)"
+#+end_src
+
+*raw string*
+- swift 5
+
+#+begin_src swift
+let str1 = #"The main character said "hello""#
+
+# interpolate and append
+let ans = 42
+var str2 = #"The answer is \#(ans)"#
+#+end_src
+
+*methods*
+
+#+begin_src swift
+var stringOne = "hElLo"
+print("Lowercase String: \(stringOne.lowercased())")
+print("Uppercase String: \(stringOne.uppercased())")
+
+var stringOne = "one,to,three,four"
+var stringTwo = stringOne.replacingOccurrences(of: "to", with: "two")
+print(stringTwo) // one, two, three, four
+
+var path = "/one/two/three/four"
+var length = path.count
+// equality, prefix equality, suffix equality, and isEmpty
+#+end_src
+
+#+begin_src swift
+var path = "/one/two/three/four"
+//Create start and end indexes
+let startIndex = path.index(path.startIndex, offsetBy: 4)
+let endIndex = path.index(path.startIndex, offsetBy: 14)
+let sPath = path[startIndex ..< endIndex] //returns the "/two/three"
+//convert the substring to a string
+let newStr = String(sPath)
+path[..<startIndex] //returns the "/one"
+path[endIndex...] //returns the "/four"
+
+path.last
+path.first
+#+end_src
+
 *** Integer
 *** Double
+#+begin_src swift
+var a: Int = 3
+var b: Double = 0.14
+var c = Double(a) + b
+#+end_src
+*** Boolean
+
+#+begin_src swift
+let swiftIsCool = true
+var itIsRaining = false
+#+end_src
+
+#+begin_src swift
+var itIsRaining = false
+
+isItRaining = !isItRaining
+
+# or
+
+isItRaining.toggle()
+#+end_src
 
 * cli
 ** swiftc
