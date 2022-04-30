@@ -1,0 +1,72 @@
+#+title: Swift
+
+* Summary
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#summary][Summary]]
+- [[#progress][Progress]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
+  - [[#binding][Binding]]
+    - [[#var][var]]
+    - [[#let][let]]
+  - [[#types][Types]]
+    - [[#float][Float]]
+    - [[#string][String]]
+    - [[#integer][Integer]]
+    - [[#double][Double]]
+- [[#cli][cli]]
+  - [[#swiftc][swiftc]]
+  - [[#swift][swift]]
+    - [[#build][build]]
+    - [[#run][run]]
+    - [[#package][package]]
+- [[#vapor][vapor]]
+  - [[#container][container]]
+:END:
+* Progress
+** Books
+| name                | chapter | @ |
+|---------------------+---------+---|
+| Mastering Swift 5.3 | 3       |   |
+|                     |         |   |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| swift       |        |      |   |
+* Base
+** Binding
+*** var
+- variable
+- mutable
+
+*** let
+- constant
+- immutable
+** Types
+*** Float
+- Float16, Float32, Float64, and Float80
+*** String
+*** Integer
+*** Double
+
+* cli
+** swiftc
+** swift
+*** build
+*** run
+*** package
+#+begin_src shell
+swift package init --type=executable
+#+end_src
+
+* vapor
+
+** container
+#+begin_src shell
+docker run -it --name vapored -v $(pwd):/app/ -w /app -p 8080:8080 swift:latest bash -c "git clone https://github.com/vapor/toolbox.git -b 18.3.6 && cd toolbox && sed -i 's/sudo//g' Makefile && make install && cd .. && swift run"
+#+end_src
