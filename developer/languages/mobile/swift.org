@@ -19,6 +19,7 @@
     - [[#integer][Integer]]
     - [[#double][Double]]
     - [[#boolean][Boolean]]
+    - [[#tuples][Tuples]]
 - [[#cli][cli]]
   - [[#swiftc][swiftc]]
   - [[#swift][swift]]
@@ -170,7 +171,32 @@ isItRaining = !isItRaining
 
 isItRaining.toggle()
 #+end_src
+*** Tuples
+- multiple values in a single compound type
 
+#+begin_src swift
+var team = ("Boston", "Red Sox", 97, 65, 59.9)
+#+end_src
+
+*decomposing*
+
+#+begin_src swift
+var team = ("Boston", "Red Sox", 97, 65, 59.9)
+var (city, name, wins, losses, percent) = team
+
+var team = ("Boston", "Red Sox", 97, 65, 59.9)
+var city = team.0
+var name = team.1
+var wins = team.2
+var losses = team.3
+var percent = team.4
+#+end_src
+
+*named tuples*
+
+#+begin_src swift
+var team = (city:"Boston", name:"Red Sox", wins:97, losses:65, percent:59.9)
+#+end_src
 * cli
 ** swiftc
 ** swift
