@@ -118,7 +118,7 @@
   - [[#methods][methods]]
 - [[#external-toolings][External Toolings]]
   - [[#direnv][Direnv]]
-  - [[#docker][Docker]]
+  - [[#dockerfile][Dockerfile]]
   - [[#docker-compose][docker-compose]]
 :END:
 * Progress
@@ -1142,7 +1142,7 @@ export PATH="$NPM_BIN":$PATH
 
 # ** SQLITE
 #+end_src
-** Docker
+** Dockerfile
 #+begin_src dockerfile
 FROM ruby:2.5.1-alpine
 
@@ -1225,6 +1225,64 @@ RUN gem install -N nokogiri -- --use-system-libraries && \
 
 EXPOSE 3000
 #+end_src
+
+#+begin_src dockerfile
+FROM ruby:3.1.1-bullseye
+
+MAINTAINER EAS Barbosa <easbarba@outlook.com>
+
+ENV SYSTEM_PACKAGES='apt-transport-https' \
+    PROJECT_PACKAGES='imagemagick' \
+    FRONT_PACKAGES='nodejs'
+
+# Front-end tooling
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+
+RUN apt-get update -yqq && \
+    apt-get install -yqq --no-install-recommends $SYSTEM_PACKAGES $PROJECT_PACKAGES $FRONT_PACKAGES
+
+# Create a rails user and group with /app as its home directory
+RUN useradd --user-group --create-home --system --skel /dev/null --home-dir /app rails
+
+ENV XDG_CONFIG_HOME="$HOME/.config" \
+    XDG_CACHE_HOME="$HOME/.cache" \
+    XDG_DATA_HOME="$HOME/.local/share" \
+    XDG_RUNTIME_DIR='/tmp/rails'
+
+WORKDIR /app
+
+ENV GEM_HOME="$HOME/.local/gem"
+ENV PATH="$GEM_HOME/bin:$PATH"
+
+
+# Rails dependencies
+COPY --chown=rails:rails Gemfile* ./
+RUN gem install bundler --conservative && bundle check || bundle install
+
+ENV NPM_CONFIG_PREFIX="$HOME/.local/npm" \
+    NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config" \
+    NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm" \
+    NPM_CONFIG_TMP="$XDG_RUNTIME_DIR/npm"
+ENV PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
+
+
+# Front-end dependencies
+COPY --chown=rails:rails package.json yarn.lock ./
+RUN npm i -g yarn
+
+# All files
+COPY --chown=rails:rails . ./
+
+# Ensure all further commands run as the local user
+USER rails:rails
+
+ENV HOME='/app'
+
+EXPOSE 3000
+
+CMD ["bin/rails", "s", "-b", "0.0.0.0"]
+#+end_src
+
 ** docker-compose
 #+begin_src shell
 docker-compose up -d
