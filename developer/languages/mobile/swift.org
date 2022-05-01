@@ -20,6 +20,7 @@
     - [[#double][Double]]
     - [[#boolean][Boolean]]
     - [[#tuples][Tuples]]
+    - [[#enumerations][Enumerations]]
 - [[#cli][cli]]
   - [[#swiftc][swiftc]]
   - [[#swift][swift]]
@@ -31,10 +32,10 @@
 :END:
 * Progress
 ** Books
-| name                | chapter | @ |
-|---------------------+---------+---|
-| Mastering Swift 5.3 | 3       |   |
-|                     |         |   |
+| name                | chapter          | @            |
+|---------------------+------------------+--------------|
+| Mastering Swift 5.3 | 3 Vars, Types... | Enumerations |
+|                     |                  |              |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -197,6 +198,22 @@ var percent = team.4
 #+begin_src swift
 var team = (city:"Boston", name:"Red Sox", wins:97, losses:65, percent:59.9)
 #+end_src
+*** Enumerations
+- not integer-only values (string, character, integer, floating-point)
+
+#+begin_src swift
+enum Planets {
+  case mercury
+  case venus
+  case earth
+  case mars
+  case Jupiter
+  case Saturn
+  case Uranus
+  case neptune
+}
+#+end_src
+
 * cli
 ** swiftc
 ** swift
