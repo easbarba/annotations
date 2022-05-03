@@ -125,7 +125,7 @@
 ** Books
 |                         |                       |                                                    |
 |-------------------------+-----------------------+----------------------------------------------------|
-| Agile WebDev w/ Rails 6 | 12 Task G: Check Out! | Iteration G1: Capturing an Order                   |
+| Agile WebDev w/ Rails 6 | 12 Task G: Check Out! | Iteration G2: Atom Feeds                           |
 | Beginning Rails 6       | 11 Action Text        | Updating the Article View                          |
 | Sustainable Rails       | 7 HTML Templates      | 7.2.1Name the Instance Variable After the Resource |
 
