@@ -114,12 +114,14 @@
     :END:
 * Progress
 ** Books
-| name | chapter | @                          |
-|------+---------+----------------------------|
-|      |         |                            |
+| name              | chapter             | @ |
+|-------------------+---------------------+---|
+| Programming Rust  | 3 Fundamental Types |   |
+| Command-line Rust | 2 Test for Echo     |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
-|             |        |      |   |
-* base
+| rust        |        |      |   |
+* Base
+** Types
