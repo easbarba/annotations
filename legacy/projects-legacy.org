@@ -7,6 +7,7 @@
 :CONTENTS:
 - [[#floss][floss]]
   - [[#python][python]]
+  - [[#swift][swift]]
   - [[#guile][guile]]
   - [[#java][java]]
   - [[#elixir][elixir]]
@@ -34,6 +35,14 @@ requests,https://github.com/psf/requests
 black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
+#+end_src
+** swift
+#+begin_src csv
+name,repository
+mastodon-ios,https://github.com/mastodon/mastodon-ios
+sourcekit-lsp,https://github.com/apple/sourcekit-lsp
+swift-format,https://github.com/apple/swift-format
+swift,https://github.com/apple/swift
 #+end_src
 ** guile
 #+begin_src csv

@@ -2,6 +2,9 @@
 
 * .profile
 #+begin_src shell
+# ** SWIFT
+export PATH=$HOME/.local/swift/usr/bin:$PATH
+
 # * LOCALE
 export LANG="C.UTF-8"
 export LC_ALL="C.UTF-8"
@@ -9,6 +12,51 @@ export LC_ALL="en_US.utf-8"
 export LANG="en_US.utf-8"
 # ===================================================
 
+# ** LUAROCKS
+export PATH="$HOME/.luarocks/bin"${PATH:+:}$PATH
+# ===================================================
+
+# ** Deno
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+# ===================================================
+
+# ** POETRY
+export PATH="$HOME/.poetry/bin:$PATH"
+# ===================================================
+
+
+# ** GNOME KEYRING
+# eval $(gnome-keyring-daemon --start)
+# export SSH_AUTH_SOCK
+# export GNOME_KEYRING_PID
+# export GNOME_KEYRING_CONTROL
+# ===================================================
+
+# ** BREW
+#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# ===================================================
+
+# ** CARGO
+export PATH="$HOME/.cargo/bin"${PATH:+:}$PATH
+# ===================================================
+
+# guile
+# RUBY
+# export GUIX_GEM_PATH="$GUIX_PROFILE/lib/ruby/vendor_ruby"
+# export GEM_PATH="$GUIX_GEM_PATH"${GEM_PATH:+:}$GEM_PATH
+
+# Shared Libraries
+# export LD_LIBRARY_PATH="$GUIX_PROFILE/lib"
+
+# export SSL_CERT_FILE="$SSL_CERT_FILE:$GUIX_PROFILE/etc/ssl/certs/ca-certificates.crt" # yt-dlp
+# ===================================================
+
+
+# ruby
+# irb
+# export irbrc="$XDG_CONFIG_HOME/irb"
+# ===================================================
 #+end_src
 * irbrc
    #+begin_src ruby
