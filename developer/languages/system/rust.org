@@ -11,6 +11,30 @@
   - [[#sloc][SLOC]]
 - [[#base][Base]]
   - [[#types][Types]]
+    - [[#integers][Integers]]
+    - [[#float][Float]]
+    - [[#boolean][Boolean]]
+    - [[#char][Char]]
+    - [[#struct][Struct]]
+    - [[#enum][Enum]]
+    - [[#string][String]]
+    - [[#str][&str]]
+    - [[#box][Box]]
+    - [[#array][Array]]
+    - [[#trait-objects][Trait Objects]]
+    - [[#vector][Vector]]
+    - [[#slice][Slice]]
+    - [[#option][Option]]
+    - [[#result][Result]]
+    - [[#pointer][Pointer]]
+    - [[#closure][Closure]]
+- [[#cli][Cli]]
+  - [[#test][test]]
+  - [[#run][run]]
+  - [[#build][build]]
+  - [[#install][install]]
+  - [[#update][update]]
+- [[#test][Test]]
 :END:
 
 * Progress
@@ -26,3 +50,39 @@
 | rust        |        |      |   |
 * Base
 ** Types
+*** Integers
+*** Float
+*** Boolean
+*** Char
+*** Struct
+*** Enum
+*** String
+*** &str
+*** Box
+*** Array
+*** Trait Objects
+*** Vector
+*** Slice
+*** Option
+*** Result
+*** Pointer
+*** Closure
+#+begin_src rust
+|a, b| { a*a + b*b }
+#+end_src
+
+* Cli
+** test
+** run
+** build
+** install
+** update
+* Test
+
+#+begin_src rust
+#[test]
+fn say_hello() {
+    let hello: &str = "hello world";
+    assert_eq!(hello.to_uppercase(), floss::yell(hello));
+}
+#+end_src
