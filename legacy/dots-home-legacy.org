@@ -57,6 +57,11 @@ export PATH="$HOME/.cargo/bin"${PATH:+:}$PATH
 # irb
 # export irbrc="$XDG_CONFIG_HOME/irb"
 # ===================================================
+
+# RUST
+. "$HOME/.cargo/env"
+# ===================================================
+
 #+end_src
 * irbrc
    #+begin_src ruby

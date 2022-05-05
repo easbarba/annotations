@@ -10,6 +10,45 @@ acpid  tlp vainfo i965-va-driver libvdpau-va-gl1
 firewalld firewall-config
 gnome-keyring seahorse
 
+linux-perf
+
+zsh
+evince cheese
+laptop-mode-tools falkon obs-studio
+
+locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2   parted
+nnn fzy  screen ncdu pragha materia-gtk-theme papirus-icon-theme suru-icon-theme winetricks fonts-firacode
+fonts-freefont-ttf network-manager-gnome  maim unclutter diodon pasystray libfile-mimeinfo-perl dmenu
+wofi rofi lxappearance x11proto-dev volumeicon-alsa dunst rclone
+calibre inkscape screenkey syncthing screenfetch gopher ssh-askpass-gnome fd-find
+
+bash-doc gcc-doc gdb-doc gdbserver
+
+fontconfig libfreetype6
+
+libsqlite3-dev cmake
+
+transmission-gtk
+kdenlive clementine
+
+libiw-dev hddtemp acpi-call
+
+dialog
+
+sysstat
+awesome-extra
+
+
+micro kate
+
+	wayland=(wl-clipboard sway swaybg swaylock foot clipman grimshot xwayland)
+
+zathura
+
+books=( texlive texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-latex-base)
+user=(		inkscape gaupol kdeconnect)
+
+
 #+end_src
 
 * e_fedora
