@@ -1,8 +1,5 @@
 #+TILE: Ruby Language
 
-Anavitória | Preciso me encontrar
-
-https://www.youtube.com/watch?v=9d1x5VjQWqo
 * Summary
   :PROPERTIES:
   :TOC:      :include all :depth 3 :ignore this
@@ -877,6 +874,8 @@ unfrozen_str.frozen? # false
 s = 'Peter Piper picked a peck of pickled peppers'
 s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
 #+end_src
+*** Symbols
+use when you need an identifier in your code,
 *** Numbers
 - can be any length
 - objects of class Fixnum and Bignum

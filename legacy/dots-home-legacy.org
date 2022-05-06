@@ -25,14 +25,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 # ===================================================
 
-
-# ** GNOME KEYRING
-# eval $(gnome-keyring-daemon --start)
-# export SSH_AUTH_SOCK
-# export GNOME_KEYRING_PID
-# export GNOME_KEYRING_CONTROL
-# ===================================================
-
 # ** BREW
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # ===================================================
@@ -52,15 +44,11 @@ export PATH="$HOME/.cargo/bin"${PATH:+:}$PATH
 # export SSL_CERT_FILE="$SSL_CERT_FILE:$GUIX_PROFILE/etc/ssl/certs/ca-certificates.crt" # yt-dlp
 # ===================================================
 
-
 # ruby
 # irb
 # export irbrc="$XDG_CONFIG_HOME/irb"
 # ===================================================
 
-# RUST
-. "$HOME/.cargo/env"
-# ===================================================
 
 #+end_src
 * irbrc
