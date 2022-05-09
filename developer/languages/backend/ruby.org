@@ -114,23 +114,23 @@
   :END:
 * Progress
 ** Books
-| Books                            | Chapter                            | late                                    |
-|----------------------------------+------------------------------------+-----------------------------------------|
-| Programming Ruby                 | 10 Exceptions, catch, and throw    |                                         |
-| Metaprogramming ruby             | 2                                  | Monday: The Object Mode                 |
-| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
-| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
-| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                        |
-| Design Patterns in Ruby          | Composite                          |                                         |
-| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                         |
-| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not               |
-| The Well Grounded Rubyist        | Functional                         | 16.2.1 Object#freeze and Object#frozen? |
+| Books                            | Chapter                            | late                                              |
+|----------------------------------+------------------------------------+---------------------------------------------------|
+| Polished Ruby Programming        |                                    | Learning how best to use arrays, hashes, and sets |
+| Metaprogramming ruby             | 2                                  | Monday: The Object Mode                           |
+| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                                  |
+| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions                   |
+| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                                  |
+| Design Patterns in Ruby          | Composite                          |                                                   |
+| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                                   |
+| Programming Ruby                 | 10 Exceptions, catch, and throw    |                                                   |
+| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not                         |
+| The Well Grounded Rubyist        | Functional                         | 16.2.1 Object#freeze and Object#frozen?           |
 ** Videos
 |                     |      |     |
 |---------------------+------+-----|
 | Brett Codes - RSpec | ep 3 | 10m |
 |                     |      |     |
-
 
 ** SLOC
 | Project    | folder | file           | @ |
@@ -693,6 +693,7 @@ puts animals.select {¦n¦ n[0] < 'M' }.map(&:upcase).join(", ")
 
 ** Types
 *** String
+- dealing with text or data
 - objects of class String
 
 #+begin_src ruby
@@ -875,7 +876,7 @@ s = 'Peter Piper picked a peck of pickled peppers'
 s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
 #+end_src
 *** Symbols
-use when you need an identifier in your code,
+- an identifier in your code,
 *** Numbers
 - can be any length
 - objects of class Fixnum and Bignum
