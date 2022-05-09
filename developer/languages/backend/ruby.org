@@ -136,7 +136,8 @@
 | Project    | folder | file           | @ |
 |------------+--------+----------------+---|
 | ruby       | cgi    | cookie.rb      |   |
-| rake       |        | application.rb |   |
+| sequel     |        |                |   |
+| rbs        |        |                |   |
 | solargraph |        | api_map.rb     |   |
 
 * Base
@@ -692,6 +693,167 @@ puts animals.select {¦n¦ n[0] < 'M' }.map(&:upcase).join(", ")
 #+end_src
 
 ** Types
+*** Array
+- index collection
+
+#+begin_src ruby
+a = [ 3.14159, "pie", 99 ]
+a.class # => Array
+#+end_src
+
+*length*
+
+*sub-index*
+
+#+begin_src ruby
+a = [ 1, 3, 5, 7, 9 ]
+a[1, 3] # => [3, 5, 7]
+a[3, 1] # => [7]
+a[-3, 2] # => [5, 7]
+#+end_src
+
+*ranging*
+
+- two-period form includes the end position
+
+#+begin_src ruby
+a = [ 1, 3, 5, 7, 9 ]
+a[1..3]
+# => [3, 5, 7]
+a[1...3] # => [3, 5]
+a[3..3]
+# => [7]
+a[-3..-1] # => [5, 7, 9]
+#+end_src
+
+*intersection (&)*
+
+#+begin_src ruby
+[1, 2, 3].intersection([2, 3, 4])
+# [2, 3]
+
+[1, 2, 3] & [2, 3, 4]
+# [2, 3]
+#+end_src
+
+union (|)
+
+difference (-)
+
+queue
+
+#+begin_src ruby
+queue = []
+
+queue.unshift "apple"
+queue.unshift "orange"
+queue.unshift "banana"
+
+# ["banana", "orange", "apple]"
+
+queue.pop
+# "apple"
+
+queue.pop
+# "orange"
+#+end_src
+
+
+new
+#+begin_src ruby
+
+Array.new(4) # [nil, nil, nil, nil]
+Array.new(4) { |x| x + 1 } # [1, 2, 3, 4]
+
+#+end_src
+
+Kernel#Array
+- More forgiving than .to_a
+
+#+begin_src ruby
+Array 1 # [1]
+#+end_src
+
+push
+pop
+access
+find
+delete
+max_by
+compact
+new
+#+begin_src ruby
+a = Array.new
+# shallow copy
+b = Array.new [1,2,3]
+#+end_src
+reverse_each
+each_index
+
+*More Examples*
+
+#+begin_src ruby
+array = [ 1, 2, 3, 4, 5, 6, 7 ]
+array.first(4) # => [1, 2, 3, 4]
+array.last(4) # => [4, 5, 6, 7]
+#+end_src
+
+   #+begin_src ruby
+   h = { a: 100, b: 20 }
+   h.delete_if { |key, value| value < 25 }
+   h.delete(:a)
+   #+end_src
+
+   #+begin_src ruby
+   # creation
+   a = [1, ["a", "b"], 4]
+   a = Array.new(1,2)
+   a = arr = %w( Hey!\tIt is now -#{Time.now}- )
+
+
+   # indexing
+   arr[1][0]
+   [1,2][0]
+   arr.dig(3,0) value_at, a[2,3] = ..
+				   a[2..3]
+   a.slice()
+   a.[]=(0, "first")
+   a.[](2)
+   a = %w(a b c)
+   a= %W({a} b c)
+   x.to_ary
+   x.to_arr
+   Array()
+   def string.to_arr
+   end
+   a.unshift(0)
+   a.push(1,2,3)
+   a << 5
+   a.pop
+   a.shift
+   a.concat
+   a.replace([1,2,3])
+   a.flatten
+   a.reverse
+   a.join(" , ")
+   a = *
+       a.uniq
+   a.compact
+   a.size
+   a.empty
+   a.include?
+   a.first
+   a.first[<num>]
+   a.last
+   a.sample # return
+   a.count(1)
+   #+end_src
+   [[file:path]]
+*** Boolean
+- any value that is not nil or the constant false is true
+- nil is false
+- The number zero is not interpreted as a false value. Neither is a zero-length string.
+
 *** String
 - dealing with text or data
 - objects of class String
@@ -876,7 +1038,17 @@ s = 'Peter Piper picked a peck of pickled peppers'
 s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
 #+end_src
 *** Symbols
+- undeclared constant names guaranteed to be unique.
 - an identifier in your code,
+#+begin_src ruby
+:Object
+:my_variable
+:"Ruby rules"
+a = "cat"
+:'catsup' # => :catsup
+:"#{a}sup" # => :catsup
+:'#{a}sup' # => :"\#{a}sup"
+#+end_src
 *** Numbers
 - can be any length
 - objects of class Fixnum and Bignum
@@ -933,177 +1105,142 @@ Rational(2,3)
 #+begin_src ruby
 Complex(1,2)
 #+end_src
-*** Boolean
-- any value that is not nil or the constant false is true
-- nil is false
-- The number zero is not interpreted as a false value. Neither is a zero-length string.
-
-*** Array
-- index collection
+*** Range
+|     |                                      |
+|-----+--------------------------------------|
+| ..  | inclusive                            |
+| ... | exclusive, excludes its last element |
 
 #+begin_src ruby
-a = [ 3.14159, "pie", 99 ]
-a.class # => Array
+# create a new range object
+r = 1..2
+
+# include all elements
+r =  1..99
+
+# exclude last element
+r = 1...199
+
+# range of object need to return the next object `succ` and be comparable <=>
+
+# ranges as conditions
+while line = gets
+  puts line if line =~ /start/ .. line =~ /end/
+end
+
+r.cover? 2
+r.include? 3
+r.max
+r.reject {}
+
+('a'..'m').inject :+ # => "abcdefghijklm"
+
+(1..10).to_a # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+('bar'..'bat').to_a # => ["bar", "bas", "bat"]
 #+end_src
 
-*length*
-
-*sub-index*
-
+*as intervals*
 #+begin_src ruby
-a = [ 1, 3, 5, 7, 9 ]
-a[1, 3] # => [3, 5, 7]
-a[3, 1] # => [7]
-a[-3, 2] # => [5, 7]
-#+end_src
+(1..10) === 5   # => true
+(1..10) === 15  # => false
 
-*ranging*
+car_age = gets.to_f
+# let's assume it's 9.5
+case car_age
+when 0...1
+  puts "Mmm.. new car smell"
+when 1...3
+  puts "Nice and new"
+when 3...10
+  puts "Reliable but slightly dinged"
+when 10...30
+  puts "Clunker"
+else
+  puts "Vintage gem"
+end
 
-- two-period form includes the end position
+# produces:
+  Reliable but slightly dinged
 
-#+begin_src ruby
-a = [ 1, 3, 5, 7, 9 ]
-a[1..3]
-# => [3, 5, 7]
-a[1...3] # => [3, 5]
-a[3..3]
-# => [7]
-a[-3..-1] # => [5, 7, 9]
-#+end_src
-
-intersection (&)
-
-union (|)
-
-difference (-)
-
-queue
-
-#+begin_src ruby
-queue = []
-
-queue.unshift "apple"
-queue.unshift "orange"
-queue.unshift "banana"
-
-# ["banana", "orange", "apple]"
-
-queue.pop
-# "apple"
-
-queue.pop
-# "orange"
 #+end_src
 
 
-new
+
+*new*
+
 #+begin_src ruby
-
-Array.new(4) # [nil, nil, nil, nil]
-Array.new(4) { |x| x + 1 } # [1, 2, 3, 4]
-
+r = Range.new(1,100)
+r = Range.new(1,100, true)
 #+end_src
 
-Kernel#Array
-- More forgiving than .to_a
+*to_enum*
 
 #+begin_src ruby
-Array 1 # [1]
+enum = ('bar'..'bat').to_enum
+enum.next # => "bar"
+enum.next # => "bas"
 #+end_src
 
-push
-pop
-access
-find
-delete
-max_by
-compact
-new
+*methods*
+
 #+begin_src ruby
-a = Array.new
-# shallow copy
-b = Array.new [1,2,3]
+class PowerOfTwo
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+
+  def <=>(other)
+    @value <=> other.value
+  end
+
+  def succ
+    PowerOfTwo.new(@value + @value)
+  end
+
+  def to_s
+    @value.to_s
+  end
+end
+p1 = PowerOfTwo.new(4)
+p2 = PowerOfTwo.new(32)
+puts (p1..p2).to_a
+4
+8
+16
+32
 #+end_src
-reverse_each
-each_index
 
-*More Examples*
+*endless range*
 
 #+begin_src ruby
-array = [ 1, 2, 3, 4, 5, 6, 7 ]
-array.first(4) # => [1, 2, 3, 4]
-array.last(4) # => [4, 5, 6, 7]
+["a", "b", "c"].zip(1..)
+# [["a", 1], ["b", 2], ["c", 3]]
+
+[1,2,3,4,5][1..]
+# [2, 3, 4, 5]
+
+(1..).step(5).take(100)
+# [1, 6, 11, 16, 21, 26, 31, 36, 41, 46]
 #+end_src
 
-   #+begin_src ruby
-   h = { a: 100, b: 20 }
-   h.delete_if { |key, value| value < 25 }
-   h.delete(:a)
-   #+end_src
-
-   #+begin_src ruby
-   # creation
-   a = [1, ["a", "b"], 4]
-   a = Array.new(1,2)
-   a = arr = %w( Hey!\tIt is now -#{Time.now}- )
-
-
-   # indexing
-   arr[1][0]
-   [1,2][0]
-   arr.dig(3,0) value_at, a[2,3] = ..
-				   a[2..3]
-   a.slice()
-   a.[]=(0, "first")
-   a.[](2)
-   a = %w(a b c)
-   a= %W({a} b c)
-   x.to_ary
-   x.to_arr
-   Array()
-   def string.to_arr
-   end
-   a.unshift(0)
-   a.push(1,2,3)
-   a << 5
-   a.pop
-   a.shift
-   a.concat
-   a.replace([1,2,3])
-   a.flatten
-   a.reverse
-   a.join(" , ")
-   a = *
-       a.uniq
-   a.compact
-   a.size
-   a.empty
-   a.include?
-   a.first
-   a.first[<num>]
-   a.last
-   a.sample # return
-   a.count(1)
-   #+end_src
-   [[file:path]]
-*** Queue
-- thread-safe, blocking.
-- If the queue is empty, calling pop will put your current thread to sleep &
-  wait until something is added to the queue.
-- passing true to avoid blocking
-
+*ArithmethicSequence*
 
 #+begin_src ruby
-que = Queue.new
+(1..10).step(2) == (1..10).step(2)
+# false - Ruby 2.5 (and older)
 
-que << 1
-que << 2
-que << 3
+(1..10).step(2) == (1..10).step(2)
+# true - Ruby 2.6
+#+end_src
 
-que.pop # 1
-que.pop # 2
+*%*
 
-que.pop(true)
+#+begin_src ruby
+((0..) % 2).take(5)
+
+# [0, 2, 4, 6, 8]
 #+end_src
 *** Sized Queue
 - push (same as <<) operation will suspend the current thread until an item is taken off the queue.
@@ -1184,7 +1321,6 @@ h.rehash # force the hash to be reindexed
 h.[]=("New York", "NY")
 h.store("New York", "NY")
 a.update(b)
-a.merge(b)
 h.select {k,vk > 1 } !
 h.reject {  k,v  k > 1 } !
 h.reject! {  k,v  k > 1 }
@@ -1196,12 +1332,47 @@ h = {...}.replace({...})
 h.key?
 h.empty?
 #+end_src
+
+*merge*
+
+#+begin_src ruby
+a.merge(b)
+a = { a: 1 }
+b = { b: 2 }
+c = { c: 3 }
+
+a.merge(b).merge(c)
+# {:a=>1, :b=>2, :c=>3}
+
+# ruby 2.6
+a.merge(b, c)
+# {:a=>1, :b=>2, :c=>3}
+#+end_src
 *** nil
 
 - a signal that a method that modifies the receiver did not make a modification
 
 NilClass
 
+*** Queue
+- thread-safe, blocking.
+- If the queue is empty, calling pop will put your current thread to sleep &
+  wait until something is added to the queue.
+- passing true to avoid blocking
+
+
+#+begin_src ruby
+que = Queue.new
+
+que << 1
+que << 2
+que << 3
+
+que.pop # 1
+que.pop # 2
+
+que.pop(true)
+#+end_src
 ** Expression
 
 *<<*
@@ -1569,124 +1740,6 @@ while line = gets
 end
 #+end_src
 
-** Range
-|     |                                      |
-|-----+--------------------------------------|
-| ..  | inclusive                            |
-| ... | exclusive, excludes its last element |
-
-#+begin_src ruby
-# create a new range object
-r = 1..2
-
-# include all elements
-r =  1..99
-
-# exclude last element
-r = 1...199
-
-# range of object need to return the next object `succ` and be comparable <=>
-
-# ranges as conditions
-while line = gets
-  puts line if line =~ /start/ .. line =~ /end/
-end
-
-r.cover? 2
-r.include? 3
-r.max
-r.reject {}
-
-('a'..'m').inject :+ # => "abcdefghijklm"
-
-(1..10).to_a # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-('bar'..'bat').to_a # => ["bar", "bas", "bat"]
-#+end_src
-
-*as intervals*
-#+begin_src ruby
-(1..10) === 5   # => true
-(1..10) === 15  # => false
-
-car_age = gets.to_f
-# let's assume it's 9.5
-case car_age
-when 0...1
-  puts "Mmm.. new car smell"
-when 1...3
-  puts "Nice and new"
-when 3...10
-  puts "Reliable but slightly dinged"
-when 10...30
-  puts "Clunker"
-else
-  puts "Vintage gem"
-end
-
-# produces:
-  Reliable but slightly dinged
-
-#+end_src
-
-
-
-*new*
-
-#+begin_src ruby
-r = Range.new(1,100)
-r = Range.new(1,100, true)
-#+end_src
-
-*to_enum*
-
-#+begin_src ruby
-enum = ('bar'..'bat').to_enum
-enum.next # => "bar"
-enum.next # => "bas"
-#+end_src
-
-*methods*
-
-#+begin_src ruby
-class PowerOfTwo
-  attr_reader :value
-
-  def initialize(value)
-    @value = value
-  end
-
-  def <=>(other)
-    @value <=> other.value
-  end
-
-  def succ
-    PowerOfTwo.new(@value + @value)
-  end
-
-  def to_s
-    @value.to_s
-  end
-end
-p1 = PowerOfTwo.new(4)
-p2 = PowerOfTwo.new(32)
-puts (p1..p2).to_a
-4
-8
-16
-32
-#+end_src
-
-*** Symbols
-- undeclared constant names guaranteed to be unique.
-#+begin_src ruby
-:Object
-:my_variable
-:"Ruby rules"
-a = "cat"
-:'catsup' # => :catsup
-:"#{a}sup" # => :catsup
-:'#{a}sup' # => :"\#{a}sup"
-#+end_src
 ** Enumerable
 concepts
 
@@ -2176,10 +2229,30 @@ $SAFE
 #+end_src
 
 *constant*
+- constants can change, but issues a warning message.
 
 #+begin_src ruby
 ADULT_AGE = 18
+ABC = 1
+Goo = 2
+Foo = 3
+
+class RubyBlog
+  URL    = "rubyguides.com"
+  AUTHOR = "Jesus Castello"
+end
+
+p RubyBlog::AUTHOR # "Jesus Castello"
+
 #+end_src
+
+::constants
+::const_get
+::const_set
+::const_missing
+::const_defined?
+::remove_const
+::private_constant
 
 *private_constant*
 
@@ -2374,7 +2447,6 @@ n_squared = ->(n) { n ** 2 }
 
 2.yield_self(&n_squared) # 4
   .yield_self(&n_squared) # 16
-
 #+end_src
 
 as object
@@ -2807,7 +2879,7 @@ of cleanup actions, including running any registered at_exit methods and object 
      |                 |               |
 
 ** Documentation
-*** Rdoc
+*** rdoc
     - nodoc: [all]
 
 *** console
@@ -2868,6 +2940,32 @@ fd = IO.sysopen('/dev/null', 'w')
 **** each
 **** close
 **** each_byte
+** Dir
+#+begin_src ruby
+filenames = Dir.entries(".")
+Dir.mkdir("testing")
+Dir.exists?
+Dir.chdir("/tmp") { Dir.entries(".") }
+Dir.glob("*.rb")
+Dir.glob("**/*.rb")
+#+end_src
+** FileUtils
+#+begin_src ruby
+require 'fileutils'
+
+FileUtils.mkdir_p("/tmp/testing/a/b")
+FileUtils.mv("/tmp/a", "/tmp/b")
+#+end_src
+** Random
+#+begin_src ruby
+Random.bytes(10) # "\xCD\r\xE6Wz\xBA)\x02\xC4\xDB"
+#+end_src
+** SecureRandom
+#+begin_src ruby
+require 'securerandom'
+
+SecureRandom.bytes(10)
+#+end_src
 ** Pathname
 *** new
 #+begin_src ruby
@@ -2944,7 +3042,77 @@ The objspace library extends the ObjectSpace module and adds several
 methods to get internal statistic information about object/memory
 management.
 ** Enumerable
-*** examples
+
+*compact*
+
+#+begin_src ruby
+
+enum = [1, nil, 3, nil, 5].to_enum.compact
+enum = [1, nil, 3, nil, 5].to_enum.lazy.compact
+
+ #+end_src
+
+*group_by*
+
+#+begin_src ruby
+
+%w(joe, joe, david, matz, david, matz, joe).group_by { |name | name }
+# {"joe,"=>["joe,", "joe,"], "david,"=>["david,", "david,"], "matz,"=>["matz,", "matz,"], "joe"=>["joe"]}
+
+#+end_src
+
+*cycle*
+
+When called with positive Integer argument count and a block, calls the
+block with each element, then does so again, until it has done so count
+times; returns nil
+
+
+#+begin_src ruby
+[12, 18, 20, 02].cycle(3) { |el| puts el*4 } # 48 72 80 8 48 72 80 8 48 72 80                  8
+#+end_src
+
+*filter_map*
+
+combine the select & map
+
+#+begin_src ruby
+(1..8).select(&:even?).map { |n| n ** 2 }
+# OR
+(1..8).map { |n| n ** 2 if n.even? }.compact
+
+# ruby 2.7
+(1..8).filter_map { |n| n ** 2 if n.even? } # [4, 16, 36, 64]
+#+end_src
+
+*grep*
+
+#+begin_src ruby
+
+['gr', 'xr', 'cd', 'dg'].grep /r/ # ["gr", "xr"]
+['gr', 'xr', 1, 2].grep Integer # [1, 2]
+["apple", "orange", "banana"].grep(/^a/)
+["apple", "orange", "banana"].grep(/e$/)
+[9, 10, 11, 20].grep(5..10) # [9, 10]
+[9, 10, 11, 20].grep(5..10) { |n| n * 2 } # [18, 20]
+
+times_two = ->(x) { x * 2 }
+numbers.grep(5..10, &times_two) # [18, 20]
+
+#+end_src
+
+*tally*
+counts all the elements in an array & returns a hash with their counts.
+
+#+begin_src ruby
+%w(a a a b b c).tally
+#+end_src
+
+*all?*
+
+*sort*
+
+*examples*
 #+begin_src ruby
 class Account
   attr_accessor :name, :balance
@@ -3001,61 +3169,55 @@ File.open("ordinal").grep(/d$/) do |line|
   puts line
 end
 #+end_src
-*** methods
-**** compact
-    #+begin_src ruby
 
-   enum = [1, nil, 3, nil, 5].to_enum.compact
-   enum = [1, nil, 3, nil, 5].to_enum.lazy.compact
-
-    #+end_src
-**** group_by
-#+begin_src ruby
-
-%w(joe, joe, david, matz, david, matz, joe).group_by { |name | name }
-# {"joe,"=>["joe,", "joe,"], "david,"=>["david,", "david,"], "matz,"=>["matz,", "matz,"], "joe"=>["joe"]}
-
-#+end_src
-**** cycle
-When called with positive Integer argument count and a block, calls the
-block with each element, then does so again, until it has done so count
-times; returns nil
-
+*::ArithmethicSequence*
 
 #+begin_src ruby
-[12, 18, 20, 02].cycle(3) { |el| puts el*4 } # 48 72 80 8 48 72 80 8 48 72 80                  8
+(1..10).step(2).first
+# 1
+
+(1..10).step(2).last
+# 9
 #+end_src
-**** filter_map
-combine the select & map
+
+*none?*
 
 #+begin_src ruby
-(1..8).filter_map { |n| n ** 2 if n.even? } # [4, 16, 36, 64]
+strings.none? { |str| str.size == 5 }
 #+end_src
 
-**** grep
-#+begin_src ruby
-
-['gr', 'xr', 'cd', 'dg'].grep /r/ # ["gr", "xr"]
-['gr', 'xr', 1, 2].grep Integer # [1, 2]
-["apple", "orange", "banana"].grep(/^a/)
-["apple", "orange", "banana"].grep(/e$/)
-[9, 10, 11, 20].grep(5..10) # [9, 10]
-[9, 10, 11, 20].grep(5..10) { |n| n * 2 } # [18, 20]
-
-times_two = ->(x) { x * 2 }
-numbers.grep(5..10, &times_two) # [18, 20]
-
-#+end_src
-**** tally
-counts all the elements in an array & returns a hash with their counts.
+*any?*
 
 #+begin_src ruby
-%w(a a a b b c).tally
+[:orange, :apple, :coconut].any?(Symbol) # true
 #+end_src
-**** all?
-**** sort
+
+*all?*
+
+#+begin_src ruby
+[1,2,3].all?(1..10) # true
+#+end_src
+
+*one?*
+
+#+begin_src ruby
+["a", 1, {}].one? { |obj| obj.kind_of?(Hash) }
+# true
+
+["a"].one?
+# true
+
+[].one?
+# false
+
+[nil].one?
+# false
+#+end_src
+
+
 ** Enumerator
-*** lazy
+*lazy*
+
 #+begin_src ruby
 def Integer.all
   Enumerator.new do |yielder, n: 0|
@@ -3079,30 +3241,39 @@ squares = (1..Float::INFINITY).lazy.map { |x| x * x } # #<Enumerator::Lazy: #<En
 squares.first 4 # [1, 4, 9, 16]
 
 #+end_src
-*** each_car
-*** each
-*** to_enum/enum_for
-    #+begin_src ruby
-    a = [ 1, 3, "cat" ]
-    h = { dog: "canine", fox: "vulpine" }
 
-    # Create Enumerators
-    enum_a = a.to_enum
-    enum_h = h.to_enum
+*each_car*
 
-    enum_a.next # 1
-    enum_h.next # [:dog, "canine"]
-    enum_a.next # 3
-    enum_h.next # [:fox, "vulpine"]
+*each*
 
-    enum_a = a.each # create an Enumerator using an internal iterator
-    #+end_src
-*** enum_for
-   #+begin_src ruby
-   e = names.enum_for(:inject, "Names: ")
-   #+end_src
-*** generator
-*** produce
+*to_enum/enum_for*
+
+#+begin_src ruby
+a = [ 1, 3, "cat" ]
+h = { dog: "canine", fox: "vulpine" }
+
+# Create Enumerators
+enum_a = a.to_enum
+enum_h = h.to_enum
+
+enum_a.next # 1
+enum_h.next # [:dog, "canine"]
+enum_a.next # 3
+enum_h.next # [:fox, "vulpine"]
+
+enum_a = a.each # create an Enumerator using an internal iterator
+#+end_src
+
+*enum_for*
+
+#+begin_src ruby
+e = names.enum_for(:inject, "Names: ")
+#+end_src
+
+*generator*
+
+*produce*
+
 Produces an infinite sequence where each next element is calculated by applying
 the block to the previous element.
 
@@ -3110,7 +3281,8 @@ the block to the previous element.
 Enumerator.produce(1, &:next).take(5) # [1, 2, 3, 4, 5]
 #+end_src
 
-*** upto
+*upto*
+
 #+begin_src ruby
 0.upto(9).each(&method(:puts))
 #+end_src
@@ -3194,7 +3366,23 @@ puts [ p1, p2, p3].sort
    my_enum.take(5).force // actual result rather than lazy enumerator
    #+end_src
 *** times
+** TracePoint
+Helps you trace events like method calls, class definitions & threads.
 
+*parameters*
+
+#+begin_src ruby
+TracePoint.trace(:call, :b_call, :c_call) do |tp|
+  p [tp.event, tp.parameters]
+end
+
+def orange(a,b,c*)
+end
+
+orange(1,2,3)
+
+# [:call, [[:req, :a], [:req, :b], [:rest, :c]]]
+#+end_src
 * Cli
 ** ruby
 
@@ -3251,4 +3439,8 @@ https://rubular.com
 
 #+begin_src shell
 docker run --rm -v $(pwd):/app/ -v bundle_apps:/usr/local/bundle -w /app ruby:3.1.1 bash -c 'bundle install'
+#+end_src
+
+#+begin_src sh
+docker run --rm -v $(pwd):/app/ -w /app ruby:3.1.1 bash -c 'mkdir -p ~/.config && cp -r examples ~/.config/pak && bundle && exe/pak search git'
 #+end_src
