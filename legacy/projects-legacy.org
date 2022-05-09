@@ -7,6 +7,7 @@
 :CONTENTS:
 - [[#floss][floss]]
   - [[#python][python]]
+  - [[#rust][rust]]
   - [[#swift][swift]]
   - [[#guile][guile]]
   - [[#java][java]]
@@ -35,6 +36,16 @@ requests,https://github.com/psf/requests
 black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
+#+end_src
+** rust
+#+begin_src csv
+name,repository
+fd,https://github.com/sharkdp/fd
+starship,https://github.com/starship/starship
+bat,https://github.com/sharkdp/bat
+alacritty,https://github.com/alacritty/alacritty
+cargo,https://github.com/rust-lang/cargo
+rust,https://github.com/rust-lang/rust
 #+end_src
 ** swift
 #+begin_src csv
