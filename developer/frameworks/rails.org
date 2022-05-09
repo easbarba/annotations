@@ -153,7 +153,6 @@
 |       |                                      |                 |
 |-------+--------------------------------------+-----------------|
 | rails | actioncable/lib/action_cable/channel | broadcasting.rb |
-
 * Cli
 ** about
 ** assets:
