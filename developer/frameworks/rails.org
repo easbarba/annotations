@@ -8,25 +8,39 @@
 - [[#summary][Summary]]
 - [[#progress][Progress]]
   - [[#books][Books]]
+  - [[#videos][Videos]]
   - [[#sloc][SLOC]]
-- [[#commands][Commands]]
+- [[#cli][Cli]]
+  - [[#about][about]]
+  - [[#assets][assets:]]
+  - [[#console][console]]
+    - [[#reload][reload!]]
   - [[#database][database]]
-  - [[#new][new]]
-  - [[#test][test]]
+  - [[#dbconsole][dbconsole]]
+  - [[#db][db:]]
   - [[#destroy][destroy]]
-  - [[#routes][routes]]
   - [[#generate][generate]]
     - [[#resource][resource]]
     - [[#scaffold][scaffold]]
     - [[#models][models]]
     - [[#channels][channels]]
+  - [[#new][new]]
+  - [[#test][test]]
+  - [[#routes][routes]]
   - [[#server][server]]
   - [[#misc][misc]]
+  - [[#notes][notes]]
   - [[#tasks][tasks]]
+  - [[#tmp][tmp:]]
   - [[#log][log]]
   - [[#migration][migration]]
-  - [[#console][console]]
-    - [[#reload][reload!]]
+  - [[#initializers][initializers]]
+  - [[#middleware][middleware]]
+  - [[#stats][stats]]
+  - [[#secret][secret]]
+  - [[#timezonesall][time:zones:all]]
+  - [[#webpacker][webpacker]]
+  - [[#rake-tasks][rake tasks]]
   - [[#runner][runner]]
 - [[#bin][bin]]
   - [[#run][run]]
@@ -116,26 +130,93 @@
   - [[#terms][Terms]]
 - [[#internationalization][Internationalization]]
   - [[#methods][methods]]
-- [[#external-toolings][External Toolings]]
+- [[#toolings][Toolings]]
   - [[#direnv][Direnv]]
   - [[#dockerfile][Dockerfile]]
   - [[#docker-compose][docker-compose]]
 :END:
 * Progress
 ** Books
-|                         |                       |                                                    |
-|-------------------------+-----------------------+----------------------------------------------------|
-| Agile WebDev w/ Rails 6 | 12 Task G: Check Out! | Iteration G2: Atom Feeds                           |
-| Beginning Rails 6       | 11 Action Text        | Updating the Article View                          |
-| Sustainable Rails       | 7 HTML Templates      | 7.2.1Name the Instance Variable After the Resource |
-|                         | 12                    | 9m                                                 |
+|                         |                           |                                                    |
+|-------------------------+---------------------------+----------------------------------------------------|
+| Agile WebDev w/ Rails 6 | 12 Task G: Check Out!     | Iteration G2: Atom Feeds                           |
+| Beginning Rails 6       | 11 Action Text            | Updating the Article View                          |
+| Sustainable Rails       | 7 HTML Templates          | 7.2.1Name the Instance Variable After the Resource |
+| Rails Guides            | Active Record Validations | 2.12 validates_with                                |
+** Videos
+|               |    |    |
+|---------------+----+----|
+|               |    |    |
+| Paulo - Rails | 12 | 9m |
 
 ** SLOC
 |       |                                      |                 |
 |-------+--------------------------------------+-----------------|
 | rails | actioncable/lib/action_cable/channel | broadcasting.rb |
 
-* Commands
+* Cli
+** about
+** assets:
+*assets:precompile*
+
+*assets:clobber*
+
+Clears public/assets completely
+
+*assets:clean*
+
+Allows for rolling deploys that may still be linking to an old
+asset while the new assets are being built.
+
+** console
+- let access the app and helper instances.
+
+*app*
+
+#+begin_src ruby
+app.root_path
+app.get _
+#+end_src
+
+*helper*
+
+#+begin_src ruby
+helper.time_ago_in_words 30.days.ago # "about 1 month"
+helper.my_custom_helper # "my custom helper"
+#+end_src
+
+*-e*
+
+#+begin_src sh
+bin/rails console -e staging
+#+end_src
+
+*--sandbox*
+
+*examples*
+                                                                                                                                       |
+#+begin_src ruby
+create(title: "foo", body: "bar", published_at: '2020-01-31')
+a.save  / a.save!
+a.new
+A.count
+A.find(3) / A.find([4,5])
+A.first   / A.first.title
+A.last
+A.all / A.all.size / A.all.each { \a\ puts a.title }
+A.order(:order) / A.order(:order :desc)
+A.where(title: 'foo')
+update_attributes(title: "foo", published_at: 1.day.ago)
+
+a.x << x                                                          A.destroy(1) / .destroy([3,4])                                    rors                                                                                  |
+                                                                                                                                                        |
+a.errors.any? / a.errors.full_messages / a.errors.messages[:title]                                                                                      |
+a.valid?
+#+end_src
+
+*** reload!
+reloads the Rails application environment within your console session. You need
+to call it when you make changes to existing code.
 ** database
 | cmd                             | desc                                                                          |
 |---------------------------------+-------------------------------------------------------------------------------|
@@ -154,42 +235,36 @@
 | db:setup                        | recreate database and adds the seed data as you may expect.                   |
 | db:reset                        | drop database, recreates it, loads the schema, and seeds your database        |
 y
-** new
-| how               | desc                                              |
-+-------------------+---------------------------------------------------|
-| –d or --database= | use the database management system of your choice |
-| new <name>        |                                                   |
+** dbconsole
+*--db, [--database=DATABASE]*
 
+Specifies the database to use.
 
-#+begin_src shell
-rails _6.1.4.6_ new app --database=postgresql
+#+begin_src sh
+bin/rails dbconsole --database=animals
 #+end_src
-
-** test
-|                  |   |
-|------------------+---|
-| test             |   |
-| test:controllers |   |
+** db:
+*db:migrate*
+*db:create*
+*db:truncate*
+*db:version*
 ** destroy
-| cmd                         | desc |
-+-----------------------------+------|
-| destroy controller articles |      |
-| destroy model Artile        |      |
 
-** routes
-|                                        |   |
-|----------------------------------------+---|
-| -g GROUP, --grep=GROUP                 |   |
-| -E, --expanded                         |   |
-| -c CONTROLLER, --controller=CONTROLLER |   |
+#+begin_src sh
+destroy model Oops
+destroy controller articles
+destroy model Artile
+#+end_src
 
 ** generate
 *** resource
 *** scaffold
-| how                                 | desc |
-+-------------------------------------+------|
-| generate scaffold Article <options> |   |
-|                                     |   |
+full set of model, database migration for that model, controller to manipulate
+it, views to view and manipulate the data, and a test suite
+
+#+begin_src sh
+generate scaffold Article <options>
+#+end_src
 
 *** models
 | what   | how                                                                    | desc |
@@ -205,6 +280,24 @@ rails _6.1.4.6_ new app --database=postgresql
 #+begin_src
 generate channels <name>
 #+end_src
+** new
+| how               | desc                                              |
++-------------------+---------------------------------------------------|
+| –d or --database= | use the database management system of your choice |
+| new <name>        |                                                   |
+
+
+#+begin_src shell
+rails _6.1.5.1_ new app --database=postgresql
+#+end_src
+
+** test
+*test:controllers*
+
+** routes
+*-g GROUP, --grep=GROUP*
+*-E, --expanded*
+*-c CONTROLLER, --controller=CONTROLLER*
 
 ** server
 |                               |   |
@@ -217,6 +310,17 @@ generate channels <name>
 | destroy    | destroy / d |      |
 | belongs_to |             |      |
 
+** notes
+Searches through your code for comments beginning with a specific keyword.
+
+*--annotations*
+#+begin_src sh
+notes --annotations FIXME RELEASE
+#+end_src
+
+*tags*
+*directories*
+
 ** tasks
 Rails 6 uses rake as task runner
 
@@ -224,6 +328,25 @@ Rails 6 uses rake as task runner
 |--------------+-------------------------|
 | --task or -T | list all task available |
 |              |                         |
+
+** tmp:
+The Rails.root/tmp directory is, like the *nix /tmp directory, the holding place
+for temporary files like process id files and cached actions.
+
+*tmp:cache:clear*
+clears tmp/cache.
+
+*tmp:sockets:clear*
+clears tmp/sockets.
+
+*tmp:screenshots:clear*
+ clears tmp/screenshots.
+
+*tmp:clear*
+ clears all cache, sockets, and screenshot files.
+
+*tmp:create*
+ creates tmp directories for cache, sockets, and pids.
 
 ** log
 |                  |   |
@@ -236,35 +359,28 @@ Rails 6 uses rake as task runner
 | AddXXXToTABLE      |   |
 | RemoveXXXFromTABLE |   |
 
-** console
-| what              | how                                                                | desc                                                                                                                               |
-|-------------------+--------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------|
-| create            | create(title: "foo", body: "bar", published_at: '2020-01-31')      | create new and save to db                                                                                                          |
-| save              | a.save  / a.save!                                                  | save object to db / save and show errors                                                                                           |
-| new               | a.new                                                              | create an empty object                                                                                                             |
-| count             | A.count                                                            |                                                                                                                                    |
-| find              | A.find(3) / A.find([4,5])                                          |                                                                                                                                    |
-| first             | A.first   / A.first.title                                          |                                                                                                                                    |
-| last              | A.last                                                             |                                                                                                                                    |
-| all               | A.all / A.all.size / A.all.each { \a\ puts a.title }               | relational collection                                                                                                              |
-| order             | A.order(:order) / A.order(:order :desc)                            | order per title / order descedent                                                                                                  |
-| where             | A.where(title: 'foo')                                              |                                                                                                                                    |
-| update_attributes | update_attributes(title: "foo", published_at: 1.day.ago)           |                                                                                                                                    |
-| find_or_create_by |                                                                    | find or if none is found create a db anew                                                                                          |
-| <<                | a.x << x                                                           |                                                                                                                                    |
-| delete            |                                                                    | don’t instantiate or perform callbacks on the object they’re deleting. They remove the row immediately from the database.          |
-| destroy           | A.destroy(1) / .destroy([3,4])                                     | finds a single row first and then deletes the row /works on the instance                                                           |
-| delete_by         |                                                                    |                                                                                                                                    |
-| errors            | a.errors.any? / a.errors.full_messages / a.errors.messages[:title] |                                                                                                                                    |
-|                   | a.valid?                                                           |                                                                                                                                    |
-| routes --expanded |                                                                    |                                                                                                                                    |
-| byebug            |                                                                    |                                                                                                                                    |
+** initializers
+** middleware
+** stats
+** secret
+** time:zones:all
+** webpacker
+#+begin_src sh
+webpacker:compile
+#+end_src
+** rake tasks
+
+#+begin_src sh
+bin/rails generate task
+#+end_src
 
 
-*** reload!
-reloads the Rails application environment within your console session. You need
-to call it when you make changes to existing code.
 ** runner
+runs ruby code in the context of rails non-interactively.
+
+#+begin_src sh
+bin/rails runner "Model.long_running_method"
+#+end_src
 * bin
 Useful personal scripts
 
@@ -979,13 +1095,24 @@ make sure a user has entered something into a field.
 
 #+begin_src ruby
 valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+#+end_src
+
+*length*
+
+#+begin_src ruby
 validates :email, length: { in: 5..50 }
 #+end_src
 
 *:presence*
 
 #+begin_src ruby
-validates :title, :body, presence: true
+class Person < ApplicationRecord
+  validates :title, :body, presence: true
+  validates :name, length: { minimum: 2 }
+  validates :bio, length: { maximum: 500 }
+  validates :password, length: { in: 6..20 }
+  validates :registration_number, length: { is: 6 }
+end
 #+end_src
 
 *:uniqueness*
@@ -1003,7 +1130,8 @@ validates :email, length: { in: 5..50 }
 #+end_src
 
 *:format*
-checks whether a value is in the correct format.
+Validates the attributes' values by testing whether they match a given regular expression
+
 
 #+begin_src ruby
 validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
@@ -1013,9 +1141,59 @@ validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
 
 #+begin_src ruby
 validates :password, confirmation: true
+validates :email_confirmation, presence: true
+
+# views
+<%= text_field :person, :email %>
+<%= text_field :person, :email_confirmation %>
+
+
+validates :email, confirmation: { case_sensitive: false }
+
 #+end_src
 
 *:acceptance*
+
+*validates_associated*
+
+#+begin_src ruby
+class Library < ApplicationRecord
+  has_many :books
+  validates_associated :books
+end
+#+end_src
+
+*exclusion*
+
+#+begin_src ruby
+class Account < ApplicationRecord
+  validates :subdomain, exclusion: { in: %w(www us ca jp),
+    message: "%{value} is reserved." }
+end
+#+end_src
+
+*inclusion*
+Validates that the attributes' values are included in a given set.
+
+#+begin_src ruby
+class Coffee < ApplicationRecord
+  validates :size, inclusion: { in: %w(small medium large),
+    message: "%{value} is not a valid size" }
+end
+#+end_src
+
+*numericality*
+
+#+begin_src ruby
+class Player < ApplicationRecord
+  validates :points, numericality: true
+  validates :games_played, numericality: { only_integer: true }
+end
+#+end_src
+
+*absence*
+
+*validates_with*
 
 ** methods
 *create_table*
@@ -1090,7 +1268,7 @@ straightforward as possible.
 - i18n.l()
 - i18n.locale
 - i18n.available_locales
-* External Toolings
+* Toolings
 ** Direnv
 
 Guix + Direnv example file
