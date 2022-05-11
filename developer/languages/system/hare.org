@@ -1,0 +1,95 @@
+#+title: Hare Language
+
+* Progress
+** Books
+| name | chapter | @ |
+|------+---------+---|
+|      |         |   |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+|             |        |      |   |
+* Base
+** functions
+#+begin_src hare
+fn greet(user: str) void = {
+	fmt::printfln("Hello, {}!", user)!;
+};
+#+end_src
+** variables
+*** const
+- cannot be modified after it is initialized
+- rebinds are allowed
+
+*** let
+- modifiable with the = operator
+
+#+begin_src hare
+let
+		a = 10i,	// Signed integer
+		b = 10u,	// Unsigned integer
+		c = 10u8,	// Unsigned 8-bit integer
+		d = 13.37f32;	// 32-bit floating point number
+#+end_src
+** types
+*** string
+*** tuple
+#+begin_src hare
+let b: (int, int) = (42, 24);
+#+end_src
+*** struct
+#+begin_src hare
+let c: struct {
+			x: int,
+			y: int,
+		} = struct {
+			x: int = 10,
+			y: int = 20,
+		}
+#+end_src
+*** array
+#+begin_src hare
+let d: [4]int = [1, 2, 3, 4];
+#+end_src
+*** numerics
+#+begin_src hare
+// Numeric types can be declared explicitly:
+	let
+		a: int = 10,	// Signed integer
+		b: uint = 10,	// Unsigned integer
+		c: u8 = 10,	// Unsigned 8-bit integer
+		d: f32 = 13.37;	// 32-bit floating point number
+
+	// Or inferred from a suffix:
+	let
+		a = 10i,	// Signed integer
+		b = 10u,	// Unsigned integer
+		c = 10u8,	// Unsigned 8-bit integer
+		d = 13.37f32;	// 32-bit floating point number
+#+end_src
+*** slice
+#+begin_src hare
+let e: []int = [1, 2, 3, 4];
+#+end_src
+
+* Library
+** fmt
+** bufio
+** os
+** strings
+** tests
+*** type assertion
+*** error assertion operator (!)
+* CLI
+** haredoc
+#+begin_src sh
+haredoc fmt
+#+end_src
+
+#+begin_src sh
+haredoc fmt::printfln
+#+end_src
+
+** harec
+** hare
