@@ -1,140 +1,5 @@
 #+TITLE: Ruby On Rails
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#videos][Videos]]
-  - [[#sloc][SLOC]]
-- [[#cli][Cli]]
-  - [[#about][about]]
-  - [[#assets][assets:]]
-  - [[#console][console]]
-    - [[#reload][reload!]]
-  - [[#database][database]]
-  - [[#dbconsole][dbconsole]]
-  - [[#db][db:]]
-  - [[#destroy][destroy]]
-  - [[#generate][generate]]
-    - [[#resource][resource]]
-    - [[#scaffold][scaffold]]
-    - [[#models][models]]
-    - [[#channels][channels]]
-  - [[#new][new]]
-  - [[#test][test]]
-  - [[#routes][routes]]
-  - [[#server][server]]
-  - [[#misc][misc]]
-  - [[#notes][notes]]
-  - [[#tasks][tasks]]
-  - [[#tmp][tmp:]]
-  - [[#log][log]]
-  - [[#migration][migration]]
-  - [[#initializers][initializers]]
-  - [[#middleware][middleware]]
-  - [[#stats][stats]]
-  - [[#secret][secret]]
-  - [[#timezonesall][time:zones:all]]
-  - [[#webpacker][webpacker]]
-  - [[#rake-tasks][rake tasks]]
-  - [[#runner][runner]]
-- [[#bin][bin]]
-  - [[#run][run]]
-  - [[#setup][setup]]
-  - [[#rails][rails]]
-  - [[#ci][ci]]
-- [[#routes][Routes]]
-- [[#controller][Controller]]
-  - [[#concerns][Concerns]]
-  - [[#methods][methods]]
-- [[#parameters][Parameters]]
-- [[#views][Views]]
-  - [[#templates][Templates]]
-    - [[#partials][partials]]
-  - [[#embedded-ruby][Embedded Ruby]]
-    - [[#evaluation-embedding-tags--][evaluation embedding tags <% %>]]
-    - [[#output-embedding-tags--][output embedding tags <%= %>]]
-- [[#html-templates][HTML Templates]]
-- [[#session][Session]]
-- [[#hook][Hook]]
-- [[#errors][Errors]]
-- [[#helpers][Helpers]]
-  - [[#formhelper][FormHelper]]
-    - [[#label][label]]
-    - [[#text_field][text_field]]
-    - [[#text_area][text_area]]
-    - [[#datetime_select][datetime_select]]
-  - [[#formtaghelper][FormTagHelper]]
-  - [[#number-helpers][Number helpers]]
-  - [[#text-helpers][Text helpers]]
-  - [[#url-helpers][URL helpers]]
-- [[#enviroment][Enviroment]]
-- [[#logger][Logger]]
-  - [[#methods][Methods]]
-- [[#debugging][Debugging]]
-  - [[#views][Views]]
-  - [[#-console-][<% console %>]]
-- [[#action-cable][Action Cable]]
-- [[#active-record][Active Record]]
-  - [[#methods][methods]]
-  - [[#associations][associations]]
-  - [[#exceptions][exceptions]]
-  - [[#validations][Validations]]
-  - [[#callbacks][Callbacks]]
-    - [[#before_create][before_create]]
-    - [[#after_create][after_create]]
-    - [[#before_save][before_save]]
-    - [[#after_save][after_save]]
-    - [[#before_destroy][before_destroy]]
-    - [[#after_destroy][after_destroy]]
-  - [[#migration][Migration]]
-  - [[#filters][Filters]]
-  - [[#query-interface][Query Interface]]
-  - [[#finding][Finding]]
-    - [[#sql-syntax][SQL Syntax]]
-    - [[#array-condition-syntax][Array Condition Syntax]]
-    - [[#association-proxies][Association Proxies]]
-    - [[#more][more]]
-    - [[#methods][methods]]
-      - [[#where][where]]
-      - [[#find][find]]
-      - [[#findby][findby]]
-      - [[#order][order]]
-      - [[#limit][limit]]
-      - [[#joins][joins]]
-      - [[#includes][includes]]
-  - [[#default-scope][Default Scope]]
-  - [[#named-scope][Named Scope]]
-  - [[#seeds][Seeds]]
-    - [[#methods][methods]]
-- [[#models][Models]]
-  - [[#validations][validations]]
-  - [[#methods][methods]]
-  - [[#concerns][concerns]]
-  - [[#best-practices][best practices]]
-- [[#action-text][Action Text]]
-- [[#active-storage][Active Storage]]
-- [[#action-pack][Action Pack]]
-- [[#action-controller][Action Controller]]
-- [[#action-view][Action View]]
-- [[#action-dispatch][Action Dispatch]]
-- [[#cache][Cache]]
-- [[#tests][Tests]]
-- [[#traits][Traits]]
-  - [[#rest][REST]]
-  - [[#json][JSON]]
-  - [[#terms][Terms]]
-- [[#internationalization][Internationalization]]
-  - [[#methods][methods]]
-- [[#toolings][Toolings]]
-  - [[#direnv][Direnv]]
-  - [[#dockerfile][Dockerfile]]
-  - [[#docker-compose][docker-compose]]
-:END:
 * Progress
 ** Books
 |                         |                           |                                                    |
@@ -247,6 +112,7 @@ bin/rails dbconsole --database=animals
 *db:create*
 *db:truncate*
 *db:version*
+*db:schema_migrations*
 ** destroy
 
 #+begin_src sh
@@ -411,90 +277,6 @@ bin/setup # ensure setup is idempotent
 bin/ci # perform all checks
 #+end_src
 
-* Routes
-The Rails router recognizes URLs and dispatches them to a controller's action,
-or to a Rack application. It can also generate paths and URLs, avoiding the need
-to hardcode strings in your views.
-
-- localhost:xxxx/rails/info/routes
-
-*Named routes*
-
-#+begin_src ruby
-get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and search_path
-#+end_src
-
-*only*
-
-#+begin_src ruby
-resources :articles, only: [:index, :show]
-#+end_src
-
-*Except*
-
-Create all of the standard routes except those listed
-
-#+begin_src ruby
-resources :articles, except: [ :destroy ]
-#+end_src
-
-*Redirect*
-
-#+begin_src ruby
-get "/amazing", to: redirect("/widgets")
-#+end_src
-
-*Inline variable* (:foo)
-
-#+begin_src ruby
-# :query as an inline variable
-get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search/toronto
-#+end_src
-
-#+begin_src ruby
-get '/teams/home', to: 'teams#index' # http://example.com/teams
-#+end_src
-
-*Named routes*
-
-#+begin_src ruby
-get '/teams/search/:query', to: 'teams#search', as: 'search'
-#+end_src
-
-*Root*
-
-#+begin_src ruby
-root to: "articles#index"
-#+end_src
-
-Nested resources
-
-- on their own because they’re conceptually meaningless
-
-#+begin_src ruby
-resources :articles do
-  resources :comments
-end
-#+end_src
-
-Resource (single)
-
-- no index (6 paths)
-
-#+begin_src ruby
-resource :session
-#+end_src
-
-Namespacing
-
-#+begin_src ruby
-namespace :customer_service do
-  resources :widgets, only: [ :show, :update, :destroy ]
-end
-#+end_src
-
-Don’t Create Custom Actions, Create More Resources
-
 * Controller
 
 #+begin_src ruby
@@ -539,47 +321,8 @@ rescue_from
 rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 #+end_src
 
-* Parameters
-- hash-like
-
-*Permit*
-
-- specify which parameters are acceptable
-
-#+begin_src ruby
-params.require(:user).permit(:email, :password, :password_confirmation
-#+end_src
-
 * Views
-** Templates
-*** partials
-- look for _* files
-
-#+begin_src html
-<%= render 'header', title: 'My Blog' %>
-<%= render @article %>
-<%= render 'articles/article', article: @article %>
-#+end_src
-
-Collections
-
-- automatically loops across this collection and renders the partial of every object inside that array accordingly.
-
-#+begin_src html
-<%= render @articles
-<!-- Same as, but w/ better perf than -->
-
-<% @articles.each do |object| %>
-  <%= render object %>
-<% end %>
-
-#+end_src
-
-** Embedded Ruby
-*** evaluation embedding tags <% %>
-*** output embedding tags <%= %>
-
-* HTML Templates
+** HTML Templates
 *Guidelines*
 
 - Mark up all content and controls using semantic HTML; use div and span to solve layout and styling problems.
@@ -655,6 +398,201 @@ Name the Instance Variable After the Resource
 Formats a number into a currency string (e.g., $13.65). You can customize the
 format in the options hash.
 
+** Templates
+*** partials
+- look for _* files
+
+#+begin_src html
+<%= render 'header', title: 'My Blog' %>
+<%= render @article %>
+<%= render 'articles/article', article: @article %>
+#+end_src
+
+Collections
+
+- automatically loops across this collection and renders the partial of every object inside that array accordingly.
+
+#+begin_src html
+<%= render @articles
+<!-- Same as, but w/ better perf than -->
+
+<% @articles.each do |object| %>
+  <%= render object %>
+<% end %>
+
+#+end_src
+
+** Embedded Ruby
+*** evaluation embedding tags <% %>
+*** output embedding tags <%= %>
+
+* Models
+|                   |                            |
+|-------------------+----------------------------|
+| naming convention | CamelCased or snake_cased  |
+
+
+*Generators*
+
+#+begin_src ruby
+bin/rails generate model Product name:string description:text
+#+end_src
+
+#+begin_src ruby
+class CreateProducts < ActiveRecord::Migration[7.0]
+  def change
+    create_table :products do |t|
+      t.string :name
+      t.text :description
+
+      t.timestamps
+    end
+  end
+end
+#+end_src
+
+*Passing Modifiers*
+
+#+begin_src sh
+bin/rails generate migration AddDetailsToProducts 'price:decimal{5,2}' supplier:references{polymorphic}
+#+end_src
+
+#+begin_src ruby
+class AddDetailsToProducts < ActiveRecord::Migration[7.0]
+  def change
+    add_column :products, :price, :decimal, precision: 5, scale: 2
+    add_reference :products, :supplier, polymorphic: true
+  end
+end
+#+end_src
+
+** validations
+make sure a user has entered something into a field.
+
+#+begin_src ruby
+valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+#+end_src
+
+*length*
+
+#+begin_src ruby
+validates :email, length: { in: 5..50 }
+#+end_src
+
+*:presence*
+
+#+begin_src ruby
+class Person < ApplicationRecord
+  validates :title, :body, presence: true
+  validates :name, length: { minimum: 2 }
+  validates :bio, length: { maximum: 500 }
+  validates :password, length: { in: 6..20 }
+  validates :registration_number, length: { is: 6 }
+end
+#+end_src
+
+*:uniqueness*
+validates whether the value of the specified attribute is unique across the system.
+
+#+begin_src ruby
+validates :email, uniqueness: true
+valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
+#+end_src
+
+*:length*
+
+#+begin_src ruby
+validates :email, length: { in: 5..50 }
+#+end_src
+
+*:format*
+Validates the attributes' values by testing whether they match a given regular expression
+
+
+#+begin_src ruby
+validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
+#+end_src
+
+*:confirmation*
+
+#+begin_src ruby
+validates :password, confirmation: true
+validates :email_confirmation, presence: true
+
+# views
+<%= text_field :person, :email %>
+<%= text_field :person, :email_confirmation %>
+
+
+validates :email, confirmation: { case_sensitive: false }
+
+#+end_src
+
+*:acceptance*
+
+*validates_associated*
+
+#+begin_src ruby
+class Library < ApplicationRecord
+  has_many :books
+  validates_associated :books
+end
+#+end_src
+
+*exclusion*
+
+#+begin_src ruby
+class Account < ApplicationRecord
+  validates :subdomain, exclusion: { in: %w(www us ca jp),
+    message: "%{value} is reserved." }
+end
+#+end_src
+
+*inclusion*
+Validates that the attributes' values are included in a given set.
+
+#+begin_src ruby
+class Coffee < ApplicationRecord
+  validates :size, inclusion: { in: %w(small medium large),
+    message: "%{value} is not a valid size" }
+end
+#+end_src
+
+*numericality*
+
+#+begin_src ruby
+class Player < ApplicationRecord
+  validates :points, numericality: true
+  validates :games_played, numericality: { only_integer: true }
+end
+#+end_src
+
+*absence*
+
+*validates_with*
+
+** methods
+*create_table*
+
+no
+
+#+begin_src ruby
+create_table :products do |t|
+  t.string :name
+end
+#+end_src
+
+
+** concerns
+- any module that extends ActiveSupport::Concern module
+- share common code (even as little as a single method!)
+
+** best practices
+*Fat Models*
+
+An intelligent model like this is often called fat. Instead of performing model-related logic in
+other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
+makes your models easier to work with and helps your code stay DRY.
 * Session
 - implemented as a hash
 - flash is a session
@@ -665,6 +603,128 @@ session[:account_id] # => 1
 
 session['message'] = "Hello world!"
 session['message'] # => "Hello world!"
+#+end_src
+
+* Routes
+The Rails router recognizes URLs and dispatches them to a controller's action,
+or to a Rack application. It can also generate paths and URLs, avoiding the need
+to hardcode strings in your views.
+
+- localhost:xxxx/rails/info/routes
+
+*Named routes*
+
+#+begin_src ruby
+get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and search_path
+#+end_src
+
+*only*
+
+#+begin_src ruby
+resources :articles, only: [:index, :show]
+#+end_src
+
+*Except*
+
+Create all of the standard routes except those listed
+
+#+begin_src ruby
+resources :articles, except: [ :destroy ]
+#+end_src
+
+*Redirect*
+
+#+begin_src ruby
+get "/amazing", to: redirect("/widgets")
+#+end_src
+
+*Inline variable* (:foo)
+
+#+begin_src ruby
+# :query as an inline variable
+get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search/toronto
+#+end_src
+
+#+begin_src ruby
+get '/teams/home', to: 'teams#index' # http://example.com/teams
+#+end_src
+
+*Named routes*
+
+#+begin_src ruby
+get '/teams/search/:query', to: 'teams#search', as: 'search'
+#+end_src
+
+*Root*
+
+#+begin_src ruby
+root to: "articles#index"
+#+end_src
+
+*Nested resources*
+
+- resources should never be nested more than 1 level deep.
+
+#+begin_src ruby
+resources :articles do
+  resources :comments
+end
+#+end_src
+
+*Resource* (single)
+
+- no index (6 paths)
+
+#+begin_src ruby
+resource :session
+#+end_src
+
+*Namespacing*
+
+#+begin_src ruby
+namespace :customer_service do
+  resources :widgets, only: [ :show, :update, :destroy ]
+end
+#+end_src
+
+# Don’t Create Custom Actions, Create More Resources
+
+*scope block*
+
+#+begin_src ruby
+scope module: 'admin' do
+  resources :articles, :comments
+end
+
+# or
+resources :articles, module: 'admin'
+
+# route /admin/articles to ArticlesController
+scope '/admin' do
+  resources :articles, :comments
+end
+#same
+resources :articles, path: '/admin/articles'
+#+end_src
+
+*More*
+
+#+begin_src ruby
+get 'profile', action: :show, controller: 'users'
+
+resource :geocoder
+resolve('Geocoder') { [:geocoder] }
+#+end_src
+
+* Parameters
+- hash-like
+
+*Permit*
+
+- specify which parameters are acceptable
+
+#+begin_src ruby
+params.require(:user).permit(:email, :password, :password_confirmation
 #+end_src
 
 * Hook
@@ -725,7 +785,7 @@ ajax
 <%= link_to "new comment", new_article_comment_path(@article), remote: true, id: 'new_comment_link' %>
 #+end_src
 
-* Enviroment
+* Environment
 |                      |                                                |
 |----------------------+------------------------------------------------|
 | RAILS_ENV=production |                                                |
@@ -1049,173 +1109,6 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .create({})
 .find_or_create_by({})
 #+end_src
-* Models
-|                   |                            |
-|-------------------+----------------------------|
-| naming convention | CamelCased or snake_cased  |
-
-
-*Generators*
-
-#+begin_src ruby
-bin/rails generate model Product name:string description:text
-#+end_src
-
-#+begin_src ruby
-class CreateProducts < ActiveRecord::Migration[7.0]
-  def change
-    create_table :products do |t|
-      t.string :name
-      t.text :description
-
-      t.timestamps
-    end
-  end
-end
-#+end_src
-
-*Passing Modifiers*
-
-#+begin_src sh
-bin/rails generate migration AddDetailsToProducts 'price:decimal{5,2}' supplier:references{polymorphic}
-#+end_src
-
-#+begin_src ruby
-class AddDetailsToProducts < ActiveRecord::Migration[7.0]
-  def change
-    add_column :products, :price, :decimal, precision: 5, scale: 2
-    add_reference :products, :supplier, polymorphic: true
-  end
-end
-#+end_src
-
-** validations
-make sure a user has entered something into a field.
-
-#+begin_src ruby
-valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
-#+end_src
-
-*length*
-
-#+begin_src ruby
-validates :email, length: { in: 5..50 }
-#+end_src
-
-*:presence*
-
-#+begin_src ruby
-class Person < ApplicationRecord
-  validates :title, :body, presence: true
-  validates :name, length: { minimum: 2 }
-  validates :bio, length: { maximum: 500 }
-  validates :password, length: { in: 6..20 }
-  validates :registration_number, length: { is: 6 }
-end
-#+end_src
-
-*:uniqueness*
-validates whether the value of the specified attribute is unique across the system.
-
-#+begin_src ruby
-validates :email, uniqueness: true
-valdates :teacher_id, uniqueness: { scope: [:semester_id, :class_id] }
-#+end_src
-
-*:length*
-
-#+begin_src ruby
-validates :email, length: { in: 5..50 }
-#+end_src
-
-*:format*
-Validates the attributes' values by testing whether they match a given regular expression
-
-
-#+begin_src ruby
-validates :email, format: { with:  /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i }
-#+end_src
-
-*:confirmation*
-
-#+begin_src ruby
-validates :password, confirmation: true
-validates :email_confirmation, presence: true
-
-# views
-<%= text_field :person, :email %>
-<%= text_field :person, :email_confirmation %>
-
-
-validates :email, confirmation: { case_sensitive: false }
-
-#+end_src
-
-*:acceptance*
-
-*validates_associated*
-
-#+begin_src ruby
-class Library < ApplicationRecord
-  has_many :books
-  validates_associated :books
-end
-#+end_src
-
-*exclusion*
-
-#+begin_src ruby
-class Account < ApplicationRecord
-  validates :subdomain, exclusion: { in: %w(www us ca jp),
-    message: "%{value} is reserved." }
-end
-#+end_src
-
-*inclusion*
-Validates that the attributes' values are included in a given set.
-
-#+begin_src ruby
-class Coffee < ApplicationRecord
-  validates :size, inclusion: { in: %w(small medium large),
-    message: "%{value} is not a valid size" }
-end
-#+end_src
-
-*numericality*
-
-#+begin_src ruby
-class Player < ApplicationRecord
-  validates :points, numericality: true
-  validates :games_played, numericality: { only_integer: true }
-end
-#+end_src
-
-*absence*
-
-*validates_with*
-
-** methods
-*create_table*
-
-no
-
-#+begin_src ruby
-create_table :products do |t|
-  t.string :name
-end
-#+end_src
-
-
-** concerns
-- any module that extends ActiveSupport::Concern module
-- share common code (even as little as a single method!)
-
-** best practices
-*Fat Models*
-
-An intelligent model like this is often called fat. Instead of performing model-related logic in
-other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
-makes your models easier to work with and helps your code stay DRY.
 * Action Text
 
 Include Action Text’s JavaScript and CSS in the application.
@@ -1267,6 +1160,38 @@ straightforward as possible.
 - i18n.l()
 - i18n.locale
 - i18n.available_locales
+* Rails Files
+** config.ru
+configures the Rack Webserver Interface,
+** gemfile/lock
+** Rakefile
+* Rails Structure
+** app
+*** controllers
+*** models
+*** views
+*** javascript
+*** helpers
+** lib
+- a good place to put code that’s shared among models,views, or controllers.
+- require directly by name. eg: require 'recepits'
+
+to explicitly enable.
+#+begin_src ruby
+config.autoload_paths += %W(#{Rails.root}/lib)
+#+end_src
+*** tasks
+*** assets
+** public
+** bin
+** tmp
+** vendor
+where third-party code lives.
+*** cache
+** config
+*** environment.rb
+*** application.rb
+
 * Toolings
 ** Direnv
 

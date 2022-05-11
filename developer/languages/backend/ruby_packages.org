@@ -364,20 +364,41 @@ end
 
 * Console
 ** pry
+* Runners
 ** rake
-   - -T: list avaiable tasks
-   - spec: run spec tests
+*** options
+*-T*
+ list avaiable tasks
 
-*** usage
-    #+begin_src ruby
-    # desc:
-    # task:
+*spec*
+ run spec tests
 
-    desc "Remove Unix and Windows backup files"
-    task :delete_backups => [ :delete_unix_backups, :delete_windows_backups ] do # depends on two other tasks
-      puts "All backups deleted"
-    end
-    #+end_src
+*-D*
+complete description of a specific task.
+*** task
+#+begin_src ruby
+# desc:
+# task:
+
+desc "Remove Unix and Windows backup files"
+task :delete_backups => [ :delete_unix_backups, :delete_windows_backups ] do # depends on two other tasks
+  puts "All backups deleted"
+end
+#+end_src
+
+*rails task*
+
+#+begin_src ruby
+namespace :db do
+  desc "Prints the migrated versions"
+  task :schema_migrations => :environment do
+    puts ActiveRecord::Base.connection.select_values(
+      "select version from schema_migrations order by version"
+    )
+  end
+end
+#+end_src
+
 * Serialization
 * Web Applications
 ** [[http://sinatrarb.com/][Sinatra]]

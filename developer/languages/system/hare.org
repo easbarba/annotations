@@ -33,6 +33,8 @@ let
 		d = 13.37f32;	// 32-bit floating point number
 #+end_src
 ** types
+- all values, arrays must be initialized when they are declared
+
 *** string
 *** tuple
 #+begin_src hare
@@ -48,9 +50,61 @@ let c: struct {
 			y: int = 20,
 		}
 #+end_src
+
+#+begin_src hare
+use fmt;
+
+type coords = struct { x: int, y: int };
+
+export fn main() void = {
+	let player1 = struct {
+		x: int = 10,
+		y: int = 20,
+	};
+	let player2 = coords {
+		y = 10,
+		x = 20,
+	};
+	let player3: (int, int) = (42, 24);
+	fmt::printfln("Player 1: ({}, {})", player1.x, player1.y)!;
+	fmt::printfln("Player 2: ({}, {})", player2.x, player2.y)!;
+};
+#+end_src
+
 *** array
+number of ordered values determined at compile-time
+
 #+begin_src hare
 let d: [4]int = [1, 2, 3, 4];
+let x: [_]int = [1, 3, 3, 7];
+
+#+end_src
+
+*... operator*
+
+#+begin_src hare
+use fmt;
+
+export fn main() void = {
+	let x: [_]int = [1, 3, 3, 7];
+	assert(len(x) == 4);	// len() built-in
+	assert(x[3] == 7);	// 0-indexed
+	x[3] = 8;		// assignment
+	assert(x[3] == 8);
+
+	let y: [1024]int = [1, 3, 3, 7, 42...];	// Fill remainder with 42
+
+	printvals(y[..4]);
+	printvals(y[2..8]);
+};
+
+fn printvals(in: []int) void = {
+	fmt::printfln("input: {} integers", len(in))!;
+	for (let i = 0z; i < len(in); i += 1) {
+		fmt::printfln("in[{}]: {}", i, in[i])!;
+	};
+	fmt::println()!;
+};3
 #+end_src
 *** numerics
 #+begin_src hare
@@ -69,6 +123,8 @@ let d: [4]int = [1, 2, 3, 4];
 		d = 13.37f32;	// 32-bit floating point number
 #+end_src
 *** slice
+value determined at runtime
+
 #+begin_src hare
 let e: []int = [1, 2, 3, 4];
 #+end_src
