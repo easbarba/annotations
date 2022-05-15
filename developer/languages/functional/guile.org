@@ -1,4 +1,4 @@
-#+TILE: Guile Scheme - Annotations
+#+TILE: Guile Scheme
 
 * Summary
   :PROPERTIES:

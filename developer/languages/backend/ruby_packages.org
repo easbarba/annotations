@@ -139,17 +139,28 @@
 
 *** install
      bundle config set --local deployment 'true'
+*** binstubs
 *** update
-     | subcommand                  | desc                                                       |
-     |-----------------------------+------------------------------------------------------------|
-     | all                         | update all gems                                            |
-     | --group=<name>, -g=[<name>] | Only update the gems in the specified group.               |
-     | --source=<name>             | The name of a :git or :path source used in the Gemfile(5). |
-     | --quiet                     |                                                            |
-     | --redownload                |                                                            |
-     | --minor                     | Prefer updating only to next minor version.                |
-     | --major                     | Prefer updating to next major version (default).           |
-     |                             |                                                            |
+*all*
+update all gems
+
+*--group=<name>, -g=[<name>]*
+ Only update the gems in the specified group.
+
+*--source=<name>*
+The name of a :git or :path source used in the Gemfile(5).
+
+*--quiet*
+
+*--redownload*
+
+*--minor*
+Prefer updating only to next minor version.
+
+*--major*
+Prefer updating to next major version (default).
+
+*--ruby*
 
 * Testing
 ** [[https://rspec.info/][RSpec]]

@@ -8,6 +8,10 @@
 - [[#progresso][Progresso]]
   - [[#books][books]]
   - [[#sloc][sloc]]
+- [[#cli][cli]]
+  - [[#system][system]]
+  - [[#pod][pod]]
+  - [[#ps][ps]]
 - [[#docs][docs]]
 - [[#tricks][tricks]]
 - [[#fixes][fixes]]
@@ -16,6 +20,7 @@
 - [[#podman-composer][podman-composer]]
 - [[#nerdctl][nerdctl]]
 - [[#pods][pods]]
+  - [[#example][example]]
 :END:
 * Progresso
 ** books
@@ -28,6 +33,10 @@
 |--------+-------------------+---------------+------|
 | go     |                   |               |      |
 | podman | cmd/podman/common | completion.go |      |
+* cli
+** system
+** pod
+** ps
 
 * docs
 http://docs.podman.io/en/latest/index.html
@@ -41,3 +50,23 @@ http://docs.podman.io/en/latest/index.html
 * podman-composer
 * nerdctl
 * pods
+** example
+#+begin_src shell
+podman run --name=babu_app_1 -d
+    --label io.podman.compose.config-hash=123
+    --label io.podman.compose.project=babu
+    --label io.podman.compose.version=0.0.1
+    --label com.docker.compose.project=babu
+    --label com.docker.compose.project.working_dir=/da/projects/dev/ruby/babu
+    --label com.docker.compose.project.config_files=docker-compose.yml
+    --label com.docker.compose.container-number=1
+    --label com.docker.compose.service=app
+    --env-file /da/projects/dev/ruby/babu/.env/development/database
+    --env-file /da/projects/dev/ruby/babu/.env/development/web
+    -e WEBPACKER_DEV_SERVER_HOST=webpack
+    -v /da/projects/dev/ruby/babu:/app
+    -v babu_gem_cache:/usr/local/bundle
+    --net babu_default
+    --network-alias app -p 3000:3000
+    -w /app babu_app
+#+end_src

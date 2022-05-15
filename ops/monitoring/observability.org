@@ -1,0 +1,5 @@
+#+title: Observability
+
+* definition
+Observability requires evolving the essence of how we think about gathering the
+data needed to debug effectively

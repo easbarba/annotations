@@ -109,6 +109,7 @@ bin/rails dbconsole --database=animals
 #+end_src
 ** db:
 *db:migrate*
+ VERSION=0
 *db:create*
 *db:truncate*
 *db:version*
@@ -165,6 +166,14 @@ rails _6.1.5.1_ new app --database=postgresql
 *-c CONTROLLER, --controller=CONTROLLER*
 
 ** server
+*-e*
+
+#+begin_src shell
+bin/rails server -e development
+bin/rails server -e test
+bin/rails server -e production
+#+end_src
+
 |                               |   |
 |-------------------------------+---|
 | --binding=[PORT] or -b [PORT] |   |
@@ -335,6 +344,13 @@ Ideally, Expose One Instance Variable Per Action
 
 Name the Instance Variable After the Resource
 
+*<% %>*
+evaluation embedding tags
+execute code inside
+
+*<%= %>*
+output embedding tags
+execute code inside and insert the result into the template
 
 *image_tag*
 
@@ -358,6 +374,18 @@ Name the Instance Variable After the Resource
 
 #+begin_src html
 <%= truncate(strip_tags(product.description), length: 80) %>
+#+end_src
+
+*provide*
+
+#+begin_src ruby
+<% provide :title, "Home" %>
+#+end_src
+
+*yield*
+
+#+begin_src ruby
+<% yield :title %>
 #+end_src
 
 *strip_tags*
@@ -398,8 +426,8 @@ Name the Instance Variable After the Resource
 Formats a number into a currency string (e.g., $13.65). You can customize the
 format in the options hash.
 
-** Templates
-*** partials
+
+*partials*
 - look for _* files
 
 #+begin_src html
@@ -408,7 +436,7 @@ format in the options hash.
 <%= render 'articles/article', article: @article %>
 #+end_src
 
-Collections
+*Collections*
 
 - automatically loops across this collection and renders the partial of every object inside that array accordingly.
 
@@ -421,10 +449,6 @@ Collections
 <% end %>
 
 #+end_src
-
-** Embedded Ruby
-*** evaluation embedding tags <% %>
-*** output embedding tags <%= %>
 
 * Models
 |                   |                            |
@@ -1138,8 +1162,11 @@ straightforward as possible.
 |----------------------+--------------------------------------------------------------------------|
 | dev:cache            | toggle caching on and off in the development environment(restart server) |
 * Tests
-
 *assert_select*
+
+#+begin_src ruby
+
+#+end_src
 
 *assert_response*
 
@@ -1182,7 +1209,12 @@ config.autoload_paths += %W(#{Rails.root}/lib)
 #+end_src
 *** tasks
 *** assets
+** log
+*** development.log
+*** test.log
+*** production.log
 ** public
+static  files, generally related to the running of the server.
 ** bin
 ** tmp
 ** vendor
