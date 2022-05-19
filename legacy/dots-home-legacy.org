@@ -2,6 +2,13 @@
 
 * .profile
 #+begin_src shell
+# RUST
+. "$HOME/.cargo/env"
+# ===================================================
+
+
+export DOCKER_HOST=///run/user/$UID/podman/podman.sock
+
 # ** SWIFT
 export PATH=$HOME/.local/swift/usr/bin:$PATH
 
