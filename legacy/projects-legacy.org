@@ -7,15 +7,14 @@
 :CONTENTS:
 - [[#floss][floss]]
   - [[#python][python]]
-  - [[#rust][rust]]
-  - [[#swift][swift]]
-  - [[#guile][guile]]
-  - [[#java][java]]
-  - [[#elixir][elixir]]
-  - [[#devops][devops]]
-  - [[#guile][guile]]
-  - [[#php][php]]
+  - [[#hare][hare]]
   - [[#go][go]]
+  - [[#rust][rust]]
+  - [[#elixir][elixir]]
+  - [[#swift][swift]]
+  - [[#java][java]]
+  - [[#devops][devops]]
+  - [[#php][php]]
   - [[#lua][lua]]
   - [[#misc][misc]]
 - [[#distro][distro]]
@@ -37,6 +36,23 @@ black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
 #+end_src
+** hare
+#+begin_src csv
+name,branch,url
+hare-irc,master,https://git.sr.ht/~sircmpwn/hare-irc
+himitsu,master,https://git.sr.ht/~sircmpwn/himitsu
+harec,master,https://git.sr.ht/~sircmpwn/harec
+hautils,master,https://git.sr.ht/~sircmpwn/hautils
+hare,master,https://git.sr.ht/~sircmpwn/hare
+#+end_src
+** go
+#+begin_src csv
+name,branch,url
+flux2,main,https://github.com/fluxcd/flux2
+crossplane,master,https://github.com/crossplane/crossplane
+kubernetes,master,https://github.com/kubernetes/kubernetes
+go,master,https://go.googlesource.com/go
+#+end_src
 ** rust
 #+begin_src csv
 name,repository
@@ -47,6 +63,16 @@ alacritty,https://github.com/alacritty/alacritty
 cargo,https://github.com/rust-lang/cargo
 rust,https://github.com/rust-lang/rust
 #+end_src
+** elixir
+#+begin_src csv
+name,branch,url
+credo,master,https://github.com/rrrene/credo
+elixir-ls,master,https://github.com/elixir-lsp/elixir-ls
+ecto,master,https://github.com/elixir-ecto/ecto
+hex,main,https://github.com/hexpm/hex
+phoenix,master,https://github.com/phoenixframework/phoenix
+elixir,main,https://github.com/elixir-lang/elixir
+#+end_src
 ** swift
 #+begin_src csv
 name,repository
@@ -54,10 +80,6 @@ mastodon-ios,https://github.com/mastodon/mastodon-ios
 sourcekit-lsp,https://github.com/apple/sourcekit-lsp
 swift-format,https://github.com/apple/swift-format
 swift,https://github.com/apple/swift
-#+end_src
-** guile
-#+begin_src csv
-
 #+end_src
 ** java
 #+begin_src csv
@@ -70,17 +92,6 @@ junit5,https://github.com/junit-team/junit5
 spring-boot,https://github.com/spring-projects/spring-boot
 spring-framework,https://github.com/spring-projects/spring-framework
 openjdk,https://github.com/openjdk/jdk
-#+end_src
-** elixir
-#+begin_src csv
-name,repository
-credo,https://github.com/rrrene/credo
-realtime,https://github.com/supabase/realtime
-elixir-ls,https://github.com/elixir-lsp/elixir-ls
-ecto,https://github.com/elixir-ecto/ecto
-hex,https://github.com/hexpm/hex
-phoenix,https://github.com/phoenixframework/phoenix
-elixir,https://github.com/elixir-lang/elixir
 #+end_src
 ** devops
 #+begin_src csv
@@ -105,9 +116,6 @@ docker-webserver,https://github.com/extremeshok/docker-webserver
 awesome-compose,https://github.com/docker/awesome-compose
 #+end_src
 
-** guile
-#+begin_src csv
-#+end_src
 ** php
 #+begin_src csv
 name,repository
@@ -118,17 +126,6 @@ laravel-framework,https://github.com/laravel/framework
 laravel,https://github.com/laravel/laravel
 php-doc-en,https://github.com/php/doc-en
 php-src,https://github.com/php/php-src
-#+end_src
-** go
-#+begin_src csv
-name,repository
-pro-go,https://github.com/Apress/pro-go
-learn-go-with-tests,https://github.com/quii/learn-go-with-tests
-goplio,https://github.com/adonovan/gopl.io
-flux2,https://github.com/fluxcd/flux2
-crossplane,https://github.com/crossplane/crossplane
-kubernetes,https://github.com/kubernetes/kubernetes
-go,https://go.googlesource.com/go
 #+end_src
 ** lua
 #+begin_src csv
