@@ -117,6 +117,7 @@
 | Books                   | Chapter                         | late |
 |-------------------------+---------------------------------+------|
 | Learn Functional Elixir | CHAPTER 4 Diving into Recursion |      |
+| Elixir in Action        |                                 |      |
 
 ** SLOC
 | Project | folder      | file | @ |
@@ -266,6 +267,28 @@ end
 
 
 #+end_src
+** Modules
+- like a namespace
+- uppercase letter
+- CamelCase style
+- every function belongs to a module
+
+#+begin_src elixir
+defmodule Geometry do
+  def rectangle_area(a, b) do
+    a * b
+  end
+end
+#+end_src
+
+#+begin_src elixir
+defmodule Geometry.Rectangle do
+...
+end
+defmodule Geometry.Circle do
+...
+end
+#+end_src
 
 ** Arithmetic
 |    |                                       |                      |
@@ -333,6 +356,7 @@ t = &(&1 * &2)
 t.(2,3)
 
 #+end_src
+
 - parens are optional
 
 private functions
@@ -348,7 +372,6 @@ defmodule Meh do
 end
 
 #+end_src
-
 
 *default values \\*
 
@@ -563,9 +586,12 @@ iex> h Ecto.Changeset.cast
 
 ** Pipe
 
-* Modules
+* Library Modules
 ** Kernel
  Automatically imported in all environments.
+** System
+*** halt
+System.halt
 ** Streams
 |         |   |
 |---------+---|
