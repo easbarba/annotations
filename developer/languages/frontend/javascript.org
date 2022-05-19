@@ -1,7 +1,7 @@
 #+TITLE: EcmaScript
 
 * Summary
-    :PROPERTIES:
+  :PROPERTIES:
     :TOC:      :include all :depth 2 :ignore this
     :END:
   :CONTENTS:
@@ -28,10 +28,10 @@
 |---------------------------------+--------+---|
 | JavaScript The Definitive Guide | Arrays |   |
 ** SLOC
-| Project   | folder                  | file         | @ |
-|-----------+-------------------------+--------------+---|
-| draggable | src/Draggable/DragEvent | DragEvent.js |   |
-| inquirer  |                         |              |   |
+| Project   | folder | file | @ |
+|-----------+--------+------+---|
+| commander |        |      |   |
+| axios     |        |      |   |
 
 * Base
 ** Types
