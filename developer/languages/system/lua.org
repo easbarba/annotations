@@ -1,30 +1,30 @@
-#+TILE: Lua - Study Annotations
+#+TILE: Lua
 
-* Sumario
+* TOC
   :PROPERTIES:
   :TOC:      :include all :depth 2 :ignore this
   :END:
 :CONTENTS:
 - [[#progresso][Progresso]]
-  - [[#livros][Livros]]
-  - [[#ldc][LDC]]
-- [[#features][Features]]
+  - [[#books][Books]]
+  - [[#sloc][SLOC]]
+- [[#base][Base]]
   - [[#types][Types]]
-  - [[#assignment][assignment]]
+  - [[#variables][variables]]
   - [[#functions][functions]]
 :END:
 * Progresso
-** Livros
-   | Livros | Capitulo | em | tarde | revisao |
-   |--------+----------+----+-------+---------|
-   | Lua    |          |    |       |         |
-** LDC
-   | Source Code | folder | file | @ |
-   |-------------+--------+------+---|
-   | lua         |        |      |   |
-   | luarocks    |        |      |   |
-   | awesome     |        |      |   |
-* Features
+** Books
+   | Book | chapter | at |
+   |------+---------+----+
+   | Lua  |         |    |
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| lua         |        |      |   |
+| luarocks    |        |      |   |
+| awesome     |        |      |   |
+* Base
 ** Types
 *** Strings
 #+begin_src lua
@@ -67,7 +67,7 @@ string.format("%a", 0.1) --> 0x1.999999999999ap-4
 
 #+end_src
 **** operations
-** assignment
+** variables
 *** local
 #+begin_src lua
 local tolerance = 10
@@ -75,10 +75,8 @@ local tolerance = 10
 #+end_src
 ** functions
 #+begin_src lua
-
 function isturnback (angle)
   angle = angle % 360
   return (math.abs(angle - 180) < tolerance)
 end
-
 #+end_src
