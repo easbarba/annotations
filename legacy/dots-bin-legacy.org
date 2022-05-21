@@ -10,6 +10,8 @@ acpid  tlp vainfo i965-va-driver libvdpau-va-gl1
 firewalld firewall-config
 gnome-keyring seahorse
 
+xorg=(xclip xsel awesome feh scrot network-manager-gnome)
+
 linux-perf
 
 zsh
@@ -40,8 +42,6 @@ awesome-extra
 
 
 micro kate
-
-	wayland=(wl-clipboard sway swaybg swaylock foot clipman grimshot xwayland)
 
 zathura
 
