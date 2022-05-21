@@ -1,19 +1,19 @@
-#+TILE: Ruby Language
+#+TILE: Ruby
 
 * Progress
 ** Books
-| Books                            | Chapter                            | late                                              |
-|----------------------------------+------------------------------------+---------------------------------------------------|
-| Polished Ruby Programming        | 1                                  | Learning how best to use arrays, hashes, and sets |
-| Metaprogramming ruby             | 2                                  | Monday: The Object Mode                           |
-| Programming Ruby                 | 24 Metaprogramming                 | 24.1 Objects and Classes                          |
-| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                                  |
-| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions                   |
-| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                                  |
-| Design Patterns in Ruby          | Composite                          |                                                   |
-| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                                   |
-| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not                         |
-| The Well Grounded Rubyist        | Functional                         | 16.2.1 Object#freeze and Object#frozen?           |
+| Books                            | Chapter                            | late                                    |
+|----------------------------------+------------------------------------+-----------------------------------------|
+| Polished Ruby Programming        | 2                                  | The single-responsibility principl      |
+| Metaprogramming ruby             | 2                                  | method_missing/Dynamic Proxies          |
+| Programming Ruby                 | 24 Metaprogramming                 | 24.1 Objects and Classes                |
+| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
+| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
+| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                        |
+| Design Patterns in Ruby          | Composite                          |                                         |
+| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                         |
+| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not               |
+| The Well Grounded Rubyist        | Functional                         | 16.2.1 Object#freeze and Object#frozen? |
 ** Videos
 |                     |      |     |
 |---------------------+------+-----|
@@ -242,9 +242,23 @@ Post.respond_to?(:item_name) #=> false
 @post.respond_to?(:item_name) #=> true
 #+end_src
 
+*** dynamic method
+#+begin_src ruby
+class MyClass
+  define_method :my_method do |my_arg|
+    my_arg * 3
+  end
+end
+obj = MyClass.new
+obj.my_method(2) # => 6
+#+end_src
+
+
 *** include
 The include directive includes all methods from the given module and make them
 available as instance methods in your class
+
+- inserted in the ancestors chain right above the class itself.
 
 #+begin_src ruby
 module Greeting
@@ -265,26 +279,11 @@ MyClass.ancestors # [MyClass, Greeting, Object, Kernel, BasicObject]
 #+end_src
 
 *** prepend
-- The extend directive includes all methods from the given module and make them
-  available as class methods in your class
-#+begin_src ruby
-module Greeting
-  def hello
-    puts 'Hello from module'
-  end
-end
-
-class MyClass
-  extend Greeting
-end
-
-MyClass.hello # => 'Hello from module'
-
-MyClass.singleton_class.ancestors # [#<Class:MyClass>, Greeting, #<Class:Object>, #<Class:BasicObject>, Class, Module, Object, Kernel, BasicObject
-#+end_src
-*** extend
 - the module is placed right after your class, but when you use prepend is
   prepended, which means that it is set before your class:
+- is inserted in the ancestors chain right below the class.
+
+
 #+begin_src ruby
 module Greeting
   def hello
@@ -306,8 +305,25 @@ MyClass.new.hello
 # => "Hello from class"
 
 MyClass.ancestors # => [Greeting, MyClass, Object, Kernel, BasicObject]
+#+end_src
+*** extend
+- The extend directive includes all methods from the given module and make them
+  available as class methods in your class
 
+#+begin_src ruby
+module Greeting
+  def hello
+    puts 'Hello from module'
+  end
+end
 
+class MyClass
+  extend Greeting
+end
+
+MyClass.hello # => 'Hello from module'
+
+MyClass.singleton_class.ancestors # [#<Class:MyClass>, Greeting, #<Class:Object>, #<Class:BasicObject>, Class, Module, Object, Kernel, BasicObject
 #+end_src
 *** superclass
 #+begin_src ruby
@@ -432,6 +448,50 @@ string.singleton_class.ancestors # => [#<Class:#<String:0x0000563fb8797270>>, St
    end
 
    #+end_src
+
+*refine*
+- similar to Monkeypatches, but they’re not global.
+- activate the changes, you have to do so explicitly, with the using method
+- all the code in that Ruby source file will see the changes
+- inside a module definition, the Refinement will be active until the end of the module definition
+
+
+#+begin_src ruby
+# stringextensions.rb
+module StringExtensions
+  refine String do
+    def to_alphanumeric
+      gsub(/[^\w\s]/, '')
+    end
+  end
+end
+
+# config.rb
+class Config
+  using StringExtensions
+
+  def foo
+    "my *1st* refinement!".to_alphanumeric # => "my 1st refinement"
+  end
+end
+
+# refine in modules
+module StringExtensions
+  refine String do
+    def reverse
+      'esrever'
+    end
+  end
+end
+
+module StringStuff
+  using StringExtensions
+  'my_string'.reverse
+  # => "esrever"
+end
+
+'my_string'.reverse # => "gnirts_ym"
+#+end_src
 
 *** Mixin
 - adds functionality to classes
@@ -2715,8 +2775,7 @@ end
 - %I , %Q , and %W will preform interpolation
 
 * Standard Library
-** Packagement
-*** gem
+** gem
     |                             |   |
     |-----------------------------+---|
     | install <name> -v <version> |   |
@@ -2753,10 +2812,28 @@ ENV.keys[0, 4]
 *** exit
 doesn’t terminate the program immediately — exit first raises a SystemExit exception, which you may catch, and then performs a number
 of cleanup actions, including running any registered at_exit methods and object finalizers.
+*** #instance_variables
+#+begin_src ruby
+obj.my_method
+obj.instance_variables # => [:@v]
+#+end_src
+*** #private_instance_methods
+
+*** #methods
+*** #ancestors
+*** #superclass
+*** #prepend
+*** #include
 
 ** Numbers
 *** Fixnum
 *** Bignum
+** Array
+*grep*
+
+#+begin_src ruby
+[].methods.grep /^re/ # => [:reverse_each, :reverse, ..., :replace, ...]
+#+end_src
 ** Testing
 *** Minitest
 **** setup
@@ -2792,7 +2869,18 @@ of cleanup actions, including running any registered at_exit methods and object 
      | YAML.dump <obj> |               |
      | <obj>.to_yaml   | same as above |
      |                 |               |
+** Modules
+*** #nesting
 
+#+begin_src ruby
+module M
+  class C
+    module M2
+      Module.nesting
+    end
+  end
+end
+#+end_src
 ** Documentation
 *** rdoc
     - nodoc: [all]
