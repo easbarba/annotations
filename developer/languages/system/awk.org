@@ -122,7 +122,7 @@
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
 |             |        |      |   |
-* def
+* Definition
 awk is the GNU Project's implementation of the AWK programming language.  It conforms to the definition of the lan‐
 guage in the POSIX 1003.1 standard.  This version in turn is based on the description in The  AWK  Programming  Lan‐
 guage,  by  Aho,  Kernighan,  and Weinberger.  Gawk provides the additional features found in the current version of
@@ -140,7 +140,7 @@ tion to the command line. In this mode of execution, gawk loads the AWK source c
 commands.  Gawk can only debug AWK program source provided with the -f and --include options.  The debugger is docu‐
 mented in GAWK: Effective AWK Programming.
 
-* Features
+* Base
 ** Types
 *** numbers
 *** strings
