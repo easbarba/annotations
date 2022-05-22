@@ -140,23 +140,35 @@
 - Sorjonen
 
 * Anime
-** Japan
-- Full Metal Alchemist
+** Favorites
 - Spirited Away
-- Chobits
+- Great Teacher Onizuka
+- Serial Experiments Lain
 - Bucky
 - Grave of the Fireflies
 - Dragon Ball Z
+- Saint Seya
+- Trigun
+- Hellsing
 * Manga
 ** Progresso
-|               |    |   |
-|---------------+----+---|
-| One Punch Man | 83 |   |
+|   |   |
+|---+---|
+|   |   |
 ** Favorites
 - Lone Wolf and Cub
 - One Punch Man
+- Full Metal Alchemist
 - Elfen Lied
 - Love Hina
+- Death Note
+- Chobbits
+- Attack on Titan
+- Fist of the North Star
+- Berserk
+- Monster
+- Liar Game
+- Golden Boy
 * Lectures
 ** Teacher
 - Osvaldo Coggiola
