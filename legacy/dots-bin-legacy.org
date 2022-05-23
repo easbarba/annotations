@@ -7,9 +7,9 @@ micro
  clang
 qemu-system-gui ovmf bridge-utils
 acpid  tlp vainfo i965-va-driver libvdpau-va-gl1
-firewalld firewall-config
+ firewall-config
 gnome-keyring seahorse
-
+ lua5.4 luarocks
 xorg=(xclip xsel awesome feh scrot network-manager-gnome)
 
 linux-perf
