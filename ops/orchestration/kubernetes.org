@@ -212,9 +212,9 @@
 
 * Progress
 ** Books
-| Books                            | Chapters              | @          |
-|----------------------------------+-----------------------+------------|
-| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | DaemonSets |
+| Books                            | Chapters              | @       |
+|----------------------------------+-----------------------+---------|
+| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | Ingress |
 
 * Base
 ** Container
@@ -271,6 +271,7 @@ spec:
 #+end_src
 
 ** CustomResourceDefinitions
+allow to extend Kubernetes by integrating their application into a cluster as a standard resource.
 ** DaemonSets
 A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are
 added to the cluster, Pods are added to them. As nodes are removed from the
@@ -278,6 +279,9 @@ cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up
 the Pods it created.
 ** Deployments
 A Deployment provides declarative updates for Pods and ReplicaSets.
+
+- manage your upgrades declaratively
+- roll back to previous revisions
 
 You describe a desired state in a Deployment, and the Deployment Controller
 changes the actual state to the desired state at a controlled rate. You can
@@ -415,6 +419,7 @@ spec:
 An abstract way to expose an application running on a set of Pods as a network service.
 
 - defaults to ClusterIP.
+- receive an IP address that will remain the same
 
 #+begin_src yaml
 apiVersion: v1
@@ -433,16 +438,18 @@ ports:
 #+end_src
 
 *** NodePort
+- A network type that exposes the service to a random port between ports 30000 and 32767
 
 **** TargetPort
-
 **** Port
-
 *** ClusterIP
 *** LoadBalancer
+- requires an add-on to use inside a cluster
 *** ExternalName
 ** Service Account
 A service account provides an identity for processes that run in a Pod.
+
+- a secret will also be created
 
 #+begin_src yaml
 apiVersion: v1
