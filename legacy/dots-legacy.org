@@ -5,47 +5,18 @@
   :TOC:      :include all :depth 2 :ignore this
   :END:
 :CONTENTS:
-- [[#blog][Blog]]
-  - [[#css][css]]
-  - [[#makec][Make(C)]]
-- [[#asdf][asdf]]
-- [[#fish][fish]]
+- [[#makec][Make(C)]]
 - [[#zsh][zsh]]
-- [[#bin][bin]]
 - [[#autostart][autostart]]
 - [[#make][Make]]
   - [[#template---base][Template - Base]]
-- [[#suckless][Suckless]]
-  - [[#st][st]]
-  - [[#dmenu][Dmenu]]
+- [[#st][st]]
+- [[#dmenu][Dmenu]]
+  - [[#dmenu---record-it][dmenu - record it]]
+  - [[#dmenu---mountunmount-drives][dmenu - mount/unmount drives]]
 :END:
 
-* Blog
-** css
-    #+begin_src css
-    section[id] {
-
-	// margin-top: 6rem;
-	// min-height: 100vh;
-    }
-
-
-    nav {
-	// position: fixed;
-	// width: 100vw;
-	// min-height: 12vh;
-	// margin: 0 auto;
-	// background:#EEE1C6;
-    }
-
-
-    #aboutme {
-	ul { ul { display: flex;  }
-	     li { list-style-type: none;
-		  a { padding: .5rem 0 .5rem; color: $links; }}}
-    }
-    #+end_src
-** Make(C)
+* Make(C)
     #+begin_src makefile
     CC = gcc
     CFLAGS = -Wall -Werror -std=c99
@@ -74,296 +45,6 @@
     run:
 	    ./$(DIST)/$(PROJECT)
     #+end_src
-* asdf
-   #+begin_src shell-script
-	 #!/usr/bin/env bash
-
-	 # Information
-	 # Repository: https://github.com/asdf-vm/asdf.git
-
-	 # Debug Options
-	 set -euo pipefail
-
-	 export PATH="$HOME/.asdf/shims"${PATH:+:}$PATH
-
-	 grab()
-	 {
-	     [[ -d "$HOME/.asdf" ]] && return
-
-	     git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
-
-	     cd "$HOME/.asdf"
-
-	     git checkout "$(git describe --abbrev=0 --tags)"
-	 }
-
-
-	 # * RUN
-
-	 grab
-
-	 # * LOAD ASDF
-	 source "$HOME/.asdf/completions/asdf.bash"
-	 source "$HOME/.asdf/asdf.sh"
-
-	 # * UPDATING ASDF
-	 asdf update
-
-
-      #!/usr/bin/env bash
-
-      # * Debug Options
-      set -euo pipefail
-
-      # * Information
-      # Dependencies: libunistring-dev libgc-dev
-
-      # * Sourcing
-      source "$HOME/.asdf/completions/asdf.bash"
-      source "$HOME/.asdf/asdf.sh"
-
-      LANG=guile
-      REPOSITORY="https://github.com/indiebrain/asdf-guile.git"
-
-      keys()
-      {
-	  gpg --keyserver keys.gnupg.net --recv-keys 4FD4D288D445934E0A14F9A5A8803732E4436885
-      }
-
-      add()
-      {
-	  [[ $(asdf list all $LANG) ]] && return
-
-	  asdf plugin-add $LANG $REPOSITORY
-      }
-
-      install()
-      {
-	  asdf install $LANG latest
-	  asdf global $LANG "$(asdf latest $LANG)"
-      }
-
-      # * Run
-
-      echo "Installing ${LANG^}"
-
-      keys
-      add
-      install
-
-
-   # Sourcing
-   source "$HOME/.asdf/completions/asdf.bash"
-   source "$HOME/.asdf/asdf.sh"
-
-   nodejs()
-   {
-       # https://github.com/asdf-vm/asdf-nodejs
-
-       add()
-       {
-	   [[ -f "$HOME/.asdf/shims/node" ]] && return
-
-	   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-
-	   bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
-
-       }
-
-       install()
-       {
-	   local default=14.16.1
-	   asdf install nodejs $default
-
-	   asdf global nodejs $default
-       }
-
-       add
-       install
-
-   }
-
-   yarn()
-   {
-       # https://github.com/asdf-vm/asdf-yarn
-
-       add()
-       {
-	   [[ -f "$HOME/.asdf/shims/yarn" ]] && return
-
-	   asdf plugin-add yarn
-
-       }
-
-       install()
-       {
-	   asdf install yarn latest
-	   asdf global yarn "$(asdf latest yarn)"
-       }
-
-       add
-       install
-   }
-
-   #!/usr/bin/env bash
-
-   # Debug Options
-   set -euo pipefailxo pipefail
-
-   # Sourcing
-   source "$HOME/.asdf/completions/asdf.bash"
-   source "$HOME/.asdf/asdf.sh"
-
-   # * Begin
-
-   install()
-   {
-       # https://github.com/asdf_vm/asdf_ruby
-
-       [[ -f "$HOME/.asdf/shims/psql" ]] && return
-
-       echo 'Installing Postgresql binaries'
-
-       # add plugin repo
-       asdf plugin-add postgres
-
-       # install versions
-       asdf install postgres latest
-
-       # global
-       asdf global postgres "$(asdf latest postgres)"
-   }
-
-
-   # * RUN
-
-   echo 'ASDF - PostgreSQL'
-
-   install
-
-
-#!/usr/bin/env bash
-
-# Repository: https://github.com/asdf-vm/asdf-ruby.git
-
-# Debug Options
-set -euo pipefail
-
-# * Sourcing
-#source "$HOME/.asdf/completions/asdf.bash"
-#source "$HOME/.asdf/asdf.sh"
-
-add()
-{
-    [[ -f "$HOME/.asdf/shims/ruby" ]] && return
-
-    asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-}
-
-install()
-{
-    local default=2.7.2
-    asdf install ruby $default
-
-    asdf global ruby $default
-}
-
-
-
-	    #!/usr/bin/env bash
-		     #!/usr/bin/env bash
-
-		     # set -e
-
-		     source "$HOME/.asdf/completions/asdf.bash"
-		     source "$HOME/.asdf/asdf.sh"
-
-		     asdf_lua()
-		     {
-			 [[ -f "$HOME/.asdf/shims/lua" ]] && return
-
-			 echo 'Installing Lua binaries'
-
-			 asdf plugin-add lua https://github.com/Stratus3D/asdf-lua
-
-			 asdf install lua latest
-
-			 asdf global lua "$(asdf latest lua)"
-		     }
-
-		     packages()
-		     {
-			 echo 'Installing  packages'
-
-			 local packages=()
-
-			 for pack in "${packages[@]}"
-			 do
-			      install "${pack}" # --user-install
-			      update  "${pack}"
-			 done
-		     }
-
-		     # * RUN
-
-		     echo 'Lua - ASDF'
-
-		     asdf_lua
-		     packages
-
-
-
-		     # set -e
-
-		     erlang()
-		     {
-			 # https://github.com/asdf-vm/asdf-erlang
-
-			 [[ -f "$HOME/.asdf/shims/erl" ]] && return
-
-			 echo 'Installing Erlang binaries'
-
-			 asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git
-
-			 asdf install erlang latest
-
-			 asdf global erlang "$(asdf latest erlang)"
-		     }
-
-		     elixir()
-		     {
-			 # https://github.com/asdf_vm/asdf_elixir
-
-			 [[ -f "$HOME/.asdf/shims/elixir" ]] && return
-
-			 echo 'Installing Elixir binaries'
-
-			 asdf plugin-add ruby https://github.com/asdf-vm/asdf-elixir.git
-
-			 asdf install elixir latest
-
-			 asdf global elixir "$(asdf latest elixir)"
-		     }
-
-		     # * Run
-		     erlang
-		     elixir
-
-   #+end_src
-* fish
-   #+begin_src fish
-   # ** RBENV
-   # if type -q rbenv
-   #     status --is-interactive; and rbenv init - | source
-   # end
-
-   # ** ASDF
-
-   if test -e ~/.asdf/completions/asdf.fish
-       cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
-   end
-
-   #+end_src
 * zsh
 #+begin_src shell-script
 
@@ -450,105 +131,6 @@ e-zplug()
 }
 
 #+end_src
-* bin
-   #+begin_src shell-script
-   #!/usr/bin/env bash
-
-   STEP=5
-
-   [[ -x $(command -v brightnessctl) ]] && brightnessctl set "$STEP"%-
-
-   #!/usr/bin/env bash
-
-   STEP=5
-   brightnessctl set "$STEP"%+
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v systemctl) ]] && systemctl poweroff
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v slock) ]] && slock
-   [[ -x $(command -v i3lock) ]] && i3lock
-   [[ -x $(command -v xlock) ]] && xlock
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v systemctl) ]] && systemctl hibernate
-
-
-   #!/usr/bin/env bash
-
-   STATUS=$(nmcli networking)
-
-   [[ ${STATUS} == "disabled" ]] && nmcli networking on &
-   [[ ${STATUS} == "enabled" ]] && nmcli networking off &
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v systemctl) ]] && systemctl reboot
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v loginctl) ]] && loginctl terminate-user ${USER}
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v systemctl) ]] && systemctl suspend
-
-   #!/usr/bin/env bash
-
-   # Descricao: Tira momento da tela
-   now=$(date +"%Y-%m-%d-%T")
-   pic="$HOME/Fotografis/$now-tirtela.png"
-
-   [[ $(command -v scrot) ]] && scrot $pic
-   [[ $(command -v maim) ]] && maim $pic
-
-
-   #!/usr/bin/env bash
-
-   # Descricao: Tira momento da tela
-   now=$(date +"%Y-%m-%d-%T")
-   pic="$HOME/Fotografis/$now-tirtela.png"
-
-   [[ $(command -v scrot) ]] && scrot $pic
-   [[ $(command -v maim) ]] && maim $pic
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v mpc) ]] && mpc toggle
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v mpc) ]] && mpc next
-
-
-   #!/usr/bin/env bash
-
-   [[ -x $(command -v pactl) ]] && pactl set-sink-mute 0 toggle
-
-
-   #!/usr/bin/env bash
-
-   STEP=5
-   [[ -x $(command -v pactl) ]] && pactl set-sink-volume 0 -"$STEP"%
-
-
-   #!/usr/bin/env bash
-
-   STEP=5
-   [[ -x $(command -v pactl) ]] && pactl set-sink-volume 0 +"$STEP"%
-
-
-   #+end_src
 
 * autostart
    #+begin_src shell
@@ -635,8 +217,7 @@ e-zplug()
 
      #+END_SRC
 
-* Suckless
-** st
+* st
     #+begin_src c
     /* See LICENSE file for copyright and license details. */
 
@@ -1112,8 +693,8 @@ e-zplug()
 	    "`abcdefghijklmnopqrstuvwxyz{|}~";
     #+end_src
 
-** Dmenu
-*** dmenu - record it
+* Dmenu
+** dmenu - record it
      #+BEGIN_SRC shell-script
      #!/bin/sh
 
@@ -1223,7 +804,7 @@ e-zplug()
 
 
      #+END_SRC
-*** dmenu - mount/unmount drives
+** dmenu - mount/unmount drives
      #+BEGIN_SRC shell-script
 
      #!/bin/sh
