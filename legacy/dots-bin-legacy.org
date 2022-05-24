@@ -2,52 +2,31 @@
 
 * e_debian
 #+begin_src shell
-
-micro
- clang
-qemu-system-gui ovmf bridge-utils
-acpid  tlp vainfo i965-va-driver libvdpau-va-gl1
- firewall-config
-gnome-keyring seahorse
- lua5.4 luarocks
-xorg=(xclip xsel awesome feh scrot network-manager-gnome)
-
-linux-perf
-
-zsh
-evince cheese
-laptop-mode-tools falkon obs-studio
-
-locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2   parted
-nnn fzy  screen ncdu pragha materia-gtk-theme papirus-icon-theme suru-icon-theme winetricks fonts-firacode
-fonts-freefont-ttf network-manager-gnome  maim unclutter diodon pasystray libfile-mimeinfo-perl dmenu
-wofi rofi lxappearance x11proto-dev volumeicon-alsa dunst rclone
-calibre inkscape screenkey syncthing screenfetch gopher ssh-askpass-gnome fd-find
-
-bash-doc gcc-doc gdb-doc gdbserver
-
-fontconfig libfreetype6
-
-libsqlite3-dev cmake
-
-transmission-gtk
-kdenlive clementine
-
-libiw-dev hddtemp acpi-call
-
-dialog
-
-sysstat
-awesome-extra
-
-
-micro kate
-
-zathura
-
+wayland=(sway swaybg swaylock foot clipman grim slurp wl-clipboard xwayland)
+xorg=(xclip xsel awesome feh scrot network-manager-gnome awesome-extra)
+wm=(udiskie mpd mpc ncmpcpp brightnessctl bluez suckless-tools zathura wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome network-manager-gnome  unclutter diodon pasystray volumeicon-alsa)
+langs=( lua5.4 luarocks  clang)
+user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)
+term=(zsh)
+editors=(micro)
+cli=(nnn fzy)
+gtk=(evince cheese transmission-gtk pragha materia-gtk-theme papirus-icon-theme suru-icon-theme)
 books=( texlive texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-latex-base)
-user=(		inkscape gaupol kdeconnect)
-
+user=( gaupol )
+gnu=(bash-doc gcc-doc gdb-doc gdbserver fonts-freefont-ttf)
+dev=(libsqlite3-dev cmake)
+ops=(qemu-system-gui ovmf bridge-utils)
+fonts=( fonts-firacode)
+laptop=(acpid  tlp vainfo i965-va-driver libvdpau-va-gl1 libiw-dev hddtemp acpi-call dialog sysstat)
+network=()
+firewall-config
+gnome-keyring seahorse
+linux-perf locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2
+ncdu
+ libfile-mimeinfo-perl
+x11proto-dev  rclone
+fontconfig libfreetype6
+  winetricks
 
 #+end_src
 
