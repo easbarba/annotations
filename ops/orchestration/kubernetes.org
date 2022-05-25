@@ -90,6 +90,14 @@
     - [[#externalname][ExternalName]]
   - [[#service-account][Service Account]]
   - [[#statefulsets][StatefulSets]]
+  - [[#podsecuritypolicies][PodSecurityPolicies]]
+  - [[#clusterrolebindings][ClusterRoleBindings]]
+  - [[#clusterroles][ClusterRoles]]
+  - [[#rolebindings][RoleBindings]]
+  - [[#roles][Roles]]
+  - [[#csi-drivers][CSI drivers]]
+  - [[#csi-nodes][CSI nodes]]
+  - [[#storage-classes][Storage classes]]
 - [[#kubectl][kubectl]]
   - [[#--options][--options]]
   - [[#apply][apply]]
@@ -185,6 +193,8 @@
     - [[#replicacontroller][ReplicaController]]
     - [[#service][Service]]
     - [[#replicator][Replicator]]
+    - [[#networkpolicy][NetworkPolicy]]
+    - [[#rolebinding][RoleBinding]]
   - [[#metadata][metadata]]
     - [[#name][name]]
     - [[#namespace][namespace]]
@@ -212,9 +222,9 @@
 
 * Progress
 ** Books
-| Books                            | Chapters              | @       |
-|----------------------------------+-----------------------+---------|
-| Kubernetes – An Enterprise Guide | 3 Kubernetes Bootcamp | Ingress |
+| Books                            | Chapters                                                    | @ |
+|----------------------------------+-------------------------------------------------------------+---|
+| Kubernetes – An Enterprise Guide | Services, Load Balancing, ExternalDNS, and Global Balancing |   |
 
 * Base
 ** Container
@@ -459,6 +469,19 @@ metadata:
   namespace: monitoring
 #+end_src
 ** StatefulSets
+** PodSecurityPolicies
+how cluster protects your nodes from your containers. They allow you to limit the
+actions that a Pod can execute in a cluster.
+** ClusterRoleBindings
+** ClusterRoles
+** RoleBindings
+how to associate a Role or ClusterRole with a subject and namespace.
+** Roles
+combines API groups and actions to define a set of permissions that can be assigned to a subject.
+** CSI drivers
+** CSI nodes
+** Storage classes
+used to define a storage endpoint.
 * kubectl
 ** --options
 |                 |   |
@@ -664,6 +687,9 @@ Update fields of a resource using strategic merge patch, a JSON merge patch, or 
 *** ReplicaController
 *** Service
 *** Replicator
+*** NetworkPolicy
+defines how network traffic, both ingress (incoming) and egress (outgoing), can flow through your cluster.
+*** RoleBinding
 ** metadata
 *** name
 *** namespace
