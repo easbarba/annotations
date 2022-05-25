@@ -5,6 +5,7 @@
 |         |   |
 |---------+---|
 | <IMAGE> |   |
+** up
 ** halt
 ** resume
 ** destroy
