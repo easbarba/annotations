@@ -71,7 +71,7 @@
   - [[#createdb][createdb]]
 - [[#terms][Terms]]
 - [[#errors][Errors]]
-- [[#tips][Tips]]
+- [[#running-from-cli][Running from CLI]]
   - [[#local-and-non-root-database][local and non-root database]]
   - [[#container-from-cli][container from cli]]
   - [[#container-compose][Container compose]]
@@ -505,7 +505,7 @@ DROP ROLE IF EXISTS saitama;
 nnection refused - :econnrefused
 #+end_src
 
-* Tips
+* Running from CLI
 ** local and non-root database
 #+begin_src shell-script
 initdb -D .postgres -A md5 -U $USER --pwprompt
@@ -518,9 +518,15 @@ createdb -U $USER mydb
 ** container from cli
 #+begin_src sh
 docker run --name postin -e POSTGRES_PASSWORD=postgres -p 5433:5432 -v pgdata:/var/lib/postgresql/data -d postgres:13
-
 docker exec -it postin psql -d postgres -U postgres
 #+end_src
+
+#+begin_src shell
+docker network create pgnetwork
+docker run --name pg15beta1 --network pgnetwork -e POSTGRES_PASSWORD=whatever -d postgres:15beta1
+docker run -it --rm --network pgnetwork postgres:15beta1 psql -h pg15beta1 -U postgres
+#+end_src
+
 ** Container compose
 #+begin_src yaml
 version: "3.9"
