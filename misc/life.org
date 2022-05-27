@@ -87,10 +87,9 @@
 - Let the Right One In
 * TV Series
 ** Progress
-| name | episode |
-|------+---------|
-| From |       7 |
-|      |         |
+| name          | episode |
+|---------------+---------|
+| Star Trek TNG | s4e8    |
 
 ** American
 - Star Trek - The Next Generation
@@ -152,9 +151,9 @@
 - Hellsing
 * Manga
 ** Progresso
-|   |   |
-|---+---|
-|   |   |
+|                |   |
+|----------------+---|
+| Ghost in shell | chp2 |
 ** Favorites
 - Lone Wolf and Cub
 - One Punch Man
