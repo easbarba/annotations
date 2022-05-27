@@ -1,0 +1,10 @@
+#+title: Screen
+
+https://www.gnu.org/software/screen/manual
+* cli
+|           |   |
+|-----------+---|
+| ‘-c file’ |   |
+* bindings
+** Command
+C-a :
