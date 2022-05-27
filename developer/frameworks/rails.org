@@ -5,6 +5,7 @@
 |                         |                           |                                                    |
 |-------------------------+---------------------------+----------------------------------------------------|
 | Agile WebDev w/ Rails 6 | 12 Task G: Check Out!     | Iteration G2: Atom Feeds                           |
+| Ruby on Rails tutorial  | 6                         | Finding user objects                               |
 | Beginning Rails 6       | 11 Action Text            | Updating the Article View                          |
 | Sustainable Rails       | 7 HTML Templates          | 7.2.1Name the Instance Variable After the Resource |
 | Rails Guides            | Active Record Validations | 2.12 validates_with                                |
@@ -731,6 +732,17 @@ end
 resources :articles, path: '/admin/articles'
 #+end_src
 
+*member*
+
+#+begin_src ruby
+resources :articles do
+  member do
+    post :notify_friend
+  end
+  resources :comments
+end
+#+end_src
+
 *More*
 
 #+begin_src ruby
@@ -739,6 +751,7 @@ get 'profile', action: :show, controller: 'users'
 resource :geocoder
 resolve('Geocoder') { [:geocoder] }
 #+end_src
+
 
 * Parameters
 - hash-like
@@ -1276,6 +1289,10 @@ export PATH="$NPM_BIN":$PATH
 # libsass need it to compile files
 
 # ** SQLITE
+#+end_src
+** Heroku
+#+begin_src shell
+heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bin/rails db:{migrate,seed
 #+end_src
 ** Dockerfile
 #+begin_src dockerfile
