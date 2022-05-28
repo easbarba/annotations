@@ -451,7 +451,7 @@ format in the options hash.
 
 #+end_src
 ** partials
-
+- meant to re-usable elements not code organization
 
 *locals variables*
 
