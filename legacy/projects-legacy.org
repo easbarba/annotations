@@ -1,30 +1,6 @@
-#+TITLE: Projects Legacy
+#+TITLE: Personal Projects Legacy
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
-:CONTENTS:
-- [[#floss][floss]]
-  - [[#python][python]]
-  - [[#hare][hare]]
-  - [[#go][go]]
-  - [[#rust][rust]]
-  - [[#elixir][elixir]]
-  - [[#swift][swift]]
-  - [[#java][java]]
-  - [[#devops][devops]]
-  - [[#php][php]]
-  - [[#misc][misc]]
-- [[#distro][distro]]
-- [[#cejo][cejo]]
-- [[#ports][Ports]]
-  - [[#ruby][Ruby]]
-  - [[#net][.NET]]
-  - [[#python][Python]]
-:END:
-
-* floss
+* qas
 ** python
 #+begin_src csv
 name,repository
@@ -72,6 +48,26 @@ hex,main,https://github.com/hexpm/hex
 phoenix,master,https://github.com/phoenixframework/phoenix
 elixir,main,https://github.com/elixir-lang/elixir
 #+end_src
+** lua
+#+begin_src csv
+name,branch,url
+packer.nvim,master,https://github.com/wbthomason/packer.nvim
+which-key.nvim,main,https://github.com/folke/which-key.nvim
+willpower3309-awesome-dotfiles,master,https://github.com/WillPower3309/awesome-dotfiles
+elv13-awesome-configs,master,https://github.com/Elv13/awesome-configs
+vicious,master,https://github.com/vicious-widgets/vicious
+awesome-wm-widgets,master,https://github.com/streetturtle/awesome-wm-widgets
+luamake,master,https://github.com/actboy168/luamake
+lua-language-server,master,https://github.com/sumneko/lua-language-server
+emmylua-LanguageServer,master,https://github.com/EmmyLua/EmmyLua-LanguageServer
+turtle-lua,master,https://github.com/arthurealike/turtle.lua
+luvit,master,https://github.com/luvit/luvit
+lite,master,https://github.com/rxi/lite
+awesome-copycats,master,https://github.com/lcpz/awesome-copycats
+awesome,master,https://github.com/awesomeWM/awesome
+luarocks,master,https://github.com/luarocks/luarocks
+lua,master,https://github.com/lua/lua
+#+end_src
 ** swift
 #+begin_src csv
 name,repository
@@ -92,29 +88,6 @@ spring-boot,https://github.com/spring-projects/spring-boot
 spring-framework,https://github.com/spring-projects/spring-framework
 openjdk,https://github.com/openjdk/jdk
 #+end_src
-** devops
-#+begin_src csv
-name,repository
-Kubernetes---An-Enterprise-Guide-2E,https://github.com/PacktPublishing/Kubernetes---An-Enterprise-Guide-2E
-sustainable-rails-docker,https://github.com/davetron5000/sustainable-rails-docker
-docker-compose-rails,https://github.com/boltops-learn/docker-compose-rails
-mattrayner-docker-lamp,https://github.com/mattrayner/docker-lamp
-nodejs-postgresql-azure,https://github.com/glaucia86/nodejs-postgresql-azure
-kubernetes-and-docker-the-complete-guide,https://github.com/PacktPublishing/Kubernetes-and-Docker-The-Complete-Guide
-michaelcade-90daysofdevops,https://github.com/MichaelCade/90DaysOfDevOps
-rgerardi-ansible-vim-articles,https://github.com/rgerardi/ansible-vim-articles
-descomplicandokubernetes,https://github.com/badtuxx/DescomplicandoKubernetes
-vinycoolguy2015-awslambda,https://github.com/vinycoolguy2015/awslambda
-k8s-wait-for,https://github.com/groundnuty/k8s-wait-for
-cedon-crossplane-gcp,https://gitlab.com/cedon/crossplane-gcp
-cedon-curso-k8s,https://gitlab.com/cedon/curso-k8s
-ampernetacle,https://github.com/jpetazzo/ampernetacle
-extremeshok-docker-webserver,https://github.com/extremeshok/docker-webserver
-github-gitignore,https://github.com/github/gitignore
-docker-webserver,https://github.com/extremeshok/docker-webserver
-awesome-compose,https://github.com/docker/awesome-compose
-#+end_src
-
 ** php
 #+begin_src csv
 name,repository
@@ -234,7 +207,7 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/laravel/laravel
    - https://github.com/php/php-src
    #+end_src
-* distro
+* zae
     #+begin_src yaml
     ---
     builddep: builddep
