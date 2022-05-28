@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-|                         |                           |                                                    |
-|-------------------------+---------------------------+----------------------------------------------------|
-| Agile WebDev w/ Rails 6 | 12 Task G: Check Out!     | Iteration G2: Atom Feeds                           |
-| Ruby on Rails tutorial  | 6                         | Finding user objects                               |
-| Beginning Rails 6       | 11 Action Text            | Updating the Article View                          |
-| Sustainable Rails       | 7 HTML Templates          | 7.2.1Name the Instance Variable After the Resource |
-| Rails Guides            | Active Record Validations | 2.12 validates_with                                |
+|                         |                           |                           |
+|-------------------------+---------------------------+---------------------------|
+| Sustainable Rails       | 8 Helpers                 |                           |
+| Agile WebDev w/ Rails 6 | 12 Task G: Check Out!     | Iteration G2: Atom Feeds  |
+| Ruby on Rails tutorial  | 6                         | Finding user objects      |
+| Beginning Rails 6       | 11 Action Text            | Updating the Article View |
+| Rails Guides            | Active Record Validations | 2.12 validates_with       |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -450,6 +450,24 @@ format in the options hash.
 <% end %>
 
 #+end_src
+** partials
+
+
+*locals variables*
+
+#+begin_src html
+<%= render partial: "rating", locals: { widget: @widget } %>
+
+# app/views/widgets/_rating.html.erb
+
+<%= button_to rating,
+    widget_ratings_path,
+    params: {
+    widget_id: widget.id,
+    rating: rating
+}
+%>
+#+end_src
 
 * Models
 |                   |                            |
@@ -751,7 +769,6 @@ get 'profile', action: :show, controller: 'users'
 resource :geocoder
 resolve('Geocoder') { [:geocoder] }
 #+end_src
-
 
 * Parameters
 - hash-like
