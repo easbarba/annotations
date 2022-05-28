@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-|                         |                           |                           |
-|-------------------------+---------------------------+---------------------------|
-| Sustainable Rails       | 8 Helpers                 |                           |
-| Agile WebDev w/ Rails 6 | 12 Task G: Check Out!     | Iteration G2: Atom Feeds  |
-| Ruby on Rails tutorial  | 6                         | Finding user objects      |
-| Beginning Rails 6       | 11 Action Text            | Updating the Article View |
-| Rails Guides            | Active Record Validations | 2.12 validates_with       |
+|                         |                           |                                    |
+|-------------------------+---------------------------+------------------------------------|
+| Sustainable Rails       | 8 Helpers                 |                                    |
+| Agile WebDev w/ Rails 6 | 19 Active Record          | Specifying Relationships in Models |
+| Ruby on Rails tutorial  | 6                         | Finding user objects               |
+| Beginning Rails 6       | 11 Action Text            | Updating the Article View          |
+| Rails Guides            | Active Record Validations | 2.12 validates_with                |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -636,6 +636,63 @@ end
 An intelligent model like this is often called fat. Instead of performing model-related logic in
 other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
 makes your models easier to work with and helps your code stay DRY.
+* Helpers
+help views by providing a convenient location to encapsulate code that would
+otherwise clutter the view and violate the terms of the MVC. They offer a middle
+ground between controllers and views and help to keep your application organized
+and easy to maintain.
+
+- export methods to be available to a view.
+- can also be added via the helper method in a controller
+- methods in app/helpers/application_helper.rb will be included and available to all your views.
+- exist in a single global namespace
+
+** FormHelper
+*label*
+#+begin_src html
+<label for="article_title">Title</label>
+#+end_src
+
+*text_field*
+
+#+begin_src html
+<input type="text" name="article[title]" id="article_title" />
+<input class="large" type="text" name="article[title]" id="article_title" />
+#+end_src
+
+*text_area*
+
+#+begin_src html
+<textarea name="article[body]" id="article_body"></textarea>
+#+end_src
+
+*datetime_select*
+
+#+begin_src html
+<input type="submit" name="commit" value="Create Article" data-disable-with="Create Article" />
+#+end_src
+
+** FormTagHelper
+** Number helpers
+** Text helpers
+
+#+begin_src ruby
+simple_format
+#+end_src
+** URL helpers
+*link_to*(name, options={}, html_options={})
+
+#+begin_src ruby
+link_to 'New', new_article_path, id: 'new_article_link'
+link_to 'New', {controller: 'articles', action: 'new'}, class: 'large'
+link_to 'New', {controller: 'articles', action: 'new'}, {class: 'large'}
+#+end_src
+
+*ajax*
+
+#+begin_src ruby
+<%= link_to "new comment", new_article_comment_path(@article), remote: true, id: 'new_comment_link' %>
+#+end_src
 * Session
 - implemented as a hash
 - flash is a session
@@ -793,52 +850,6 @@ params.require(:user).permit(:email, :password, :password_confirmation
 errors.add(:base, 'Line Items present') # associated error with the base object.
 #+end_src
 
-* Helpers
-help views by providing a convenient location to encapsulate code that would
-otherwise clutter the view and violate the terms of the MVC. They offer a middle
-ground between controllers and views and help to keep your application organized
-and easy to maintain.
-** FormHelper
-*** label
-#+begin_src html
-<label for="article_title">Title</label>
-#+end_src
-*** text_field
-#+begin_src html
-<input type="text" name="article[title]" id="article_title" />
-<input class="large" type="text" name="article[title]" id="article_title" />
-#+end_src
-*** text_area
-#+begin_src html
-<textarea name="article[body]" id="article_body"></textarea>
-#+end_src
-*** datetime_select
-#+begin_src html
-<input type="submit" name="commit" value="Create Article" data-disable-with="Create Article" />
-#+end_src
-
-** FormTagHelper
-** Number helpers
-** Text helpers
-
-#+begin_src ruby
-simple_format
-#+end_src
-** URL helpers
-link_to(name, options={}, html_options={})
-
-#+begin_src ruby
-link_to 'New', new_article_path, id: 'new_article_link'
-link_to 'New', {controller: 'articles', action: 'new'}, class: 'large'
-link_to 'New', {controller: 'articles', action: 'new'}, {class: 'large'}
-#+end_src
-
-ajax
-
-#+begin_src ruby
-<%= link_to "new comment", new_article_comment_path(@article), remote: true, id: 'new_comment_link' %>
-#+end_src
-
 * Environment
 |                      |                                                |
 |----------------------+------------------------------------------------|
@@ -881,8 +892,9 @@ Rails.logger.warn "This will show in all environments"
 - Class names are singular; table names are plural.
 - Tables contain an identity column named id.
 
-** methods
-New/create
+** Methods
+
+#new | #create
 
 #+begin_src ruby
 # new
@@ -897,7 +909,7 @@ take place in..", published_at: '2020-01-31')
 article.save
 #+end_src
 
-Inspecting
+- Inspecting
 
 #+begin_src ruby
 article.new_record?
@@ -905,7 +917,7 @@ article.attributes
 article.id
 #+end_src
 
-Order
+- Order
 
 #+begin_src ruby
 Article.order(:title)
@@ -913,20 +925,20 @@ Article.order(published_at: :desc)
 Article.order(published_at: :asc)
 #+end_src
 
-Conditions
+- Conditions
 
 #+begin_src ruby.
 Article.where(title: 'RailsConf').first
 #+end_src
 
-Updating
+- Updating
 
 #+begin_src ruby
 article.update(title: "RailsConf2020", published_at: 1.day.ago)
 article.update!(title: "RailsConf2020", published_at: 1.day.ago)
 #+end_src
 
-Deleting
+- Deleting
 
 - destroy style works on the instance
 - delete style operates on the class
@@ -947,7 +959,7 @@ Article.delete_by("published_at < '2011-01-01'") # with conditions
 Article.delete([5, 6])
 #+end_src
 
-Misc
+- more
 
 #+begin_src ruby
 article.valid?
@@ -959,7 +971,7 @@ articles.size
 Article.count
 #+end_src
 
-Find
+- #find
 
 #+begin_src ruby
 Article.find 3
@@ -969,7 +981,7 @@ Article.last
 Article.all
 #+end_src
 
-Errors
+- #errors
 
 #+begin_src ruby
 article.errors.any?
@@ -980,7 +992,45 @@ article.errors.size
 article.valid?
 #+end_src
 
-** associations
+- #column_names
+
+#+begin_src ruby
+Order.column_names # ["id", "name", "address", "email", "pay_type", "created_at", "updated_at"]
+#+end_src
+
+-  #columns_hash
+
+#+begin_src ruby
+>> Order.columns_hash["pay_type"]
+=> #<ActiveRecord::ConnectionAdapters::Column:0x000055afb7266a58
+@name="pay_type", @sql_type_metadata=#<
+ActiveRecord::ConnectionAdapters::SqlTypeMetadata:0x000055afb7266b98
+@sql_type="integer", @type=:integer, @limit=nil, @precision=nil,
+@scale=nil>, @null=true, @default=nil, @default_function=nil,
+@collation=nil, @comment=nil>
+#+end_src
+
+- #before_type_cast
+
+#+begin_src ruby
+Order.first.pay_type
+ #=> "Check", a string
+Order.first.pay_type_before_type_cast
+ #=> 0, an integer
+#+end_src
+
+** Columns provided by Rails
+- created_at, created_on, updated_at, updated_on
+
+Rails applications conventionally use the _on suffix for date columns and the
+_at suffix for columns that include a time.
+
+- id
+- xxx_id
+- xxx_count
+
+
+** Associations
 |                         |                                                                                    |
 |-------------------------+------------------------------------------------------------------------------------|
 | has_many                |                                                                                    |
