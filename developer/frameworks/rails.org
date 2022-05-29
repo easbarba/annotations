@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-|                         |                           |                                    |
-|-------------------------+---------------------------+------------------------------------|
-| Sustainable Rails       | 8 Helpers                 |                                    |
-| Agile WebDev w/ Rails 6 | 19 Active Record          | Specifying Relationships in Models |
-| Ruby on Rails tutorial  | 6                         | Finding user objects               |
-| Beginning Rails 6       | 11 Action Text            | Updating the Article View          |
-| Rails Guides            | Active Record Validations | 2.12 validates_with                |
+|                         |                           |                                 |
+|-------------------------+---------------------------+---------------------------------|
+| Sustainable Rails       | 8 Helpers                 |                                 |
+| Agile WebDev w/ Rails 6 | 19 Active Record          | Subsetting the Records Returned |
+| Ruby on Rails tutorial  | 6                         | Finding user objects            |
+| Beginning Rails 6       | 11 Action Text            | Updating the Article View       |
+| Rails Guides            | Active Record Validations | 2.12 validates_with             |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -1019,7 +1019,7 @@ Order.first.pay_type_before_type_cast
  #=> 0, an integer
 #+end_src
 
-** Columns provided by Rails
+** Default Columns
 - created_at, created_on, updated_at, updated_on
 
 Rails applications conventionally use the _on suffix for date columns and the
@@ -1029,16 +1029,55 @@ _at suffix for columns that include a time.
 - xxx_id
 - xxx_count
 
-
 ** Associations
-|                         |                                                                                    |
-|-------------------------+------------------------------------------------------------------------------------|
-| has_many                |                                                                                    |
-| has_one                 |                                                                                    |
-| belongs_to              | goes in the class with the foreign key                                             |
-| many_to_many            |                                                                                    |
-| has_and_belongs_to_many | join table that keeps a reference to the foreign keys involved in the relationship |
-|                         |                                                                                    |
+*one-to-zero-or-one*
+
+Implemented using a foreign key in one row in one table to reference
+at most a single row in another table.
+
+#+begin_src ruby
+class Order < ActiveRecord::Base
+  has_one :invoice
+  # . . .
+end
+
+class Invoice < ActiveRecord::Base
+  belongs_to :order
+  # . . .
+end
+#+end_src
+
+*one-to-many*
+
+#+begin_src ruby
+# parent object
+class Order < ActiveRecord::Base
+  has_many :line_items
+# . . .
+end
+
+class LineItem < ActiveRecord::Base
+  belongs_to :order
+# . . .
+end
+#+end_src
+
+*many-to-many*
+- symmetrical
+
+#+begin_src ruby
+class Category< ActiveRecord::Base
+  has_and_belongs_to_many :products
+  # . . .
+end
+
+class Product< ActiveRecord::Base
+  has_and_belongs_to_many :categories
+  # . . .
+end
+#+end_src
+
+*more examples*
 
 #+begin_src ruby
 class Message < ApplicationRecord
