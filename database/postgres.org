@@ -69,6 +69,8 @@
   - [[#pstree][pstree]]
   - [[#initdb][initdb]]
   - [[#createdb][createdb]]
+- [[#standard-library][Standard Library]]
+  - [[#functions][Functions]]
 - [[#terms][Terms]]
 - [[#errors][Errors]]
 - [[#running-from-cli][Running from CLI]]
@@ -287,14 +289,14 @@ select pk,title,content,author,category from posts where not
        posts.category=pk);
 #+end_src
 ** Functions
-*coalesce*
-
-given two or more parameters, returns the first value that is not NULL.
-
 #+begin_src sql
-select coalesce(NULL,'test'); -- test
-select coalesce('orange','test'); -- orange
-select coalesce(description,'No description') as description from categories order by 1;
+CREATE FUNCTION Raptor_lastSurveyDate1(p_some_value bigint)
+  RETURNS date
+As $$
+  SELECT max(date)
+  FROM raptor_surveys
+  WHERE nest = p_some_value;
+$$ LANGUAGE SQL
 #+end_src
 ** Clause
 *limit*
@@ -303,6 +305,7 @@ limit the number of rows returned by a query
 #+begin_src sql
 select * from categories order by pk limit 1;
 select * from categories order by pk limit 2;
+SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4;
 #+end_src
 
 *offset*
@@ -310,6 +313,7 @@ skip a specific number of rows returned by the query
 
 #+begin_src sql
 select * from categories order by pk offset 1 limit 1;
+SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4 OFFSET 4;
 #+end_src
 
 ** Types
@@ -486,6 +490,17 @@ DROP ROLE IF EXISTS saitama;
     - logical replication launcher
 ** initdb
 ** createdb
+* Standard Library
+** Functions
+*coalesce*
+
+given two or more parameters, returns the first value that is not NULL.
+
+#+begin_src sql
+select coalesce(NULL,'test'); -- test
+select coalesce('orange','test'); -- orange
+select coalesce(description,'No description') as description from categories order by 1;
+#+end_src
 * Terms
 |              |                                                                                    |
 |--------------+------------------------------------------------------------------------------------|
