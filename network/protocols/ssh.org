@@ -1,51 +1,46 @@
-#+TITLE: SSH
-
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-- [[#base][Base]]
-  - [[#encryption][encryption]]
-    - [[#symmetric-algorithm][symmetric algorithm]]
-    - [[#asymmetric-algorithm][asymmetric algorithm]]
-- [[#config-file][config file]]
-  - [[#ssh_config][ssh_config]]
-  - [[#sshd_config][sshd_config]]
-  - [[#ssh__key][ssh_*_key]]
-  - [[#ssh__keypub][ssh_*_key.pub]]
-- [[#definition][definition]]
-- [[#traits][traits]]
-- [[#commands][commands]]
-  - [[#options][options]]
-    - [[#-p][-p]]
-- [[#openssh][openssh]]
-  - [[#ssh-add][ssh-add]]
-  - [[#ssh-agent][ssh-agent]]
-  - [[#ssh-copy-id][ssh-copy-id]]
-  - [[#scp][scp]]
-:END:
+#+TITLE: SSH, the Secure SHell
 
 * Progress
 | book        | chapter                         | @                                        |
 |-------------+---------------------------------+------------------------------------------|
 | SSH Mastery | Chapter 2: Common Configuration | Wildcards in OpenSSH Configuration Files |
 |             |                                 |                                          |
+* Definition
+The Secure Shell (SSH) protocol sets up a secure Telnet session over a standard TCP/IP con-
+nection and is employed for doing things like logging into other systems, running programs on
+remote systems, and moving files from one system to another.
+
+- default port: 22
+- remote logins
+- remote command execution
+- shell access
+- file transfer
+- port forwarding
+- network proxy services
+- VPN tunneling.
 * Base
 - Every SSH server has a key pair.
 
 ** encryption
-- cannot decrypt the message without the secret encryption key.
+- cannot decrepit the message without the secret encryption key.
 
 *** symmetric algorithm
 uses the same key for both encryption and encryption.
 
 *** asymmetric algorithm
  uses different keys for encryption and decryption.
+* keys
+** public key
+~/.ssh/*.pub
 
-* config file
+- 0644
+- shareable
+** private key
+~/.ssh/*
+
+- 0600
+- never share the private key!
+* Configuration
 - Port 22
 
 | default location |                    |
@@ -68,12 +63,8 @@ server’s private keys
 ** ssh_*_key.pub
 public key for that private keys
 
-* definition
-The Secure Shell (SSH) protocol sets up a secure Telnet session over a standard TCP/IP con-
-nection and is employed for doing things like logging into other systems, running programs on
-remote systems, and moving files from one system to another.
-
-- default port: 22
+** ~/.ssh
+- folder permission must be 0700
 * traits
 - ControlPersist
 * commands
@@ -82,7 +73,39 @@ remote systems, and moving files from one system to another.
 #+begin_src shell
 ssh username@example.com -p 23
 #+end_src
-* openssh
+*** -i identity_file
+  Selects a file from which the identity (private key) for public key authentication is read.  You can also specify a
+  public key file to use the corresponding private key that is loaded in ssh-agent(1) when the private key file is not
+  present locally.
+
+#+begin_src shell
+ssh -i ~/.ssh/id_ecdsa hsolo@server.admin.dom
+#+end_src
+
+*** -l
+#+begin_src shell
+ssh -l hsolo server.admin.com
+#+end_src
+*** -o
+#+begin_src shell
+ssh -o StrictHostKeyChecking=no server.admin.com
+#+end_src
+*** -v
+* OpenSSH
+** ssh
+** sshd
+** ssh-keygen
+#+begin_src shell
+ssh-keygen -t ecdsa -b 384
+#+end_src
+
+|    |                                                                              |
+|----+------------------------------------------------------------------------------|
+| -y | ead a private OpenSSH format file and print an OpenSSH public key to stdout. |
+| -f | Specifies the filename of the key file.                                      |
+
+
+** ssh-keyscan
 ** ssh-add
 ssh-add adds private key identities to the authentication agent, ssh-agent(1).  When run without arguments, it adds the files
 ~/.ssh/id_rsa, ~/.ssh/id_dsa, ~/.ssh/id_ecdsa, ~/.ssh/id_ecdsa_sk, ~/.ssh/id_ed25519, and ~/.ssh/id_ed25519_sk.  After loading
@@ -99,7 +122,17 @@ ssh-add to work.
 |    |                                                                          |
 |----+--------------------------------------------------------------------------|
 | -l | Lists fingerprints of all identities currently represented by the agent. |
+| -d | removes identities from the agent                                        |
+| -D | Deletes all identities from the agent.                                   |
 |    |                                                                          |
 ** ssh-agent
+ caches decrypted private keys
+
+
+ |    |                                                        |
+ |----+--------------------------------------------------------|
+ | -a | Bind the agent to the UNIX-domain socket bind_address. |
+
 ** ssh-copy-id
 ** scp
+** sftp

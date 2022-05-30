@@ -1,4 +1,4 @@
-#+TITLE: Linux Distros - base
+#+TITLE: Linux - base
 
 * Progress
 ** Books
@@ -6,7 +6,7 @@
 |--------------------+----------------------------+---------------------|
 | RHCSA 8 Asghar 2ed | 4 Advanced File Management | Default Permissions |
 
-* / - Root folders
+* Root folders (/)
 ** opt
 holds additional software that may need to be installed on the system. A
 subdirectory is created for each installed software.
@@ -72,6 +72,10 @@ data for processes running on the system.
 -  /run/media, is also used to automatically mount external file systems such as those that are on optical and flash USB.
 ** sys
 
+* users
+** root
+- superuser
+- UID of 0
 * dictionary
 /usr/share/dict/words
 * Sumario
@@ -80,7 +84,8 @@ data for processes running on the system.
   :END:
 :CONTENTS:
 - [[#progress][Progress]]
-- [[#---root-folders][/ - Root folders]]
+- [[#root-folders-][Root folders (/)]]
+- [[#users][users]]
 - [[#dictionary][dictionary]]
 - [[#tips][Tips]]
 :END:
