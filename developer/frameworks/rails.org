@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-|                         |                           |                                 |
-|-------------------------+---------------------------+---------------------------------|
-| Sustainable Rails       | 8 Helpers                 |                                 |
-| Agile WebDev w/ Rails 6 | 19 Active Record          | Subsetting the Records Returned |
-| Ruby on Rails tutorial  | 6                         | Finding user objects            |
-| Beginning Rails 6       | 11 Action Text            | Updating the Article View       |
-| Rails Guides            | Active Record Validations | 2.12 validates_with             |
+|                         |                           |                           |
+|-------------------------+---------------------------+---------------------------|
+| Sustainable Rails       | 8 Helpers                 |                           |
+| Agile WebDev w/ Rails 6 | 19 Active Record          | Getting Column Statistics |
+| Ruby on Rails tutorial  | 6                         | Finding user objects      |
+| Beginning Rails 6       | 11 Action Text            | Updating the Article View |
+| Rails Guides            | Active Record Validations | 2.12 validates_with       |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -959,18 +959,6 @@ Article.delete_by("published_at < '2011-01-01'") # with conditions
 Article.delete([5, 6])
 #+end_src
 
-- more
-
-#+begin_src ruby
-article.valid?
-article.errors.size
-article.errors.messages[:title]
-article.errors.full_messages
-
-articles.size
-Article.count
-#+end_src
-
 - #find
 
 #+begin_src ruby
@@ -1018,6 +1006,83 @@ Order.first.pay_type
 Order.first.pay_type_before_type_cast
  #=> 0, an integer
 #+end_src
+
+- #first
+
+
+- #limit
+
+#+begin_src ruby
+orders = Order.where(name: 'Dave')
+            .order("pay_type, shipped_at DESC")
+            .limit(10)
+#+end_src
+
+- #offset
+
+#+begin_src ruby
+def Order.find_on_page(page_num, page_size)
+  order(:id).limit(page_size).offset(page_num*page_size)
+end
+#+end_src
+
+- #select
+
+#+begin_src ruby
+Talk.select("title, speaker, recorded_on")
+Model.select(:field)
+Model.select(:field, :other_field, :and_one_more)
+Model.select('field AS field_one', 'other_field AS field_two')
+#+end_src
+
+- #joins
+
+#+begin_src ruby
+LineItem.select('li.quantity').
+  where("pr.title = 'Programming Ruby 1.9'").
+  joins("as li inner join products as pr on li.product_id = pr.id")
+
+Deducao.joins(:prestador)
+       .select('pessoas.razao_social, pessoas.qtd_min_mensal, count(deducoes.id) as qtd')
+       .group('deducoes.prestador_id')
+       .having('count(deducoes.id) < pessoas.qtd_min_mensal').first.qtd
+
+Pessoa.joins(:deducoes).select([:razao_social, :qtd_min_mensal, 'count(deducoes.id) as qtd']).group(:id).having('count(deducoes.id) < qtd_min_mensal')
+#+end_src
+
+- #readonly
+
+
+- #group
+
+#+begin_src ruby
+LineItem.select("sku, sum(amount) as amount").group("sku")
+#+end_src
+
+- #lock
+
+#+begin_src ruby
+Account.transaction do
+ac = Account.where(id: id).lock("LOCK IN SHARE MODE").first
+ac.balance -= amount if ac.balance > amount
+ac.save
+end
+#+end_src
+
+-
+
+- more examples
+
+#+begin_src ruby
+article.valid?
+article.errors.size
+article.errors.messages[:title]
+article.errors.full_messages
+
+articles.size
+Article.count
+#+end_src
+
 
 ** Default Columns
 - created_at, created_on, updated_at, updated_on
