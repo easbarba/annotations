@@ -5,7 +5,7 @@
 |                         |                           |                           |
 |-------------------------+---------------------------+---------------------------|
 | Sustainable Rails       | 8 Helpers                 |                           |
-| Agile WebDev w/ Rails 6 | 19 Active Record          | Getting Column Statistics |
+| Agile WebDev w/ Rails 6 | 19 Active Record          | Updating Existing Rows    |
 | Ruby on Rails tutorial  | 6                         | Finding user objects      |
 | Beginning Rails 6       | 11 Action Text            | Updating the Article View |
 | Rails Guides            | Active Record Validations | 2.12 validates_with       |
@@ -1069,7 +1069,29 @@ ac.save
 end
 #+end_src
 
--
+- #reload
+
+#+begin_src ruby
+stock = Market.find_by(ticker: "RUBY")
+loop do
+  puts "Price = #{stock.price}"
+  sleep 60
+  stock.reload
+end
+#+end_src
+
+
+- statitics
+
+#+begin_src ruby
+Product.average(:price)
+Product.maximum(:price)
+Product.minimum(:price)
+Product.sum(:price)
+Product.count
+Order.where("amount > 20").minimum(:amount)
+Order.group(:state).maximum(:amount)
+#+end_src
 
 - more examples
 
@@ -1083,6 +1105,38 @@ articles.size
 Article.count
 #+end_src
 
+** Scopes
+#+begin_src ruby
+class Book < ApplicationRecord
+  belongs_to :supplier
+  belongs_to :author
+  has_many :reviews
+  has_and_belongs_to_many :orders, join_table: 'books_orders'
+
+  scope :in_print, -> { where(out_of_print: false) }
+  scope :out_of_print, -> { where(out_of_print: true) }
+  scope :old, -> { where('year_published < ?', 50.years.ago )}
+  scope :out_of_print_and_expensive, -> { out_of_print.where('price > 500') }
+  scope :costs_more_than, ->(amount) { where('price > ?', amount) }
+end
+#+end_src
+
+** SQL Query string
+
+#+begin_src ruby
+LineItem.find_by_sql("select line_items.* from line_items, orders " +
+" where order_id = orders.id " +
+" and orders.name = 'Dave Thomas' ")
+#+end_src
+
+#+begin_src ruby
+LineItem.find_by_sql("select *, " +
+" products.price as unit_price, " +
+" quantity*products.price as total_price, " +
+" products.title as title " +
+" from line_items, products " +
+" where line_items.product_id = products.id ")
+#+end_src
 
 ** Default Columns
 - created_at, created_on, updated_at, updated_on
