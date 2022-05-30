@@ -2,9 +2,8 @@
 
 * e_debian
 #+begin_src shell
-wayland=(sway swaybg swaylock foot clipman grim slurp wl-clipboard xwayland)
 xorg=(xclip xsel awesome feh scrot network-manager-gnome awesome-extra)
-wm=(udiskie mpd mpc ncmpcpp brightnessctl bluez suckless-tools zathura wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome network-manager-gnome  unclutter diodon pasystray volumeicon-alsa)
+wm=(suckless-tools zathura wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome network-manager-gnome  unclutter diodon pasystray volumeicon-alsa)
 langs=( lua5.4 luarocks  clang)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)
 term=(zsh)
