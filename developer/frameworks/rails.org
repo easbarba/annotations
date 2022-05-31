@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-|                         |                           |                           |
-|-------------------------+---------------------------+---------------------------|
-| Sustainable Rails       | 8 Helpers                 |                           |
-| Agile WebDev w/ Rails 6 | 19 Active Record          | Updating Existing Rows    |
-| Ruby on Rails tutorial  | 6                         | Finding user objects      |
-| Beginning Rails 6       | 11 Action Text            | Updating the Article View |
-| Rails Guides            | Active Record Validations | 2.12 validates_with       |
+|                         |                           |                                         |
+|-------------------------+---------------------------+-----------------------------------------|
+| Sustainable Rails       | 8 Helpers                 |                                         |
+| Agile WebDev w/ Rails 6 | 19 Active Record          | Participating in the Monitoring Process |
+| Ruby on Rails tutorial  | 6                         | Finding user objects                    |
+| Beginning Rails 6       | 11 Action Text            | Updating the Article View               |
+| Rails Guides            | Active Record Validations | 2.12 validates_with                     |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -894,22 +894,34 @@ Rails.logger.warn "This will show in all environments"
 
 ** Methods
 
-#new | #create
+#new
 
 #+begin_src ruby
 # new
 Article.new(title: "Introduction to Active Record",
 body: "Active Record is Rails's default ORM..", published_at: Time.zone.now)
+#+end_src
 
+#create
+#create!
+
+#+begin_src ruby
 # create
 Article.create(title: "RubyConf 2020", body: "The annual RubyConf will
 take place in..", published_at: '2020-01-31')
+#+end_src
 
-# then save
+#save
+#save!
+
+- save returns true if the record was saved; it returns nil otherwise.
+- save! returns true if the save succeeded; it raises an exception otherwise.
+
+#+begin_src ruby
 article.save
 #+end_src
 
-- Inspecting
+Inspecting
 
 #+begin_src ruby
 article.new_record?
@@ -917,7 +929,7 @@ article.attributes
 article.id
 #+end_src
 
-- Order
+#order
 
 #+begin_src ruby
 Article.order(:title)
@@ -925,7 +937,7 @@ Article.order(published_at: :desc)
 Article.order(published_at: :asc)
 #+end_src
 
-- Conditions
+Conditions
 
 #+begin_src ruby.
 Article.where(title: 'RailsConf').first
@@ -938,7 +950,26 @@ article.update(title: "RailsConf2020", published_at: 1.day.ago)
 article.update!(title: "RailsConf2020", published_at: 1.day.ago)
 #+end_src
 
-- Deleting
+#delete
+#delete_all
+
+- bypass the various Active Record callback and validation functions
+
+#+begin_src ruby
+Order.delete(123)
+User.delete([2,3,4,5])
+Product.delete_all(["price > ?", @expensive_price])
+
+# Remove the row immediately from the database
+
+Article.delete(4) # don’t instantiate or perform callbacks on the object they’re deleting
+Article.delete_all
+Article.delete_by("published_at < '2011-01-01'") # with conditions
+Article.delete([5, 6])
+#+end_src
+
+#destroy
+#destroy_all
 
 - destroy style works on the instance
 - delete style operates on the class
@@ -948,15 +979,8 @@ article.update!(title: "RailsConf2020", published_at: 1.day.ago)
 Article.last.destroy
 Article.destroy(2)
 Article.destroy([2,3])
-
 article.destroy
-
-# Remove the row immediately from the database
-
-Article.delete(4) # don’t instantiate or perform callbacks on the object they’re deleting
-Article.delete_all
-Article.delete_by("published_at < '2011-01-01'") # with conditions
-Article.delete([5, 6])
+Order.destroy_all(["shipped_at < ?", 30.days.ago])
 #+end_src
 
 - #find
@@ -1080,6 +1104,18 @@ loop do
 end
 #+end_src
 
+- #update
+
+#+begin_src ruby
+order = Order.find(321)
+order.update(name: "Barney", email: "barney@bedrock.com")
+#+end_src
+
+- #update_all
+
+#+begin_src ruby
+result = Product.update_all("price = 1.1*price", "title like '%Java%'")
+#+end_src
 
 - statitics
 
