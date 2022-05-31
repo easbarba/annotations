@@ -205,6 +205,7 @@ ls
 # => banana/
 #+end_src
 ** (( Double Parentheses ))
+Arithmetic expansion allows the evaluation of an arithmetic expression and the substitution of the result.
 ** <( Angle Parentheses )
 process substitution
 #+begin_src shell
@@ -220,6 +221,12 @@ alternate version of the built-in test.
 ** { Single Curly Braces }
 grouping commands or globbing
 ** ${dollar braces}
+** {...}
+Execute the commands in the braces as a group.
+
+#+begin_src shell
+false || { echo "We failed"; exit 1; }
+#+end_src
 
 * Resources
    - http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html#toc6
@@ -625,7 +632,8 @@ mkdir /usr/local/src/bash/{old,new,dist,bugs}
 * Environments Vars
 ** $DIRSTACK
 ** $BASH_ENV
-
+** $?
+returns the exit status of the last executed command
 * Shell Expansions
 ** Arithmetic Expansion
 Arithmetic expansion allows the evaluation of an arithmetic expression and the substitution of the result.
