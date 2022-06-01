@@ -1,122 +1,11 @@
-#+TITLE: C
+#+TITLE: C language
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 3 :ignore this
-  :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-  - [[#packages][Packages]]
-    - [[#gem][gem]]
-    - [[#bundle][bundle]]
-      - [[#outdated][outdated]]
-      - [[#gem][gem]]
-      - [[#install][install]]
-      - [[#update][update]]
-    - [[#irb][irb]]
-      - [[#cli][cli]]
-      - [[#inside][inside]]
-    - [[#rspec][rspec]]
-    - [[#unit-test][unit test]]
-    - [[#pry][pry]]
-  - [[#features][Features]]
-    - [[#project-structure][project structure]]
-    - [[#system-errors][System Errors]]
-      - [[#usage][usage]]
-    - [[#exceptions][exceptions]]
-      - [[#errors][Errors]]
-      - [[#usage][usage]]
-    - [[#writable-object-attribute][writable object attribute]]
-    - [[#multithreading][Multithreading]]
-      - [[#usage][usage]]
-    - [[#modules][modules]]
-    - [[#continuation][continuation]]
-    - [[#fibers][Fibers]]
-      - [[#errors][errors]]
-      - [[#usage][usage]]
-    - [[#delimited-input][delimited input]]
-    - [[#rake][rake]]
-      - [[#usage][usage]]
-    - [[#gem][gem]]
-    - [[#variables][Variables]]
-      - [[#class-variables][class variables]]
-      - [[#global-variables][global variables]]
-    - [[#self][self]]
-    - [[#commentary][commentary]]
-    - [[#defined][defined?]]
-    - [[#iterators][iterators]]
-    - [[#block-local-variables][block-local variables]]
-    - [[#loops][loops]]
-    - [[#statement-modifiers][statement modifiers]]
-    - [[#comparison][comparison]]
-    - [[#conditional][conditional]]
-    - [[#class][class]]
-      - [[#class][class]]
-    - [[#append-][append <<]]
-    - [[#blocks][blocks]]
-    - [[#lambda][lambda]]
-      - [[#how][How]]
-      - [[#usage][Usage]]
-    - [[#methods][methods]]
-    - [[#yield][yield]]
-    - [[#procs][procs]]
-    - [[#operators][operators]]
-    - [[#enumerable][enumerable]]
-    - [[#enumerator][enumerator]]
-      - [[#lazy][lazy]]
-      - [[#each_car][each_car]]
-      - [[#each][each]]
-      - [[#to_enumenum_for][to_enum/enum_for]]
-    - [[#inject][inject]]
-    - [[#select][select]]
-    - [[#succ][succ]]
-    - [[#collect][collect]]
-    - [[#freeze][freeze]]
-    - [[#dup][dup]]
-    - [[#dig][dig]]
-    - [[#fetch][fetch]]
-    - [[#tap][tap]]
-    - [[#map][map]]
-    - [[#pluck][pluck]]
-    - [[#quoting][Quoting]]
-    - [[#here-documents][here documents]]
-    - [[#proc][proc]]
-    - [[#do-end-as-param][do end as param]]
-    - [[#array][array]]
-    - [[#datetime][date/time]]
-    - [[#lambda][lambda]]
-    - [[#begin-rescue][begin rescue]]
-    - [[#hash][hash]]
-    - [[#range][range]]
-    - [[#sets][sets]]
-    - [[#gsub][gsub]]
-    - [[#find][find]]
-    - [[#map][map]]
-    - [[#each_slice][each_slice]]
-    - [[#lazy][lazy]]
-    - [[#with_index][with_index]]
-    - [[#enum_for][enum_for]]
-    - [[#more][more]]
-    - [[#concepts][Concepts]]
-      - [[#iterator][Iterator]]
-      - [[#methods][Methods]]
-      - [[#enumerator][Enumerator]]
-    - [[#instructions][Instructions]]
-      - [[#rbenv][Rbenv]]
-      - [[#misc][misc]]
-  - [[#toolings][Toolings]]
-  - [[#videos][Videos]]
-  - [[#tests][Tests]]
-    - [[#rspec][RSpec]]
-    - [[#unit][Unit]]
-  :END:
 * Progress
 ** Book
-| Buch              | Capitulo | em                         | tarde | revisao |
-|-------------------+----------+----------------------------+-------+---------|
-| C Modern Approach | Pointers | finding the largest pg 249 |       |         |
+| Buch              | Capitulo | em                         |
+|-------------------+----------+----------------------------|
+| C Primer Plus     | 2 Data   | Data: Data-Type Keywords   |
+| C Modern Approach | Pointers | finding the largest pg 249 |
 
 ** SLOC
 | Source Code | folder    | file        | @ |
@@ -124,8 +13,22 @@
 | curl        | lib/vauth | cleartext.c |   |
 | tmux        |           | alert.c     |   |
 
-* Features
-** pointers
+* Base
+** Types
+*** int
+*** float
+
+#+begin_src c
+print("%f", 2.0)
+#+end_src
+
+*** double
+*** char
+** Variables
+*constant
+
+
+** Pointers
 #+begin_src c
 int main(){
   int i, *p, *b;
@@ -140,6 +43,17 @@ int main(){
 
 
 #+end_src
+** macros
+#+begin_src c
+#define INCHES_PER_POUND 166
+#+end_src
+
+* Standard Library
+** stdio
+#scanf
+
+#printf
+
 * Books
 ** CPAMA
 *** Chapter 8
@@ -326,46 +240,42 @@ int main(){
 	 #+END_SRC
 
 * Snippets
-
 ** find exec in path
-     #+begin_src c
+#+begin_src c
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <string>
+#include <iostream>
 
+using namespace std;
 
-     #include <stdlib.h>
-     #include <sys/stat.h>
-     #include <sys/types.h>
-     #include <unistd.h>
+int main ()
+{
+  struct stat sb;
+  string delimiter = ":";
+  string path = string(getenv("PATH"));
+  size_t start_pos = 0, end_pos = 0;
 
-     #include <string>
-     #include <iostream>
+  while ((end_pos = path.find(':', start_pos)) != string::npos)
+{
+  string current_path =
+    path.substr(start_pos, end_pos - start_pos) + "/mathsat";
 
-     using namespace std;
-
-     int main ()
-     {
-       struct stat sb;
-       string delimiter = ":";
-       string path = string(getenv("PATH"));
-       size_t start_pos = 0, end_pos = 0;
-
-       while ((end_pos = path.find(':', start_pos)) != string::npos)
-	 {
-	   string current_path =
-	     path.substr(start_pos, end_pos - start_pos) + "/mathsat";
-
-	   if ((stat(mathsat_path.c_str(), &sb) == 0) && (sb.st_mode & S_IXOTH))
-	     {
-	       cout << "Okay" << endl;
-	       return EXIT_SUCCESS;
-	      }
-
-	   start_pos = end_pos + 1;
-	  }
-
-       return EXIT_SUCCESS;
+  if ((stat(mathsat_path.c_str(), &sb) == 0) && (sb.st_mode & S_IXOTH))
+    {
+      cout << "Okay" << endl;
+      return EXIT_SUCCESS;
      }
 
-     #+end_src
+  start_pos = end_pos + 1;
+ }
+
+  return EXIT_SUCCESS;
+}
+
+#+end_src
 
 * Tools
     https://cdecl.org/  - C gibberish ↔ English
@@ -611,7 +521,7 @@ int main(){
 
     http://doc.cat-v.org/plan_9/4th_edition/papers/mk
 
-* System Software Skills
+* Job
     |---+------------------------------------------------------+---|
     | C | Data Structures rather than just databases           |   |
     | C | deliver clean, efficient and glamorous code quickly. |   |
