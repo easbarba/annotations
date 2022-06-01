@@ -485,6 +485,7 @@ int main ()
     http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html
 
     https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html
+* Toolings
 * Libraries
     https://www.gnu.org/software/libc/
 
@@ -529,14 +530,8 @@ int main ()
     http://doc.cat-v.org/plan_9/4th_edition/papers/mk
 
 * Job
-    |---+------------------------------------------------------+---|
-    | C | Data Structures rather than just databases           |   |
-    | C | deliver clean, efficient and glamorous code quickly. |   |
-    | C | current, low level "C" skills                        |   |
-    | C | write API's and not just use them.                   |   |
-    |   | SQL                                                  |   |
-    |   | Excellent writing skills                             |   |
-    |   | Outstanding communications skills are a must         |   |
-    |   | Git                                                  |   |
-    |   | ) Experience in programming microcontrollers.        |   |
-    |---+------------------------------------------------------+---|
+- deliver clean, efficient and glamorous code quickly.
+- current, low level "C" skills
+- write API's and not just use them.
+- experience in programming micro-controllers.
+- gcc/autoconf/automake
