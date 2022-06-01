@@ -4,7 +4,7 @@
 ** Book
 | Buch              | Capitulo | em                         |
 |-------------------+----------+----------------------------|
-| C Primer Plus     | 2 Data   | Data: Data-Type Keywords   |
+| C Primer Plus     | 2 Data   | The int Type               |
 | C Modern Approach | Pointers | finding the largest pg 249 |
 
 ** SLOC
@@ -21,9 +21,16 @@
 #+begin_src c
 print("%f", 2.0)
 #+end_src
+*** long
+*** short
 
-*** double
 *** char
+*** unsigned
+*** signed
+*** void
+*** _Bool
+*** _complex
+*** _Imaginary
 ** Variables
 *constant
 
