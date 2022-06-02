@@ -271,6 +271,8 @@ mkdir /usr/local/src/bash/{old,new,dist,bugs}
 
 ** regular expression
 
+**
+
 * utilities
 ** read
 ** echo
@@ -293,6 +295,44 @@ display all environment variables and Shell functions
 | +           | options to be turned off.                                                                                                          |
 
 ** shopt
+** test
+-b FILE - True if the FILE exists and is a special block file.
+-c FILE - True if the FILE exists and is a special character file.
+-d FILE - True if the FILE exists and is a directory.
+
+#+begin_src shell
+[ -d /etc/docker ] && echo "$FILE is a directory."
+#+end_src
+
+-e FILE - True if the FILE exists and is a file, regardless of type (node, directory, socket, etc.).
+
+-f FILE - True if the FILE exists and is a regular file (not a directory or device).
+
+#+begin_src shell
+test -f /etc/resolv.conf && echo "$FILE exists."
+
+# multiple checks
+if [ -f /etc/resolv.conf -a -f /etc/hosts ]; then
+    echo "Both files exist."
+fi
+#+end_src
+
+-G FILE - True if the FILE exists and has the same group as the user running the command.
+-h FILE - True if the FILE exists and is a symbolic link.
+-g FILE - True if the FILE exists and has set-group-id (sgid) flag set.
+-k FILE - True if the FILE exists and has a sticky bit flag set.
+-L FILE - True if the FILE exists and is a symbolic link.
+-O FILE - True if the FILE exists and is owned by the user running the command.
+-p FILE - True if the FILE exists and is a pipe.
+-r FILE - True if the FILE exists and is readable.
+-S FILE - True if the FILE exists and is a socket.
+-s FILE - True if the FILE exists and has nonzero size.
+-u FILE - True if the FILE exists, and set-user-id (suid) flag is set.
+-w FILE - True if the FILE exists and is writable.
+-x FILE - True if the FILE exists and is executable.
+
+
+
 * cli
 ** options
 *** --init-file
