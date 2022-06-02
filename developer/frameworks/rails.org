@@ -1258,13 +1258,14 @@ user.build_profile(bio: 'eats leaves')
 
 ** Validations
 ** Callbacks
-*** before_create
-*** after_create
-*** before_save
-*** after_save
-*** before_destroy
-*** after_destroy
-
+#before_create
+#after_create
+#before_save
+#after_save
+#before_destroy
+#after_destroy
+#after_find
+#after_initialize
 ** Migration
 *drop_table*
 
