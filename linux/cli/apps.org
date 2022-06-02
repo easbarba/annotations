@@ -23,7 +23,10 @@
 - [[#user][user]]
   - [[#sudo][sudo]]
   - [[#su][su]]
+  - [[#id][id]]
   - [[#whoiam][whoiam]]
+- [[#groups][groups]]
+  - [[#vigr][vigr]]
 - [[#network][Network]]
   - [[#whois][whois]]
 - [[#permissions][Permissions]]
@@ -332,9 +335,14 @@ su # change to root
 su - # inherist env vars
 su - johndoe # change user
 #+end_src
+** id
 
 ** whoiam
 
+* groups
+- /etc/group
+
+** vigr
 * Network
 ** whois
 * Permissions
