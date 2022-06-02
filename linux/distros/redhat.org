@@ -2,6 +2,6 @@
 
 * Progress
 ** Books
-|                      |                  |       |
-|----------------------+------------------+-------|
-| RHEL8 Administration | 3 Basic commands | Users |
+|                      |                  |                  |
+|----------------------+------------------+------------------|
+| RHEL8 Administration | 3 Basic commands | File permissions |
