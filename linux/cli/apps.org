@@ -20,6 +20,10 @@
   - [[#rm][rm]]
   - [[#rmdir][rmdir]]
   - [[#ln][ln]]
+- [[#user][user]]
+  - [[#sudo][sudo]]
+  - [[#su][su]]
+  - [[#whoiam][whoiam]]
 - [[#network][Network]]
   - [[#whois][whois]]
 - [[#permissions][Permissions]]
@@ -317,6 +321,19 @@ ative link is interpreted in relation to its parent directory.
 | -v |   |
 | -f |   |
 | -T |   |
+
+* user
+** sudo
+** su
+substitute user
+
+#+begin_src shell
+su # change to root
+su - # inherist env vars
+su - johndoe # change user
+#+end_src
+
+** whoiam
 
 * Network
 ** whois
