@@ -1,7 +1,9 @@
 #+title: Heroku
 
-* CLI
+* cli
 ** login
+-i
+** run
 ** create
 ** logs
 --tail
