@@ -181,7 +181,8 @@ end
 #+end_src
 
 ***** metadata
-****** :aggregate_failures
+*:aggregate_failures*
+
 record the first failure, but continue to try the second expectation
 **** specify
 **** example
@@ -197,6 +198,18 @@ record the first failure, but continue to try the second expectation
 continue to try the next expectation
 
 *pending*
+
+#+begin_src ruby
+pending 'returns foo'
+pending 'may default bar.'
+#+end_src
+
+*** examples
+#+begin_src ruby
+it 'returns true' do
+  expect('hello world').to eq('hello world')
+end
+#+end_src
 
 *** varibles
 *let*
@@ -217,6 +230,14 @@ let(:expense) { { 'some' => 'data' } }
 subject(:pak) { pak.new }
 #+end_src
 
+*before*
+
+#+begin_src ruby
+before do
+  @address = { street: "123 Any Street", city: "Anytown" }
+end
+#+end_src
+
 *** setting up
 *before*
 
@@ -229,6 +250,7 @@ end
 #+end_src
 
 *** matchers
+http://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
 
 *eq*
 
@@ -239,7 +261,6 @@ end
 *include*
 
 *be_success*
-
 
 *expect/to*
 
@@ -268,6 +289,35 @@ date: Date.iso8601('2017-06-10')
 *be_an* *be_a*
 
 *have_attributes*
+
+*be_empty*
+
+*be_nil*
+
+match_array
+
+*** expectations
+#+begin_src ruby
+RSpec::Matchers.define :be_discounted do |product, discount|
+  match do |customer|
+    customer.discount_amount_for(product) == discount
+  end
+  failure_message do |customer|
+    actual = customer.discount_amount_for(name)
+    "expected #{product} discount of #{discount}, got #{actual}"
+  end
+end
+
+describe 'product discount' do
+  let(:product) { 'foo123' }
+  let(:discounts) { { product => 0.1 } }
+  subject(:customer) { Customer.new(discounts: discounts) }
+
+  it 'detects when customer has a discount' do
+    expect(customer).to be_discounted(product, 0.1)
+  end
+end
+#+end_src
 *** matches
 *match*
 
@@ -362,6 +412,9 @@ end
 
 ***** Options
        - ENV['RACK_ENV'] = 'test'
+*** BDD
+- extension of the concepts of TDD
+- Whereas TDD is concerned with tests and code, BDD is concerned with behaviors and benefits.
 *** Terms
 - slimming the test
 *** external toolings
