@@ -1,0 +1,9 @@
+#+title: Rails Applications
+
+* devise
+** enforce auth in specific controler
+#+begin_src ruby
+class ProfilesController < ApplicationController
+  before_action :authenticate_user!
+end
+#+end_src
