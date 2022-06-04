@@ -89,7 +89,7 @@
 ** Progress
 | name          | episode |
 |---------------+---------|
-| Star Trek DS9 | s02e09  |
+| Star Trek DS9 | s04e09  |
 | Star Trek TNG | s06e    |
 
 ** American
