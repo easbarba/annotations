@@ -263,6 +263,13 @@ ls ? # a
 ls -l ch?.1 # ch1.1 ch2.1
 
 #+end_src
+
+*** substring
+Wildcard(*) is a symbol used to represent zero, one or more characters.
+
+#+begin_src shell
+[[ 'GNU/Linux is an operating system' == *'gnu'* ]] && echo yep
+#+end_src
 ** Brace Expansion
 #+begin_src shell
 
@@ -330,7 +337,6 @@ fi
 -u FILE - True if the FILE exists, and set-user-id (suid) flag is set.
 -w FILE - True if the FILE exists and is writable.
 -x FILE - True if the FILE exists and is executable.
-
 
 
 * cli
