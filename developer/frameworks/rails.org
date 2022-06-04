@@ -2,13 +2,14 @@
 
 * Progress
 ** Books
-|                         |                           |                                         |
-|-------------------------+---------------------------+-----------------------------------------|
-| Sustainable Rails       | 8 Helpers                 |                                         |
-| Agile WebDev w/ Rails 6 | 19 Active Record          | Participating in the Monitoring Process |
-| Ruby on Rails tutorial  | 6                         | Finding user objects                    |
-| Beginning Rails 6       | 11 Action Text            | Updating the Article View               |
-| Rails Guides            | Active Record Validations | 2.12 validates_with                     |
+|                            |                            |                                         |
+|----------------------------+----------------------------+-----------------------------------------|
+| Sustainable Rails          | 8 Helpers                  |                                         |
+| Rails, Angular,Postgres... | 3 Secure the user database |                                         |
+| Agile WebDev w/ Rails 6    | 19 Active Record           | Participating in the Monitoring Process |
+| Ruby on Rails tutorial     | 6                          | Finding user objects                    |
+| Beginning Rails 6          | 11 Action Text             | Updating the Article View               |
+| Rails Guides               | Active Record Validations  | 2.12 validates_with                     |
 ** Videos
 |               |    |    |
 |---------------+----+----|
