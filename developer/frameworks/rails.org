@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-|                            |                            |                                         |
-|----------------------------+----------------------------+-----------------------------------------|
-| Sustainable Rails          | 8 Helpers                  |                                         |
-| Rails, Angular,Postgres... | 3 Secure the user database |                                         |
-| Agile WebDev w/ Rails 6    | 19 Active Record           | Participating in the Monitoring Process |
-| Ruby on Rails tutorial     | 6                          | Finding user objects                    |
-| Beginning Rails 6          | 11 Action Text             | Updating the Article View               |
-| Rails Guides               | Active Record Validations  | 2.12 validates_with                     |
+|                            |                                     |                                         |
+|----------------------------+-------------------------------------+-----------------------------------------|
+| Sustainable Rails          | 8 Helpers                           |                                         |
+| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS |                                         |
+| Agile WebDev w/ Rails 6    | 19 Active Record                    | Participating in the Monitoring Process |
+| Ruby on Rails tutorial     | 7                                   | 7.1.2 A Users resource                  |
+| Beginning Rails 6          | 11 Action Text                      | Updating the Article View               |
+| Rails Guides               | Active Record Validations           | 2.12 validates_with                     |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -875,6 +875,17 @@ Rails.logger.warn "This will show in all environments"
 
 * Debugging
 ** Views
+** Controllers
+#+begin_src ruby
+class UsersController < ApplicationController
+  def show
+    @user = User.find(params[:id])
+    debugger
+  end
+
+  def new; end
+end
+#+end_src
 
 ** <% console %>
  abre um console na página que vc coloca <% console %> aí vc pode chamar as variáveis daquela página pra entender o que tá Rolando
@@ -1294,6 +1305,30 @@ end
 
 CreateXXX
 
+*Command Recorders*
+
+#+begin_src ruby
+
+# ActiveRecord::Migration::CommandRecorder
+class AddEmailConstraintToUsers < ActiveRecord::Migration[5.0]
+  def change
+    reversible do |direction|
+      direction.up do
+        execute %{
+        # ...
+        }
+      end
+      direction.down do
+        execute %{
+        # ...
+        }
+      end
+    end
+  end
+end
+
+#+end_src
+
 ** Filters
 - before_create
 - after_create
@@ -1409,6 +1444,7 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .create({})
 .find_or_create_by({})
 #+end_src
+
 * Action Text
 
 Include Action Text’s JavaScript and CSS in the application.
