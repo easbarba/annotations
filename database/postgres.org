@@ -1,88 +1,9 @@
 #+TILE: PostgreSQL
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-- [[#base][Base]]
-  - [[#tables][Tables]]
-    - [[#create][create]]
-    - [[#drop][drop]]
-    - [[#truncate][truncate]]
-    - [[#delete][delete]]
-    - [[#insert][insert]]
-    - [[#update][update]]
-    - [[#temporary][temporary]]
-    - [[#update][update]]
-    - [[#unlogged][unlogged]]
-    - [[#null][null]]
-    - [[#where][where]]
-    - [[#like][like]]
-    - [[#ilike][ilike]]
-    - [[#distinct][distinct]]
-    - [[#subqueries][subqueries]]
-  - [[#operators][Operators]]
-    - [[#or][or]]
-    - [[#in][in]]
-    - [[#not][not]]
-    - [[#exist][exist]]
-  - [[#functions][Functions]]
-  - [[#clause][Clause]]
-  - [[#types][Types]]
-    - [[#null][null]]
-    - [[#integer][integer]]
-  - [[#databases][Databases]]
-    - [[#create][create]]
-    - [[#drop][drop]]
-    - [[#copy][copy]]
-    - [[#size][size]]
-      - [[#via-psql][via psql]]
-      - [[#via-sql][via sql]]
-    - [[#query][query]]
-  - [[#ddl---data-definition-language][DDL - Data Definition Language]]
-  - [[#dml---data-manipulation-language][DML - Data Manipulation Language]]
-    - [[#where][where]]
-    - [[#in][in]]
-    - [[#not-int][not int]]
-    - [[#and][and]]
-    - [[#or][or]]
-    - [[#like][like]]
-    - [[#between][between]]
-    - [[#order-by][order by]]
-  - [[#tablespace][Tablespace]]
-  - [[#users--groups][Users & Groups]]
-    - [[#role][role]]
-      - [[#statements][Statements]]
-- [[#commands][Commands]]
-  - [[#pg_ctl][pg_ctl]]
-  - [[#psql][psql]]
-    - [[#commands-][commands (\)]]
-    - [[#psql-prompt][psql prompt]]
-    - [[#drop-role][drop role]]
-    - [[#create-role][create role]]
-    - [[#create-group][create group]]
-    - [[#grant][grant]]
-    - [[#inspect][inspect]]
-  - [[#pstree][pstree]]
-  - [[#initdb][initdb]]
-  - [[#createdb][createdb]]
-- [[#standard-library][Standard Library]]
-  - [[#functions][Functions]]
-- [[#terms][Terms]]
-- [[#errors][Errors]]
-- [[#running-from-cli][Running from CLI]]
-  - [[#local-and-non-root-database][local and non-root database]]
-  - [[#container-from-cli][container from cli]]
-  - [[#container-compose][Container compose]]
-:END:
-
 * Progress
-| book                   | chapter             | @              |
-|------------------------+---------------------+----------------|
-| Learn PostgreSQL 12/13 | Advanced Statements | Learning joins |
+| book                   | chapter             | @                |
+|------------------------+---------------------+------------------|
+| Learn PostgreSQL 12/13 | Advanced Statements | Using LEFT JOINS |
 
 * Base
 ** Tables
@@ -142,7 +63,7 @@ Deletes records from a table without removing table structure
 TRUNCATE TABLE categories;
 #+end_src
 *** delete
-- dml
+- ml
 
 delete all records
 
@@ -248,6 +169,7 @@ SELECT * FROM categories WHERE description ='fruits' AND title='orange';
 SELECT * FROM categories WHERE description ='fruits' ORDER by 2 desc;
 #+end_src
 *** like
+- case-sensitive
 
 #+begin_src sql
 select * from categories where title like 'a%';
@@ -262,9 +184,38 @@ Performs case-insensitive search
 #+begin_src sql
 select * from categories where title ilike 'A%';
 #+end_src
+*** upper
+#+begin_src sql
+select upper('orange');
+select * from categories where upper(title) like 'A%';  -- like case-insensitive search
+#+end_src
 *** distinct
 
 *** subqueries
+#+begin_src sql
+select * from categories where pk in (10,11);
+select * from categories where not (pk=10 or pk=11);
+select * from categories where pk not in (10,11);
+select pk,title,content,author,category from posts where category in (select pk from categories where title ='orange');
+select pk,title,content,author,category from posts where category not in (select pk from categories where title ='orange');
+#+end_src
+
+*** exists / not exists
+#+begin_src sql
+select pk,title,content,author,category from posts where exists (select 1 from categories where title ='orange' and posts.category=pk);
+select pk,title,content,author,category from posts where not exists (select 1 from categories where title ='orange' and posts.category=pk);
+#+end_src
+*** join
+#+begin_src sql
+select c.pk,c.title,p.pk,p.category,p.title from categories c CROSS JOIN posts p;
+select c.pk,c.title,p.pk,p.category,p.title from categories c inner join posts p on c.pk=p.category;
+JOIN condition, we would have to rewrite the query in this way:
+select distinct p.pk,p.title,p.content,p.author,p.category from categories c inner join posts p on c.pk=p.category where c.title='orange';
+#+end_src
+*** left join
+#+begin_src sql
+
+#+end_src
 ** Operators
 *** or
 *** in
@@ -418,6 +369,21 @@ pg_global
 | CREATE ROLE | create a role from scratch  |
 | ALTER ROLE  | change some role properties |
 | DROP ROLE   | remove an existing role     |
+** explain analyze
+,,
+#+begin_src sql
+shine_development> EXPLAIN ANALYZE
+SELECT *
+FROM customers
+WHERE
+  lower(first_name) like 'pat%' OR
+  lower(last_name) like 'pat%' OR
+  lower(email) = 'pat@example.com'
+ORDER BY
+  email = 'pat@example.com' DESC,
+  last_name ASC ;
+QUERY PLAN
+#+end_src
 
 * Commands
 ** pg_ctl
