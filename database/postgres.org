@@ -1,9 +1,9 @@
 #+TILE: PostgreSQL
 
 * Progress
-| book                   | chapter             | @                |
-|------------------------+---------------------+------------------|
-| Learn PostgreSQL 12/13 | Advanced Statements | Using LEFT JOINS |
+| book                   | chapter             | @                   |
+|------------------------+---------------------+---------------------|
+| Learn PostgreSQL 12/13 | Advanced Statements | Aggregate functions |
 
 * Base
 ** Tables
@@ -27,6 +27,8 @@ CREATE TABLE users (
 
 INSERT INTO categories (title,description) values
 ('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable'), ('pataya', NULL);
+
+ with owner ... Encoding ... LC_* ... Tablespace ... Connection limite -1;
 #+end_src
 
 #+begin_src sql
@@ -143,23 +145,6 @@ update temp_categories set title='peach' where pk = 14;
 *** unlogged
 - not crash-safe
 - much faster than logged tables
-*** null
-display NULL values present in the tables
-
-#+begin_src sql
-\pset null NULL
-Null display is "NULL".
-#+end_src
-
-Query null values
-
-#+begin_src sql
-SELECT title,description FROM categories WHERE description IS NULL;
-
-select * from categories order by description NULLS first;
-
-select * from categories order by description NULLS first;
-#+end_src
 *** where
 #+begin_src sql
 SELECT * FROM categories WHERE description ='vegetable';
@@ -184,96 +169,8 @@ Performs case-insensitive search
 #+begin_src sql
 select * from categories where title ilike 'A%';
 #+end_src
-*** upper
-#+begin_src sql
-select upper('orange');
-select * from categories where upper(title) like 'A%';  -- like case-insensitive search
-#+end_src
 *** distinct
 
-*** subqueries
-#+begin_src sql
-select * from categories where pk in (10,11);
-select * from categories where not (pk=10 or pk=11);
-select * from categories where pk not in (10,11);
-select pk,title,content,author,category from posts where category in (select pk from categories where title ='orange');
-select pk,title,content,author,category from posts where category not in (select pk from categories where title ='orange');
-#+end_src
-
-*** exists / not exists
-#+begin_src sql
-select pk,title,content,author,category from posts where exists (select 1 from categories where title ='orange' and posts.category=pk);
-select pk,title,content,author,category from posts where not exists (select 1 from categories where title ='orange' and posts.category=pk);
-#+end_src
-*** join
-#+begin_src sql
-select c.pk,c.title,p.pk,p.category,p.title from categories c CROSS JOIN posts p;
-select c.pk,c.title,p.pk,p.category,p.title from categories c inner join posts p on c.pk=p.category;
-JOIN condition, we would have to rewrite the query in this way:
-select distinct p.pk,p.title,p.content,p.author,p.category from categories c inner join posts p on c.pk=p.category where c.title='orange';
-#+end_src
-*** left join
-#+begin_src sql
-
-#+end_src
-** Operators
-*** or
-*** in
-#+begin_src sql
-select * from categories where pk in (10,11);
-#+end_src
-*** not
-#+begin_src sql
-select * from categories where not (pk=10 or pk=11);
-select * from categories where pk not in (10,11);
-select pk,title,content,author,category from posts where category
-       not in (select pk from categories where title ='orange');
-#+end_src
-*** exist
-#+begin_src sql
-select pk,title,content,author,category from posts where exists
-       (select 1 from categories where title ='orange' and posts.category=pk);
-
-
-select pk,title,content,author,category from posts where not
-       exists (select 1 from categories where title ='orange' and
-       posts.category=pk);
-#+end_src
-** Functions
-#+begin_src sql
-CREATE FUNCTION Raptor_lastSurveyDate1(p_some_value bigint)
-  RETURNS date
-As $$
-  SELECT max(date)
-  FROM raptor_surveys
-  WHERE nest = p_some_value;
-$$ LANGUAGE SQL
-#+end_src
-** Clause
-*limit*
-limit the number of rows returned by a query
-
-#+begin_src sql
-select * from categories order by pk limit 1;
-select * from categories order by pk limit 2;
-SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4;
-#+end_src
-
-*offset*
-skip a specific number of rows returned by the query
-
-#+begin_src sql
-select * from categories order by pk offset 1 limit 1;
-SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4 OFFSET 4;
-#+end_src
-
-** Types
-*** null
-#+begin_src sql
-\pset null
-\pset null (NULL) -- change how NULL is represented to (NULL)
-#+end_src
-*** integer
 ** Databases
 *** create
 #+begin_src sql
@@ -302,7 +199,234 @@ SELECT pg_size_pretty(pg_database_size('forumdb'));
 #+begin_src sql
 select * from pg_database where datname='forumdb';
 #+end_src
-** DDL - Data Definition Language
+** SubQueries
+#+begin_src sql
+select * from categories where pk in (10,11);
+select * from categories where not (pk=10 or pk=11);
+select * from categories where pk not in (10,11);
+select pk,title,content,author,category from posts where category in (select pk from categories where title ='orange');
+select pk,title,content,author,category from posts where category not in (select pk from categories where title ='orange');
+#+end_src
+
+** join
+*join*
+
+#+begin_src sql
+select c.pk,c.title,p.pk,p.category,p.title from categories c CROSS JOIN posts p;
+select c.pk,c.title,p.pk,p.category,p.title from categories c inner join posts p on c.pk=p.category;
+JOIN condition, we would have to rewrite the query in this way:
+select distinct p.pk,p.title,p.content,p.author,p.category from categories c inner join posts p on c.pk=p.category where c.title='orange';
+#+end_src
+
+*left join*
+
+#+begin_src sql
+select c.*,p.category,p.title from categories c left join posts p on c.pk=p.category;
+select c.* from categories c left join posts p on p.category=c.pk where p.category is null;
+select c.*,p.category from categories c left join posts p on p.category=c.pk;
+#+end_src
+
+*right join*
+
+#+begin_src sql
+select c.*,p.category,p.title from posts p right join categories c on c.pk=p.category;
+#+end_src
+
+*inner join*
+
+#+begin_src sql
+select jpt.*,t.*,p.title from j_posts_tags jpt inner join tags t on jpt.tag_pk=t.pk inner join posts p on jpt.post_pk = p.pk;
+#+end_src
+
+*full outer join*
+
+#+begin_src sql
+select jpt.*,t.*,p.title from j_posts_tags jpt full outer join tags t on jpt.tag_pk=t.pk full outer join posts p on jpt.post_pk = p.pk;
+#+end_src
+
+*self join*
+
+#+begin_src sql
+select distinct p2.title,p2.author,p2.category from posts p1 inner join posts p2 on ( p1.category=p2.category and p1.author<>p2.author)
+       where p1.author=1 and p2.author=2;
+#+end_src
+** conditions
+*having*
+
+#+begin_src sql
+select category,count(*) from posts group by 1 having count(*) > 2;
+select category,count(*) as category_count from posts group by category having count(*) > 2;
+#+end_src
+
+** null
+Query null values
+
+#+begin_src sql
+SELECT title,description FROM categories WHERE description IS NULL;
+select * from categories order by description NULLS first;
+select * from categories order by description NULLS first;
+#+end_src
+** Operators
+*or*
+
+*in*
+
+#+begin_src sql
+select * from categories where pk in (10,11);
+#+end_src
+
+*not*
+
+#+begin_src sql
+select * from categories where not (pk=10 or pk=11);
+select * from categories where pk not in (10,11);
+select pk,title,content,author,category from posts where category
+       not in (select pk from categories where title ='orange');
+#+end_src
+
+*exist*
+
+#+begin_src sql
+select pk,title,content,author,category from posts where exists
+       (select 1 from categories where title ='orange' and posts.category=pk);
+
+
+select pk,title,content,author,category from posts where not
+       exists (select 1 from categories where title ='orange' and
+       posts.category=pk);
+
+select pk,title,content,author,category from posts where exists (select 1 from categories where title ='orange' and posts.category=pk);
+select pk,title,content,author,category from posts where not exists (select 1 from categories where title ='orange' and posts.category=pk);
+select * from categories c where not exists (select 1 from posts where category=c.pk);
+#+end_src
+
+*union*
+
+#+begin_src sql
+#+end_src
+
+** Functions
+*** custom functions
+#+begin_src sql
+CREATE FUNCTION Raptor_lastSurveyDate1(p_some_value bigint)
+  RETURNS date
+As $$
+  SELECT max(date)
+  FROM raptor_surveys
+  WHERE nest = p_some_value;
+$$ LANGUAGE SQL
+#+end_src
+*** misc
+*coalesce*
+
+given two or more parameters, returns the first value that is not NULL.
+
+#+begin_src sql
+select coalesce(NULL,'test'); -- test
+select coalesce('orange','test'); -- orange
+select coalesce(description,'No description') as description from categories order by 1;
+#+end_src
+
+*upper*
+#+begin_src sql
+select upper('orange');
+select * from categories where upper(title) like 'A%';  -- like case-insensitive search
+#+end_src*** aggregate functions
+
+*** aggregate functions
+
+*count*
+
+#+begin_src sql
+SELECT COUNT(*) FROM USERS;
+select category,count(*) from posts group by category;  -- same as: select category,count(*) from posts group by 1;
+select category,count(*) from posts group by category having count(*) > 2;
+select category,count(*) as category_count from posts group by category;
+#+end_src
+
+*avg*
+
+*max*
+
+*min*
+
+*sum*
+
+** Clause
+*limit*
+
+limit the number of rows returned by a query
+
+#+begin_src sql
+select * from categories order by pk limit 1;
+select * from categories order by pk limit 2;
+SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4;
+#+end_src
+
+*offset*
+skip a specific number of rows returned by the query
+
+#+begin_src sql
+select * from categories order by pk offset 1 limit 1;
+SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4 OFFSET 4;
+#+end_src
+
+** Types
+*** integer
+** Tablespace
+pg_tblspc
+pg_default
+pg_global
+** Roles
+- A role can be a single account, a group of accounts, or even both depending on how you configure it
+- it should be either a single user or a single group, but not both.
+- have a unique name or identifier, usually called the username.
+- represents a collection of database permissions and connection properties.
+
+*drop role*
+
+#+begin_src sql
+DROP ROLE [ IF EXISTS ] name [, ...]
+#+end_src
+
+#+begin_src sql
+
+DROP ROLE IF EXISTS saitama;
+#+end_src
+
+*create role*
+
+*grant*
+
+*inspect*
+
+**** Statements
+|             |                             |
+|-------------+-----------------------------|
+| CREATE ROLE | create a role from scratch  |
+| ALTER ROLE  | change some role properties |
+| DROP ROLE   | remove an existing role     |
+** Groups
+** explain analyze
+,,
+#+begin_src sql
+shine_development> EXPLAIN ANALYZE
+SELECT *
+FROM customers
+WHERE
+  lower(first_name) like 'pat%' OR
+  lower(last_name) like 'pat%' OR
+  lower(email) = 'pat@example.com'
+ORDER BY
+  email = 'pat@example.com' DESC,
+  last_name ASC ;
+QUERY PLAN
+#+end_src
+
+* DML - Data Manipulation Language
+used to insert, delete, update, and select data inside databases
+
+* DDL - Data Definition Language
 commands are used to manage databases and tables
 
 Alter table person add constraint unique_email unique(email)
@@ -342,50 +466,55 @@ Avg
 Interval
 Extract
 
-** DML - Data Manipulation Language
-used to insert, delete, update, and select data inside databases
-*** where
-*** in
-*** not int
-*** and
-*** or
-*** like
-*** between
-*** order by
-
-** Tablespace
-pg_tblspc
-pg_default
-pg_global
-** Users & Groups
-*** role
-- A role can be a single account, a group of accounts, or even both depending on how you configure it
-- it should be either a single user or a single group, but not both.
-- have a unique name or identifier, usually called the username.
-- represents a collection of database permissions and connection properties.
-**** Statements
-|             |                             |
-|-------------+-----------------------------|
-| CREATE ROLE | create a role from scratch  |
-| ALTER ROLE  | change some role properties |
-| DROP ROLE   | remove an existing role     |
-** explain analyze
-,,
-#+begin_src sql
-shine_development> EXPLAIN ANALYZE
-SELECT *
-FROM customers
-WHERE
-  lower(first_name) like 'pat%' OR
-  lower(last_name) like 'pat%' OR
-  lower(email) = 'pat@example.com'
-ORDER BY
-  email = 'pat@example.com' DESC,
-  last_name ASC ;
-QUERY PLAN
-#+end_src
-
 * Commands
+** psql
+a command-line client that allows you to interact with, connect, and administer
+databases and the cluster itself.
+
+|    |                                                         |
+|----+---------------------------------------------------------|
+| -l |                                                         |
+| -d | The database name                                       |
+| -U | The username                                            |
+| -h | The host (either an IPv4 or IPv6 address or a hostname) |
+|    |                                                         |
+
+*** options
+|                   |                                          |
+|-------------------+------------------------------------------|
+| \! COMMAND        | system commands                          |
+| \dS               |                                          |
+| \d                |                                          |
+| \q                |                                          |
+| \du               |                                          |
+| \password         |                                          |
+| \conninfo         |                                          |
+| \pset null        |                                          |
+| \pset null (NULL) | change how NULL is represented to (NULL) |
+| \pset null NULL   |                                          |
+| show hba_file     | show hba_file information                |
+**** commands (\)
+|                |                                                        |
+|----------------+--------------------------------------------------------|
+| \x             | expanded mode                                          |
+| \l             | list all the databases that are present in the cluster |
+| \c             | connect                                                |
+| \l+ <database> |                                                        |
+| \du            | list roles                                             |
+| \du+           | same as above but more info                            |
+
+**** psql prompt
+|                                          |                |
+|------------------------------------------+----------------|
+| \i <file>                                | load file      |
+| <statement> \g                           | same as ;      |
+| \e <file> or \e <statement>              | open in editor |
+| \h <command>                             | command doc    |
+| \?                                       |                |
+| \d                                       |                |
+| postgresql://username@host:port/database |                |
+
+*
 ** pg_ctl
 |                          |                                                                                                                                          |
 |--------------------------+------------------------------------------------------------------------------------------------------------------------------------------|
@@ -400,54 +529,6 @@ QUERY PLAN
 | -h <host>                | IPV4,IPV6 or hostname                                                                                                                    |
 | -p                       | Specifies the location of the postgres executable.                                                                                       |
 |                          |                                                                                                                                          |
-** psql
-a command-line client that allows you to interact with, connect, and administer
-databases and the cluster itself.
-
-|    |                                                         |
-|----+---------------------------------------------------------|
-| -l |                                                         |
-| -d | The database name                                       |
-| -U | The username                                            |
-| -h | The host (either an IPv4 or IPv6 address or a hostname) |
-|    |                                                         |
-
-*** commands (\)
-|                |                                                        |
-|----------------+--------------------------------------------------------|
-| \x             | expanded mode                                          |
-| \l             | list all the databases that are present in the cluster |
-| \c             | connect                                                |
-| \l+ <database> |                                                        |
-| \du            | list roles                                             |
-| \du+           | same as above but more info                            |
-
-*** psql prompt
-|                                          |                |
-|------------------------------------------+----------------|
-| \i <file>                                | load file      |
-| <statement> \g                           | same as ;      |
-| \e <file> or \e <statement>              | open in editor |
-| \h <command>                             | command doc    |
-| \?                                       |                |
-| \d                                       |                |
-| postgresql://username@host:port/database |                |
-
-*** drop role
-#+begin_src sql
-DROP ROLE [ IF EXISTS ] name [, ...]
-#+end_src
-
-#+begin_src sql
-
-DROP ROLE IF EXISTS saitama;
-#+end_src
-
-*** create role
-*** create group
-*** grant
-*** inspect
-
 ** pstree
     - checkpointer
     - background writer
@@ -456,17 +537,12 @@ DROP ROLE IF EXISTS saitama;
     - logical replication launcher
 ** initdb
 ** createdb
-* Standard Library
-** Functions
-*coalesce*
-
-given two or more parameters, returns the first value that is not NULL.
-
-#+begin_src sql
-select coalesce(NULL,'test'); -- test
-select coalesce('orange','test'); -- orange
-select coalesce(description,'No description') as description from categories order by 1;
+** createuser
+#+begin_src shell
+createuser -dPs doe
+createuser -interactive wiki
 #+end_src
+
 * Terms
 |              |                                                                                    |
 |--------------+------------------------------------------------------------------------------------|
@@ -538,3 +614,6 @@ pk int GENERATED ALWAYS AS IDENTITY
 ,UNIQUE ( title )
 );
 #+end_src
+
+* online tools
+- https://mockaroo.com/
