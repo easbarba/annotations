@@ -87,10 +87,11 @@
 - Let the Right One In
 * TV Series
 ** Progress
-| name          | episode |
-|---------------+---------|
-| Star Trek DS9 | s04e09  |
-| Star Trek TNG | s06e    |
+| name             | episode |
+|------------------+---------|
+| Star Trek DS9    | s06e06  |
+| Star Trek TNG    | s06e    |
+| Juvenile justice | e2      |
 
 ** American
 - Star Trek - The Next Generation
@@ -152,9 +153,10 @@
 - Hellsing
 * Manga
 ** Progresso
-|                |   |
-|----------------+---|
+|                |      |
+|----------------+------|
 | Ghost in shell | chp2 |
+| OPM            | 165  |
 ** Favorites
 - Lone Wolf and Cub
 - One Punch Man
