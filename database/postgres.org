@@ -1,8 +1,9 @@
-#+TILE: PostgreSQL
+#+TILE: Postgres
 
 * Progress
 | book                   | chapter                                 | @                   |
 |------------------------+-----------------------------------------+---------------------|
+| The Art Of PostgreSQL  | 2 Software Architecture                 |                     |
 | Learn PostgreSQL 12/13 | Advanced Statements                     | Aggregate functions |
 | Essential Postgres     | SELECTING DATA FROM A POSTGRES DATABASE |                     |
 | Boson Treinamentos YT  | Views                                   |                     |
@@ -14,6 +15,8 @@
 | Temporary tables | Very fast tables, visible only to the user who created them       |
 | Unlogged tables  | Very fast tables to be used as support tables common to all users |
 | Logged tables    | Regular tables                                                                  |
+
+- singular name
 
 *** create
 #+begin_src sql
@@ -92,6 +95,20 @@ WHERE c.pk=p.category AND c.title='apple';
 
 UPDATE t_posts p SET title=p.title||' last updated'||current_date::text
 WHERE EXISTS (SELECT 1 FROM categories c WHERE c.pk=p.category AND c.title='apple' LIMIT 1) returning pk,title,category;
+#+end_src
+*** prepare
+#+begin_src sql
+prepare foo as
+select date, shares, trades, dollars
+from factbook
+where date >= $1::date
+and date < $1::date + interval '1 month'
+order by date;
+#+end_src
+
+*** execute
+#+begin_src sql
+execute foo('2010-02-01');
 #+end_src
 
 *** truncate
@@ -198,22 +215,7 @@ SELECT * FROM categories WHERE description ='fruits' AND title='orange';
 
 SELECT * FROM categories WHERE description ='fruits' ORDER by 2 desc;
 #+end_src
-*** like
-- case-sensitive
-
-#+begin_src sql
-select * from categories where title like 'a%';
-select * from categories where title like '%e';
-select * from categories where title like '%ap%';
-select * from categories where title like 'A%';
-select * from categories where upper(title) like 'A%';  -- like case-insensitive search
-#+end_src
-*** ilike
-Performs case-insensitive search
-
-#+begin_src sql
-select * from categories where title ilike 'A%';
-#+end_src
+***
 *** distinct
 
 ** Databases
@@ -252,17 +254,71 @@ select * from categories where pk not in (10,11);
 select pk,title,content,author,category from posts where category in (select pk from categories where title ='orange');
 select pk,title,content,author,category from posts where category not in (select pk from categories where title ='orange');
 #+end_src
-** CTEs
+** CTES
 Common table expression
+** Pattern Matching
 
-** join
-*join*
+*in*
 
 #+begin_src sql
-select c.pk,c.title,p.pk,p.category,p.title from categories c CROSS JOIN posts p;
-select c.pk,c.title,p.pk,p.category,p.title from categories c inner join posts p on c.pk=p.category;
-JOIN condition, we would have to rewrite the query in this way:
-select distinct p.pk,p.title,p.content,p.author,p.category from categories c inner join posts p on c.pk=p.category where c.title='orange';
+select * from store where store_id in (1,3);
+select * from store where store_id in (select store_id from south_east_store);
+#+end_src
+
+*or*
+
+#+begin_src sql
+
+#+end_src
+
+*between*
+
+#+begin_src sql
+select * from product where product_id between 11 and 33;
+#+end_src
+
+*like*
+- case-sensitive
+
+#+begin_src sql
+select president_name from us_president where president_name like 'George%';
+select * from categories where title like 'a%';
+select * from categories where title like '%e';
+select * from categories where title like '%ap%';
+select * from categories where title like 'A%';
+select * from categories where upper(title) like 'A%';  -- like case-insensitive search
+select president_name from us_president where president_name like'_oNaLd%';
+#+end_src
+
+*ilike*
+
+Performs case-insensitive search
+
+#+begin_src sql
+select * from categories where title ilike 'A%';
+#+end_src
+
+*is null*
+
+#+begin_src sql
+select * from product where supplier_id is null;
+#+end_src
+
+*not*
+
+#+begin_src sql
+select * from product where supplier_id not in (11, 22);
+select * from product where product_id not between 11 and 33;
+#+end_src
+
+** Join
+*join*
+
+- defaults to inner join
+
+#+begin_src sql
+SELECT c.pk,c.title,p.pk,p.category,p.title from categories c join posts p on c.pk=p.category;
+SELECT DISTINCT p.pk,p.title,p.content,p.author,p.category from categories c join posts p on c.pk=p.category where c.title='orange';
 #+end_src
 
 *left join*
@@ -283,6 +339,14 @@ select c.*,p.category,p.title from posts p right join categories c on c.pk=p.cat
 
 #+begin_src sql
 select jpt.*,t.*,p.title from j_posts_tags jpt inner join tags t on jpt.tag_pk=t.pk inner join posts p on jpt.post_pk = p.pk;
+SELECT a.customer_name,b.item_ordered FROM customer a JOIN item_ordered b USING (customer_id);
+
+SELECT a.store_name,b.product_name,c.supplier_name,d.quantity
+FROM store a
+JOIN inventory d ON d.store_id = a.store_id
+JOIN product b ON b.product_id = d.product_id
+JOIN supplier c ON c.supplier_id = b.supplier_id
+ORDER BY a.store_name;
 #+end_src
 
 *full outer join*
@@ -291,18 +355,80 @@ select jpt.*,t.*,p.title from j_posts_tags jpt inner join tags t on jpt.tag_pk=t
 select jpt.*,t.*,p.title from j_posts_tags jpt full outer join tags t on jpt.tag_pk=t.pk full outer join posts p on jpt.post_pk = p.pk;
 #+end_src
 
-*self join*
+*cross join*
 
 #+begin_src sql
-select distinct p2.title,p2.author,p2.category from posts p1 inner join posts p2 on ( p1.category=p2.category and p1.author<>p2.author)
-       where p1.author=1 and p2.author=2;
+SELECT c.pk,c.title,p.pk,p.category,p.title from categories c CROSS JOIN posts p;
 #+end_src
-** conditions
+
+*self join*
+
+A join where the same table is joined to itself.
+
+#+begin_src sql
+SELECT DISTINCT p2.title,p2.author,p2.category from posts p1 inner join posts p2 on ( p1.category=p2.category and p1.author<>p2.author)
+WHERE p1.author=1 and p2.author=2;
+#+end_src
+** Conditions
 *having*
 
 #+begin_src sql
 select category,count(*) from posts group by 1 having count(*) > 2;
 select category,count(*) as category_count from posts group by category having count(*) > 2;
+SELECT president_name,count(*) FROM us_president GROUP BY president_name HAVING count(*) > 1;
+#+end_src
+
+** Comparison
+> Greater Than
+
+#+begin_src sql
+select * from us_president where president_id > 40;
+#+end_src
+
+>= Greater Than or Equal to
+
+#+begin_src sql
+select * from us_president where president_id >= 40;
+#+end_src
+
+< Less Than
+
+#+begin_src sql
+select * from us_president where president_id < 5;
+#+end_src
+
+<= Less Than or Equal to
+
+#+begin_src sql
+select * from us_president where president_id <= 5;
+#+end_src
+
+!= or <> Not Equal
+
+#+begin_src sql
+select * from product where product_name != 'Mandolin' and product_id != 11;
+select * from product where product_name <> 'Mandolin' and product_id <> 11;
+#+end_src
+
+** order by
+#+begin_src sql
+SELECT president_id,president_name,president_party FROM us_president ORDER BY president_party DESC,president_id ASC;
+#+end_src
+** Commentary
+#+begin_src sql
+SELECT
+FROM
+president_id,
+president_name,
+president_party -- Political party, not birthday
+us_president;
+
+/*
+This query retrieves all the US Presidents.
+There sure are a lot of them!
+*/
+SELECT * FROM us_president;
+
 #+end_src
 
 ** null
@@ -403,6 +529,16 @@ select upper('orange');
 select * from categories where upper(title) like 'A%';  -- like case-insensitive search
 #+end_src*** aggregate functions
 
+*substring*
+
+*replace*
+
+*cast*
+
+*generate_series*
+
+*** Data Type Formatting Functions
+*to_char*
 *** aggregate functions
 
 *count*
@@ -421,6 +557,12 @@ select category,count(*) as category_count from posts group by category;
 *min*
 
 *sum*
+
+** Commands
+*partition*
+
+** Window Function
+*lag*
 
 ** Clause
 *limit*
@@ -443,6 +585,35 @@ SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4 OFFSET 4;
 
 ** Types
 *** integer
+*** string
+
+concatenate
+
+#+begin_src sql
+select president_name || ' (' || president_party || ')' from us_president;
+#+end_src
+*** ranges
+*** interval
+
+** Extensions
+*** pg_stat_statements
+
+** Misc
+*unbounded*
+
+*preceding*
+
+*generate_series*
+
+** Aliases
+*column alias*
+
+#+begin_src sql
+select a.position_desc Supervisor,b.position_desc Worker
+from church_hierarchy a
+join church_hierarchy b
+on a.position_id = b.supervisor_id;
+#+end_src
 ** Tablespace
 pg_tblspc
 pg_default
@@ -493,10 +664,10 @@ ORDER BY
 QUERY PLAN
 #+end_src
 
-* DML - Data Manipulation Language
+** DML - Data Manipulation Language
 used to insert, delete, update, and select data inside databases
 
-* DDL - Data Definition Language
+** DDL - Data Definition Language
 commands are used to manage databases and tables
 
 Alter table person add constraint unique_email unique(email)
@@ -504,7 +675,6 @@ Alter table person add  unique(email)
 Update person set f = ket where id = 5
 On conflict (id) do nothing;
 On conflict (id) do update set email = excluded.email;
-\dt
 
 Name Varchar(6) not null,
 Id integer not bull primary key
@@ -524,67 +694,62 @@ Comparison
 
 Fetch
 Row only
-Between
+
 Like '___@%'
-Group by
-Having
-Count(*)
-Sum
-Min
-Max
-Avg
+
 Interval
 Extract
 
-* Commands
+* CLI Apps
 ** psql
-a command-line client that allows you to interact with, connect, and administer
+A command-line client that allows you to interact with, connect, and administer
 databases and the cluster itself.
 
+#+begin_src shell
+postgresql://username@host:port/database
+#+end_src
+
+*** prompt options
+|                             |                                                        |
+|-----------------------------+--------------------------------------------------------|
+| \! COMMAND                  | run system commands                                    |
+| \dS                         |                                                        |
+| \d                          |                                                        |
+| \q                          |                                                        |
+| \du                         |                                                        |
+| \d                          |                                                        |
+| \dt                         | list all tables                                        |
+| \df                         |                                                        |
+| \password                   |                                                        |
+| \conninfo                   |                                                        |
+| \pset null                  |                                                        |
+| \pset null (NULL)           | change how NULL is represented to (NULL)               |
+| \pset null NULL             |                                                        |
+| show hba_file               | show hba_file information                              |
+| \x                          | expanded mode                                          |
+| \l                          | list all the databases that are present in the cluster |
+| \c                          | connect to database                                    |
+| \l+ <database>              |                                                        |
+| \du                         | list roles                                             |
+| \du+                        | list roles w/ more info                                |
+| \i <file>                   | load file                                              |
+| <statement> \g              | same as ;                                              |
+| \e <file> or \e <statement> | open in editor                                         |
+| \h <command>                | command doc                                            |
+| \?                          |                                                        |
+| \t                          | activate tuples                                        |
+| \copy                       |                                                        |
+| \set                        |                                                        |
+
+*** cli options
 |    |                                                         |
 |----+---------------------------------------------------------|
 | -l |                                                         |
 | -d | The database name                                       |
 | -U | The username                                            |
 | -h | The host (either an IPv4 or IPv6 address or a hostname) |
-|    |                                                         |
+| -E |                                                         |
 
-*** options
-|                   |                                          |
-|-------------------+------------------------------------------|
-| \! COMMAND        | system commands                          |
-| \dS               |                                          |
-| \d                |                                          |
-| \q                |                                          |
-| \du               |                                          |
-| \password         |                                          |
-| \conninfo         |                                          |
-| \pset null        |                                          |
-| \pset null (NULL) | change how NULL is represented to (NULL) |
-| \pset null NULL   |                                          |
-| show hba_file     | show hba_file information                |
-**** commands (\)
-|                |                                                        |
-|----------------+--------------------------------------------------------|
-| \x             | expanded mode                                          |
-| \l             | list all the databases that are present in the cluster |
-| \c             | connect                                                |
-| \l+ <database> |                                                        |
-| \du            | list roles                                             |
-| \du+           | same as above but more info                            |
-
-**** psql prompt
-|                                          |                |
-|------------------------------------------+----------------|
-| \i <file>                                | load file      |
-| <statement> \g                           | same as ;      |
-| \e <file> or \e <statement>              | open in editor |
-| \h <command>                             | command doc    |
-| \?                                       |                |
-| \d                                       |                |
-| postgresql://username@host:port/database |                |
-
-*
 ** pg_ctl
 |                          |                                                                                                                                          |
 |--------------------------+------------------------------------------------------------------------------------------------------------------------------------------|
@@ -612,7 +777,6 @@ databases and the cluster itself.
 createuser -dPs doe
 createuser -interactive wiki
 #+end_src
-
 * Terms
 |              |                                                                                    |
 |--------------+------------------------------------------------------------------------------------|
@@ -626,6 +790,7 @@ createuser -interactive wiki
 | PGDATA       |                                                                                    |
 | postmaster   | prints out a few log lines before redirecting the logs to the appropriate log file |
 | oid2name     |                                                                                    |
+| dataset      |                                                                                    |
 * Errors
 #+begin_src shell
 [error] Postgrex.Protocol (#PID<0.328.0>) failed to connect: ** (DBConnection.ConnectionError) tcp connect (localhost:5432): co
