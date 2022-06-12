@@ -1,9 +1,11 @@
 #+TILE: PostgreSQL
 
 * Progress
-| book                   | chapter             | @                   |
-|------------------------+---------------------+---------------------|
-| Learn PostgreSQL 12/13 | Advanced Statements | Aggregate functions |
+| book                   | chapter                                 | @                   |
+|------------------------+-----------------------------------------+---------------------|
+| Learn PostgreSQL 12/13 | Advanced Statements                     | Aggregate functions |
+| Essential Postgres     | SELECTING DATA FROM A POSTGRES DATABASE |                     |
+| Boson Treinamentos YT  | Views                                   |                     |
 
 * Base
 ** Tables
@@ -56,6 +58,42 @@ DROP TABLE tablename;
 #+begin_src sql
 DROP TABLE IF EXISTS users;
 #+end_src
+
+*** alter
+#+begin_src sql
+alter table j_posts_tags add constraint j_posts_tags_pkey primary key (tag_pk,post_pk);
+ALTER TABLE customers ADD COLUMN phone VARCHAR;
+ALTER TABLE customers ADD COLUMN contact_name VARCHAR NOT NULL;
+#+end_src
+*** update
+
+#+begin_src sql
+update temp_categories set title='peach' where pk = 14;
+
+UPDATE customers
+SET contact_name = 'John Doe'
+WHERE id = 1;
+
+UPDATE customers
+SET contact_name = 'Mary Doe'
+WHERE id = 2;
+
+UPDATE customers
+SET contact_name = 'Lily Bush'
+WHERE id = 3;
+
+UPDATE t_posts p SET title=p.title||' last updated'||current_date::text
+WHERE EXISTS (SELECT 1 FROM categories c WHERE c.pk=p.category AND c.title='apple' limit 1);
+
+UPDATE t_posts p
+SET title=p.title||' last updated '||current_date::text
+FROM categories c
+WHERE c.pk=p.category AND c.title='apple';
+
+UPDATE t_posts p SET title=p.title||' last updated'||current_date::text
+WHERE EXISTS (SELECT 1 FROM categories c WHERE c.pk=p.category AND c.title='apple' LIMIT 1) returning pk,title,category;
+#+end_src
+
 *** truncate
 Deletes records from a table without removing table structure
 
@@ -79,6 +117,9 @@ delete a group of records
 #+begin_src sql
 DELETE FROM name_table WHERE col=value;
 DELETE FROM product WHERE price<2.90;
+
+DELETE FROM t_posts p WHERE EXISTS (SELECT 1 FROM categories c
+WHERE c.pk=p.category AND c.title='apple') RETURNING pk,title,category;
 #+end_src
 
 *** insert
@@ -87,9 +128,19 @@ INSERT INTO users (username,gecos,email) values
 ('myusername','mygecos','myemail');
 
 INSERT INTO categories (title,description) values
-('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable');
+('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable')
+('xapple', 'fruits'), ('xorange','fruits'),('xlettuce','vegetable');
 #+end_src
-*** update
+*** upsert
+Insert a new record on top of the existing record or update an existing record.
+
+- Does not exist in postgres
+- use ON CONFLICT
+*** returning
+#+begin_src sql
+INSERT INTO j_posts_tags VALUES(1,2) RETURNING *;
+#+end_src
+
 *** temporary
 table visible only in the session where it was created
 
@@ -136,12 +187,6 @@ Creating a table starting from another table
 #+begin_src sql
 create temp table temp_categories as select * from categories;
 #+end_src
-*** update
-
-#+begin_src sql
-update temp_categories set title='peach' where pk = 14;
-#+end_src
-
 *** unlogged
 - not crash-safe
 - much faster than logged tables
@@ -207,6 +252,8 @@ select * from categories where pk not in (10,11);
 select pk,title,content,author,category from posts where category in (select pk from categories where title ='orange');
 select pk,title,content,author,category from posts where category not in (select pk from categories where title ='orange');
 #+end_src
+** CTEs
+Common table expression
 
 ** join
 *join*
@@ -301,8 +348,31 @@ select * from categories c where not exists (select 1 from posts where category=
 #+end_src
 
 *union*
+- remove duplicates
+- implies DISTINCT
 
 #+begin_src sql
+select title from categories union select tag from tags order by title;
+#+end_src
+
+*union all*
+- wont remove duplicates
+- faster
+
+#+begin_src sql
+select title from categories union all select tag from tags order by title;
+#+end_src
+
+*intersect*
+
+#+begin_src sql
+elect title from categories intersect select tag from tags order by 1;
+#+end_src
+
+*except*
+
+#+begin_src sql
+select title from categories except select tag from tags order by 1;
 #+end_src
 
 ** Functions
