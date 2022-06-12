@@ -118,6 +118,7 @@ Copy the contents of SRC_PATH to the DEST_PATH.
 
 #+begin_src shell
 docker container cp nginx-test:/tmp/testing testing
+podman cp ~/Downloads/users.sql postin:/users.sql
 #+end_src
 *** diff
 - A: added

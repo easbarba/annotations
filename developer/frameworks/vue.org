@@ -1,37 +1,5 @@
 #+TITLE: Vue.js
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#base][Base]]
-  - [[#directives][Directives]]
-    - [[#v-bind][v-bind]]
-    - [[#v-for][v-for]]
-    - [[#v-on][v-on]]
-    - [[#v-if][v-if]]
-  - [[#data-properties-props][Data Properties (Props)]]
-  - [[#components][Components]]
-    - [[#props][props]]
-    - [[#hooks][hooks]]
-  - [[#single-file-components][Single-File Components]]
-  - [[#data-binding][Data Binding]]
-  - [[#directives][Directives]]
-  - [[#computed-properties][Computed Properties]]
-  - [[#computed-setters][Computed Setters]]
-  - [[#watchers][Watchers]]
-- [[#commands][Commands]]
-  - [[#add][add]]
-  - [[#serve][serve]]
-- [[#tips][Tips]]
-  - [[#container][container]]
-:END:
-
 * Progress
 ** Books
 | Books                   | Cap                         | @                                |
@@ -103,6 +71,7 @@ create event listeners within the DOM.
 #+end_src
 ** Components
 Vue components are Vue instances.
+
 *** props
 *** hooks
 *beforeCreate*
@@ -118,7 +87,7 @@ Vue components are Vue instances.
 
 *updated*
 
-** Single-File Components
+*** Single-File Components
 ** Data Binding
 ** Directives
 *v-text*

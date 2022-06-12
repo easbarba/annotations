@@ -89,7 +89,7 @@
 ** Progress
 | name             | episode |
 |------------------+---------|
-| Star Trek DS9    | s06e06  |
+| Star Trek DS9    | s06e16  |
 | Star Trek TNG    | s06e    |
 | Juvenile justice | e2      |
 
@@ -140,23 +140,12 @@
 - Karppi
 - Sorjonen
 
-* Anime
-** Favorites
-- Spirited Away
-- Great Teacher Onizuka
-- Serial Experiments Lain
-- Bucky
-- Grave of the Fireflies
-- Dragon Ball Z
-- Saint Seya
-- Trigun
-- Hellsing
 * Manga
 ** Progresso
 |                |      |
 |----------------+------|
 | Ghost in shell | chp2 |
-| OPM            | 165  |
+| OPM            |   20 |
 ** Favorites
 - Lone Wolf and Cub
 - One Punch Man
@@ -171,6 +160,17 @@
 - Monster
 - Liar Game
 - Golden Boy
+* Anime
+** Favorites
+- Spirited Away
+- Great Teacher Onizuka
+- Serial Experiments Lain
+- Bucky
+- Grave of the Fireflies
+- Dragon Ball Z
+- Saint Seya
+- Trigun
+- Hellsing
 * Lectures
 ** Teacher
 - Osvaldo Coggiola
