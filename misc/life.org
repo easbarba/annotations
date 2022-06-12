@@ -272,21 +272,20 @@
 
 * Books
 ** Books, Videos
-| Books                                                    | Capts                                         | @                               |
-|----------------------------------------------------------+-----------------------------------------------+---------------------------------|
-| Attack of Titan                                          | Chapter 93                                    |                                 |
-| Last Wish                                                | The Voice of Reason 2                         |                                 |
-| The War of the Worlds                                    |                                               |                                 |
-| Study in Scarlet                                         | 2 The Science of Deduction                    | SHERLOCK HOLMES  -  his limits. |
-| State and Revolution                                     | 2. Special Bodies of Armed Men, Prisons, etc. |                                 |
-| The Origin of the Family, Private Property and the State |                                               |                                 |
-| Prison Notebooks                                         | 1. THE INTELLECTUALS                          | alist Politics in Turin         |
-| One Punch Man                                            | 152                                           |                                 |
-| Plato: Five Dialogues                                    |                                               |                                 |
+| Books                 | Capts                      | @                               |
+|-----------------------+----------------------------+---------------------------------|
+| Last Wish             | The Voice of Reason 2      |                                 |
+| Study in Scarlet      | 2 The Science of Deduction | SHERLOCK HOLMES  -  his limits. |
+| The War of the Worlds |                            |                                 |
 
 ** Favs
 - Dr Jekyll and Hide
 - The Lost World
+
+** Wishlist
+- Well Grounded Rubyist
+- The art of SQL
+- Last Wish
 * Paintings
 - Candido Portinari
 - J. M. W. Turner
