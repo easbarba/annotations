@@ -1,117 +1,5 @@
-#+TITLE: Awk
+#+TITLE: AWK
 
-* Summary
-    :PROPERTIES:
-    :TOC:      :include all :depth 3 :ignore this
-    :END:
-    :CONTENTS:
-    - [[#progress][Progress]]
-      - [[#books][Books]]
-      - [[#sloc][SLOC]]
-    - [[#packages][Packages]]
-      - [[#gem][gem]]
-      - [[#bundle][bundle]]
-	- [[#outdated][outdated]]
-	- [[#gem][gem]]
-	- [[#install][install]]
-	- [[#update][update]]
-      - [[#irb][irb]]
-	- [[#cli][cli]]
-	- [[#inside][inside]]
-      - [[#rspec][rspec]]
-      - [[#unit-test][unit test]]
-      - [[#pry][pry]]
-    - [[#features][Features]]
-      - [[#project-structure][project structure]]
-      - [[#system-errors][System Errors]]
-	- [[#usage][usage]]
-      - [[#exceptions][exceptions]]
-	- [[#errors][Errors]]
-	- [[#usage][usage]]
-      - [[#writable-object-attribute][writable object attribute]]
-      - [[#multithreading][Multithreading]]
-	- [[#usage][usage]]
-      - [[#modules][modules]]
-      - [[#continuation][continuation]]
-      - [[#fibers][Fibers]]
-	- [[#errors][errors]]
-	- [[#usage][usage]]
-      - [[#delimited-input][delimited input]]
-      - [[#rake][rake]]
-	- [[#usage][usage]]
-      - [[#gem][gem]]
-      - [[#variables][Variables]]
-	- [[#class-variables][class variables]]
-	- [[#global-variables][global variables]]
-      - [[#self][self]]
-      - [[#commentary][commentary]]
-      - [[#defined][defined?]]
-      - [[#iterators][iterators]]
-      - [[#block-local-variables][block-local variables]]
-      - [[#loops][loops]]
-      - [[#statement-modifiers][statement modifiers]]
-      - [[#comparison][comparison]]
-      - [[#conditional][conditional]]
-      - [[#class][class]]
-	- [[#class][class]]
-      - [[#append-][append <<]]
-      - [[#blocks][blocks]]
-      - [[#lambda][lambda]]
-	- [[#how][How]]
-	- [[#usage][Usage]]
-      - [[#methods][methods]]
-      - [[#yield][yield]]
-      - [[#procs][procs]]
-      - [[#operators][operators]]
-      - [[#enumerable][enumerable]]
-      - [[#enumerator][enumerator]]
-	- [[#lazy][lazy]]
-	- [[#each_car][each_car]]
-	- [[#each][each]]
-	- [[#to_enumenum_for][to_enum/enum_for]]
-      - [[#inject][inject]]
-      - [[#select][select]]
-      - [[#succ][succ]]
-      - [[#collect][collect]]
-      - [[#freeze][freeze]]
-      - [[#dup][dup]]
-      - [[#dig][dig]]
-      - [[#fetch][fetch]]
-      - [[#tap][tap]]
-      - [[#map][map]]
-      - [[#pluck][pluck]]
-      - [[#quoting][Quoting]]
-      - [[#here-documents][here documents]]
-      - [[#proc][proc]]
-      - [[#do-end-as-param][do end as param]]
-      - [[#array][array]]
-      - [[#datetime][date/time]]
-      - [[#lambda][lambda]]
-      - [[#begin-rescue][begin rescue]]
-      - [[#hash][hash]]
-      - [[#range][range]]
-      - [[#sets][sets]]
-      - [[#gsub][gsub]]
-      - [[#find][find]]
-      - [[#map][map]]
-      - [[#each_slice][each_slice]]
-      - [[#lazy][lazy]]
-      - [[#with_index][with_index]]
-      - [[#enum_for][enum_for]]
-      - [[#more][more]]
-      - [[#concepts][Concepts]]
-	- [[#iterator][Iterator]]
-	- [[#methods][Methods]]
-	- [[#enumerator][Enumerator]]
-      - [[#instructions][Instructions]]
-	- [[#rbenv][Rbenv]]
-	- [[#misc][misc]]
-    - [[#toolings][Toolings]]
-    - [[#videos][Videos]]
-    - [[#tests][Tests]]
-      - [[#rspec][RSpec]]
-      - [[#unit][Unit]]
-    :END:
 * Progress
 ** Books
 | name                     | chapter            | @            |
@@ -122,24 +10,6 @@
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
 |             |        |      |   |
-* Definition
-awk is the GNU Project's implementation of the AWK programming language.  It conforms to the definition of the lan‐
-guage in the POSIX 1003.1 standard.  This version in turn is based on the description in The  AWK  Programming  Lan‐
-guage,  by  Aho,  Kernighan,  and Weinberger.  Gawk provides the additional features found in the current version of
-Brian Kernighan's awk and numerous GNU-specific extensions.
-
-The command line consists of options to gawk itself, the AWK program text (if not supplied via the -f  or  --include
-options), and values to be made available in the ARGC and ARGV pre-defined AWK variables.
-
-When  gawk  is invoked with the --profile option, it starts gathering profiling statistics from the execution of the
-program.  Gawk runs more slowly in  this  mode,  and  automatically  produces  an  execution  profile  in  the  file
-awkprof.out when done.  See the --profile option, below.
-
-Gawk  also  has an integrated debugger. An interactive debugging session can be started by supplying the --debug op‐
-tion to the command line. In this mode of execution, gawk loads the AWK source code and then prompts  for  debugging
-commands.  Gawk can only debug AWK program source provided with the -f and --include options.  The debugger is docu‐
-mented in GAWK: Effective AWK Programming.
-
 * Base
 ** Types
 *** numbers
@@ -154,7 +24,7 @@ BEGIN {
  }
 #+end_src
 
-** syntax
+** Syntax
 - pattern, action, files
 - only pattern
 - only action
@@ -248,7 +118,7 @@ END { if (n > 0)
 #+end_src
 ** Printing
 *** printf
-#+begin_src shell
+#+begin_src awk
 printf (format, value 1 , value 2 , ... , valueN)
 
 { printf("total pay for %s is $%.2f\n", $1, $2 * $3) }
@@ -267,17 +137,21 @@ A comment starts with the character # and finishes at the end of the line
         $3 } # population in millions
 #+end_src
 
-* Library
-** substr
+** Functions
+*** substr
 Return a length-character-long substring of string, starting at character number
-start. The first character of a string is character number one.49 For example,
-substr("washington", 5, 3) returns "ing".
-** gsub
+start. The first character of a string is character number one.
+
+#+begin_src awk
+substr("washington", 5, 3) #  returns "ing".
+#+end_src
+
+*** gsub
 Search target for all of the longest, leftmost, nonoverlapping matching
 substrings it can find and replace them with replacement. The ‘g’ in gsub()
 stands for “global,” which means replace everywhere.
 
-** misc
+*** misc
 #+begin_src shell
     pattern action                files
 awk '$3 > 0 { print $1, $2 * $3}' ~/emp.data
@@ -291,7 +165,7 @@ awk { print "total pay for", $1, "is", $2 * $3 }
 $2 * $3 > 50 { printf("$%.2f for %s\n", $2 * $3, $1) }
 
 #+end_src
-* Cli
+* Options
 |    |   |
 |----+---|
 | -F |   |
