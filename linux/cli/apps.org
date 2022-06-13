@@ -45,6 +45,7 @@
 - [[#media][Media]]
   - [[#ffmpeg][ffmpeg]]
     - [[#increase-volume][increase volume]]
+  - [[#pactl][pactl]]
 - [[#information][Information]]
   - [[#man][man]]
     - [[#5][5]]
@@ -466,6 +467,13 @@ report file system space usage
 #+begin_src shell
 ffmpeg -i TUNE.ogg -filter:a "volume=5dB" TUNE_increased.ogg
 #+end_src
+** pactl
+|                  |   |
+|------------------+---|
+| list sources     |   |
+| get-default-sink |   |
+| list short sinks |   |
+
 
 * Information
 ** man
