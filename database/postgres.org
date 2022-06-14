@@ -1,13 +1,12 @@
 #+TILE: Postgres
 
 * Progress
-| book                   | chapter                                 | @                             |
-|------------------------+-----------------------------------------+-------------------------------|
-| Essential Postgres     | 2 Creating and Changing Database Tables | Less Commonly-Used Data Types |
-| Mastering              |                                         |                               |
-| The Art Of PostgreSQL  | 4 Business Logic                        |                               |
-| Learn PostgreSQL 12/13 | Advanced Statements                     | Aggregate functions           |
-| Boson Treinamentos YT  | Views                                   |                               |
+| book                    | chapter                                 | @                   |
+|-------------------------+-----------------------------------------+---------------------|
+| Essential Postgres      | 2 Creating and Changing Database Tables | Not Null Columns    |
+| Mastering PostgreSQL 13 | n                                       |                     |
+| The Art Of PostgreSQL   | 4 Business Logic                        |                     |
+| Learn PostgreSQL 12/13  | Advanced Statements                     | Aggregate functions |
 
 * Base
 ** Tables
@@ -218,6 +217,42 @@ SELECT * FROM categories WHERE description ='fruits' ORDER by 2 desc;
 #+end_src
 ***
 *** distinct
+*** constrainst
+
+*Primary Keys*
+- may consist of more than one key
+- except in rare cases, every table should have a primary key.
+
+#+begin_src sql
+create table high_temperature (
+city  text,
+temp_date  date,
+high_temp  int
+primary key (city, temp_date)
+);
+#+end_src
+
+*Foreign Keys*
+- is one or more columns, that has a relationship with the primary key of another table
+- referential integrity
+
+#+begin_src sql
+create table supplier
+(
+   supplier_id   int  primary key,
+   supplier_name   text
+);
+
+create table product
+(
+  product_id  int,
+  product_name  text,
+  supplier_id  int,
+  foreign key (supplier_id) references supplier (supplier_id)
+);
+#+end_src
+
+
 ** User
 
 #+begin_src sql
@@ -539,6 +574,8 @@ select * from categories where upper(title) like 'A%';  -- like case-insensitive
 
 *replace*
 
+*regexp_replace*
+
 *cast*
 
 *generate_series*
@@ -592,6 +629,8 @@ SELECT title FROM "posts" ORDER BY "posts"."id" ASC LIMIT 4 OFFSET 4;
 #+end_src
 
 ** Types
+- can create your own data types using the “create type”
+
 *** numbers
 **** integer
 #+begin_src sql
@@ -636,6 +675,18 @@ Timestamp With Time Zone
 create table start_time(tswtz timestamp with time zone);
 create table start_time(tswtz timestamptz);
 #+end_src
+*** formatted
+**** json
+**** jsonb
+**** xml
+*** serial
+**** serial
+**** smallserial
+**** bigserial
+*** bit/bytes
+**** bit
+**** bit varying
+**** bytea
 
 *** date
 #+begin_src sql
