@@ -1,12 +1,12 @@
 #+TILE: Postgres
 
 * Progress
-| book                    | chapter                                 | @                   |
-|-------------------------+-----------------------------------------+---------------------|
-| Essential Postgres      | 2 Creating and Changing Database Tables | Not Null Columns    |
-| Mastering PostgreSQL 13 | n                                       |                     |
-| The Art Of PostgreSQL   | 4 Business Logic                        |                     |
-| Learn PostgreSQL 12/13  | Advanced Statements                     | Aggregate functions |
+| book                    | chapter                                 | @                     |
+|-------------------------+-----------------------------------------+-----------------------|
+| Essential Postgres      | 2 Creating and Changing Database Tables | More Database Objects |
+| Mastering PostgreSQL 13 | n                                       |                       |
+| The Art Of PostgreSQL   | 4 Business Logic                        |                       |
+| Learn PostgreSQL 12/13  | Advanced Statements                     | Aggregate functions   |
 
 * Base
 ** Tables
@@ -63,10 +63,17 @@ DROP TABLE IF EXISTS users;
 #+end_src
 
 *** alter
+Add columns, drop a column, change the data type of a column, rename a column...
+
+
 #+begin_src sql
 alter table j_posts_tags add constraint j_posts_tags_pkey primary key (tag_pk,post_pk);
-ALTER TABLE customers ADD COLUMN phone VARCHAR;
-ALTER TABLE customers ADD COLUMN contact_name VARCHAR NOT NULL;
+alter table customers add column phone VARCHAR;
+alter table customers add column contact_name VARCHAR not null;
+
+alter table customer add column county text;
+alter table customer drop column zip;
+alter table customer rename column city to city_or_town;
 #+end_src
 *** update
 
@@ -95,6 +102,12 @@ WHERE c.pk=p.category AND c.title='apple';
 
 UPDATE t_posts p SET title=p.title||' last updated'||current_date::text
 WHERE EXISTS (SELECT 1 FROM categories c WHERE c.pk=p.category AND c.title='apple' LIMIT 1) returning pk,title,category;
+
+update  us_president set   president_name = 'Lyndon Baines Johnson' where   president_name = 'Lyndon Johnson';
+
+-- warning, failing to state WHERE to, will set all rows to new value
+ update  us_president  set   president_name = 'Lyndon Baines Johnson';
+
 #+end_src
 *** prepare
 #+begin_src sql
@@ -111,18 +124,11 @@ order by date;
 execute foo('2010-02-01');
 #+end_src
 
-*** truncate
-Deletes records from a table without removing table structure
-
-- ddl
-
-#+begin_src sql
-TRUNCATE TABLE categories;
-#+end_src
 *** delete
-- ml
+Delete one or more, or all records in table
 
-delete all records
+- will remove as many rows that match the criteria in the where clause.
+
 
 #+begin_src sql
 DELETE FROM name_table;
@@ -139,15 +145,36 @@ DELETE FROM t_posts p WHERE EXISTS (SELECT 1 FROM categories c
 WHERE c.pk=p.category AND c.title='apple') RETURNING pk,title,category;
 #+end_src
 
-*** insert
-#+begin_src sql
-INSERT INTO users (username,gecos,email) values
-('myusername','mygecos','myemail');
+*** truncate
+Deletes records from a table without removing table structure
 
-INSERT INTO categories (title,description) values
+- faster than delete to delete all rows in a larga table
+
+#+begin_src sql
+TRUNCATE TABLE categories;
+#+end_src
+*** insert
+Insert data into a table.
+
+- number of columns must match the number of values
+- always list all columns
+
+
+#+begin_src sql
+insert into users (username,gecos,email)
+values ('myusername','mygecos','myemail');
+
+insert into categories (title,description)
+values
 ('apple', 'fruits'), ('orange','fruits'),('lettuce','vegetable')
 ('xapple', 'fruits'), ('xorange','fruits'),('xlettuce','vegetable');
+
+insert into us_republican_president (president_id, president_name)
+select   president_id, president_name
+from  us_president
+where  president_party = 'Republican';
 #+end_src
+
 *** upsert
 Insert a new record on top of the existing record or update an existing record.
 
@@ -222,6 +249,8 @@ SELECT * FROM categories WHERE description ='fruits' ORDER by 2 desc;
 *Primary Keys*
 - may consist of more than one key
 - except in rare cases, every table should have a primary key.
+- null value are not allowed by default
+- always indexed
 
 #+begin_src sql
 create table high_temperature (
@@ -252,6 +281,46 @@ create table product
 );
 #+end_src
 
+*Not Null Columns*
+
+#+begin_src sql
+create table us_president (
+  president_id   int   primary key,
+  president_name   text  not null,
+  president_party   text
+);
+#+end_src
+
+*Unique*
+
+-  to prevent duplicate values
+
+#+begin_src sql
+create table customer (
+  customer_id   int   primary key,
+  customer_name   text  not null,
+  email_address  text  unique
+);
+#+end_src
+
+
+*Check*
+
+#+begin_src sql
+create table high_temperature (
+  city  text,
+  temp_date  date  check (temp_date between '2020-01-01' and
+      '2030-01-01'),
+  high_temp  int  check (high_temp < 150)
+);
+#+end_src
+
+*Indexes*
+
+
+#+begin_src sql
+create index product_supplier_index on product(supplier_id);
+#+end_src
 
 ** User
 
