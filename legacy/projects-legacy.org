@@ -147,14 +147,6 @@ zero.sh,https://github.com/zero-sh/zero.sh
 ansible,https://github.com/ansible/ansible
 #+end_src
 
-
-#+begin_src csv
-C
-name,repository
-
-
-#+end_src
-
 #+begin_src yaml
 
    --- # css
@@ -166,17 +158,6 @@ name,repository
    - https://github.com/mozdevs/cssremedy
 
    --- # common lisp
-   - https://github.com/CodyReichert/awesome-cl.git
-   - https://github.com/atlas-engineer/nyxt.git
-   - https://github.com/LispCookbook/cl-cookbook.git
-   - https://github.com/quicklisp/quicklisp-client.git
-   - https://github.com/quicklisp/quicklisp-bootstrap.git
-   - https://github.com/quicklisp/quicklisp-controller.git
-   - https://github.com/franzinc/clx.git
-   - https://gitlab.common-lisp.net/alexandria/alexandria.git
-   - https://gitlab.common-lisp.net/asdf/asdf.git
-   - https://gitlab.common-lisp.net/clpm/clpm.git
-   - git://git.code.sf.net/p/sbcl/sbcl.git
 
 --- # Haskell
 - https://gitlab.haskell.org/ghc/ghc

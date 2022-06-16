@@ -1,9 +1,12 @@
 #+TITLE: Dots | .local/bin
 
 * e_debian
+:PROPERTIES:
+:ID:       01cb0739-249c-4be7-9739-39f9e5a56381
+:END:
 #+begin_src shell
-xorg=(xclip xsel awesome feh scrot network-manager-gnome awesome-extra)
-wm=(suckless-tools zathura wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome network-manager-gnome  unclutter diodon pasystray volumeicon-alsa)
+xorg=(awesome awesome-extra)
+wm=( wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
 langs=( lua5.4 luarocks  clang)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)
 term=(zsh)
@@ -16,7 +19,6 @@ gnu=(bash-doc gcc-doc gdb-doc gdbserver fonts-freefont-ttf)
 dev=(libsqlite3-dev cmake)
 ops=(qemu-system-gui ovmf bridge-utils)
 fonts=( fonts-firacode)
-laptop=(acpid  tlp vainfo i965-va-driver libvdpau-va-gl1 libiw-dev hddtemp acpi-call dialog sysstat)
 network=()
 firewall-config
 gnome-keyring seahorse
@@ -25,8 +27,6 @@ ncdu
  libfile-mimeinfo-perl
 x11proto-dev  rclone
 fontconfig libfreetype6
-  winetricks
-
 #+end_src
 
 * e_fedora
