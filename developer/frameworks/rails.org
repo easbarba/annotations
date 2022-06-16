@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-|                            |                                     |                                         |
-|----------------------------+-------------------------------------+-----------------------------------------|
-| Sustainable Rails          | 8 Helpers                           |                                         |
-| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS |                                         |
-| Agile WebDev w/ Rails 6    | 19 Active Record                    | Participating in the Monitoring Process |
-| Ruby on Rails tutorial     | 7                                   | 7.1.2 A Users resource                  |
-| Beginning Rails 6          | 11 Action Text                      | Updating the Article View               |
-| Rails Guides               | Active Record Validations           | 2.12 validates_with                     |
+|                            |                                          |                           |
+|----------------------------+------------------------------------------+---------------------------|
+| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Nested Resources          |
+| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form           |
+| Sustainable Rails          | 8 Helpers                                |                           |
+| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                           |
+| Beginning Rails 6          | 11 Action Text                           | Updating the Article View |
+| Rails Guides               | Active Record Validations                | 2.12 validates_with       |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -288,7 +288,16 @@ bin/setup # ensure setup is idempotent
 bin/ci # perform all checks
 #+end_src
 
-* Controller
+* Action Controller
+Action Controller is the C in MVC. After the router has determined which
+controller to use for a request, the controller is responsible for making sense
+of the request and producing the appropriate output. Luckily, Action Controller
+does most of the groundwork for you and uses smart conventions to make this as
+straightforward as possible.
+
+- unless otherwise stated, when an action is finished firing, it renders a view.
+
+** Controller
 
 #+begin_src ruby
 rails g controller ControllerName [action action] [options]
@@ -297,7 +306,7 @@ rails g controller ControllerName [action action] [options]
 - name its controller as CamelCase, MixedCase or snake_case
 - every specified actions generates an empty method in the controller and a template in app/views/#{controller_name}.
 
-** Concerns
+*** Concerns
 
 - any module that extends ActiveSupport::Concern module
 - share common code (even as little as a single method!)
@@ -319,7 +328,7 @@ module Trashable
 end
 #+end_src
 
-** methods
+*** methods
 *layout*
 
 #+begin_src ruby
@@ -332,8 +341,9 @@ rescue_from
 rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 #+end_src
 
-* Views
-** HTML Templates
+* Action View
+** Views
+*** HTML Templates
 *Guidelines*
 
 - Mark up all content and controls using semantic HTML; use div and span to solve layout and styling problems.
@@ -451,7 +461,7 @@ format in the options hash.
 <% end %>
 
 #+end_src
-** partials
+*** partials
 - meant to re-usable elements not code organization
 
 *locals variables*
@@ -706,7 +716,11 @@ session['message'] = "Hello world!"
 session['message'] # => "Hello world!"
 #+end_src
 
-* Routes
+* Action Dispatch
+- handles routing
+- decides which controller should handle a given request
+
+** Routes
 The Rails router recognizes URLs and dispatches them to a controller's action,
 or to a Rack application. It can also generate paths and URLs, avoiding the need
 to hardcode strings in your views.
@@ -1076,7 +1090,9 @@ Model.select('field AS field_one', 'other_field AS field_two')
 #+begin_src ruby
 LineItem.select('li.quantity').
   where("pr.title = 'Programming Ruby 1.9'").
-  joins("as li inner join products as pr on li.product_id = pr.id")
+  joins("as li inner join products as pr on li.puts
+                                               uts
+                                               roduct_id = pr.id")
 
 Deducao.joins(:prestador)
        .select('pessoas.razao_social, pessoas.qtd_min_mensal, count(deducoes.id) as qtd')
@@ -1129,7 +1145,22 @@ order.update(name: "Barney", email: "barney@bedrock.com")
 result = Product.update_all("price = 1.1*price", "title like '%Java%'")
 #+end_src
 
-- statitics
+*joins*
+
+#+begin_src ruby
+LineItem.select('li.quantity').
+where("pr.title = 'Programming Ruby 1.9'").
+joins("as li inner join products as pr on li.product_id = pr.id")
+#+end_src
+
+*readonly*
+
+*group*
+
+*lock*
+
+
+*aggregate*
 
 #+begin_src ruby
 Product.average(:price)
@@ -1152,6 +1183,9 @@ article.errors.full_messages
 articles.size
 Article.count
 #+end_src
+
+
+
 
 ** Scopes
 #+begin_src ruby
@@ -1457,18 +1491,6 @@ rails action_text:install
 
 * Action Pack
 - controller and the view
-* Action Controller
-Action Controller is the C in MVC. After the router has determined which
-controller to use for a request, the controller is responsible for making sense
-of the request and producing the appropriate output. Luckily, Action Controller
-does most of the groundwork for you and uses smart conventions to make this as
-straightforward as possible.
-
-- unless otherwise stated, when an action is finished firing, it renders a view.
-* Action View
-* Action Dispatch
-- handles routing
-- decides which controller should handle a given request
 * Cache
 |                      |                                                                          |
 |----------------------+--------------------------------------------------------------------------|
