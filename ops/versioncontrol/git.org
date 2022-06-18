@@ -7,7 +7,7 @@
 | Pro git          | Basics   | Viewing Your Staged and Unstaged Changes |       |         |
 | Professional Git |          | CONFIGURING GIT                          |       |         |
 
-* Features
+* commands
 ** add
       Add file contents to the index.
 ** bisect
@@ -87,7 +87,14 @@ git format-patch
 #+end_src
 
 ** log
-      Show commit logs.
+Show commit logs.
+
+*--format*
+
+#+begin_src
+git log --format="%h %an %ar %s"
+#+end_src
+
 ** merge
       Join two or more development histories together.
 #+begin_src shell
