@@ -473,6 +473,11 @@ services:
 #+end_src
 RUN apt-get update -yqq && apt-get install -yqq postgresql postgresql-contrib libpq-dev
 curl make gcc g++ git libffi-dev libyaml-dev
+
+#+begin_src shell
+docker run --platform linux/amd64 --rm ljishen/sysbench /root/results/output_cpu.prof --test=cpu --cpu-max-prime=99999 --num-threads=8 run
+#+end_src
+
 * Tips
 ** Remove all
 #+begin_src shell

@@ -2,10 +2,10 @@
 
 * Progress
 ** Book
-| Buch              | Capitulo | em                         |
-|-------------------+----------+----------------------------|
-| C Primer Plus     | 2 Data   | The int Type               |
-| C Modern Approach | Pointers | finding the largest pg 249 |
+| Buch              | Capitulo     | em                         |
+|-------------------+--------------+----------------------------|
+| C Primer Plus     | 3 Data and C | The int Type               |
+| C Modern Approach | Pointers     | finding the largest pg 249 |
 
 ** SLOC
 | Source Code | folder    | file        | @ |
@@ -16,6 +16,8 @@
 * Base
 ** Types
 *** int
+- signed integer
+- can be positive, negative, or zero
 *** float
 
 #+begin_src c
@@ -33,7 +35,6 @@ print("%f", 2.0)
 *** _Imaginary
 ** Variables
 *constant
-
 
 ** Pointers
 #+begin_src c

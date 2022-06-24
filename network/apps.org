@@ -13,6 +13,7 @@
   - [[#status][status]]
 - [[#wget][wget]]
 - [[#curl][curl]]
+  - [[#options][options]]
   - [[#read-local-file][read local file]]
   - [[#examples][examples]]
 - [[#ngrep][ngrep]]
@@ -65,6 +66,19 @@ curl - transfer a URL
 |---------+---|
 | -v <ip> |   |
 | -<N>    |   |
+
+** options
+*-i, --include*
+Mostra o header da resposta no output
+
+*-d, --data*
+Dados a serem enviados no POST
+
+*-H, --header*
+Envia o header da requisição
+
+*-X, --request*
+Especifica o método HTTP a ser usado na requisição
 
 ** read local file
 #+begin_src shell-script

@@ -5,7 +5,7 @@
 :ID:       01cb0739-249c-4be7-9739-39f9e5a56381
 :END:
 #+begin_src shell
-xorg=(awesome awesome-extra)
+xorg=()
 wm=( wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
 langs=( lua5.4 luarocks  clang)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)

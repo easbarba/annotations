@@ -21,13 +21,10 @@
 | Brett Codes - RSpec | ep 3 | 10m |
 |                     |      |     |
 
-** SLOC
-| Project    | folder | file           | @ |
-|------------+--------+----------------+---|
-| ruby       | cgi    | cookie.rb      |   |
-| sequel     |        |                |   |
-| rbs        |        |                |   |
-| solargraph |        | api_map.rb     |   |
+** SOC
+| Project | folder | file       | @ |
+|---------+--------+------------+---|
+| ruby    | lib    | english.rb |   |
 
 * Base
 ** Objects
@@ -101,8 +98,11 @@ $ ruby --enable-frozen-string-literal my_program.rb
 - The same number will be returned on all calls to object_id for a given object, and no two active objects will share an id.
 
 *** self
-   - is a keyword
-   - It does this to allow the method chaining in the line scores << 10 << 20 << 40 . Because each call to << returns the scores object, you can then call << again, passing in a new score.
+- current object
+- top-level: main
+- is a keyword
+- It does this to allow the method chaining in the line scores << 10 << 20 << 40.
+  Because each call to << returns the scores object, you can then call <<  again, passing in a new score.
 
      #+begin_src ruby
 
@@ -218,6 +218,7 @@ end
 *** Class methods
 - Class methods are singleton methods defined on objects of class `Class`.
 - a method defined as a singleton method of a class object can 2also be called on subclasses of that class.
+- are, essentially, singleton methods attached to class objects
 
 #+begin_src ruby
 class C
@@ -351,7 +352,33 @@ Refers directly to the singleton class of an object
 string = "a string"
 string.singleton_class.ancestors # => [#<Class:#<String:0x0000563fb8797270>>, String, Comparable, Object,Kernel, BasicObject]
 #+end_src
+
+#+begin_src ruby
+class C
+  class << self
+    def x
+      # definition of x
+    end
+
+    def y
+      # definition of y
+    end
+  end
+end
+#+end_src
 **** Singleton methods
+
+#+begin_src ruby
+obj = Object.new
+
+def obj.show_me
+  puts "Inside singleton method show_me of #{self}"
+end
+
+obj.show_me
+puts "Back from call to show_me by #{obj}"
+#+end_src
+
 *** usage
 #+begin_src ruby
 # frozen_string_literal: true
@@ -419,38 +446,36 @@ string.singleton_class.ancestors # => [#<Class:#<String:0x0000563fb8797270>>, St
 - adjective
 - can include a module within a class definition.
 
+#+begin_src ruby
 
-   #+begin_src ruby
+module A
+  module_function
 
-   module A
-     module_function
+  def foo
+  end
+end
 
-     def foo
-     end
-   end
+module A
+  module SubA
+    def bar
+    end
+  end
+end
 
-   module A
-     module SubA
-       def bar
-       end
-     end
-   end
+A::foo
+A::SubA:bar
 
+a = Module.new
 
-   A::foo
-   A::SubA:bar
+a.class_eval do
+  remove_method
+  method_defined?
 
-   a = Module.new
+  attr_reader name
+  alias_method x,e
+end
 
-   a.class_eval do
-     remove_method
-     method_defined?
-
-     attr_reader name
-     alias_method x,e
-   end
-
-   #+end_src
+#+end_src
 
 *refine*
 - similar to Monkeypatches, but they’re not global.
@@ -496,7 +521,9 @@ end
 'my_string'.reverse # => "gnirts_ym"
 #+end_src
 
-*** Mixin
+*module_function*
+
+*mixin*
 - adds functionality to classes
 ** Methods
 - ?, !, and = are the only characters allowed as method name suffixes.
@@ -722,6 +749,25 @@ end
 #+end_src
 
 *Global variables*
+- at global scope
+
+#+begin_src ruby
+$x = 1
+
+class G
+  def self.forevis
+    p $x
+  end
+
+  def meh
+    $x = 2
+  end
+end
+
+C.forevis # 1
+C.new.meh # 2
+cC.forevis # 2
+#+end_src
 
 *constant*
 - constants can change, but issues a warning message.
@@ -1869,6 +1915,15 @@ while line = gets
   # process line ...
 end
 #+end_src
+** Equality
+
+*#==*
+
+*#===*
+
+*#equal?*
+
+*#eql?*
 
 ** Enumerable
 concepts
@@ -2069,6 +2124,8 @@ logger.formatter = proc { |severity, datetime, progname, msg| "#{severity}, #{da
 ** Kernel
 *** alias
 #+begin_src ruby
+alias $FIELD_SEPARATOR         $;
+
 class String
   alias __old_reverse__ reverse
 end
@@ -2796,15 +2853,19 @@ end
 - referencing an uninitialized global variable returns nil.
 - $SAFE —set to 0 by default. Setting $SAFE to 1 will prevent Ruby from running
   potentially unsafe methods like eval on tainted data by raising a  SecurityError .
+- refers to english.rb file to less cryptic names of global variables. eg: $$ -> $PID
+- mostly vars inherint its cryptic naming from perl, awk and shell.z
 
 #+begin_src ruby
-$0
-$:
+$0 # name of the startup file for the currently running program.
+$: # load path
+$$ # process ID of the Ruby process.
 $PROGRAM_NAME
 $stdin
 $LOAD_PATH
 $? # return global status of last command
 $SAFE
+_ # last issued command result
 #+end_src
 *** instance variables
 #+begin_src ruby
@@ -2813,9 +2874,45 @@ $SAFE
 #+end_src
 
 *** class variables
+- shared between a class and instances of that class
+
 #+begin_src ruby
 @@foo = ''
+#+end_src
 
+#+begin_src ruby
+class Car
+  @@makes = []
+
+  @@cars = {}
+  @@total_count = 0
+  attr_reader :make
+
+  def self.total_count
+    @@total_count
+  end
+  def self.add_make(make)
+    unless @@makes.include?(make)
+      @@makes << make
+      @@cars[make] = 0
+    end
+  end
+
+  def initialize(make)
+    if @@makes.include?(make)
+      puts "Creating a new #{make}!"
+      @make = make
+      @@cars[make] += 1
+      @@total_count += 1
+    else
+      raise "No such make: #{make}."
+    end
+  end
+
+  def make_mates
+    @@cars[self.make]
+  end
+end
 #+end_src
 
 *** global constants
@@ -2835,6 +2932,17 @@ RUBY_RELEASE_DATE
 RUBY_REVISION
 RUBY_COPYRIGHT
 #+end_src
+
+*** Path
+*absolute path*
+
+#+begin_src ruby
+def history
+  ::Foo.new(maker + ", " + date)
+end
+#+end_src
+
+*relative path*
 
 ** Objects
 *** exit
@@ -2940,6 +3048,39 @@ end
 * Standard Modules
 ** continuation
    - require 'continuation'
+** Abbrev
+Calculates the set of unambiguous abbreviations for a given set of strings.
+
+#+begin_src ruby
+require 'abbrev'
+%w{ car cone }.abbrev #=> {"car"=>"car", "ca"=>"car", "cone"=>"cone", "con"=>"cone", "co"=>"cone"}
+
+%w{ fast boat day }.abbrev(/^.a/) #=> {"fast"=>"fast", "fas"=>"fast", "fa"=>"fast", "day"=>"day", "da"=>"day"}
+#+end_src
+** Benchmark
+The Benchmark module provides methods for benchmarking Ruby code, giving
+detailed reports on the time taken for each task.
+
+#+begin_src ruby
+require 'benchmark'
+puts Benchmark.measure { "a"*1_000_000_000 } # 0.350000   0.400000   0.750000 (  0.835234)
+#+end_src
+
+** pp
+#+begin_src ruby
+require 'abbrev'
+require 'pp'
+
+pp Abbrev.abbrev(['ruby']) #=>  {"ruby"=>"ruby", "rub"=>"ruby", "ru"=>"ruby", "r"=>"ruby"}
+#+end_src
+** Base64
+A simple encoding and decoding.
+
+#+begin_src ruby
+require "base64"
+enc   = Base64.encode64('Send reinforcements') # -> "U2VuZCByZWluZm9yY2VtZW50cw==\n"
+plain = Base64.decode64(enc)  # -> "Send reinforcements"
+#+end_src
 ** Loading ruby files
 require and load are locating and loading disk files,
 

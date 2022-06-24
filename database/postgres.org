@@ -356,6 +356,10 @@ SELECT pg_size_pretty(pg_database_size('forumdb'));
 #+begin_src sql
 select * from pg_database where datname='forumdb';
 #+end_src
+
+** Operators
+*@@*
+Matches a query against a document and returns true or false
 ** SubQueries
 #+begin_src sql
 select * from categories where pk in (10,11);

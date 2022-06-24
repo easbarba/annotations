@@ -1,0 +1,330 @@
+#+TILE: StumpWM
+
+* users configs
+** roman
+#+begin_src lisp
+;; -*- lisp -*-
+(in-package :stumpwm)
+
+;; Don't show startup message.
+(setf *startup-message* nil)
+
+;; Colors
+
+(setf *colors*
+      '("#111111"   ; 0 black
+        "#dc322f"   ; 1 red
+        "#859900"   ; 2 green
+        "#b58900"   ; 3 yellow
+        "#268bd2"   ; 4 blue
+        "#d33682"   ; 5 magenta
+        "#2aa198"   ; 6 cyan
+        "#fdf6e3")) ; 7 white
+
+(update-color-map (current-screen))
+
+;; Debug
+
+(setf *debug-level* 10)
+(redirect-all-output (data-dir-file "debug" "log"))
+
+;; Message bar
+(set-fg-color "white")
+(set-bg-color "#111111")
+(set-border-color "white")
+
+;; Message Window
+
+(setf *message-window-gravity* :center
+      *message-window-padding* 15
+      *message-window-y-padding* 15)
+
+;; Set the default gravity for transient/pop-up windows.
+(set-transient-gravity :center)
+
+;; (set-normal-gravity :center)
+;; (set-maxsize-gravity :center)
+
+;; Input Window
+
+(setf *input-window-gravity* :center)
+
+(setf *normal-border-width* 1)
+
+;; Number of pixels to increment by when interactively resizing frames.
+
+(set-resize-increment 20)
+
+;; Mode Line
+
+(setf *mode-line-background-color* "black")
+(setf *mode-line-foreground-color* "white")
+(setf *mode-line-border-color* "black")
+(setf *mode-line-timeout* 1)
+
+(setf *screen-mode-line-format*
+      (list "[^B%n^b] %W | %g | "
+            '(:eval (stumpwm:run-shell-command "date" t))))
+
+;; Use thin window border.
+(setf *window-border-style* :thin)
+
+;; Input focus follows the mouse on click.
+(setf *mouse-focus-policy* :click)
+
+;; GROUPS
+
+(run-commands
+ "grename Emacs"
+ "gnewbg Web"
+ "gnewbg 3"
+ "gnewbg 4"
+ "gnewbg 5"
+ "gnewbg 6"
+ "gnewbg 7"
+ "gnewbg Logs"
+ "gnewbg Top")
+
+;; Modules
+
+(set-module-dir (pathname-as-directory (concat (getenv "HOME") "/workspace/stumpwm-contrib")))
+
+(load-module "ttf-fonts")
+;; (load-module "winner-mode")
+;; (load-module "globalwindows")
+;; (load-module "amixer")
+;; (load-module "swm-gaps")
+;; (load-module "kbd-layouts")
+
+;; Fonts
+
+(xft:cache-fonts) ;; Cache fonts, so they can be found?
+
+(set-font
+ (make-instance
+  'xft:font
+  :family "Inconsolata"
+  :subfamily "Regular"
+  :size 13))
+
+;; Rule Based Window Placement
+
+(define-frame-preference "Emacs"
+  (0 t t :class "Emacs"))
+
+(define-frame-preference "Web"
+  (1 t t :class "Chromium"))
+
+(define-frame-preference "Logs"
+  (8 nil t :instance "Logs"))
+
+(define-frame-preference "Top"
+  (9 nil t :instance "HTop"))
+
+;;; COMMANDS
+
+(defcommand chromium () ()
+  "Run the chromium web browser."
+  (run-shell-command "chromium"))
+
+(defcommand emacs-client () ()
+  "Run the emacs client."
+  (run-shell-command "emacsclient --create-frame"))
+
+(defcommand firefox () ()
+  "Run the firefox web browser."
+  (run-shell-command "firefox"))
+
+(defcommand htop () ()
+  "Run htop."
+  (run-or-raise "urxvt -name HTop -e htop" '(:instance "HTop")))
+
+(defcommand logs () ()
+  "Show the logs."
+  (run-or-raise "urxvt -name Logs -e sudo journalctl -f -a -n 100" '(:instance "Logs")))
+
+(defcommand polybar () ()
+  "Run the polybar status bar."
+  (run-shell-command "start-polybar"))
+
+(defcommand terminal () ()
+  "Run the urxvt terminal."
+  ;; (hsplit)
+  ;; (fnext)
+  (run-shell-command "urxvt"))
+
+(defcommand terminal-raise () ()
+  "Run or raise the urxvt terminal."
+  (run-or-raise "urxvt -name Terminal" '(:instance "Terminal")))
+
+;; (defcommand (fprev tile-group) () ()
+;;   "Cycle through the frame tree to the prev frame."
+;;   (focus-prev-frame (current-group)))
+
+;; (defcommand file-manager () ()
+;;   "Run or raise the file manager."
+;;   (run-or-raise "nautilus" '(:class "Nautilus")))
+
+;; (defcommand volume-lower () ()
+;;   "Lower the volume."
+;;   (message "Lower volume"))
+
+;; (defcommand volume-raise () ()
+;;   "Raise the volume."
+;;   (message "Raise volume"))
+
+;; (defcommand volume-toggle () ()
+;;   "Toggle the volume."
+;;   (message "Toggle volume"))
+
+;; Polybar
+
+(defun icon-by-group (name)
+  (cond
+    ((string-equal name "Emacs")
+     "")
+    ((string-equal name "Web")
+     "")
+
+    ((string-equal name "Terminal")
+     "")
+    ((string-equal name "Top")
+     "")
+    ((string-equal name "Logs")
+     "")
+    (t (concat ""))))
+
+(defun polybar-groups ()
+  "Return string representation for polybar stumpgroups module"
+  (apply #'concatenate 'string
+         (mapcar
+          (lambda (g)
+            (let* ((name (group-name g))
+                   (number (write-to-string (group-number g)))
+                   (n-win (write-to-string (length (group-windows g))))
+                   (icon (icon-by-group name))
+                   (text (concat " %{F#54728E}" icon "%{F-} " number ":" name " ")))
+              (cond
+                ((eq g (current-group)) (concat "%{F#FFFFFF B#000000 u#54728E +u}" text "[" n-win "] " "%{F- B- u- -u}"))
+                ((string-equal n-win "0") "")
+                (t (concat "%{F#FFFFFF}" text "[" n-win "] " "%{F-}")))))
+          (sort (screen-groups (current-screen)) #'< :key #'group-number))))
+
+(defun polybar-update-groups ()
+  (run-shell-command "polybar-msg hook stumpwmgroups 1"))
+
+(add-hook *new-window-hook* (lambda (win) (polybar-update-groups)))
+(add-hook *destroy-window-hook* (lambda (win) (polybar-update-groups)))
+(add-hook *focus-window-hook* (lambda (win lastw) (polybar-update-groups)))
+(add-hook *focus-group-hook* (lambda (grp lastg) (polybar-update-groups)))
+
+(defun shift-windows-forward (frames win)
+  (when frames
+    (let ((frame (car frames)))
+      (shift-windows-forward (cdr frames)
+                             (frame-window frame))
+      (when win
+        (pull-window win frame)))))
+
+(defcommand rotate-windows () ()
+  "Rotate windows"
+  (let* ((frames (group-frames (current-group)))
+         (win (frame-window (car (last frames)))))
+    (shift-windows-forward frames win)))
+
+(defcommand swap-windows () ()
+  (let* ((group (current-group))
+         (cur-frame (tile-group-current-frame group))
+         (frames (group-frames group)))
+    (if (eq (length frames) 2)
+        (progn (if (or (neighbour :left cur-frame frames)
+                       (neighbour :right cur-frame frames))
+                   (progn
+                     (only)
+                     (vsplit))
+                   (progn
+                     (only)
+                     (hsplit))))
+        (message "Works only with 2 frames"))))
+
+;; Rofi
+
+(defun rofi (mode)
+  (run-shell-command (concat "rofi -show " mode " -m " (write-to-string (head-number (current-head))))))
+
+(defcommand rofi-run () ()
+  (rofi "run -sidebar-mode"))
+
+(defcommand rofi-window () ()
+  (rofi "window"))
+
+(defcommand rofi-windowcd () ()
+  (rofi "windowcd"))
+
+;; Start programs
+
+(run-commands
+ "gselect Web"
+ "chromium"
+ "gselect Emacs"
+ "emacs"
+ "htop"
+ "gselect Logs"
+ "logs"
+ "polybar"
+ "gselect Emacs")
+
+;; Key Bindings
+
+(set-prefix-key (kbd "C-t"))
+(set-prefix-key (kbd "s-SPC"))
+
+(define-key *root-map* (kbd "e") "emacs-client")
+
+(define-key *root-map* (kbd "c") "terminal")
+(define-key *root-map* (kbd "c") "terminal")
+
+(define-key *top-map* (kbd "C-s-RET") "terminal")
+
+(define-key *top-map* (kbd "s-RET") "rotate-windows")
+(define-key *top-map* (kbd "S-s-RET") "swap-windows")
+
+(define-key *top-map* (kbd "s-j") "fnext")
+(define-key *top-map* (kbd "s-k") "fprev")
+
+(define-key *top-map* (kbd "s-J") "next")
+(define-key *top-map* (kbd "s-K") "prev")
+
+(define-key *top-map* (kbd "s-m") "rofi-window")
+
+;; Switch to groups with s-[0-9]
+(loop for group from 0 to 9 do
+     (define-key *top-map* (kbd (format nil "s-~d" group))
+       (format nil "gselect ~d" group)))
+
+;; Switch to Emacs group
+
+;; TODO: Get this working
+;; (run-commands "gselect Emacs")
+
+;; (print (current-head))
+
+;; (defparameter floating-windows
+;;   '("xclock"
+;;     "pinentry-gtk-2"))
+
+;; (defun floating-class-p (window)
+;;   (member (window-class window) floating-windows :test 'string-equal))
+
+;; (defun my-float-window-hook (window)
+;;   (print "FLOAT NEW WINDOW")
+;;   (message "HELLO")
+;;   (when (floating-class-p window)
+;;     (float-window window (current-group))
+;;     (maximize-float window)))
+
+;; (remove-hook *new-window-hook* 'my-float-window-hook)
+;; (add-hook *new-window-hook* 'my-float-window-hook)
+
+;; (resize-head 0 0 0 2880 (- 1800 (* 2 27)))
+#+end_src

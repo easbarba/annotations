@@ -1,9 +1,9 @@
 #+TITLE: Lemp
 
-sudo mkdir -p /var/www/easbarba.com/html
-sudo chown -R $USER:$USER /var/www/easbarba.com/html
+sudo mkdir -p /var/www/user.com/html
+sudo chown -R $USER:$USER /var/www/user.com/html
 sudo chmod -R 755 /var/www
-nano /var/www/easbarba.com/html/index.html
+nano /var/www/user.com/html/index.html
 
 #+begin_src html
 <html>
@@ -16,8 +16,8 @@ nano /var/www/easbarba.com/html/index.html
 </html>
 #+end_src
 
-# sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/easbarba.com
-sudo nano /etc/nginx/sites-available/easbarba.com
+# sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/user.com
+sudo nano /etc/nginx/sites-available/user.com
 
 #+begin_src conf
 server {
@@ -43,7 +43,7 @@ server {
 }
 #+end_src
 
-sudo ln -s /etc/nginx/sites-available/easbarba.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/user.com /etc/nginx/sites-enabled/
 
 - disable enabled/default
 sudo unlink /etc/nginx/sites-enabled/default
@@ -58,18 +58,18 @@ sudo systemctl reload nginx
 * landing static page
 - web root
 #+begin_src shell
-sudo nano /var/www/easbarba.com/index.html
+sudo nano /var/www/user.com/index.html
 #+end_src
 
 #+begin_src html
 <html>
   <head>
-    <title>easbarba.com website</title>
+    <title>user.com website</title>
   </head>
   <body>
     <h1>Hello World!</h1>
 
-    <p>This is the landing page of <strong>easbarba.com</strong>.</p>
+    <p>This is the landing page of <strong>user.com</strong>.</p>
   </body>
 </html>
 #+end_src
@@ -78,7 +78,7 @@ sudo nano /var/www/easbarba.com/index.html
 
 create a new file in:
 #+begin_src sh
-nano /var/www/easbarba.com/info.php
+nano /var/www/user.com/info.php
 #+end_src
 
 and add:

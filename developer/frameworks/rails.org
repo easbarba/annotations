@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-|                            |                                          |                           |
-|----------------------------+------------------------------------------+---------------------------|
-| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Nested Resources          |
-| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form           |
-| Sustainable Rails          | 8 Helpers                                |                           |
-| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                           |
-| Beginning Rails 6          | 11 Action Text                           | Updating the Article View |
-| Rails Guides               | Active Record Validations                | 2.12 validates_with       |
+|                            |                                          |                              |
+|----------------------------+------------------------------------------+------------------------------|
+| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Sending Files and Other Data |
+| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form              |
+| Sustainable Rails          | 8 Helpers                                |                              |
+| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                              |
+| Beginning Rails 6          | 11 Action Text                           | Updating the Article View    |
+| Rails Guides               | Active Record Validations                | 2.12 validates_with          |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -27,7 +27,7 @@
 
 *assets:clobber*
 
-Clears public/assets completely
+Purge public/assets completely
 
 *assets:clean*
 
@@ -132,17 +132,20 @@ it, views to view and manipulate the data, and a test suite
 
 #+begin_src sh
 generate scaffold Article <options>
+generate scaffold Article title author body:text
+generate scaffold Article title:string body:text published_at:datetime
 #+end_src
+**** options
+  -f, [--force]                    # Overwrite files that already exist
+  -p, [--pretend], [--no-pretend]  # Run but do not make any changes
+  -q, [--quiet], [--no-quiet]      # Suppress status output
+  -s, [--skip], [--no-skip]        # Skip files that already exist
+
 
 *** models
-| what   | how                                                                    | desc |
-|--------+------------------------------------------------------------------------+------|
-| models | generate model <Name>                                                  |      |
-|        | destroy controller articles                                            |      |
-|        | destroy model Artile                                                   |      |
-| a      |                                                                        |      |
-|        | generate scaffold Article title:string body:text published_at:datetime |      |
-|        |                                                                        |      |
+#+begin_src ruby
+generate model <Name>
+#+end_src
 
 *** channels
 #+begin_src
@@ -163,6 +166,7 @@ rails _6.1.5.1_ new app --database=postgresql
 *test:controllers*
 
 ** routes
+*** options
 *-g GROUP, --grep=GROUP*
 *-E, --expanded*
 *-c CONTROLLER, --controller=CONTROLLER*
@@ -250,7 +254,6 @@ webpacker:compile
 bin/rails generate task
 #+end_src
 
-
 ** runner
 runs ruby code in the context of rails non-interactively.
 
@@ -328,18 +331,187 @@ module Trashable
 end
 #+end_src
 
-*** methods
-*layout*
+*** Actions
 
+valids actions
+#+begin_src ruby
+​class​ BlogController < ApplicationController
+  ​def​ ​index​
+      render
+    ​end​
+​end​
+
+​class​ BlogController < ApplicationController
+    ​def​ ​index​
+    ​end​
+ ​end​
+
+
+​class​ HappyController < ApplicationController
+    ​def​ ​index​
+       render(​text: ​​"Hello there!"​)
+    ​end​
+ ​end​
+
+​class​ BlogController < ApplicationController
+     render(text: string)
+​end​
+#+end_src
+
+*missing method*
+
+#+begin_src ruby
+​class​ SomeController < ApplicationController
+  if​ RAILS_ENV == ​"development"​
+
+    ​def​ ​method_missing​(name, *args)
+      render(​inline: ​​%{​ <h2>Unknown action: #{name}</h2>​ Here are the request parameters:<br/>​
+                                   <%= debug(params) %> }​)
+    end​
+  end​
+​end​
+#+end_src
+
+*** render
+
+*action: action_name*
+
+Renders the template for a given action in this controller.
+
+- calling render(:action...) does not invoke the  action method. It simply renders that action’s default template.
+
+#+begin_src ruby
+​def​ ​display_cart​
+  ​if​ @cart.​empty?​
+    render(​action: :index​)
+  ​else​
+    ​# ...​
+  ​end​
+​end​
+#+end_src
+
+*template: name, [locals: hash]*
+
+Renders a template and arranges for the resulting text to be sent back to the client. The :template value must
+contain both the controller and action parts of the new name, separated by a forward slash
+
+#+begin_src ruby
+​class​ BlogController < ApplicationController
+  ​def​ ​index​
+    render(​template: ​​"blog/short_list"​)
+  ​end​
+​end​
+#+end_src
+
+*file: path*
+
+Renders a view that may be entirely outside of your application (perhaps one
+shared with another Rails application)
+
+*partial: name, …*
+
+Renders a partial template.
+
+*nothing: true*
+
+Returns nothing—sends an empty body to the browser.
+
+*xml: stuff*
+
+Renders stuff as text, forcing the content type to be application/xml.
+
+*render(json: stuff, [callback: hash] )*
+
+Renders stuff as JSON, forcing the content type to be application/json. Specifying :callback will cause the result to
+be wrapped in a call to the named callback function.
+
+*render(:update) do |page| ... end*
+
+Renders the block as an RJS template, passing in the page object.
+
+#+begin_src ruby
+render(​:update​) ​do​ |page|
+  page[​:cart​].​replace_html​ ​partial: ​​'cart'​, ​object: ​@cart
+  page[​:cart​].​visual_effect​ ​:blind_down​ ​if​ @cart.​total_items​ == 1
+​end​
+#+end_src
+
+*status: *
+Provides the value used in the status header in the HTTP response.
+
+- optional
+
+*layout: [boolean|string|:nothing]*
+Determines whether the result of the rendering will be wrapped by a layout.
+
+- optional
+
+*content_type:*
+
+Specifies a value that will be passed to the browser in the Content-Type HTTP header.
+
+- optional
+
+
+
+*** send_data
+Sends a data stream to the client.
+
+send_data(data, options​…​)
+
+#+begin_src ruby
+def​ ​sales_graph​
+  png_data = Sales.​plot_for​(Date.​today​.​month​)
+  send_data(png_data, ​type: ​​"image/png"​, ​disposition: ​​"inline"​)
+​end​
+#+end_src
+
+**** options
+
+*:disposition (string)*
+
+Suggests to the browser that the file should be displayed inline (option inline) or downloaded and saved (option
+attachment, the default).
+
+*:filename string*
+
+A suggestion to the browser of the default filename to use when saving this data.
+
+*:status (string)*
+
+*:type (string)*
+
+
+*:url_based_filename boolean*8
+
+*** layout
 #+begin_src ruby
 layout 'my_layout' # Will use a layout in app/views/layouts/my_layout.
 #+end_src
 
-rescue_from
-
+*** rescue_from
 #+begin_src ruby
 rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 #+end_src
+
+*** send_file
+Sends the file. This uses a server-appropriate method (such as X-Sendfile) via
+the Rack::Sendfile middleware. The header to use is set via
+config.action_dispatch.x_sendfile_header. Your server can also configure this
+for you by setting the X-Sendfile-Type header.
+
+#+begin_src ruby
+send_file '/path/to.zip'
+send_file '/path/to.jpeg', type: 'image/jpeg', disposition: 'inline'
+send_file '/path/to/404.html', type: 'text/html; charset=utf-8', disposition: 'inline', status: 404
+#+end_src
+
+:buffer_size (number)
+:disposition (string)
+:filename (string)
+:status string
+:stream (true or false)
+:type (string)
 
 * Action View
 ** Views
@@ -480,7 +652,13 @@ format in the options hash.
 %>
 #+end_src
 
-* Models
+* Active Record
+- Single-Table Inheritance
+- maps tables to classes, table rows to objects, and table columns to object attributes.
+- Class names are singular; table names are plural.
+- Tables contain an identity column named id.
+
+** Models
 |                   |                            |
 |-------------------+----------------------------|
 | naming convention | CamelCased or snake_cased  |
@@ -520,7 +698,7 @@ class AddDetailsToProducts < ActiveRecord::Migration[7.0]
 end
 #+end_src
 
-** validations
+*** validations
 make sure a user has entered something into a field.
 
 #+begin_src ruby
@@ -625,7 +803,7 @@ end
 
 *validates_with*
 
-** methods
+*** methods
 *create_table*
 
 no
@@ -637,287 +815,16 @@ end
 #+end_src
 
 
-** concerns
+*** concerns
 - any module that extends ActiveSupport::Concern module
 - share common code (even as little as a single method!)
 
-** best practices
+*** best practices
 *Fat Models*
 
 An intelligent model like this is often called fat. Instead of performing model-related logic in
 other places (i.e., in controllers or views), you keep it in the model, thus making it fat. This
 makes your models easier to work with and helps your code stay DRY.
-* Helpers
-help views by providing a convenient location to encapsulate code that would
-otherwise clutter the view and violate the terms of the MVC. They offer a middle
-ground between controllers and views and help to keep your application organized
-and easy to maintain.
-
-- export methods to be available to a view.
-- can also be added via the helper method in a controller
-- methods in app/helpers/application_helper.rb will be included and available to all your views.
-- exist in a single global namespace
-
-** FormHelper
-*label*
-#+begin_src html
-<label for="article_title">Title</label>
-#+end_src
-
-*text_field*
-
-#+begin_src html
-<input type="text" name="article[title]" id="article_title" />
-<input class="large" type="text" name="article[title]" id="article_title" />
-#+end_src
-
-*text_area*
-
-#+begin_src html
-<textarea name="article[body]" id="article_body"></textarea>
-#+end_src
-
-*datetime_select*
-
-#+begin_src html
-<input type="submit" name="commit" value="Create Article" data-disable-with="Create Article" />
-#+end_src
-
-** FormTagHelper
-** Number helpers
-** Text helpers
-
-#+begin_src ruby
-simple_format
-#+end_src
-** URL helpers
-*link_to*(name, options={}, html_options={})
-
-#+begin_src ruby
-link_to 'New', new_article_path, id: 'new_article_link'
-link_to 'New', {controller: 'articles', action: 'new'}, class: 'large'
-link_to 'New', {controller: 'articles', action: 'new'}, {class: 'large'}
-#+end_src
-
-*ajax*
-
-#+begin_src ruby
-<%= link_to "new comment", new_article_comment_path(@article), remote: true, id: 'new_comment_link' %>
-#+end_src
-* Session
-- implemented as a hash
-- flash is a session
-
-#+begin_src ruby
-session[:account_id] = @account.id
-session[:account_id] # => 1
-
-session['message'] = "Hello world!"
-session['message'] # => "Hello world!"
-#+end_src
-
-* Action Dispatch
-- handles routing
-- decides which controller should handle a given request
-
-** Routes
-The Rails router recognizes URLs and dispatches them to a controller's action,
-or to a Rack application. It can also generate paths and URLs, avoiding the need
-to hardcode strings in your views.
-
-- localhost:xxxx/rails/info/routes
-
-*Named routes*
-
-#+begin_src ruby
-get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and search_path
-#+end_src
-
-*only*
-
-#+begin_src ruby
-resources :articles, only: [:index, :show]
-#+end_src
-
-*Except*
-
-Create all of the standard routes except those listed
-
-#+begin_src ruby
-resources :articles, except: [ :destroy ]
-#+end_src
-
-*Redirect*
-
-#+begin_src ruby
-get "/amazing", to: redirect("/widgets")
-#+end_src
-
-*Inline variable* (:foo)
-
-#+begin_src ruby
-# :query as an inline variable
-get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search/toronto
-#+end_src
-
-#+begin_src ruby
-get '/teams/home', to: 'teams#index' # http://example.com/teams
-#+end_src
-
-*Named routes*
-
-#+begin_src ruby
-get '/teams/search/:query', to: 'teams#search', as: 'search'
-#+end_src
-
-*Root*
-
-#+begin_src ruby
-root to: "articles#index"
-#+end_src
-
-*Nested resources*
-
-- resources should never be nested more than 1 level deep.
-
-#+begin_src ruby
-resources :articles do
-  resources :comments
-end
-#+end_src
-
-*Resource* (single)
-
-- no index (6 paths)
-
-#+begin_src ruby
-resource :session
-#+end_src
-
-*Namespacing*
-
-#+begin_src ruby
-namespace :customer_service do
-  resources :widgets, only: [ :show, :update, :destroy ]
-end
-#+end_src
-
-# Don’t Create Custom Actions, Create More Resources
-
-*scope block*
-
-#+begin_src ruby
-scope module: 'admin' do
-  resources :articles, :comments
-end
-
-# or
-resources :articles, module: 'admin'
-
-# route /admin/articles to ArticlesController
-scope '/admin' do
-  resources :articles, :comments
-end
-#same
-resources :articles, path: '/admin/articles'
-#+end_src
-
-*member*
-
-#+begin_src ruby
-resources :articles do
-  member do
-    post :notify_friend
-  end
-  resources :comments
-end
-#+end_src
-
-*More*
-
-#+begin_src ruby
-get 'profile', action: :show, controller: 'users'
-
-resource :geocoder
-resolve('Geocoder') { [:geocoder] }
-#+end_src
-
-* Parameters
-- hash-like
-
-*Permit*
-
-- specify which parameters are acceptable
-
-#+begin_src ruby
-params.require(:user).permit(:email, :password, :password_confirmation
-#+end_src
-
-* Hook
-- a method that Rails calls automatically at a given point in an object’s life.
-
-*before_destroy*
-
-* Errors
-- can be associated with individual attributes
-
-#+begin_src ruby
-errors.add(:base, 'Line Items present') # associated error with the base object.
-#+end_src
-
-* Environment
-|                      |                                                |
-|----------------------+------------------------------------------------|
-| RAILS_ENV=production |                                                |
-| DATABASE_URL         | database credentials                           |
-| SECRET_KEY_BASE      | general secret key used for encrypting cookies |
-
-* Logger
-- live log feed: tail -f log/development.log
--  Every controller has a logger attribute.
-** Methods
-|       |   |
-|-------+---|
-| error |   |
-| debug |   |
-| warn  |   |
-
-#+begin_src ruby
-Rails.logger.debug "This will only show in development"
-Rails.logger.warn "This will show in all environments"
-#+end_src
-
-* Debugging
-** Views
-** Controllers
-#+begin_src ruby
-class UsersController < ApplicationController
-  def show
-    @user = User.find(params[:id])
-    debugger
-  end
-
-  def new; end
-end
-#+end_src
-
-** <% console %>
- abre um console na página que vc coloca <% console %> aí vc pode chamar as variáveis daquela página pra entender o que tá Rolando
-#+begin_src ruby
-<% console %>
-#+end_src
-
-* Action Cable
-- create a channel, broadcast some data, and receive the data.
-- use the two-way WebSocket protocol
-- support multiple streams
-- its safe to disable request forgery if it will be sending only data over this channel, and not processing commands,
-* Active Record
-- Single-Table Inheritance
-- maps tables to classes, table rows to objects, and table columns to object attributes.
-- Class names are singular; table names are plural.
-- Tables contain an identity column named id.
-
 ** Methods
 
 #new
@@ -1183,10 +1090,6 @@ article.errors.full_messages
 articles.size
 Article.count
 #+end_src
-
-
-
-
 ** Scopes
 #+begin_src ruby
 class Book < ApplicationRecord
@@ -1479,6 +1382,297 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .find_or_create_by({})
 #+end_src
 
+* Action Dispatch
+- handles routing
+- decides which controller should handle a given request
+
+** routes
+The Rails router recognizes URLs and dispatches them to a controller's action,
+or to a Rack application. It can also generate paths and URLs, avoiding the need
+to hardcode strings in your views.
+
+- location: config/routes.rb
+- localhost:xxxx/rails/info/routes
+
+*Named routes*
+
+#+begin_src ruby
+get '/teams/search/:query', to: 'teams#search', as: 'search' #search_url and search_path
+#+end_src
+
+*only*
+
+#+begin_src ruby
+resources :articles, only: [:index, :show]
+#+end_src
+
+*Except*
+
+Create all of the standard routes except those listed
+
+#+begin_src ruby
+resources :articles, except: [ :destroy ]
+resources ​:comments​, ​except: ​[​:update​, ​:destroy​]
+#+end_src
+
+*Redirect*
+
+#+begin_src ruby
+get "/amazing", to: redirect("/widgets")
+#+end_src
+
+*Inline variable* (:foo)
+
+#+begin_src ruby
+# :query as an inline variable
+get '/teams/search/:query', to: 'teams#search' # http://example.com/teams/search/toronto
+#+end_src
+
+#+begin_src ruby
+get '/teams/home', to: 'teams#index' # http://example.com/teams
+#+end_src
+
+*Named routes*
+
+#+begin_src ruby
+get '/teams/search/:query', to: 'teams#search', as: 'search'
+#+end_src
+
+*Root*
+
+#+begin_src ruby
+root to: "articles#index"
+#+end_src
+
+*Nested resources*
+
+- resources should never be nested more than 1 level deep.
+
+#+begin_src ruby
+resources :articles do
+  resources :comments
+end
+#+end_src
+
+*Resource* (single)
+
+- no index (6 paths)
+
+#+begin_src ruby
+resource :session
+#+end_src
+
+*Namespacing*
+
+#+begin_src ruby
+namespace :customer_service do
+  resources :widgets, only: [ :show, :update, :destroy ]
+end
+#+end_src
+
+# Don’t Create Custom Actions, Create More Resources
+
+*scope block*
+
+#+begin_src ruby
+scope module: 'admin' do
+  resources :articles, :comments
+end
+
+# or
+resources :articles, module: 'admin'
+
+# route /admin/articles to ArticlesController
+scope '/admin' do
+  resources :articles, :comments
+end
+#same
+resources :articles, path: '/admin/articles'
+#+end_src
+
+*member*
+
+#+begin_src ruby
+resources :articles do
+  member do
+    post :notify_friend
+  end
+  resources :comments
+end
+#+end_src
+
+*concerns*
+
+#+begin_src ruby
+concern ​:reviewable​ ​do​
+  resources ​:reviews​
+​end​
+
+resources ​:products​, ​concern: :reviewable​
+resources ​:users​, ​concern: :reviewable​
+#+end_src
+
+*Shallow Route Nesting*
+
+#+begin_src ruby
+resources ​:products​, ​shallow: ​​true​ ​do​
+  resources ​:reviews​
+​end​
+
+# produces:
+ # ​   /products/1 => product_path(1)
+ # ​   /products/1/reviews => product_reviews_index_path(1)
+ # ​   /reviews/2 => reviews_path(2)
++end_src
+
+*More*
+
+#+begin_src ruby
+get 'profile', action: :show, controller: 'users'
+
+resource :geocoder
+resolve('Geocoder') { [:geocoder] }
+#+end_src
+
+* Helpers
+help views by providing a convenient location to encapsulate code that would
+otherwise clutter the view and violate the terms of the MVC. They offer a middle
+ground between controllers and views and help to keep your application organized
+and easy to maintain.
+
+- export methods to be available to a view.
+- can also be added via the helper method in a controller
+- methods in app/helpers/application_helper.rb will be included and available to all your views.
+- exist in a single global namespace
+
+** FormHelper
+*label*
+#+begin_src html
+<label for="article_title">Title</label>
+#+end_src
+
+*text_field*
+
+#+begin_src html
+<input type="text" name="article[title]" id="article_title" />
+<input class="large" type="text" name="article[title]" id="article_title" />
+#+end_src
+
+*text_area*
+
+#+begin_src html
+<textarea name="article[body]" id="article_body"></textarea>
+#+end_src
+
+*datetime_select*
+
+#+begin_src html
+<input type="submit" name="commit" value="Create Article" data-disable-with="Create Article" />
+#+end_src
+
+** FormTagHelper
+** Number helpers
+** Text helpers
+
+#+begin_src ruby
+simple_format
+#+end_src
+** URL helpers
+*link_to*(name, options={}, html_options={})
+
+#+begin_src ruby
+link_to 'New', new_article_path, id: 'new_article_link'
+link_to 'New', {controller: 'articles', action: 'new'}, class: 'large'
+link_to 'New', {controller: 'articles', action: 'new'}, {class: 'large'}
+#+end_src
+
+*ajax*
+
+#+begin_src ruby
+<%= link_to "new comment", new_article_comment_path(@article), remote: true, id: 'new_comment_link' %>
+#+end_src
+* Session
+- implemented as a hash
+- flash is a session
+
+#+begin_src ruby
+session[:account_id] = @account.id
+session[:account_id] # => 1
+
+session['message'] = "Hello world!"
+session['message'] # => "Hello world!"
+#+end_src
+
+* Parameters
+- hash-like
+
+*Permit*
+
+- specify which parameters are acceptable
+
+#+begin_src ruby
+params.require(:user).permit(:email, :password, :password_confirmation
+#+end_src
+
+* Hook
+- a method that Rails calls automatically at a given point in an object’s life.
+
+*before_destroy*
+
+* Errors
+- can be associated with individual attributes
+
+#+begin_src ruby
+errors.add(:base, 'Line Items present') # associated error with the base object.
+#+end_src
+
+* Environment
+|                      |                                                |
+|----------------------+------------------------------------------------|
+| RAILS_ENV=production |                                                |
+| DATABASE_URL         | database credentials                           |
+| SECRET_KEY_BASE      | general secret key used for encrypting cookies |
+
+* Logger
+- live log feed: tail -f log/development.log
+-  Every controller has a logger attribute.
+** Methods
+|       |   |
+|-------+---|
+| error |   |
+| debug |   |
+| warn  |   |
+
+#+begin_src ruby
+Rails.logger.debug "This will only show in development"
+Rails.logger.warn "This will show in all environments"
+#+end_src
+
+* Debugging
+** Views
+** Controllers
+#+begin_src ruby
+class UsersController < ApplicationController
+  def show
+    @user = User.find(params[:id])
+    debugger
+  end
+
+  def new; end
+end
+#+end_src
+
+** <% console %>
+ abre um console na página que vc coloca <% console %> aí vc pode chamar as variáveis daquela página pra entender o que tá Rolando
+#+begin_src ruby
+<% console %>
+#+end_src
+
+* Action Cable
+- create a channel, broadcast some data, and receive the data.
+- use the two-way WebSocket protocol
+- support multiple streams
+- its safe to disable request forgery if it will be sending only data over this channel, and not processing commands,
 * Action Text
 
 Include Action Text’s JavaScript and CSS in the application.
@@ -1611,6 +1805,21 @@ export PATH="$NPM_BIN":$PATH
 
 # ** SQLITE
 #+end_src
+** Project Base
+#+begin_src shell
+podman run --rm -it -v $(pwd):/app/ -w /app ruby:3.1-alpine3.16 sh -c 'apk add --update build-base curl git tzdata postgresql-dev && gem install rails && rails new . --force --database=postgresql --css tailwind'
+#+end_src
+
+#+begin_src ruby
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby "3.1.1"
+
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.0.3"
+#+end_src
+
 ** Heroku
 #+begin_src shell
 heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bin/rails db:{migrate,seed
@@ -1702,7 +1911,7 @@ EXPOSE 3000
 #+begin_src dockerfile
 FROM ruby:3.1.1-bullseye
 
-MAINTAINER EAS Barbosa <easbarba@outlook.com>
+MAINTAINER <user@outlook.com>
 
 ENV SYSTEM_PACKAGES='apt-transport-https' \
     PROJECT_PACKAGES='imagemagick' \
