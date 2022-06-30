@@ -1,12 +1,12 @@
 #+TILE: Postgres
 
 * Progress
-| book                    | chapter                                 | @                     |
-|-------------------------+-----------------------------------------+-----------------------|
-| Essential Postgres      | 2 Creating and Changing Database Tables | More Database Objects |
-| Mastering PostgreSQL 13 | n                                       |                       |
-| The Art Of PostgreSQL   | 4 Business Logic                        |                       |
-| Learn PostgreSQL 12/13  | Advanced Statements                     | Aggregate functions   |
+| book                    | chapter                  | @                   |
+|-------------------------+--------------------------+---------------------|
+| Essential Postgres      | 3  MORE DATABASE OBJECTS |                     |
+| Mastering PostgreSQL 13 | n                        |                     |
+| The Art Of PostgreSQL   | 4 Business Logic         |                     |
+| Learn PostgreSQL 12/13  | Advanced Statements      | Aggregate functions |
 
 * Base
 ** Tables
@@ -121,7 +121,7 @@ order by date;
 
 *** execute
 #+begin_src sql
-execute foo('2010-02-01');
+execute foo('20010-02-01');
 #+end_src
 
 *** delete
@@ -153,6 +153,7 @@ Deletes records from a table without removing table structure
 #+begin_src sql
 TRUNCATE TABLE categories;
 #+end_src
+
 *** insert
 Insert data into a table.
 
@@ -258,6 +259,13 @@ city  text,
 temp_date  date,
 high_temp  int
 primary key (city, temp_date)
+);
+
+create table high_temperature (
+ city
+ temp_date
+ high_temp
+ primary key (city, temp_date)
 );
 #+end_src
 
@@ -779,6 +787,15 @@ create table presidential_hair (president_name text, any_good bool);
 
 #+end_src
 
+
+select president_name from presidential_hair where good_hair is true;
+select president_name from presidential_hair where good_hair = true;
+select president_name from presidential_hair where good_hair = 't';
+
+
+select president_name from presidential_hair where good_hair is false;
+select president_name from presidential_hair where good_hair = false;
+select president_name from presidential_hair where good_hair = 'f';
 *** char
 Store fixed-length character strings.
 #+begin_src sql
@@ -794,7 +811,12 @@ select president_name || ' (' || president_party || ')' from us_president;
 #+end_src
 *** ranges
 *** interval
-
+select
+from
+where
+*
+start_time
+twtz > (current_time - interval '1 hour');
 ** Extensions
 *** pg_stat_statements
 
