@@ -1,32 +1,10 @@
 #+TITLE: EcmaScript
 
-* Summary
-  :PROPERTIES:
-    :TOC:      :include all :depth 2 :ignore this
-    :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-    - [[#skills][SKills]]
-  - [[#features][Features]]
-    - [[#nubers][Nubers]]
-  - [[#concepts][Concepts]]
-  - [[#books][Books]]
-    - [[#eloquent-javascript][Eloquent JavaScript]]
-  - [[#sites][Sites]]
-    - [[#web-js---misc][Web JS - Misc]]
-    - [[#web-js---online-tools][Web JS - Online Tools]]
-  - [[#frameworks][Frameworks]]
-  - [[#refactoring][Refactoring]]
-  - [[#articles][Articles]]
-  - [[#interview][Interview]]
-  :END:
 * Progress
 ** Books
-| Books                           | Cap    | @ |
-|---------------------------------+--------+---|
-| JavaScript The Definitive Guide | Arrays |   |
+| Books                           | Cap       | @ |
+|---------------------------------+-----------+---|
+| JavaScript The Definitive Guide | 7 Classes |   |
 ** SLOC
 | Project   | folder | file | @ |
 |-----------+--------+------+---|
@@ -308,6 +286,113 @@ let max = maxWidth ?? preferences.maxWidth ?? 500;
 - evaluates its operand, then discards the value and returns undefined
 **** comma (,)
 - evaluates its left operand, evaluates its right operand, and then returns the value of the right operand
+** Loops
+*** while
+*** do while
+#+begin_src javascript
+let number;
+do {
+number = prompt("Please enter a number between 0 and 100: ");
+} while (!(number >= 0 && number < 100));
+#+end_src
+*** for
+#+begin_src js
+for (let i = 0; i < 10; i++) {
+console.log(i);
+}
+
+let arr = [];
+for (let i = 0; i < 100; i = i + 2) {
+    arr.push(i);
+}
+
+let names = ["Chantal", "John", "Maxime", "Bobbi", "Jair"];
+for (let i = 0; i < names.length; i ++){
+    console.log(names[i]);
+}
+
+let names = ["Chantal", "John", "Maxime", "Bobbi", "Jair"];
+for (let i = 0; i < names.length; i ++){
+    if(names[i].startsWith("M")){
+        delete names[i];
+        continue;
+    }
+    names[i] = "hello " + names[i];
+}
+console.log(names);
+#+end_src
+*** for of
+#+begin_src js
+let car = {
+    model: "Golf",
+    make: "Volkswagen",
+    year: 1999,
+    color: "black",
+};
+
+for (let prop in car){
+    console.log(car[prop]);
+}
+
+let arrKeys = Object.keys(car);
+for(let i = 0; i < arrKeys.length; i++) {
+    console.log(arrKeys[i] + ": " + car[arrKeys[i]]);
+}
+#+end_src
+*** break
+
+#+begin_src js
+for (let i = 0; i < cars.length; i++) {
+    if (cars[i].year >= 2020) {
+        if (cars[i].color === "black") {
+            console.log("I have found my new car:", cars[i]);
+            break;
+        }
+    }
+}
+#+end_src
+*** continue
+#+begin_src js
+let i = 1;
+while (i < 50) {
+    if (i % 2 === 0){
+        continue;
+    }
+    console.log(i);
+    i++;
+}
+#+end_src
+
+#+begin_src js
+for (let i = 0; i < groups.length; i++) {
+    let matches = 0;
+    for (let j = 0; j < groups[i].length; j++) {
+        if(groups[i][j].startsWith("M")){
+            matches++;
+        } else {
+            continue;
+        }
+        if (matches === 2){
+            console.log("Found a group with two names starting with an M:");
+            console.log(groups[i]);
+            break;
+        }
+    }
+}
+#+end_src
+*** labeled blocks
+#+begin_src js
+outer:
+for (let group of groups) {
+    inner:
+    for (let member of group) {
+        if (member.startsWith("M")) {
+            console.log("found one starting with M:", member);
+            break outer;
+        }
+    }
+}
+#+end_src
 
 ** Expressions
 *** Logical Expression
@@ -1002,13 +1087,109 @@ Object.prototype
 ** Functions
 - is an object
 - obtain the source code for the function
+- var is function-scope
+- let is blocked-scoped
+- calling a function with more arguments than parameters, nothing will happen.
 
 #+begin_src js
 function meh() { return 'meh' }
 meh // [Function: meh]
 meh() // 'meh'
+
+function sayHello() {
+    let you = prompt("What's your name? ");
+    console.log("Hello", you + "!");
+}
 #+end_src
+
+#+begin_src js
+let varContainingFunction = function() {
+    let varInFunction = "I'm in a function.";
+    console.log("hi there!", varInFunction);
+};
+varContainingFunction();
+#+end_src
+
 *** Template tag functions
+
+*** recursive
+#+begin_src js
+function getRecursive(nr) {
+    console.log(nr);
+    getRecursive(--nr);
+}
+getRecursive(3);
+#+end_src
+
+*** nested functions
+#+begin_src js
+function doOuterFunctionStuff(nr) {
+    doInnerFunctionStuff(nr);
+    function doInnerFunctionStuff(x) {
+        let z = 10;
+    }
+    console.log("Not accessible:", z);
+}
+doOuterFunctionStuff(2);
+#+end_src
+
+*** IIFE
+#+begin_src js
+(()=>{
+    console.log("run right away");
+})();
+#+end_src
+*** arrow function
+#+begin_src js
+let sayHi = () => console.log("hi");
+let addTwoNumbers = (x, y) => console.log(x + y);
+const arr = ["squirrel", "alpaca", "buddy"];
+arr.forEach(e => console.log(e));
+#+end_src
+*** parameter w/ spread operator
+#+begin_src js
+function addFourNumbers(x, y, z, a) {
+    console.log(x + y + z + a);
+}
+let arr = [5, 9];
+let arr2 = [6, 7];
+addFourNumbers(...arr, ...arr2); // addFourNumbers(5, 9, 6, 7);
+#+end_src
+*** Anonymous functions
+#+begin_src js
+let functionVariable = function () {
+    console.log("Not so secret though.");
+};
+#+end_src
+*** Function callbacks
+#+begin_src js
+function doFlexibleStuff(executeStuff) {
+    executeStuff();
+    console.log("Inside doFlexibleStuffFunction.");
+}
+#+end_src
+*** rest parameter
+#+begin_src js
+function someFunction(param1, ...param2) {
+console.log(param1, param2);
+}
+someFunction("hi", "there!", "How are you?");
+#+end_src
+*** return values
+#+begin_src js
+function addTwoNumbers(x, y) {
+    return x + y;
+}
+
+// or arrow version
+let addTwoNumbers = (x, y) => x + y;
+#+end_src
+*** default parameter
+#+begin_src js
+function addTwoNumbers(x = 2, y = 3) {
+    console.log(x + y);
+}
+#+end_src
 *** rest operator
 catches any number of remaining function parameters into an array
 
