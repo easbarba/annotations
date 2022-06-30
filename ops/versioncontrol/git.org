@@ -7,7 +7,7 @@
 | Pro git          | Basics   | Viewing Your Staged and Unstaged Changes |       |         |
 | Professional Git |          | CONFIGURING GIT                          |       |         |
 
-* commands
+* Commands
 ** add
       Add file contents to the index.
 ** bisect
@@ -129,6 +129,10 @@ On Magit: r i C-c [fp] C-c
 
 ** rerere
       Reuse recorded resolution for merged conflicts.
+
+** remote
+git remote -v
+git remote set-url origin https://github.com/user/repo-2.git
 ** reset
       Reset current HEAD to the specified state.
 ** revert
