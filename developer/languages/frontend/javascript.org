@@ -1211,6 +1211,88 @@ function square(x, log) {
 #+end_src
 *** yield
 - only in ES6 generator functions
+** Class
+#+begin_src js
+class Person {
+    constructor(firstname, lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+    greet() {
+        console.log("Hi there!");
+    }
+    compliment(name, object) {
+        return "That's a wonderful " + object + ", " + name;
+    }
+}
+
+let p = new Person("Maaike", "van Putten");
+p.greet();
+#+end_src
+*** private properties
+#+begin_src js
+class Person {
+    #firstname;
+    #lastname;
+
+    constructor(firstname, lastname) {
+        this.#firstname = firstname;
+        this.#lastname = lastname;
+    }
+}
+
+#+end_src
+*** getter/setter
+#+begin_src js
+class Person {
+    #firstname;
+    #lastname;
+    constructor(firstname, lastname) {
+        this.#firstname = firstname;
+        this.#lastname = lastname;
+    }
+    get firstname() {
+        return this.#firstname;
+    }
+    set firstname(firstname) {
+        this.#firstname = firstname;
+    }
+    get lastname() {
+        return this.#lastname;
+    }
+    set lastname(lastname) {
+        this.#lastname = lastname;
+    }
+}
+#+end_src
+*** inheritance
+#+begin_src js
+class Vehicle {
+    constructor(color, currentSpeed, maxSpeed) {
+        this.color = color;
+        this.currentSpeed = currentSpeed;
+        this.maxSpeed = maxSpeed;
+    }
+    move() {
+        console.log("moving at", this.currentSpeed);
+    }
+    accelerate(amount) {
+        this.currentSpeed += amount;
+    }
+}
+
+class Motorcycle extends Vehicle {
+    constructor(color, currentSpeed, maxSpeed, fuel) {
+        super(color, currentSpeed, maxSpeed);
+        this.fuel = fuel;
+    }
+    doWheelie() {
+        console.log("Driving on one wheel!");
+    }
+}
+#+end_src
+*** prototype
+- When nothing is specified when creating a class, the objects inherit from the Object.prototype prototype.
 ** Errors
 *** throw
 
