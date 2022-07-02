@@ -1,12 +1,12 @@
 #+TILE: Postgres
 
 * Progress
-| book                    | chapter                  | @                   |
-|-------------------------+--------------------------+---------------------|
-| Essential Postgres      | 3  MORE DATABASE OBJECTS |                     |
-| Mastering PostgreSQL 13 | n                        |                     |
-| The Art Of PostgreSQL   | 4 Business Logic         |                     |
-| Learn PostgreSQL 12/13  | Advanced Statements      | Aggregate functions |
+| book                    | chapter                  | @                               |
+|-------------------------+--------------------------+---------------------------------|
+| Essential Postgres      | 3  MORE DATABASE OBJECTS | Writing Functions with PL/PgSQL |
+| Mastering PostgreSQL 13 | n                        |                                 |
+| The Art Of PostgreSQL   | 4 Business Logic         |                                 |
+| Learn PostgreSQL 12/13  | Advanced Statements      | Aggregate functions             |
 
 * Base
 ** Tables
@@ -329,6 +329,50 @@ create table high_temperature (
 #+begin_src sql
 create index product_supplier_index on product(supplier_id);
 #+end_src
+** Views
+CREATE VIEW defines a view of a query. The view is not physically materialized.
+Instead, the query is run every time the view is referenced in a query.
+
+#+begin_src sql
+create view v_democrat_president as
+      select  president_id, president_name
+      from  us_president
+      where  president_party = 'Democrat';
+
+-- quering newly created view
+select * from v_democrat_president;
+#+end_src
+** Materialized Views
+Materialized views in PostgreSQL use the rule system like views do, but persist
+the results in a table-like form. The main differences between:
+
+#+begin_src sql
+create materialized view mv_democrat_president as
+  select  president_id,  president_name
+  from  us_president
+  where  president_party = 'Democrat';
+
+#+end_src
+
+*refresh*
+
+#+begin_src sql
+refresh materialized view mv_democrat_president;
+#+end_src
+** Sequences
+CREATE SEQUENCE creates a new sequence number generator. This involves creating
+and initializing a new special single-row table with the name name. The
+generator will be owned by the user issuing the command.
+
+#+begin_src sql
+create sequence president_sequence;
+
+insert into us_president (president_id, president_name, president_party)
+values (nextval(‘president_sequence’), ‘George Washington’, null);
+
+-- ordinary query using new sequence by default
+select * from us_president;
+#+end_src
 
 ** User
 
@@ -634,6 +678,18 @@ As $$
   WHERE nest = p_some_value;
 $$ LANGUAGE SQL
 #+end_src
+
+#+begin_src sql
+ create or replace function f_get_president_and_party(int) returns text as $$
+   select  president_name || ' (' || president_party || ')'
+   from  us_president
+   where  president_id = $1;
+ $$ language sql;
+
+
+#+end_src
+
+
 *** misc
 *coalesce*
 
