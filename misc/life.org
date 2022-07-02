@@ -142,10 +142,10 @@
 
 * Manga
 ** Progresso
-|                |      |
-|----------------+------|
-| Ghost in shell | chp2 |
-| OPM            |   20 |
+|         |    |
+|---------+----|
+| Kingdom |  9 |
+| OPM     | 20 |
 ** Favorites
 - Lone Wolf and Cub
 - One Punch Man
