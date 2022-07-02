@@ -474,7 +474,6 @@ ffmpeg -i TUNE.ogg -filter:a "volume=5dB" TUNE_increased.ogg
 | get-default-sink |   |
 | list short sinks |   |
 
-
 * Information
 ** man
 |    |   |
@@ -647,7 +646,7 @@ print newline, word, and byte counts for each file
 | -exec     |   |
 
 
--type
+*-type*
 
 all dirs
 
@@ -655,45 +654,55 @@ all dirs
 find . -type d
 #+end_src
 
-
 all files
 #+begin_src shell
 find . -type f
 #+end_src
 
--name
+*-name*
  find all files with extension in folder
 
 #+begin_src shell
 find . -type f -name "*.txt"
 #+end_src
 
--exec
+*-exec*
 
 #+begin_src shell
 find /home/usertest -name *.php -exec rm {} \;
 #+end_src
 
--perm
+*-perm*
 
 #+begin_src shell
 find /home/usertest -type f -perm 0777 -print -exec chmod 644 {} \;
 #+end_src
 
--user
+*-user*
 
 #+begin_src shell
 find /home/usertest -user codigofonte -iname "*.txt"
 #+end_src
 
 
--size
+*-size*
 
 #+begin_src shell :results output
 find /home/usertest -size +150M –exec rm -rf {} \;
 #+end_src
 #+RESULTS:
 
+*-print0*
+
+#+begin_src shell
+find . -name '*.epub' -print0
+#+end_src
+
+*-printf*
+
+#+begin_src shell
+find . -name '*.epub' -printf "%f\n"
+#+end_src
 ** ripgrep
 ** grep
 | option              | description                                                                                                 |
