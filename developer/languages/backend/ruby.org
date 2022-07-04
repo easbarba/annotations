@@ -2,29 +2,29 @@
 
 * Progress
 ** Books
-| Books                            | Chapter                            | late                               |
-|----------------------------------+------------------------------------+------------------------------------|
-| The Well Grounded Rubyist        | 7 Builtin Essentials               |                                    |
-| Refactoring Ruby                 | 1 A first example                  | At Last...Inheritance              |
-| Programming Ruby (pickaxe)       | 24 Metaprogramming                 | 24.1 Objects and Classes           |
-| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not          |
-| Polished Ruby Programming        | 2                                  | The single-responsibility principl |
-| Metaprogramming ruby             | 2                                  | method_missing/Dynamic Proxies     |
-| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                   |
-| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions    |
-| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                   |
-| Design Patterns in Ruby          | Composite                          |                                    |
-| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                    |
+| Books                            | Chapter                            | late                                              |
+|----------------------------------+------------------------------------+---------------------------------------------------|
+| The Well Grounded Rubyist        | 7 Builtin Essentials               | 7.4 Built-in and custom to_* (conversion) methods |
+| Refactoring Ruby                 | 1 A first example                  | At Last...Inheritance                             |
+| Programming Ruby (pickaxe)       | 24 Metaprogramming                 | 24.1 Objects and Classes                          |
+| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not                         |
+| Polished Ruby Programming        | 2                                  | The single-responsibility principl                |
+| Metaprogramming ruby             | 2                                  | method_missing/Dynamic Proxies                    |
+| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                                  |
+| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions                   |
+| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                                  |
+| Design Patterns in Ruby          | Composite                          |                                                   |
+| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                                   |
 ** Videos
 |                     |      |     |
 |---------------------+------+-----|
 | Brett Codes - RSpec | ep 3 | 10m |
-|                     |      |     |
 
 ** SOC
-| Project | folder | file       | @ |
-|---------+--------+------------+---|
-| ruby    | lib    | english.rb |   |
+| Project  | folder | file       | @ |
+|----------+--------+------------+---|
+| ruby     | lib    | english.rb |   |
+| ruby-lsp |        |            |   |
 
 * Base
 ** Objects
@@ -2699,9 +2699,50 @@ Regexp.new
 #+end_src
 
 ** Operators
-   #+begin_src ruby
-   val.to_s =~ /3/
-   #+end_src
+#+begin_src ruby
+val.to_s =~ /3/
+#+end_src
+
+*unary +*
+
+*unary -*
+
+*!*
+
+*custom operators*
+
+#+begin_src ruby
+class Banner
+  def initialize(text)
+    @text = text
+  end
+  def to_s
+    B
+    @text
+  end
+  def +@
+    @text.upcase
+  end
+  def -@
+    @text.downcase
+  end
+end
+
+banner = Banner.new("Eat at Joe's!")
+puts banner # Output: Eat at Joe's!
+puts +banner # Output: EAT AT JOE'S!
+puts -banner # Output: eat at joe's!
+
+class Banner
+  def !
+    @text.reverse
+  end
+end
+
+puts !banner # Output: !s'eoJ ta taE
+puts (not banner) # Output: !s'eoJ ta taE
+#+end_src
+
 ** System calls
 *** open3
 opens communication with an external program and gives you handles on the
