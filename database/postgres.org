@@ -1,12 +1,12 @@
 #+TILE: Postgres
 
 * Progress
-| book                    | chapter                  | @                               |
-|-------------------------+--------------------------+---------------------------------|
-| Essential Postgres      | 3  MORE DATABASE OBJECTS | Writing Functions with PL/PgSQL |
-| Mastering PostgreSQL 13 | n                        |                                 |
-| The Art Of PostgreSQL   | 4 Business Logic         |                                 |
-| Learn PostgreSQL 12/13  | Advanced Statements      | Aggregate functions             |
+| book                    | chapter                  | @                   |
+|-------------------------+--------------------------+---------------------|
+| Essential Postgres      | 3  MORE DATABASE OBJECTS | Return Types        |
+| Mastering PostgreSQL 13 | n                        |                     |
+| The Art Of PostgreSQL   | 4 Business Logic         |                     |
+| Learn PostgreSQL 12/13  | Advanced Statements      | Aggregate functions |
 
 * Base
 ** Tables
@@ -685,10 +685,40 @@ $$ LANGUAGE SQL
    from  us_president
    where  president_id = $1;
  $$ language sql;
-
-
 #+end_src
 
+*PL/PgSQL*
+
+#+begin_src sql
+create or replace function f_get_president_note_current(p_president_id int)
+ returns text as $$
+ declare
+   v_max_president_id int;
+   v_president_name text;
+   v_president_party text;
+   v_current_text text = ";
+ begin
+   select  max(president_id)
+    into  v_max_president_id
+    from  us_president;
+
+    if (v_max_president_id = p_president_id) then
+     v_current_text = '**Current President**';
+  end if;
+
+    select  president_name,
+    president_party
+    into  v_president_name,
+    v_president_party
+    from  us_president
+    where  president_id = p_president_id;
+
+    return 'President ID: ' || p_president_id || ' Name: ' || v_president_name ||
+     ' Political Party: ' || v_president_party || ' ' || v_current_text;
+
+  end;
+  $$ language plpgsql;
+#+end_src
 
 *** misc
 *coalesce*
