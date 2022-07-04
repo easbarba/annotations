@@ -1488,6 +1488,20 @@ scope '/admin' do
 end
 #same
 resources :articles, path: '/admin/articles'
+
+#from
+Rails.application.routes.draw do
+  get 'api/vehicles', to: 'application#vehicles'
+  get 'api/locations', to: 'application#locations'
+end
+
+# to
+Rails.application.routes.draw do
+  scope :api do
+    get 'vehicles', to: 'application#vehicles'
+    get 'locations', to: 'application#locations'
+  end
+end
 #+end_src
 
 *member*
