@@ -2,19 +2,19 @@
 
 * Progress
 ** Books
-| Books                            | Chapter                            | late                                              |
-|----------------------------------+------------------------------------+---------------------------------------------------|
-| The Well Grounded Rubyist        | 7 Builtin Essentials               | 7.4 Built-in and custom to_* (conversion) methods |
-| Refactoring Ruby                 | 1 A first example                  | At Last...Inheritance                             |
-| Programming Ruby (pickaxe)       | 24 Metaprogramming                 | 24.1 Objects and Classes                          |
-| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not                         |
-| Polished Ruby Programming        | 2                                  | The single-responsibility principl                |
-| Metaprogramming ruby             | 2                                  | method_missing/Dynamic Proxies                    |
-| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                                  |
-| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions                   |
-| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                                  |
-| Design Patterns in Ruby          | Composite                          |                                                   |
-| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                                   |
+| Books                            | Chapter                                      | late                               |
+|----------------------------------+----------------------------------------------+------------------------------------|
+| The Well Grounded Rubyist        | 8 Strings, symbols, and other scalar objects | 8.2 Symbols and their uses         |
+| Refactoring Ruby                 | 1 A first example                            | At Last...Inheritance              |
+| Programming Ruby (pickaxe)       | 24 Metaprogramming                           | 24.1 Objects and Classes           |
+| Eloquent Ruby                    | Embrace Dynamic Typing                       | Shorter Programs, But Not          |
+| Polished Ruby Programming        | 2                                            | The single-responsibility principl |
+| Metaprogramming ruby             | 2                                            | method_missing/Dynamic Proxies     |
+| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs             | Handling Failure                   |
+| Confident Ruby                   | Collecting input                             | 3.8 Define conversion functions    |
+| Closure in Ruby                  | The Power of Procs and Lambdas               | Implementing Lax                   |
+| Design Patterns in Ruby          | Composite                                    |                                    |
+| Practical Object-Oriented Design | Sharing Role Behavior with Modules           |                                    |
 ** Videos
 |                     |      |     |
 |---------------------+------+-----|
@@ -717,6 +717,22 @@ if tourney_roster2.players&.first&.position == "Forward"
 end
 #+end_src
 
+*to_ methods*
+
+#+begin_src ruby
+to_s # a stringy representation of object
+
+
+to_str # when one needs it to be a string
+
+to_a
+
+to_i # to integer
+"123abc".to_i # => 123
+
+to_f
+#+end_src
+
 ** Variables
 *multiple assignment*
 
@@ -890,6 +906,10 @@ puts "Total = #{total}, square = #{square}"
 #+begin_src ruby
 'escape using "\\"' # => escape using "\"
 'That\'s right' # => That's right
+%q{You needn't escape apostrophes or quotation marks (', '', ", "") when using %q.}
+
+str = "Hi "
+str << "there." # => "Hi there."
 #+end_src
 
 #+begin_src ruby
@@ -1019,15 +1039,16 @@ puts "Encoding of #{utf_string.inspect} is #{utf_string.encoding}" # Encoding of
 "Test".ord
 "Test".chr
 "xyz".scan(/./) { |letter| puts letter }
-
+string.count("^aey. ")
+empty
+include?
+string.index("cool")
+"a".ord
 # SUBSTITUTION
 
 "".sub('i', '') # only does one substitution at a time, on the first instance of the text to match
 "".gsub('i', '') #  whereas gsub does multiple substitutions at once
 #+end_src
-
-
-
 
 new
 
@@ -1059,7 +1080,44 @@ unfrozen_str = +str
 unfrozen_str.frozen? # false
 #+end_src
 
+String comparison and ordering
+
+#+begin_src ruby
+"a" <=> "b"
+=> -1
+>> "b" > "a"
+=> true
+>> "a" > "A"
+=> true
+>> "." > "
+#+end_src
 *each_byte*
+
+TRANSFORMATIONS
+
+#+begin_src ruby
+string.rjust(25)
+string.ljust(25)
+"The middle".center(20, "*") # "*****The middle*****"
+string.strip
+string.lstrip
+string.rstrip
+"David A. Black".chop
+"David A. Black\n".chomp
+string.clear
+string.replace("David A. Black")
+"David A. Black".delete("abc")
+"David A. Black".crypt("34")
+"a".succ # b
+#+end_src
+
+Conversions
+
+#+begin_src ruby
+"100".to_i(17) # => 289
+>> "100".oct # => 64
+>> "100".hex # => 256
+#+end_src
 
 *scan*
 #+begin_src ruby
