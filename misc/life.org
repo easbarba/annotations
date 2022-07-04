@@ -144,7 +144,7 @@
 ** Progresso
 |         |    |
 |---------+----|
-| Kingdom |  9 |
+| Kingdom | 60 |
 | OPM     | 20 |
 ** Favorites
 - Lone Wolf and Cub
