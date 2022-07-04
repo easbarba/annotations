@@ -2,19 +2,19 @@
 
 * Progress
 ** Books
-| Books                            | Chapter                            | late                                    |
-|----------------------------------+------------------------------------+-----------------------------------------|
-| The Well Grounded Rubyist        | 5 self                             | 5.4 Writing and using top-level methods |
-| Refactoring Ruby                 | 1 A first example                  | At Last...Inheritance                   |
-| Programming Ruby (pickaxe)       | 24 Metaprogramming                 | 24.1 Objects and Classes                |
-| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not               |
-| Polished Ruby Programming        | 2                                  | The single-responsibility principl      |
-| Metaprogramming ruby             | 2                                  | method_missing/Dynamic Proxies          |
-| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                        |
-| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions         |
-| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                        |
-| Design Patterns in Ruby          | Composite                          |                                         |
-| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                         |
+| Books                            | Chapter                            | late                               |
+|----------------------------------+------------------------------------+------------------------------------|
+| The Well Grounded Rubyist        | 7 Builtin Essentials               |                                    |
+| Refactoring Ruby                 | 1 A first example                  | At Last...Inheritance              |
+| Programming Ruby (pickaxe)       | 24 Metaprogramming                 | 24.1 Objects and Classes           |
+| Eloquent Ruby                    | Embrace Dynamic Typing             | Shorter Programs, But Not          |
+| Polished Ruby Programming        | 2                                  | The single-responsibility principl |
+| Metaprogramming ruby             | 2                                  | method_missing/Dynamic Proxies     |
+| Effective Testing - RSpec3       | Testing in Isolation: Unit Specs   | Handling Failure                   |
+| Confident Ruby                   | Collecting input                   | 3.8 Define conversion functions    |
+| Closure in Ruby                  | The Power of Procs and Lambdas     | Implementing Lax                   |
+| Design Patterns in Ruby          | Composite                          |                                    |
+| Practical Object-Oriented Design | Sharing Role Behavior with Modules |                                    |
 ** Videos
 |                     |      |     |
 |---------------------+------+-----|
@@ -707,8 +707,15 @@ puts animals.select {¦n¦ n[0] < 'M' }.map(&:upcase).join(", ")
 
 *top-level methods*
 
--  are private methods, and must be called in bareword style
--
+- are private methods, and must be called in bareword style
+
+*safe navigation operator (&)*
+
+#+begin_src ruby
+if tourney_roster2.players&.first&.position == "Forward"
+  puts "Forward: #{tourney_roster1.players.first.name}"
+end
+#+end_src
 
 ** Variables
 *multiple assignment*
@@ -1761,113 +1768,6 @@ else
 end
 #+end_src
 
-*while*
-   # WHILE , UNTIL , and FOR loops are built into the language and do not introduce new scope;
-#+begin_src ruby
-while line = gets
-  # ...
-end
-
-a = 1
-a *= 2 while a < 100
-a # => 128
-
-file = File.open("ordinal")
-while line = file.gets
-  puts(line) if line =~ /third/ .. line =~ /fifth/
-end
-
-print "Hello\n" while false
-begin
-  print "Goodbye\n"
-end while false
-#+end_src
-
-*until*
-
-#+begin_src ruby
-until play_list.duration > 60
-  play_list.add(song_list.pop)
-end
-
-a -= 10 until a < 100
-a # => 98
-#+end_src
-
-#+begin_src ruby
-# when an enumerator object runs out of values inside a loop , the loop will terminate cleanly.
-# newly local variables created in LOOP are not accessible outside the block
-loop do
-  puts "#{short_enum.next} - #{long_enum.next}"
-end
-
-# not a ruby way, translated by ruby to x.each
-for song in playlist
-  song.play
-end
-
-
-# NEXT skips to the end of the loop, effectively starting the next iteration
-# BREAKn
-
-i=0
-loop do
-  i += 1
-  next if i < 3
-  print i
-  break if i > 4 # If a conventional loop doesn’t execute a break , its value is nil .
-end
-
-# REDO repeats the current iteration of the loop from the start but without reevaluating
-# the condition or fetching the next element (in an iterator)
-while line = gets
-  next if line =~ /^\s*#/   # skip comments
-  break if line =~ /^END/   # stop at end
-
-  # substitute stuff in backticks and try again
-  redo if line.gsub!(/`(.*?)`/) { eval($1) }
-
-  # process line ...
-end
-#+end_src
-
-*times*
-
-#+begin_src ruby
-3.times do
-  print "Ho! "
-end
-#+end_src
-
-*upto*
-
-#+begin_src ruby
-0.upto(9) do |x|
-  print x, " "
-end # 0 1 2 3 4 5 6 7 8 9
-
-0.step(12, 3) {|x| print x, " " } #0 3 6 9 12
-
-[ 1, 1, 2, 3, 5 ].each {|val| print val, " " } # 1 1 2 3 5
-#+end_src
-
-*for ... in*
-
-#+begin_src ruby
-for song in playlist
-  song.play
-end
-
-for i in %w[fee fi fo fum]
-  print i, ' '
-end
-for i in 1..3
-  print i, ' '
-end
-for i in File.open('ordinal').find_all { |line| line =~ /d$/ }
-  print i.chomp, ' '
-end
-#+end_src
 
 #+begin_src ruby
 class Periods
@@ -2170,75 +2070,52 @@ p a # 1
 - rescue matches thrown Exception and use it. Similar to case statement
 - rescue clause with no parameter list, the parameter defaults to StandardError .
 - rescue clause can be arbitrary expressions (including method calls) that return an Exception class.
-**** Errors
-    - StandardError
-    -
-**** usage
-    #+begin_src ruby
 
-    # Exception skeleton
+*custom exceptions*
 
-    f = File.open("/a/file")
-    begin
-    # .....
-    rescue Exception
-      if @esmtp then
-	@esmtp = false
-	retry # repeat the entire begin / end block
-      else
-	raise # reraise the exception. FAIL is similar
-      end
-    else # after RESCUE and before any ENSURE, is executed only if no exceptions are raised by the main body of code.
-      puts "Congratulations-- no errors!"
-    ensure
-      f.close
-    end
+#+begin_src ruby
+class MyNewException < Exception
+end
 
-    # At the end of each rescue clause, you can give Ruby the name
-    # of a local variable to receive the matched exception.
-    begin
-      eval string
-    rescue SyntaxError, NameError => boom
-      print "String doesn't compile: " + boom
-    rescue StandardError => bang
-      print "Error running script: " + bang
-    end
+begin
+  puts "About to raise exception..."
+  raise MyNewException
+rescue MyNewException => e
+  puts "Just raised an exception: #{e}"
+end
+#+end_src
 
-    # reraises the current exception (or a RuntimeError if there is no current exception).
-    # This is used in exception handlers that intercept an exception before passing it on.
-    raise
+#+begin_src ruby
+class InvalidLineError < StandardError
+end
+def line_from_file(filename, substring)
+  fh = File.open(filename)
+  line = fh.gets
+  raise InvalidLineError unless line.include?(substring)
+  return line
+rescue InvalidLineError
+  puts "Invalid line!"
+  raise
+ensure
+  fh.close
+end
+#+end_src
 
-    # Creates a new RuntimeError exception, setting its message to the given string.
-    raise "bad mp3 encoding" #
+*namespace exceptions*
 
-    # first argument to create an exception and then sets the associated
-    # message to the second argument and the stack trace to the third argument.
-    raise InterfaceException, "Keyboard failure", caller
+#+begin_src ruby
+module TextHandler
+  class InvalidLineError < StandardError
+  end
+end
 
-    raise
+def line_from_file(filename, substring)
+  fh = File.open(filename)
+  line = fh.gets
+  raise TextHandler::InvalidLineError unless line.include?(substring)
+end
+#+end_src
 
-    raise "Missing name" if name.nil?
-
-    if i >= names.size
-      raise IndexError, "#{i} >= size (#{names.size})"
-    end
-
-    raise ArgumentError, "Name too big", caller
-
-    # removes two routines from the backtrace
-    # by passing only a subset of the call stack to the new exception:
-    raise ArgumentError, "Name too big", caller[1..-1]
-    #+end_src
-**** begin rescue
-   #+begin_src ruby
-   begin
-     puts 'I am before the raise.'
-     raise 'An error has occured.'
-     puts 'I am after the raise.'
-   rescue
-     puts 'I am rescued.'
-   end
-   #+end_src
 *** Trace
 **** caller
 The caller method provides an array of strings. Each string represents one step in the stack trace:
@@ -2247,6 +2124,116 @@ def x
   p caller
   end
 #+end_src
+*** Rescue
+#+begin_src ruby
+print "Enter a number: "
+n = gets.to_i
+begin
+result = 100 / n
+rescue
+puts "Your number didn't work. Was it zero???"
+exit
+end
+puts "100/#{n} is #{result}."
+#+end_src
+
+#+begin_src ruby
+begin
+  fussy_method(20)
+rescue ArgumentError => e
+  puts "That was not an acceptable number!"
+  puts "Here's the backtrace for this exception:"
+  puts e.backtrace
+  puts "And here's the exception object's message:"
+  puts e.message
+end
+#+end_src
+
+#+begin_src ruby
+begin
+  fh = File.open(filename)
+rescue => e
+  logfile.puts("User tried to open #{filename}, #{Time.now}")
+  logfile.puts("Exception: #{e.message}")
+  raise
+end
+#+end_src
+
+#+begin_src ruby
+# Exception skeleton
+
+f = File.open("/a/file")
+begin
+# .....
+rescue Exception
+  if @esmtp then
+@esmtp = false
+retry # repeat the entire begin / end block
+  else
+raise # reraise the exception. FAIL is similar
+  end
+else # after RESCUE and before any ENSURE, is executed only if no exceptions are raised by the main body of code.
+  puts "Congratulations-- no errors!"
+ensure
+  f.close
+end
+
+# At the end of each rescue clause, you can give Ruby the name
+# of a local variable to receive the matched exception.
+begin
+  eval string
+rescue SyntaxError, NameError => boom
+  print "String doesn't compile: " + boom
+rescue StandardError => bang
+  print "Error running script: " + bang
+end
+
+# reraises the current exception (or a RuntimeError if there is no current exception).
+# This is used in exception handlers that intercept an exception before passing it on.
+raise
+
+# Creates a new RuntimeError exception, setting its message to the given string.
+raise "bad mp3 encoding" #
+
+# first argument to create an exception and then sets the associated
+# message to the second argument and the stack trace to the third argument.
+raise InterfaceException, "Keyboard failure", caller
+#+end_src
+
+*ensure*
+
+#+begin_src ruby
+def line_from_file(filename, substring)
+  fh = File.open(filename)
+  begin
+    line = fh.gets
+    raise ArgumentError unless line.include?(substring)
+  rescue ArgumentError
+    puts "Invalid line!"
+    raise
+  ensure
+    fh.close
+  end
+  return line
+end
+#+end_src
+*** Raise
+#+begin_src ruby
+raise
+
+raise "Missing name" if name.nil?
+
+if i >= names.size
+  raise IndexError, "#{i} >= size (#{names.size})"
+end
+
+raise ArgumentError, "Name too big", caller
+
+# removes two routines from the backtrace
+# by passing only a subset of the call stack to the new exception:
+raise ArgumentError, "Name too big", caller[1..-1]
+#+end_src
+
 *** System Errors
    - SystemCallError
    - subclasses are defined in a module called Errno
@@ -2260,6 +2247,148 @@ def x
     Errno::EPERM::Errno # => 1
     Errno::EWOULDBLOCK::Errno # => 35
     #+end_src
+**** Errors
+    - StandardError
+    -
+
+** Loops
+WHILE , UNTIL , and FOR loops are built into the language and do not introduce new scope;
+
+*while*
+
+#+begin_src ruby
+while line = gets
+  # ...
+end
+
+a = 1
+a *= 2 while a < 100
+a # => 128
+
+file = File.open("ordinal")
+while line = file.gets
+  puts(line) if line =~ /third/ .. line =~ /fifth/
+end
+
+print "Hello\n" while false
+begin
+  print "Goodbye\n"
+end while false
+#+end_src
+
+*until*
+
+#+begin_src ruby
+until play_list.duration > 60
+  play_list.add(song_list.pop)
+end
+
+a -= 10 until a < 100
+a # => 98
+
+n = 1
+until n > 10
+  puts n
+  n = n + 1
+end
+#+end_src
+
+*loop*
+
+#+begin_src ruby
+# when an enumerator object runs out of values inside a loop , the loop will terminate cleanly.
+# newly local variables created in LOOP are not accessible outside the block
+loop do
+  puts "#{short_enum.next} - #{long_enum.next}"
+end
+
+i=0
+loop do
+  i += 1
+  next if i < 3
+  print i
+  break if i > 4 # If a conventional loop doesn’t execute a break , its value is nil .
+end
+
+#+end_src
+
+*redo*
+
+#+begin_src ruby
+# REDO repeats the current iteration of the loop from the start but without reevaluating
+# the condition or fetching the next element (in an iterator)
+while line = gets
+  next if line =~ /^\s*#/   # skip comments
+  break if line =~ /^END/   # stop at end
+
+  # substitute stuff in backticks and try again
+  redo if line.gsub!(/`(.*?)`/) { eval($1) }
+
+  # process line ...
+end
+#+end_src
+
+*times*
+
+#+begin_src ruby
+3.times do
+  print "Ho! "
+end
+#+end_src
+
+*upto*
+
+#+begin_src ruby
+0.upto(9) do |x|
+  print x, " "
+end # 0 1 2 3 4 5 6 7 8 9
+
+0.step(12, 3) {|x| print x, " " } #0 3 6 9 12
+
+[ 1, 1, 2, 3, 5 ].each {|val| print val, " " } # 1 1 2 3 5
+#+end_src
+
+*for in*
+
+#+begin_src ruby
+for song in playlist
+  song.play
+end
+
+for i in %w[fee fi fo fum]
+  print i, ' '
+end
+for i in 1..3
+  print i, ' '
+end
+for i in File.open('ordinal').find_all { |line| line =~ /d$/ }
+  print i.chomp, ' '
+end
+#+end_src
+** Code block
+
+*do end*
+#+begin_src ruby
+array = [1,2,3]
+puts array.map do |n| n * 10 end
+#+end_src
+
+*{}*
+
+#+begin_src ruby
+array = [1,2,3]
+array.map {|n| n * 10 }
+#+end_src
+
+*local variable*
+
+#+begin_src ruby
+celsius.each do |c;fahrenheit|
+  fahrenheit = Temperature.c2f(2)
+  puts "#{c}\t#{fahrenheit}"
+end
+#+end_src
+
 ** Parallel / Concurrency
 *** Thread
 - If the program ends while one or more threads are running, those threads are killed.
@@ -2435,6 +2564,20 @@ end
    !true
    not true
    #+end_src
+
+*multiple assignment in conditionals*
+
+#+begin_src ruby
+if (a,b = [3,4])
+  puts a
+  puts b
+end
+
+while (a,b = nil)
+  puts "this line will not execute"
+end
+#+end_src
+
 ** Blocks
 *block-local variables*
 
@@ -2973,6 +3116,14 @@ obj.instance_variables # => [:@v]
 ** Numbers
 *** Fixnum
 *** Bignum
+
+** String
+
+*methods*
+
+#+begin_src ruby
+string.scan(/[^,]+/) {|word| puts word }
+#+end_src
 ** Array
 *grep*
 
