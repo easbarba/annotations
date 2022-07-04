@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-|                            |                                          |                              |
-|----------------------------+------------------------------------------+------------------------------|
-| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Sending Files and Other Data |
-| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form              |
-| Sustainable Rails          | 8 Helpers                                |                              |
-| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                              |
-| Beginning Rails 6          | 11 Action Text                           | Updating the Article View    |
-| Rails Guides               | Active Record Validations                | 2.12 validates_with          |
+|                            |                                          |                                |
+|----------------------------+------------------------------------------+--------------------------------|
+| Sustainable Rails          | 8 Helpers                                | 8.2.3 Small, Inline Components |
+| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Sending Files and Other Data   |
+| Beginning Rails 6          | 12. Sending and Receiving Email          |                                |
+| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form                |
+| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                                |
+| Rails Guides               | Active Record Validations                | 2.12 validates_with            |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -1535,7 +1535,7 @@ resolve('Geocoder') { [:geocoder] }
 #+end_src
 
 * Helpers
-help views by providing a convenient location to encapsulate code that would
+Helps views by providing a convenient location to encapsulate code that would
 otherwise clutter the view and violate the terms of the MVC. They offer a middle
 ground between controllers and views and help to keep your application organized
 and easy to maintain.
