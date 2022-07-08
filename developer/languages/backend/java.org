@@ -1,47 +1,5 @@
 #+TITLE: Java
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#base][Base]]
-  - [[#types][Types]]
-    - [[#integers][Integers]]
-      - [[#byte][byte]]
-      - [[#short][short]]
-      - [[#int][int]]
-      - [[#long][long]]
-    - [[#floating][Floating]]
-      - [[#float][float]]
-      - [[#double][double]]
-    - [[#strings][Strings]]
-    - [[#characters][Characters]]
-    - [[#boolean][Boolean]]
-  - [[#variables][Variables]]
-  - [[#classes][Classes]]
-    - [[#access-control][Access Control]]
-      - [[#public][Public]]
-      - [[#private][Private]]
-      - [[#protected][Protected]]
-    - [[#static][Static]]
-    - [[#final][Final]]
-    - [[#seal][Seal]]
-    - [[#inheritance][inheritance]]
-    - [[#super][super]]
-    - [[#abstract-classes][Abstract Classes]]
-  - [[#interfaces][Interfaces]]
-- [[#library][Library]]
-  - [[#string][String]]
-  - [[#object][Object]]
-    - [[#methods][methods]]
-    - [[#passed-as-param][Passed as Param]]
-- [[#scripting][Scripting]]
-:END:
 * Progress
 ** Books
 | name                    | chapter               | @ |
