@@ -11,6 +11,37 @@ black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
 #+end_src
+** java
+#+begin_src csv
+name,branch,url
+bazel,master,https://github.com/bazelbuild/bazel
+jbang,main,https://github.com/jbangdev/jbang
+picocli,main,https://github.com/remkop/picocli
+eclipse-jdt-ls,master,https://github.com/eclipse/eclipse.jdt.ls
+junit5,main,https://github.com/junit-team/junit5
+spring-boot,main,https://github.com/spring-projects/spring-boot
+spring-framework,main,https://github.com/spring-projects/spring-framework
+openjdk,master,https://github.com/openjdk/jdk
+#+end_src
+** php
+#+begin_src csv
+name,repository
+guzzle,https://github.com/guzzle/guzzle
+phpunit,https://github.com/sebastianbergmann/phpunit
+composer,https://github.com/composer/composer
+laravel-framework,https://github.com/laravel/framework
+laravel,https://github.com/laravel/laravel
+php-doc-en,https://github.com/php/doc-en
+php-src,https://github.com/php/php-src
+#+end_src
+** swift
+#+begin_src csv
+name,repository
+mastodon-ios,https://github.com/mastodon/mastodon-ios
+sourcekit-lsp,https://github.com/apple/sourcekit-lsp
+swift-format,https://github.com/apple/swift-format
+swift,https://github.com/apple/swift
+#+end_src
 ** c
 #+begin_src csv
 name,branch,url
@@ -94,37 +125,6 @@ awesome-copycats,master,https://github.com/lcpz/awesome-copycats
 awesome,master,https://github.com/awesomeWM/awesome
 luarocks,master,https://github.com/luarocks/luarocks
 lua,master,https://github.com/lua/lua
-#+end_src
-** swift
-#+begin_src csv
-name,repository
-mastodon-ios,https://github.com/mastodon/mastodon-ios
-sourcekit-lsp,https://github.com/apple/sourcekit-lsp
-swift-format,https://github.com/apple/swift-format
-swift,https://github.com/apple/swift
-#+end_src
-** java
-#+begin_src csv
-name,repository
-bazel,https://github.com/bazelbuild/bazel
-jbang,https://github.com/jbangdev/jbang
-picocli,https://github.com/remkop/picocli
-eclipse-jdt-ls,https://github.com/eclipse/eclipse.jdt.ls
-junit5,https://github.com/junit-team/junit5
-spring-boot,https://github.com/spring-projects/spring-boot
-spring-framework,https://github.com/spring-projects/spring-framework
-openjdk,https://github.com/openjdk/jdk
-#+end_src
-** php
-#+begin_src csv
-name,repository
-guzzle,https://github.com/guzzle/guzzle
-phpunit,https://github.com/sebastianbergmann/phpunit
-composer,https://github.com/composer/composer
-laravel-framework,https://github.com/laravel/framework
-laravel,https://github.com/laravel/laravel
-php-doc-en,https://github.com/php/doc-en
-php-src,https://github.com/php/php-src
 #+end_src
 ** misc
 #+begin_src csv

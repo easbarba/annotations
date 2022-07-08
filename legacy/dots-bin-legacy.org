@@ -18,7 +18,7 @@ user=( gaupol )
 gnu=(bash-doc gcc-doc gdb-doc gdbserver fonts-freefont-ttf)
 dev=(libsqlite3-dev cmake)
 ops=(qemu-system-gui ovmf bridge-utils)
-fonts=( fonts-firacode)
+fonts=(fonts-firacode)
 network=()
 firewall-config
 gnome-keyring seahorse
