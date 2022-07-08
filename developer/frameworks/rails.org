@@ -4,9 +4,9 @@
 ** Books
 |                            |                                          |                                |
 |----------------------------+------------------------------------------+--------------------------------|
+| Beginning Rails 6          | 12. Sending and Receiving Email          | Processing the Email           |
 | Sustainable Rails          | 8 Helpers                                | 8.2.3 Small, Inline Components |
 | Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Sending Files and Other Data   |
-| Beginning Rails 6          | 12. Sending and Receiving Email          |                                |
 | Ruby on Rails tutorial     | 7                                        | 7.2 Signup form                |
 | Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                                |
 | Rails Guides               | Active Record Validations                | 2.12 validates_with            |
@@ -514,8 +514,7 @@ send_file '/path/to/404.html', type: 'text/html; charset=utf-8', disposition: 'i
 :type (string)
 
 * Action View
-** Views
-*** HTML Templates
+** HTML Templates
 *Guidelines*
 
 - Mark up all content and controls using semantic HTML; use div and span to solve layout and styling problems.
@@ -584,6 +583,12 @@ execute code inside and insert the result into the template
 <li><%= link_to 'Show', product %></li>
 #+end_src
 
+*mail_to*
+
+#+begin_src html
+<p>mail me: <%= mail_to current_user.draft_article_email %></p>
+#+end_src
+
 *sanitize*
 
 #+begin_src html
@@ -633,7 +638,7 @@ format in the options hash.
 <% end %>
 
 #+end_src
-*** partials
+** partials
 - meant to re-usable elements not code organization
 
 *locals variables*
@@ -651,6 +656,18 @@ format in the options hash.
 }
 %>
 #+end_src
+
+* Action Mailer
+
+#+begin_src shell
+rails g mailer User
+rails g mailbox draft_articles
+#+end_src
+
+** methods
+*before_processing*
+
+*bounce_with*
 
 * Active Record
 - Single-Table Inheritance
