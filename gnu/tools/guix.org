@@ -1,6 +1,6 @@
-#+TITLE: Guix
+#+TITLE: GNU Guix
 
-* comandos
+* commands
 ** describe
 ** install
 ** size
@@ -9,7 +9,11 @@
 |--------+----------------|
 | <name> | package's name |
 |        |                |
+** compose
+** shell
+--check
 
+--container
 ** package
 guix package --search-paths  # env variables needed to export
 eval `guix package --search-paths=prefix` # eval env variables needed
@@ -25,3 +29,4 @@ eval `guix package --search-paths=prefix` # eval env variables needed
 | --list-failures                 |                                                           |
 ** pull
 ** import
+** home
