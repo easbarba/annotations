@@ -1,132 +1,493 @@
 #+TILE: Guile Scheme
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 3 :ignore this
-  :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-  - [[#packages][Packages]]
-    - [[#gem][gem]]
-    - [[#bundle][bundle]]
-      - [[#outdated][outdated]]
-      - [[#gem][gem]]
-      - [[#install][install]]
-      - [[#update][update]]
-    - [[#irb][irb]]
-      - [[#cli][cli]]
-      - [[#inside][inside]]
-    - [[#rspec][rspec]]
-    - [[#unit-test][unit test]]
-    - [[#pry][pry]]
-  - [[#features][Features]]
-    - [[#project-structure][project structure]]
-    - [[#system-errors][System Errors]]
-      - [[#usage][usage]]
-    - [[#exceptions][exceptions]]
-      - [[#errors][Errors]]
-      - [[#usage][usage]]
-    - [[#writable-object-attribute][writable object attribute]]
-    - [[#multithreading][Multithreading]]
-      - [[#usage][usage]]
-    - [[#modules][modules]]
-    - [[#continuation][continuation]]
-    - [[#fibers][Fibers]]
-      - [[#errors][errors]]
-      - [[#usage][usage]]
-    - [[#delimited-input][delimited input]]
-    - [[#rake][rake]]
-      - [[#usage][usage]]
-    - [[#gem][gem]]
-    - [[#variables][Variables]]
-      - [[#class-variables][class variables]]
-      - [[#global-variables][global variables]]
-    - [[#self][self]]
-    - [[#commentary][commentary]]
-    - [[#defined][defined?]]
-    - [[#iterators][iterators]]
-    - [[#block-local-variables][block-local variables]]
-    - [[#loops][loops]]
-    - [[#statement-modifiers][statement modifiers]]
-    - [[#comparison][comparison]]
-    - [[#conditional][conditional]]
-    - [[#class][class]]
-      - [[#class][class]]
-    - [[#append-][append <<]]
-    - [[#blocks][blocks]]
-    - [[#lambda][lambda]]
-      - [[#how][How]]
-      - [[#usage][Usage]]
-    - [[#methods][methods]]
-    - [[#yield][yield]]
-    - [[#procs][procs]]
-    - [[#operators][operators]]
-    - [[#enumerable][enumerable]]
-    - [[#enumerator][enumerator]]
-      - [[#lazy][lazy]]
-      - [[#each_car][each_car]]
-      - [[#each][each]]
-      - [[#to_enumenum_for][to_enum/enum_for]]
-    - [[#inject][inject]]
-    - [[#select][select]]
-    - [[#succ][succ]]
-    - [[#collect][collect]]
-    - [[#freeze][freeze]]
-    - [[#dup][dup]]
-    - [[#dig][dig]]
-    - [[#fetch][fetch]]
-    - [[#tap][tap]]
-    - [[#map][map]]
-    - [[#pluck][pluck]]
-    - [[#quoting][Quoting]]
-    - [[#here-documents][here documents]]
-    - [[#proc][proc]]
-    - [[#do-end-as-param][do end as param]]
-    - [[#array][array]]
-    - [[#datetime][date/time]]
-    - [[#lambda][lambda]]
-    - [[#begin-rescue][begin rescue]]
-    - [[#hash][hash]]
-    - [[#range][range]]
-    - [[#sets][sets]]
-    - [[#gsub][gsub]]
-    - [[#find][find]]
-    - [[#map][map]]
-    - [[#each_slice][each_slice]]
-    - [[#lazy][lazy]]
-    - [[#with_index][with_index]]
-    - [[#enum_for][enum_for]]
-    - [[#more][more]]
-    - [[#concepts][Concepts]]
-      - [[#iterator][Iterator]]
-      - [[#methods][Methods]]
-      - [[#enumerator][Enumerator]]
-    - [[#instructions][Instructions]]
-      - [[#rbenv][Rbenv]]
-      - [[#misc][misc]]
-  - [[#toolings][Toolings]]
-  - [[#videos][Videos]]
-  - [[#tests][Tests]]
-    - [[#rspec][RSpec]]
-    - [[#unit][Unit]]
-  :END:
 * Progress
 ** Books
-| name          | chapter                  | @                              | late | revision |
-|---------------+--------------------------+--------------------------------+------+----------|
-| Guile manual  | Hello Scheme             | 3.3 Expressions and Evaluation |      |          |
-| Scheme PL     | Chapter 3. Going Further |                                |      |          |
-| Litle Schemer | 4                        |                                |      |          |
+| name            | chapter                  | @                              | late | revision |
+|-----------------+--------------------------+--------------------------------+------+----------|
+| A Scheme Primer | 3. Hello Scheme!         |                                |      |          |
+| Guile manual    | Hello Scheme             | 3.3 Expressions and Evaluation |      |          |
+| Scheme PL       | Chapter 3. Going Further |                                |      |          |
+| Litle Schemer   | 4                        |                                |      |          |
 
 ** LDC
 | Source Code | folder           | file       | @ |
 |-------------+------------------+------------+---|
 | guix        | guix/build/maven | java.scm   |   |
 | guile       | lib/module/ice-9 | boot-9.scm |   |
+| haunt       |                  |            |   |
 
-* Books
+* Base
+** Assignment
+*** let
+*** named let
+#+begin_src scheme
+(let name ((var expr) ...)
+  body 1 body 2 ...)
+#+end_src
+*** letrec
+- Unlike let, the variables var ... are visible not only within the body of the letrec but also within expr ....
+
+#+begin_src scheme
+(letrec ((var expr) ...) body 1 body 2 ...)
+
+(letrec ([sum (lambda (ls)
+(if (null? ls)
+0
+(+ (car ls) (sum (cdr ls)))))])
+(sum '(1 2 3 4 5)))
+
+#+end_src
+
+*** define
+#+begin_src scheme
+(define a 'meh)
+#+end_src
+
+*** set!
+changing a variable's value
+- side effect
+#+begin_src scheme
+(set! abcde (cdr abcde))
+(set! x 2)
+set-car
+set-cdr
+#+end_src
+*** define*
+*** define
+defining a variable
+
+#+begin_src scheme
+
+(define x 1)
+
+#+end_src
+
+** Types
+*** atom
+- all atoms are s-expression
+- empty list is not an atom
+
+#+begin_src scheme
+
+'atom ;; atom
+
+#+end_src
+
+**** atom?
+
+#+begin_src scheme
+(define (atom? x)
+  (and (not (pair? x)) (not (null? x))))
+
+(atom? 'a) ; #t
+
+#+end_src
+
+*** Booleans
+- #t and #f
+- #true and #false in R7RS
+
+#+begin_src scheme
+#t
+#true
+#f
+#false
+#+end_src
+
+*boolean?*
+
+*** Symbols
+*** Characters
+- code point
+- unicode
+
+#+begin_src guile
+#\x
+(char? #\U) #t
+
+#+end_src
+*** Numbers
+#+begin_src scheme
+1234 ;; 1234
+#+end_src
+
+**** functions
+***** number?
+***** integer?
+***** exact-integer?
+***** real?
+***** rational?
+***** inf?
+***** nan?
+***** finite?
+***** nan
+***** inf
+***** numerator
+***** denominator
+***** complex?
+***** exact?
+***** inexact?
+***** odd?
+***** even?
+***** quotient
+***** modulo
+***** gcd
+***** lcm
+***** modulo-expt
+***** exact-integer-sqrt
+***** number->string
+**** arithmetic
+***** /
+***** +
+***** -
+***** *
+***** 1+
+***** 1-
+***** abs
+***** max
+***** min
+***** truncate   truncate/  truncated-print     truncate-file       truncate-quotient   truncate-remainder
+***** round
+***** floor  floor/ floor-quotient   floor-remainder
+***** ceiling  ceiling/  ceiling-quotient   ceiling-remainder
+***** double
+***** euclidean/ euclidean-quotient   euclidean-remainder
+*****
+*** Strings
+#+begin_src scheme
+"Cacildis"
+#+end_src
+
+ *string-append*
+ *string-lenght*
+ *string->char-set!*
+ *string->list*
+ *string->number*
+ *string->symbol*
+
+*** null
+** Collections
+*** List
+- lists are s-expressions
+- empty list = null
+
+#+begin_src scheme
+
+'()
+'(x '(y)) ;; (x (quote (y)))
+
+#+end_src
+
+**** '()
+**** cons*
+**** list-copy
+**** length
+**** last-pair
+**** list-ref
+**** list-tail
+**** list-head
+**** append
+**** append!
+**** reverse
+**** reverse!
+**** list-set!
+**** list-cdr-set!
+**** delq
+**** delq!
+**** delv
+**** delv!
+**** delete
+**** delete!
+**** delq1!
+**** delv1!
+**** delete1!
+**** filter
+**** [[https://www.gnu.org/software/guile/manual/html_node/List-Searching.html][searching]]
+***** memq
+***** memv
+***** member
+**** mapping
+***** map
+***** for-each
+
+*** Vector
+#+begin_src scheme
+(define vec (vector 'a 'b 'c)) ; => #(a b c)
+(vector-ref vec 1) ; => b
+(vector-set! vec 1 'boop)
+(vector-ref vec 1) ; => boop
+vec ; => #(a boop c)
+#+end_src
+
+*** hashmap
+*** Records
+*** Arrays
+** Selection
+*** car
+- non-empty list
+
+#+begin_src scheme
+
+(car '(a x y)) ;; a
+(car '('(x) '(y))) ;; '(x)
+
+#+end_src
+
+*** cdr
+- could-er
+- non-empty list
+- cdr of a list is always another list
+
+#+begin_src scheme
+
+(cdr '(a x y)) ;; '(x y)
+
+
+#+end_src
+
+*** cons
+- takes two arguments: the first one is any S-expression; the second one is any list.
+- The second argument to cons must be alist. The result is a list.
+
+#+begin_src scheme
+
+(cons 'x '()) ;; '(x)
+(cons '(x y) '(d f)) ;; '((x y) d f)
+(cons '(a b (c)) '()) ;; '((a b (c)))
+#+end_src
+
+** Predicates
+*** null?
+- only for lists
+
+#+begin_src scheme
+
+(null? '()) ; #t
+(null? '(x y)) ; #f
+
+#+end_src
+
+*** eq?
+- two non-numeric atom arguments
+
+#+begin_src scheme
+(eq? 'Harry 'Harry) ; #t
+(eq? 'Larry 'Harry) ; #f
+#+end_src
+*** eqv?
+#+begin_src scheme
+#+end_src
+*** equal?
+#+begin_src scheme
+(equal? "house" "houses") ; ⇒ #f
+#+end_src
+** Comparison
+*** <=
+*** <
+*** >=
+*** >
+*** zero?
+*** positive?
+*** negative?
+** Conditinals
+*** if
+#+begin_src scheme
+(if #t "yes" "no")
+(if 0 "yes" "no")
+(if #f "yes" "no")
+#+end_src
+*** cond
+#+begin_src scheme
+(cond
+  ((null? l) #t)
+  ((atom? (car l)) (lat? (cdr l)))
+  (else #f))
+#+end_src
+
+*** or
+#+begin_src scheme
+(or (null? '()) (atom ? '(a x d))) ; #t
+#+end_src
+** Functions
+*** arguments
+**** optional arguments
+**** keywords arguments
+*** Anonymous Functions
+**** lambda
+**** [[https://www.gnu.org/software/guile/manual/html_node/lambda_002a-and-define_002a.html][lambda*]]
+**** case-lambda
+supports procedures with optional arguments as well as procedures with fixed or
+indefinite numbers of arguments.
+*** High-Order functions
+**** map
+**** fold
+**** reduce
+
+** Modules
+*** [[https://www.gnu.org/software/guile/manual/html_node/Using-Guile-Modules.html][use-modules]]
+
+#+begin_src scheme
+
+(use-modules (srfi srfi-1)) ; https://www.gnu.org/software/guile/manual/html_node/SRFI_002d1-Fold-and-Map.html
+(fold cons '() '(1 2 3))
+
+#+end_src
+
+*** [[https://www.gnu.org/software/guile/manual/html_node/Declarative-Modules.html][define-module]]
+#+begin_src scheme
+
+(define-module (gota dots run)
+   #:use-modules (srfi srfi-1)
+   #:use-modules (ice-9 open))
+
+
+#+end_src
+*** [[https://www.gnu.org/software/guile/manual/html_node/SRFI-Support.html][srfi]]
+*** [[https://www.gnu.org/software/guile/manual/html_node/rnrs-base.html][rnrs]]
+** Quotes
+*** quasi-quote `
+#+begin_src scheme
+
+`(1 2 (* 9 9) 3 4)       ; ⇒ (1 2 (* 9 9) 3 4)
+
+#+end_src
+*** unquote ,
+#+begin_src scheme
+
+`(1 2 (* 9 9) 3 4)       ⇒ (1 2 (* 9 9) 3 4)
+`(1 2 ,(* 9 9) 3 4)      ⇒ (1 2 81 3 4)
+`(1 (unquote (+ 1 1)) 3) ⇒ (1 2 3)
+`#(1 ,(/ 12 2))          ⇒ #(1 6)
+
+#+end_src
+
+*** unquote-splicing @
+#+begin_src scheme
+
+(define x '(2 3))
+`(1 ,x 4)                          ; ⇒ (1 (2 3) 4)
+`(1 ,@x 4)                         ; ⇒ (1 2 3 4)
+`(1 (unquote-splicing (map 1+ x))) ; ⇒ (1 3 4)
+`#(9 ,@x 9)                        ; ⇒ #(9 2 3 9)
+
+#+end_src
+
+*** quote '
+** Macros
+*define-syntax-rule*
+- scheme-way
+- more hygienic
+
+#+begin_src scheme
+(define-syntax-rule (when test body ...)
+  (if test
+      (begin body ...)))
+#+end_src
+
+#+begin_src scheme
+(define-syntax-rule (for (item lst) body ...)
+  (for-each (lambda (item)
+              body ...)
+            lst))
+(for (str '("strawberries" "bananas" "grapes"))
+        (display
+         (string-append "I just love "
+                        (string-upcase str)
+                        "!!!\n")))
+; prints:
+;   I just love STRAWBERRIES!!!
+;   I just love BANANAS!!!
+;   I just love GRAPES!!!
+#+end_src
+
+#+begin_src scheme
+(define-syntax-rule (methods ((method-id method-args ...)
+                              body ...) ...)
+  (lambda (method . args)
+    (letrec ((method-id
+              (lambda (method-args ...)
+                body ...)) ...)
+      (cond
+       ((eq? method (quote method-id))
+        (apply method-id args)) ...
+       (else
+        (error "No such method:" method))))))
+
+REPL> (define (make-enemy name hp)
+        (methods
+         ((get-name)
+          name)
+         ((damage-me weapon hp-lost)
+          (cond
+           ((dead?)
+            (format #t "Poor ~a is already dead!\n" name))
+           (else
+            (set! hp (- hp hp-lost))
+            (format #t "You attack ~a, doing ~a damage!\n"
+                    name hp-lost))))
+         ((dead?)
+          (<= hp 0))))
+REPL> (define hobgob
+        (make-enemy "Hobgoblin" 25))
+REPL> (hobgob 'get-name)
+; => "Hobgoblin"
+REPL> (hobgob 'dead?)
+; => #f
+REPL> (hobgob 'damage-me "club" 10)
+; prints: You attack Hobgoblin, doing 10 damage!
+REPL> (hobgob 'damage-me "sword" 20)
+; prints: You attack Hobgoblin, doing 20 damage!
+REPL> (hobgob 'damage-me "pickle" 2)
+; prints: Poor Hobgoblin is already dead!
+REPL> (hobgob 'dead?)
+; => #t
+#+end_src
+
+*define-syntax*
+
+#+begin_src scheme
+(define-syntax when
+  (syntax-rules ()
+    ((when test body ...)
+     (if test
+         (begin body ...)))))
+#+end_src
+
+*define-macro*
+- lisp-way
+- for more complex macros
+
+
+#+begin_src scheme
+(define-macro (when test . body)
+  `(if ,test
+       ,(cons 'begin body)))
+#+end_src
+
+** Errors
+assertion-violation
+** Iteration
+#+begin_src scheme
+(map cons '(a b c) '(1 2 3))
+#+end_src
+** S-expression
+- atom
+- list
+
+** misc
+*** cons*
+*** primitive-eval
+#+begin_src scheme
+(primitive-eval '(+ 2 5)) ;; 7
+
+#+end_src
+
+*** eval
+*** eqv?
+*** eof-object?
+*** pair?
+*** append
+* Books Exercises
 ** SICP
 *** Chapter 1
 **** Examples
@@ -487,406 +848,6 @@
 ** How to Design Programs
 https://htdp.org/2018-01-06/Book/
 
-* Features
-** S-expression
-- atom
-- list
-
-** Types
-*** atom
-- all atoms are s-expression
-- empty list is not an atom
-
-#+begin_src scheme
-
-'atom ;; atom
-
-#+end_src
-
-**** atom?
-
-#+begin_src scheme
-(define (atom? x)
-  (and (not (pair? x)) (not (null? x))))
-
-(atom? 'a) ; #t
-
-#+end_src
-
-*** list
-- lists are s-expressions
-- empty list = null
-
-#+begin_src scheme
-
-'()
-'(x '(y)) ;; (x (quote (y)))
-
-#+end_src
-
-**** '()
-**** cons*
-**** list-copy
-**** length
-**** last-pair
-**** list-ref
-**** list-tail
-**** list-head
-**** append
-**** append!
-**** reverse
-**** reverse!
-**** list-set!
-**** list-cdr-set!
-**** delq
-**** delq!
-**** delv
-**** delv!
-**** delete
-**** delete!
-**** delq1!
-**** delv1!
-**** delete1!
-**** filter
-**** [[https://www.gnu.org/software/guile/manual/html_node/List-Searching.html][searching]]
-***** memq
-***** memv
-***** member
-**** mapping
-***** map
-***** for-each
-
-*** boleans
-- #t and #f
-- #true and #false in R7RS
-
-#+begin_src scheme
-#t
-#true
-#f
-#false
-
-#+end_src
-
-**** functions
-***** boolean?
-*** [[https://www.gnu.org/software/guile/manual/html_node/Symbols.html][symbols]]
-*** characters
-- code point
-- unicode
-
-#+begin_src guile
-#\x
-(char? #\U) #t
-
-#+end_src
-*** numerics
-#+begin_src scheme
-
-1234 ;; 1234
-
-#+end_src
-**** functions
-***** number?
-***** integer?
-***** exact-integer?
-***** real?
-***** rational?
-***** inf?
-***** nan?
-***** finite?
-***** nan
-***** inf
-***** numerator
-***** denominator
-***** complex?
-***** exact?
-***** inexact?
-***** odd?
-***** even?
-***** quotient
-***** modulo
-***** gcd
-***** lcm
-***** modulo-expt
-***** exact-integer-sqrt
-***** number->string
-**** arithmetic
-***** /
-***** +
-***** -
-***** *
-***** 1+
-***** 1-
-***** abs
-***** max
-***** min
-***** truncate   truncate/  truncated-print     truncate-file       truncate-quotient   truncate-remainder
-***** round
-***** floor  floor/ floor-quotient   floor-remainder
-***** ceiling  ceiling/  ceiling-quotient   ceiling-remainder
-***** double
-***** euclidean/ euclidean-quotient   euclidean-remainder
-*****
-
-*** string
-#+begin_src scheme
-
-"Cacildis"
-
-#+end_src
-
-|                   |   |
-|-------------------+---|
-| string-append     |   |
-| string-lenght     |   |
-| string->char-set! |   |
-| string->list      |   |
-| string->number    |   |
-| string->symbol    |   |
-
-*** null
-** Selection
-*** car
-- non-empty list
-
-#+begin_src scheme
-
-(car '(a x y)) ;; a
-(car '('(x) '(y))) ;; '(x)
-
-#+end_src
-
-*** cdr
-- could-er
-- non-empty list
-- cdr of a list is always another list
-
-#+begin_src scheme
-
-(cdr '(a x y)) ;; '(x y)
-
-
-#+end_src
-
-*** cons
-- takes two arguments: the first one is any S-expression; the second one is any list.
-- The second argument to cons must be alist. The result is a list.
-
-#+begin_src scheme
-
-(cons 'x '()) ;; '(x)
-(cons '(x y) '(d f)) ;; '((x y) d f)
-(cons '(a b (c)) '()) ;; '((a b (c)))
-#+end_src
-
-** Predicates
-*** null?
-- only for lists
-
-#+begin_src scheme
-
-(null? '()) ; #t
-(null? '(x y)) ; #f
-
-#+end_src
-
-*** eq?
-- two non-numeric atom arguments
-
-#+begin_src scheme
-
-(eq? 'Harry 'Harry) ; #t
-(eq? 'Larry 'Harry) ; #f
-
-#+end_src
-*** eqv?
-*** equal?
-
-** Variables
-*** define
-defining a variable
-
-#+begin_src scheme
-
-(define x 1)
-
-#+end_src
-
-*** set!
-changing a variable's value
-
-#+begin_src scheme
-
-(set! x 2)
-
-#+end_src
-
-** Comparison
-*** <=
-*** <
-*** >=
-*** >
-*** zero?
-*** positive?
-*** negative?
-** Conditinals
-*** if
-#+begin_src scheme
-
-(if #t "yes" "no")
-(if 0 "yes" "no")
-(if #f "yes" "no")
-
-#+end_src
-*** cond
-** modules
-*** [[https://www.gnu.org/software/guile/manual/html_node/Using-Guile-Modules.html][use-modules]]
-
-#+begin_src scheme
-
-(use-modules (srfi srfi-1)) ; https://www.gnu.org/software/guile/manual/html_node/SRFI_002d1-Fold-and-Map.html
-(fold cons '() '(1 2 3))
-
-#+end_src
-
-*** [[https://www.gnu.org/software/guile/manual/html_node/Declarative-Modules.html][define-module]]
-#+begin_src scheme
-
-(define-module (gota dots run)
-   #:use-modules (srfi srfi-1)
-   #:use-modules (ice-9 open))
-
-
-#+end_src
-*** [[https://www.gnu.org/software/guile/manual/html_node/SRFI-Support.html][srfi]]
-*** [[https://www.gnu.org/software/guile/manual/html_node/rnrs-base.html][rnrs]]
-** [[https://www.gnu.org/software/guile/manual/html_node/Records.html][records]]
-** Quotes
-*** quasi-quote `
-#+begin_src scheme
-
-`(1 2 (* 9 9) 3 4)       ; ⇒ (1 2 (* 9 9) 3 4)
-
-#+end_src
-*** unquote ,
-#+begin_src scheme
-
-`(1 2 (* 9 9) 3 4)       ⇒ (1 2 (* 9 9) 3 4)
-`(1 2 ,(* 9 9) 3 4)      ⇒ (1 2 81 3 4)
-`(1 (unquote (+ 1 1)) 3) ⇒ (1 2 3)
-`#(1 ,(/ 12 2))          ⇒ #(1 6)
-
-#+end_src
-
-*** unquote-splicing @
-#+begin_src scheme
-
-(define x '(2 3))
-`(1 ,x 4)                          ; ⇒ (1 (2 3) 4)
-`(1 ,@x 4)                         ; ⇒ (1 2 3 4)
-`(1 (unquote-splicing (map 1+ x))) ; ⇒ (1 3 4)
-`#(9 ,@x 9)                        ; ⇒ #(9 2 3 9)
-
-#+end_src
-
-*** quote '
-** Macros
-** high-order functions
-*** map
-*** fold
-*** reduce
-
-** xx
-*** cond
-
-#+begin_src scheme
-
-(cond
-  ((null? l) #t)
-  ((atom? (car l)) (lat? (cdr l)))
-  (else #f))
-
-#+end_src
-
-*** if
-
-#+begin_src scheme
-#+end_src
-
-*** or
-#+begin_src scheme
-
-(or (null? '()) (atom ? '(a x d))) ; #t
-
-#+end_src
-** more
-*** cons*
-*** primitive-eval
-#+begin_src scheme
-(primitive-eval '(+ 2 5)) ;; 7
-
-#+end_src
-
-*** eval
-*** eqv?
-*** eof-object?
-*** pair?
-*** append
-** Anonymous Functions
-*** lambda
-*** [[https://www.gnu.org/software/guile/manual/html_node/lambda_002a-and-define_002a.html][lambda*]]
-*** case-lambda
-supports procedures with optional arguments as well as procedures with fixed or
-indefinite numbers of arguments.
-** Functions
-*** optional and keywords arguments
-*** high-order functions
-**** map
-
-** errors
-assertion-violation
-** iteration
-#+begin_src scheme
-(map cons '(a b c) '(1 2 3))
-#+end_src
-** assignment
-#+begin_src scheme
-(define abcde '(a b c d e))
-(set! abcde (cdr abcde))
-set-car
-set-cdr
-#+end_src
-
-*** let
-*** named let
-#+begin_src scheme
-(let name ((var expr) ...)
-  body 1 body 2 ...)
-#+end_src
-*** letrec
-- Unlike let, the variables var ... are visible not only within the body of the letrec but also within expr ....
-
-#+begin_src scheme
-(letrec ((var expr) ...) body 1 body 2 ...)
-
-(letrec ([sum (lambda (ls)
-(if (null? ls)
-0
-(+ (car ls) (sum (cdr ls)))))])
-(sum '(1 2 3 4 5)))
-
-#+end_src
-
-*** define
-
-#+begin_src scheme
-
-(define a 'meh)
-
-#+end_src
-
-*** define*
 * Terms
   | Term                                         | Meaning |
   |----------------------------------------------+---------|
