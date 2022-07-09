@@ -9,7 +9,11 @@
 
 * Commands
 ** add
-      Add file contents to the index.
+Add file contents to the index.
+
+#+begin_src shell
+git add .
+#+end_src
 ** bisect
       Find by binary search the change that introduced a bug.
 ** branch
@@ -33,7 +37,13 @@ Clone a repository into a new directory.
 | --shallow-exclude <BRANCH>        |   |
 
 ** commit
-      Record changes to the repository.
+Record changes to the repository.
+#+begin_src shell
+git commit -a
+git commit -m "commit message"
+git commit -am "commit message"
+#+end_src
+
 ** config
 Get and set repository or global options.
 *** --get
@@ -131,8 +141,11 @@ On Magit: r i C-c [fp] C-c
       Reuse recorded resolution for merged conflicts.
 
 ** remote
+#+begin_src shell
 git remote -v
 git remote set-url origin https://github.com/user/repo-2.git
+#+end_src
+
 ** reset
       Reset current HEAD to the specified state.
 ** revert
