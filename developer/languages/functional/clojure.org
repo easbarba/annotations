@@ -1,0 +1,34 @@
+#+title: Clojure
+
+* Progress
+** Books
+| books           | chapter | @ |
+|-----------------+---------+---|
+| Getting Clojure |       2 |   |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| clojure     |        |      |   |
+| lein        |        |      |   |
+* Base
+** Functions
+#+begin_src clojure
+(defn -main
+  "meh"
+  [& args]
+  (println "Hello World"))
+#+end_src
+** Bindings
+*** def
+#+begin_src clojure
+(def foo "bar")
+#+end_src
+
+* Commands
+** -M
+
+* Apps
+** lein
+*** run
+*** new app <PROJECT>
