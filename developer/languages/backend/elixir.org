@@ -1,117 +1,5 @@
 #+TITLE: Elixir
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 3 :ignore this
-  :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-  - [[#packages][Packages]]
-    - [[#gem][gem]]
-    - [[#bundle][bundle]]
-      - [[#outdated][outdated]]
-      - [[#gem][gem]]
-      - [[#install][install]]
-      - [[#update][update]]
-    - [[#irb][irb]]
-      - [[#cli][cli]]
-      - [[#inside][inside]]
-    - [[#rspec][rspec]]
-    - [[#unit-test][unit test]]
-    - [[#pry][pry]]
-  - [[#features][Features]]
-    - [[#project-structure][project structure]]
-    - [[#system-errors][System Errors]]
-      - [[#usage][usage]]
-    - [[#exceptions][exceptions]]
-      - [[#errors][Errors]]
-      - [[#usage][usage]]
-    - [[#writable-object-attribute][writable object attribute]]
-    - [[#multithreading][Multithreading]]
-      - [[#usage][usage]]
-    - [[#modules][modules]]
-    - [[#continuation][continuation]]
-    - [[#fibers][Fibers]]
-      - [[#errors][errors]]
-      - [[#usage][usage]]
-    - [[#delimited-input][delimited input]]
-    - [[#rake][rake]]
-      - [[#usage][usage]]
-    - [[#gem][gem]]
-    - [[#variables][Variables]]
-      - [[#class-variables][class variables]]
-      - [[#global-variables][global variables]]
-    - [[#self][self]]
-    - [[#commentary][commentary]]
-    - [[#defined][defined?]]
-    - [[#iterators][iterators]]
-    - [[#block-local-variables][block-local variables]]
-    - [[#loops][loops]]
-    - [[#statement-modifiers][statement modifiers]]
-    - [[#comparison][comparison]]
-    - [[#conditional][conditional]]
-    - [[#class][class]]
-      - [[#class][class]]
-    - [[#append-][append <<]]
-    - [[#blocks][blocks]]
-    - [[#lambda][lambda]]
-      - [[#how][How]]
-      - [[#usage][Usage]]
-    - [[#methods][methods]]
-    - [[#yield][yield]]
-    - [[#procs][procs]]
-    - [[#operators][operators]]
-    - [[#enumerable][enumerable]]
-    - [[#enumerator][enumerator]]
-      - [[#lazy][lazy]]
-      - [[#each_car][each_car]]
-      - [[#each][each]]
-      - [[#to_enumenum_for][to_enum/enum_for]]
-    - [[#inject][inject]]
-    - [[#select][select]]
-    - [[#succ][succ]]
-    - [[#collect][collect]]
-    - [[#freeze][freeze]]
-    - [[#dup][dup]]
-    - [[#dig][dig]]
-    - [[#fetch][fetch]]
-    - [[#tap][tap]]
-    - [[#map][map]]
-    - [[#pluck][pluck]]
-    - [[#quoting][Quoting]]
-    - [[#here-documents][here documents]]
-    - [[#proc][proc]]
-    - [[#do-end-as-param][do end as param]]
-    - [[#array][array]]
-    - [[#datetime][date/time]]
-    - [[#lambda][lambda]]
-    - [[#begin-rescue][begin rescue]]
-    - [[#hash][hash]]
-    - [[#range][range]]
-    - [[#sets][sets]]
-    - [[#gsub][gsub]]
-    - [[#find][find]]
-    - [[#map][map]]
-    - [[#each_slice][each_slice]]
-    - [[#lazy][lazy]]
-    - [[#with_index][with_index]]
-    - [[#enum_for][enum_for]]
-    - [[#more][more]]
-    - [[#concepts][Concepts]]
-      - [[#iterator][Iterator]]
-      - [[#methods][Methods]]
-      - [[#enumerator][Enumerator]]
-    - [[#instructions][Instructions]]
-      - [[#rbenv][Rbenv]]
-      - [[#misc][misc]]
-  - [[#toolings][Toolings]]
-  - [[#videos][Videos]]
-  - [[#tests][Tests]]
-    - [[#rspec][RSpec]]
-    - [[#unit][Unit]]
-  :END:
 * Progress
 ** Books
 | Books                   | Chapter                         | late |
@@ -168,9 +56,66 @@ Matching Parts of a String
 "Authentication: " <> credentials = "Authentication: Basic dXNlcjpwYXNz"
 credentials # "Basic dXNlcjpwYXNz"
 #+end_src
+*** Integers
+*** Floats
+*** Atoms
+- may end with an exclamation point or a question mark.
+#+begin_src elixir
+:fred :is_binary? :var@2 :<> :=== :"func/3"
+:"long john silver" :эликсир :mötley_crüe
+#+end_src
+*** Ranges
 
+*** RegExp
+#+begin_src elixir
+iex> Regex.run ~r{[aeiou]}, "caterpillar"
+["a"]
+iex> Regex.scan ~r{[aeiou]}, "caterpillar"
+[["a"], ["e"], ["i"], ["a"]]
+iex> Regex.split ~r{[aeiou]}, "caterpillar"
+["c", "t", "rp", "ll", "r"]
+iex> Regex.replace ~r{[aeiou]}, "caterpillar", "*"
+"c*t*rp*ll*r
+#+end_src
+
+*** DateTime
+*** Time
+#+begin_src elixir
+{:ok, t1} = Time.new(12, 34, 56) # {:ok, ~T[12:34:56]}
+#+end_src
+*** Date
+- DateTime
+- NaiveDateTime
+
+** Collections Types
+*** Tuples
+Collections that are stored contiguously in memory, allowing fast access to their elements by index.
+
+- stored contiguously in memory
+ - represents a few items
+
+#+begin_src elixir
+{:ok, 42}
+{:error, :not_found}
+
+iex> {a, b, c} = {4, 5, 6}
+{4, 5, 6}
+iex> a
+4
+iex> b
+5
+iex> c
+6
+#+end_src
 *** Lists
 - linked-lists
+
+#+begin_src elixir
+[ 1, 2, 3 ] ++ [ 4, 5, 6 ] # [1, 2, 3, 4, 5, 6]
+[1, 2, 3, 4] -- [2, 4] # [1, 3]
+1 in [1,2,3,4] # true
+"wombat" in [1, 2, 3, 4] # false
+#+end_src
 
 **** | operator
 #+begin_src elixir
@@ -193,22 +138,6 @@ data-structure used to pass options to functions.
 [b, c] = [a: 1, a: 12]
 b # {:a, 1}
 c # {:a, 12}
-#+end_src
-*** Tuples
-collections that are stored contiguously in memory, allowing fast access to their elements by index.
-
-- stored contiguously in memory
- - represents a few items
-
-#+begin_src elixir
-iex> {a, b, c} = {4, 5, 6}
-{4, 5, 6}
-iex> a
-4
-iex> b
-5
-iex> c
-6
 #+end_src
 *** Maps
 Structured in key/value pairs
@@ -233,8 +162,16 @@ abilities = %{strength: 16, dexterity: 12, intelligence: 10}
 %{strength: strength_value} = abilities
 strength_value
 16
+%{ String.downcase(name) => name }
 #+end_src
 
+Acessing Maps
+
+#+begin_src elixir
+states["AL"] # "Alabama"
+colors[:red] # 16711680
+colors.green # 65280
+#+end_src
 
 #+begin_src elixir
 iex> %{intelligence: 10, dexterity: dexterity_value} = abilities
@@ -267,6 +204,19 @@ end
 
 
 #+end_src
+*** Binary
+#+begin_src elixir
+bin = << 1, 2 >> # <<1, 2>>
+byte_size bin # 2
+#+end_src
+
+#+begin_src elixir
+bin = <<3 :: size(2), 5 :: size(4), 1 :: size(2)>> # <<213>>
+:io.format("~-8.2b~n", :binary.bin_to_list(bin)) # 11010101 :ok
+byte_size bin
+#+end_src
+** System Types
+*** PID
 ** Modules
 - like a namespace
 - uppercase letter
@@ -355,6 +305,17 @@ capture syntax
 t = &(&1 * &2)
 t.(2,3)
 
+divrem = &{ div(&1,&2), rem(&1,&2) }
+divrem.(13, 5) # {2, 3}
+
+s = &"bacon and #{&1}"
+s.("custard") # "bacon and custard"
+
+match_end = &~r/.*#{&1}$/
+"cat" =~ match_end.("t")
+
+l = &length/1
+l.([1,3,5,7]) # 4
 #+end_src
 
 - parens are optional
