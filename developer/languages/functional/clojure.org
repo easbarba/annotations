@@ -19,6 +19,32 @@
   [& args]
   (println "Hello World"))
 #+end_src
+** Collections
+*** Lists
+#+begin_src clojure
+'(1 2 3 "four" 5 "six")
+'(1 2.0 2.9999 "four" 5.001 "six")
+'([1 2 ("a" "list" "inside a" "vector")] "inside" "a" "list")
+(list 1 2 3 "four" 5 "six")
+#+end_src
+*** Vectors
+#+begin_src clojure
+[1 "two" 3 "four"]
+[1 [true 3 "four" 5] 6]
+(vector true 3 "four" 5)
+(def novels ["Emma" "Coma" "War and Peace"])
+(count novels) ; Returns 3.
+#+end_src
+*** Arrays
+** Types
+*** Strings
+*** Numerals
+*** Symbols
+*** Booleans
+#+begin_src clojure
+true
+false
+#+end_src
 ** Bindings
 *** def
 #+begin_src clojure
