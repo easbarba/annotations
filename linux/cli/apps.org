@@ -703,6 +703,11 @@ find . -name '*.epub' -print0
 #+begin_src shell
 find . -name '*.epub' -printf "%f\n"
 #+end_src
+
+-not -path
+#+begin_src shell
+find . -type f -not -path '*/\.git/*'
+#+end_src
 ** ripgrep
 ** grep
 | option              | description                                                                                                 |
