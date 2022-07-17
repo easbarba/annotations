@@ -148,6 +148,13 @@ git remote set-url origin https://github.com/user/repo-2.git
 
 ** reset
       Reset current HEAD to the specified state.
+
+** restore
+discard all changes
+ #+begin_src shell
+ git restore .
+ #+end_src
+
 ** revert
       Revert some existing commits.
 ** rm
