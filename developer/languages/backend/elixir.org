@@ -217,6 +217,14 @@ byte_size bin
 #+end_src
 ** System Types
 *** PID
+** Execeptions
+*** raise
+#+begin_src elixir
+raise "Giving up" #  (RuntimeError) Giving up
+raise RuntimeError
+raise RuntimeError, message: "override message" # ** (RuntimeError) override message
+#+end_src
+
 ** Modules
 - like a namespace
 - uppercase letter
