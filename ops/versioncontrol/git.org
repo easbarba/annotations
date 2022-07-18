@@ -17,12 +17,26 @@ git add .
 ** bisect
       Find by binary search the change that introduced a bug.
 ** branch
-      List, create, or delete branches.
+List, create, or delete branches.
+
+*--delete*
+
+#+begin_src shell
+git branch --delete <BRANCH>
+git branch -D <BRANCH>
+#+end_src
 ** stash
  takes your uncommitted changes (both staged and unstaged), saves them away for
  later use, and then reverts them from your working copy
 ** checkout
-      Switch branches or restore working tree files.
+Switch branches or restore working tree files.
+
+*-b*
+new branch
+#+begin_src shell
+git checkout -b <NEW-BRANCH> [start-point]
+#+end_src
+
 ** cherry
       Find commits yet to be applied to upstream (branch on the remote).
 ** cherry-pick
@@ -125,7 +139,13 @@ Move or rename a file, directory, or symlink.
 ** pull
       Fetch from, or integrate with, another repository or a local branch.
 ** push
-      Update remote refs along with associated objects.
+Update remote refs along with associated objects.
+
+*--set-upstream origin*
+#+begin_src shell
+git push --set-upstream origin main
+#+end_src
+
 ** rebase
 Forward-port local commits to the updated upstream head.
 
@@ -291,7 +311,6 @@ or force garbage collection
 #+begin_src shell
 git gc --aggressive --prune=now
 #+end_src
-
 
 * Read later
     https://chris.beams.io/posts/git-commit/
