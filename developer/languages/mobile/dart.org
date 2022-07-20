@@ -1,0 +1,51 @@
+#+title: Dart Language
+
+* Progress
+** Books
+| name                  | chapter | @ |
+|-----------------------+---------+---|
+| Flutter For Begginers |         |   |
+|                       |         |   |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| sdk         |        |      |   |
+
+* Base
+** Assignment
+*var*
+#+begin_src
+var inferredString = "Hello"; // Type inferred as String
+#+end_src
+** Types
+*** String
+#+begin_src dart
+String explicitString = "World";
+#+end_src
+*** Null
+Has no value
+- The use of the null value has been restricted in the latest releases of Dart
+
+#+begin_src dart
+If (goals != null) {
+  print(goals + 2);
+}
+#+end_src
+
+*?*
+#+begin_src dart
+int? newNumber; // newNumber type allows nullability
+print(newNumber); // Prints null
+#+end_src
+
+*late*
+- type modifier
+#+begin_src dart
+late int newNumber; // newNumber type allows nullability
+// Do some initialisation stuff
+newNumber = 42; // Update the value of newNumber
+print(newNumber); // Prints 42
+#+end_src
+
+* Commands

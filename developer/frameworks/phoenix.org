@@ -2,17 +2,15 @@
 
 * Progress
 ** Books
-| Books               | Chapter            | @                      |
-|---------------------+--------------------+------------------------|
-| Programming Phoenix | 2                  |                        |
-| Phoenix @ hexdocs   | Request life cycle | From endpoint to views |
+| Books               | Chapter            | @                          |
+|---------------------+--------------------+----------------------------|
+| Programming Phoenix | 2                  | Environments and Endpoints |
+| Phoenix @ hexdocs   | Request life cycle | From endpoint to views     |
 
 ** SLOC
-| Project | folder | file | @ |
-|---------+--------+------+---|
-| phoenix |        |      |   |
-| ecto    |        |      |   |
-| plug    |        |      |   |
+| Project | folder      | file      | @ |
+|---------+-------------+-----------+---|
+| phoenix | lib/phoenix | router.ex |   |
 
 * Base
 ** Plug
@@ -53,16 +51,22 @@ pipeline transformations scoped to a set of routes.
 ** Routers
 ** ENV VARS
 *** MIX_ENV
-** Config
-
-** Presence / Tracking
-** LiveView
-* Commands
 Set environment. (default: env)
 #+begin_src elixir
 export MIX_ENV=env
 #+end_src
 
+** Config
+
+** Presence / Tracking
+** LiveView
+* Commands
+** routes
+display all available routes
+#+begin_src elixir
+mix phx.routes
+#+end_src
+** server
 You can also run your app inside IEx (Interactive Elixir) as:
 #+begin_src elixir
 iex -S mix phx.server
@@ -72,22 +76,32 @@ same as above but do not run phoenix server
 #+begin_src elixir
 iex -S mix
 #+end_src
-
-see all available routes
-#+begin_src elixir
-mix phx.routes
+* Resources
+** Containers
+#+begin_src shell
+podman run --rm -it -v ${PWD}:/app -w /app elixir:VERSION sh -c 'mix local.hex && mix archive.install hex phx_new && mix phx.new <NAME>'
 #+end_src
+** new project
+#+begin_src shell
+elixir -v
+psql --version
+node --version
 
-* Packages
-** Ecto
-*** Via iex
-#+begin_src elixir
-alias Rumbl.Repo
-alias Rumbl.Accounts.User
+mix local.hex
+mix archive.install hex phx_new
+mix phx.new -v
+mix phx.new <NAME>
+cd hello
+(cd assets && npm install)
+mix ecto.create
+mix phx.server
+#+end_src
+** Direnv
+Guix Shell
 
-Repo.insert(%User{name: "Bruce", username: "redrapids"})
-Repo.all User
-Repo.get User,1
+#+begin_src shell
+use guixs postgresql elixir node
+
+
 
 #+end_src
-

@@ -163,7 +163,7 @@ On Magit: r i C-c [fp] C-c
 ** remote
 #+begin_src shell
 git remote -v
-git remote set-url origin https://github.com/user/repo-2.git
+git remotek set-url origin https://github.com/user/repo-2.git
 #+end_src
 
 ** reset
