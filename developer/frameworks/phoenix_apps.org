@@ -1,0 +1,13 @@
+#+title: Phoenix Applications
+
+* Ecto
+** Via iex
+#+begin_src elixir
+alias Rumbl.Repo
+alias Rumbl.Accounts.User
+
+Repo.insert(%User{name: "Bruce", username: "redrapids"})
+Repo.all User
+Repo.get User,1
+
+#+end_src
