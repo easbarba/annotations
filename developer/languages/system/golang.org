@@ -2,11 +2,10 @@
 
 * Progress
 ** Books
-| name                    | chapter    | @                          |
-|-------------------------+------------+----------------------------|
-| Go Programming Language | Functions  | 5.4. Errors                |
-| Learning go             | 6 Pointers | Pointers Are a Last Resort |
-| Cli applications in go  |            |                            |
+| name                   | chapter                      | @                          |
+|------------------------+------------------------------+----------------------------|
+| Cli applications in go | 4 Navigating the File System |                            |
+| Learning go            | 6 Pointers                   | Pointers Are a Last Resort |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
