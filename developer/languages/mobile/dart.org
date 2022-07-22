@@ -18,11 +18,46 @@
 #+begin_src
 var inferredString = "Hello"; // Type inferred as String
 #+end_src
+
+*const*
+- value of the variable can be defined at compile time
+
+#+begin_src dart
+const String someString = "Happy string";
+#+end_src
+
+*final*
+- value of variable is not known as compile time
+
+#+begin_src dart
+final String someString = DateTime.now().toString();
+#+end_src
+
 ** Types
 *** String
+- single or multiple lines
+- single or double quotes
+
 #+begin_src dart
 String explicitString = "World";
+String singleQuoteString = 'Here is a single quote string';
+String doubleQuoteString = "Here is a double quote string";
 #+end_src
+
+#+begin_src dart
+String str1 = 'Here is a ';
+String str2 = str1 + 'concatenated string';
+print(str2); // Prints Here is a concatenated string
+#+end_src
+
+String interpolationn
+
+#+begin_src dart
+print("The string length is: ${someString.length}");
+#+end_src
+*** int
+
+*** double
 *** Null
 Has no value
 - The use of the null value has been restricted in the latest releases of Dart
@@ -47,5 +82,28 @@ late int newNumber; // newNumber type allows nullability
 newNumber = 42; // Update the value of newNumber
 print(newNumber); // Prints 42
 #+end_src
+
+*Null-aware*
+
+#+begin_src dart
+String? goalScorer;
+// Other code
+print(goalScorer?.length);
+#+end_src
+
+*Null-assertion operator*
+
+#+begin_src dart
+if (goalTime != null) {
+  print(goalScorer!.length);
+}
+#+end_src
+*** Booleans
+#+begin_src dart
+true
+false
+#+end_src
+** Collection Types
+*** Lists
 
 * Commands

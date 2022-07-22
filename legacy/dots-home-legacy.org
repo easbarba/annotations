@@ -14,16 +14,32 @@
 # SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # ===================================================
 
-
 # RUST
 . "$HOME/.cargo/env"
 # ===================================================
 
+# ** SECRETS
+#export $(cat "$XDG_CONFIG_HOME/secrets" | xargs)
 
-export DOCKER_HOST=///run/user/$UID/podman/podman.sock
+# ** NPM
+export NPM_CONFIG_PREFIX="$HOME/.local/npm"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+export PATH="$NPM_CONFIG_PREFIX/bin"${PATH:+:}$PATH
+# ===================================================
+
+# ** NIX
+export NIX_PROFILE=$HOME/.nix-profile
+export PATH="$NIX_PROFILE/bin"${PATH:+:}$PATH
+# ===================================================
 
 # ** SWIFT
 export PATH=$HOME/.local/swift/usr/bin:$PATH
+
+# COMMON LISP
+export SBCL_HOME=$HOME/.local/lib/sbcl
+
+export DOCKER_HOST=///run/user/$UID/podman/podman.sock
 
 # * LOCALE
 export LANG="C.UTF-8"

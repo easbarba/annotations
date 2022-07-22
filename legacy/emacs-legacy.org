@@ -927,6 +927,28 @@ elfeed
        (t (elfeed-show-visit)))))
 )
 
+     ;; ruby channels
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCpFXaEz3vKJ45XjW5m5pbow" ;; Ruby Central
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCSBsYBhO5FLvvSl_ChnwDdw" ;; Lucas Caton
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCGr4Ent9-hTshgRnEgFFJdA" ;; Code by Duda
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UC8ZZtZOqA-QkJad9VwVuNjw" ;; Nando Vieira
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCUCRO4CMJQgoabub5SzJQug" ;; Jesus Castello
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCxJaNyXCQw0mghY0hA1wA9w" ;; Drifting Ruby
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCzqORs_CagOn8ah5-QysgdQ" ;; David Battersby
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCaT8uPGUYbdRsjm4cJy1D7w" ;; TechMaker Studio
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCuYwpKcupN4QCLwvcGuzGNA" ;; ProgramadorShowzim
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCnkqH-e9V0VMeYrXElEPnTA" ;; Serradura
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCq6nWQ394zHewyoC6Cn1HhQ" ;; mix & go
+     "https://www.youtube.com/feeds/videos.xml?channel_id=UCrxf9jYw4gva_9jwb-77AqQ" ;; gurusp
+
+     ;; ruby
+     "https://rubyweekly.com/rss/"
+     "https://feeds.transistor.fm/remote-ruby"
+     "https://dev.to/feed/leandronsp"
+     "https://videosdeti.com.br/feed/"
+     "https://railsguides.net/atom.xml"
+     "https://gettalong.org/posts.rss"
+
 #+end_src
 
 

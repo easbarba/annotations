@@ -1,163 +1,5 @@
 #+TITLE: Golang
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#base][Base]]
-  - [[#basic-types][Basic Types]]
-    - [[#integers][integers]]
-      - [[#byte][byte]]
-      - [[#int][int]]
-      - [[#uint][uint]]
-      - [[#rune][rune]]
-      - [[#uintptr][uintptr]]
-    - [[#float][float]]
-    - [[#complext][complext]]
-    - [[#literals][literals]]
-    - [[#strings][strings]]
-      - [[#functions][functions]]
-    - [[#boolean][boolean]]
-    - [[#runes][runes]]
-    - [[#nil][nil]]
-    - [[#type][Type]]
-  - [[#agreggate-types][Agreggate Types]]
-    - [[#arrays][Arrays]]
-      - [[#functions][functions]]
-        - [[#len][len]]
-    - [[#slices][Slices]]
-      - [[#functions][functions]]
-      - [[#slicing][slicing]]
-    - [[#maps][Maps]]
-      - [[#functions][functions]]
-    - [[#struct][Struct]]
-  - [[#reference-type][Reference Type]]
-    - [[#methods][methods]]
-    - [[#emb][emb]]
-  - [[#interface-types][Interface Types]]
-  - [[#operators][Operators]]
-  - [[#import][import]]
-  - [[#functions][Functions]]
-    - [[#parameters][parameters]]
-    - [[#blank-return][blank return]]
-    - [[#anonymous-functions][anonymous functions]]
-    - [[#usage][usage]]
-  - [[#defer][Defer]]
-  - [[#variables][Variables]]
-    - [[#package-level-variables][package-level variables]]
-    - [[#var][var]]
-    - [[#][:=]]
-    - [[#tuple-assignment][tuple assignment]]
-    - [[#new-function][new() function]]
-    - [[#assignment][assignment]]
-    - [[#const][Const]]
-    - [[#blank-identifier][blank identifier]]
-    - [[#pointers][Pointers]]
-  - [[#errors][Errors]]
-    - [[#errors][errors]]
-    - [[#fmterrorf][fmt.Errorf]]
-    - [[#sentinel-error][sentinel error]]
-  - [[#blocks][Blocks]]
-    - [[#package-levels][Package Levels]]
-    - [[#universe-block][Universe block]]
-  - [[#control-flow][Control-flow]]
-    - [[#if][if]]
-    - [[#for][for]]
-    - [[#switch][switch]]
-    - [[#goto][goto]]
-  - [[#stop-flow][Stop-flow]]
-    - [[#continue][continue]]
-    - [[#break][break]]
-  - [[#print][print]]
-  - [[#mutex][mutex]]
-  - [[#packages][Packages]]
-    - [[#doc-comment][doc comment]]
-- [[#commands][Commands]]
-  - [[#vet][vet]]
-  - [[#build][build]]
-  - [[#get][get]]
-  - [[#doc][doc]]
-  - [[#mod][mod]]
-    - [[#init][init]]
-    - [[#download][download]]
-    - [[#vendor][vendor]]
-    - [[#graph][graph]]
-    - [[#edit][edit]]
-  - [[#list][list]]
-  - [[#install][install]]
-  - [[#run][run]]
-  - [[#env][env]]
-    - [[#gopath][$GOPATH]]
-    - [[#goproxy][$GOPROXY]]
-  - [[#test][test]]
-- [[#standard-library][Standard Library]]
-  - [[#misc][misc]]
-    - [[#basename][basename]]
-    - [[#make][make]]
-    - [[#iota][iota]]
-    - [[#append][append]]
-  - [[#flag][flag]]
-    - [[#example][example]]
-  - [[#string][string]]
-  - [[#bytes][bytes]]
-  - [[#strconv][strconv]]
-  - [[#json][json]]
-  - [[#fmt][fmt]]
-  - [[#unicode][unicode]]
-  - [[#math][math]]
-  - [[#path][path]]
-  - [[#filepath][filepath]]
-  - [[#io][io]]
-  - [[#test][test]]
-    - [[#testingm][testing.M]]
-    - [[#testingt][testing.T]]
-    - [[#testingtrun][testing.T.Run]]
-    - [[#testingtfatal][testing.T.Fatal]]
-    - [[#testingterrorf][testing.T.Errorf]]
-  - [[#os][os]]
-    - [[#remove][Remove]]
-    - [[#exit][Exit]]
-    - [[#exec][exec]]
-      - [[#command][Command]]
-  - [[#path][path]]
-    - [[#filepath][filepath]]
-  - [[#runtime][runtime]]
-    - [[#runtimegoos][runtime.GOOS]]
-- [[#go-project-structure][Go Project Structure]]
-  - [[#gomod][go.mod]]
-    - [[#require][require]]
-    - [[#replace][replace]]
-    - [[#exclude][exclude]]
-    - [[#version][version]]
-    - [[#module][module]]
-  - [[#gosum][go.sum]]
-  - [[#go][*.go]]
-- [[#structure][Structure]]
-  - [[#internal][internal]]
-  - [[#import][import]]
-    - [[#blank-import][blank import]]
-  - [[#pkg][pkg]]
-  - [[#cmd][cmd]]
-  - [[#init-function][init function]]
-- [[#environment-variables][Environment Variables]]
-  - [[#gopath][GOPATH]]
-  - [[#goroot][GOROOT]]
-- [[#files][Files]]
-- [[#terms][Terms]]
-- [[#packages][Packages]]
-  - [[#tool][tool]]
-    - [[#vet][vet]]
-  - [[#golangci-lint][golangci-lint]]
-  - [[#golint][golint]]
-  - [[#goimports][goimports]]
-- [[#carrer][Carrer]]
-:END:
-
 * Progress
 ** Books
 | name                    | chapter    | @                          |
@@ -1340,16 +1182,18 @@ Zero Value Versus No Value
 |                  |              |
 
 ** get
-      |   |   |
-      |---+---|
-      |   |   |
-
+add to project as dependecy
+#+begin_src shell
+go get github.com/russross/blackfriday/v2@latest
+#+end_src
 ** doc
 ** mod
 *** init
 #+begin_src shell
 go mod init MODULE_PATH
 #+end_src
+*** tidy
+Add/remove deps non listed in dep file
 *** download
 Download downloads the named modules, which can be module patterns selecting
 dependencies of the main module or module queries of the form path@version.
@@ -1490,6 +1334,7 @@ strings.Map
 io.EOF
 
 #+end_src
+** ioutil
 ** [[https://pkg.go.dev/testing][test]]
 Package testing provides support for automated testing of Go packages.
 
@@ -1602,6 +1447,10 @@ type Money struct {
 #+begin_src go
 import _ "github.com/lib/pq"
 #+end_src
+** testdata
+Store temporary files created by tests
+
+- ignored by go tools
 
 ** pkg
 ** cmd
