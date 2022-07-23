@@ -1,8 +1,18 @@
-#+TITLE: Nano
+#+TITLE: GNU Nano
 
-* Oficial
 https://nano-editor.org
 
-* Tips
-* help
-C+g
+* Bindings
+|     |                                                               |
+|-----+---------------------------------------------------------------|
+| c-g | help                                                          |
+| c-r | insert another file into current buffer( or into new buffer ) |
+| a-3 | comment line                                                  |
+|     |                                                               |
+* Commands
+** -F --multibuffer
+Read a file into a new buffer by default
+
+#+begin_src shell
+nano -F /data/file.org
+#+end_src
