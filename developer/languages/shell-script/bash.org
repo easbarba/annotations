@@ -272,7 +272,6 @@ Wildcard(*) is a symbol used to represent zero, one or more characters.
 #+end_src
 ** Brace Expansion
 #+begin_src shell
-
 mkdir /usr/local/src/bash/{old,new,dist,bugs}
 #+end_src
 
@@ -337,7 +336,6 @@ fi
 -u FILE - True if the FILE exists, and set-user-id (suid) flag is set.
 -w FILE - True if the FILE exists and is writable.
 -x FILE - True if the FILE exists and is executable.
-
 
 * cli
 ** options
