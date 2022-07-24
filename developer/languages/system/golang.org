@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| name                   | chapter                      | @                          |
-|------------------------+------------------------------+----------------------------|
-| Cli applications in go | 4 Navigating the File System |                            |
-| Learning go            | 6 Pointers                   | Pointers Are a Last Resort |
+| name                   | chapter                | @                          |
+|------------------------+------------------------+----------------------------|
+| Cli applications in go | 9 Talking to REST APIs |                            |
+| Learning go            | 6 Pointers             | Pointers Are a Last Resort |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -152,7 +152,7 @@ type Score int
 type Converter func(string)Score
 type TeamScores map[string]Score
 #+end_src
-** Agreggate Types
+** Collections Types
 *** Arrays
 - == and != to compare arrays
 - all elements have same type
@@ -184,8 +184,6 @@ var x [2][3]int // simulate multidemensional array
 | int       | field for capacity, |
 | pointer   | to a block          |
 
-
-
 #+begin_src go
 var x = []int{10, 20, 30}
 var x = []int{1, 5: 4, 6, 10: 100, 15}
@@ -196,11 +194,14 @@ var x = []int{} //  zero-length slice, which is non-nil (
 x := make([]int, 5)
 num := copy(y, x) // indenpedent copy of original slice
 #+end_src
+
+
 **** functions
 - len
 - append
 - make
 - copy
+
 **** slicing
 - can slice arrays
 
@@ -588,7 +589,6 @@ type Stringer interface {
 |          |                            |
 |----------+----------------------------|
 | combined | += , -= , *= ,/= , and %=  |
-|          |                            |
 | *        |                            |
 | /        |                            |
 | %        |                            |
@@ -606,6 +606,7 @@ type Stringer interface {
 | >        |                            |
 | >=       |                            |
 | &&       |                            |
+| ...      | Expand operator            |
 |          |                            |
 
 ** import
@@ -635,6 +636,17 @@ another package.
 func Println(a ...interface{}) (n int, err error)
 #+end_src
 
+
+*** variadic function
+#+begin_src go
+func getTask(r io.Reader, args ...string) (string, error) {
+	if len(args) > 0 {
+		return strings.Join(args, " "), nil
+	}
+...
+}
+
+#+end_src
 *** blank return
 - avoid always
 #+begin_src go
@@ -1241,6 +1253,62 @@ Run compiles and runs the named main Go package.
 | -h or --help    |   |
 
 * Standard Library
+** bufio
+Package bufio implements buffered I/O. It wraps an io.Reader or io.Writer
+object, creating another object (Reader or Writer) that also implements the
+interface but provides buffering and some help for textual I/O.
+
+** bytes
+- bytes.Buffer
+- Contains
+- Count
+- Fields
+- HasPrefix
+- Index
+- Join
+** flag
+*.String*
+*.Bool*
+*.Int*
+*.Args*
+
+#+begin_src go
+task := flag.String("task", "", "Task to be included in the ToDo list")
+list := flag.Bool("list", false, "List all tasks")
+complete := flag.Int("complete", 0, "Item to be completed")
+
+flag.Parse()
+#+end_src
+
+** fmt
+- Sprintf
+- Scanf
+- Printf: %T, %t, %x, %c
+** http
+** io
+Package io provides basic interfaces to I/O primitives. Its primary job is to
+wrap existing implementations of such primitives, such as those in package os,
+into shared public interfaces that abstract the functionality, plus some other
+related primitives.
+
+#+begin_src go
+// end of line
+io.EOF
+#+end_src
+
+*WriteString*
+*Writer*
+
+** ioutil
+** json
+- only exported fields are marshaled
+** math
+|                 |   |
+|-----------------+---|
+| math.MaxFloat32 |   |
+| math.MaxFloat64 |   |
+| math.NaN        |   |
+| math.IsNaN      |   |
 ** misc
 *** basename
 #+begin_src go
@@ -1270,15 +1338,29 @@ const (
 )
 #+end_src
 *** append
-** flag
-*** example
-#+begin_src go
-task := flag.String("task", "", "Task to be included in the ToDo list")
-list := flag.Bool("list", false, "List all tasks")
-complete := flag.Int("complete", 0, "Item to be completed")
+** net
+*path*
+** os
+*** exec
+*Command*
+*Run*
+*StdinPipe*
+*.Close*
+*** Exit
+*** Remove
+** path
+*** filepath
+** path
+*** filepath
+** runtime
+*** runtime.GOOS
 
-flag.Parse()
-#+end_src
+** strconv
+- Itoa
+- ParseInt
+- ParseUint
+- FormatInt
+- FormatUint
 ** string
 - IsUpper
 - IsLower
@@ -1293,57 +1375,18 @@ flag.Parse()
 strings.Map
 #+end_src
 
-** bytes
-- bytes.Buffer
-- Contains
-- Count
-- Fields
-- HasPrefix
-- Index
-- Join
-** strconv
-- Itoa
-- ParseInt
-- ParseUint
-- FormatInt
-- FormatUint
-** json
-- only exported fields are marshaled
-** fmt
-- Sprintf
-- Scanf
-- Printf: %T, %t, %x, %c
-** unicode
-- isDigit
-- IsLetter
-- IsUpper
-- IsLower
-** math
-|                 |   |
-|-----------------+---|
-| math.MaxFloat32 |   |
-| math.MaxFloat64 |   |
-| math.NaN        |   |
-| math.IsNaN      |   |
-** path
-** filepath
-** io
-#+begin_src go
-// end of line
-io.EOF
-
-#+end_src
-** ioutil
-** [[https://pkg.go.dev/testing][test]]
+** strings
+Package strings implements simple functions to manipulate UTF-8 encoded strings.
+** [[https://pkg.go.dev/testing][test]]ing
 Package testing provides support for automated testing of Go packages.
 
-*** testing.M
+*** .M
 #+begin_src go
 
 #+end_src
 
-*** testing.T
-*** testing.T.Run
+*** .T
+**** .Run
 #+begin_src go
 t.Run("AddNewTask", func(t *testing.T) {
     cmd := exec.Command(cmdPath, "-task", task)
@@ -1353,19 +1396,14 @@ t.Run("AddNewTask", func(t *testing.T) {
     }
   })
 #+end_src
-*** testing.T.Fatal
-*** testing.T.Errorf
-** os
-*** Remove
-*** Exit
-*** exec
-**** Command
-** path
-*** filepath
-** runtime
-*** runtime.GOOS
-
-* Go Project Structure
+**** .Fatal
+**** .Errorf
+** unicode
+- isDigit
+- IsLetter
+- IsUpper
+- IsLower
+* Project Structure
 ** go.mod
 *** require
 lists the modules that your module depends on and the minimum version required
@@ -1387,7 +1425,7 @@ go 1.15
 module meh.com/gojail/money
 #+end_src
 ** go.sum
-** *.go
+** .go
 Package clause
 
 - first line in a Go source file
@@ -1437,7 +1475,6 @@ type Money struct {
 }
 #+end_src
 
-* Structure
 ** internal
 ** import
 *** blank import
@@ -1499,9 +1536,12 @@ vet is a tool for static analysis of Go programs.
 goimports -l -w .
 #+end_src
 * Carrer
-- Rest GPC
-- API
+- Modules
+- REST API servers
+- Unit Testing
 - Networking knowledge and in depth understanding of network concepts, such as
   different protocols (TCP/IP, UDP, ICMP, etc.), MAC addresses, IP packets, DNS,
   OSI layers, and load balancing).
 - Unix systems internals and networking.
+- Microservices
+- Swagger
