@@ -413,7 +413,6 @@ func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32) }
 func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 
 Celsius == Fahrenheit // false
-
 #+end_src
 
 #+begin_src go
@@ -426,7 +425,6 @@ var s Score = 100
 var hs HighScore = 200
 hs = s                  // compilation error!
 s = i                   // compilation error!
-
 #+end_src
 
 - can be aliased
@@ -632,10 +630,10 @@ another package.
 - no default parameters
 - no keywords parameters
 - variable number of arguments
+
 #+begin_src go
 func Println(a ...interface{}) (n int, err error)
 #+end_src
-
 
 *** variadic function
 #+begin_src go
