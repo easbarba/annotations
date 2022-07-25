@@ -1,70 +1,25 @@
 #+TITLE: Network
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-- [[#load-balancing][Load balancing]]
-- [[#layers][Layers]]
-  - [[#layer-1][Layer 1:]]
-  - [[#layer-2-datalink][Layer 2: Datalink]]
-    - [[#troubleshooting][troubleshooting]]
-  - [[#layer-3-network][Layer 3: Network]]
-    - [[#troubleshooting][troubleshooting]]
-  - [[#layer-4-transport][Layer 4: Transport]]
-    - [[#troubleshooting][troubleshooting]]
-  - [[#session-layer][session layer]]
-  - [[#presentation-layer][presentation layer]]
-  - [[#application-layer][application layer]]
-- [[#ports][Ports]]
-  - [[#well-known-ports][Well-known Ports]]
-  - [[#registered-ports][Registered Ports]]
-  - [[#dynamic-ports][Dynamic Ports]]
-- [[#subneting][Subneting]]
-- [[#osi-model][OSI Model]]
-  - [[#concepts][Concepts]]
-  - [[#layers][Layers]]
-    - [[#layer-7-application][Layer 7 Application]]
-    - [[#layer-6-presentation][Layer 6 Presentation]]
-    - [[#layer-5-session][Layer 5 Session]]
-    - [[#layer-4-transport][Layer 4 Transport]]
-    - [[#layer-3-network][Layer 3 Network]]
-    - [[#layer-2-data-link][Layer 2 Data Link]]
-    - [[#layer-1-physical][Layer 1 Physical]]
-- [[#terms][Terms]]
-  - [[#mac-address][Mac Address]]
-  - [[#duplex][Duplex]]
-- [[#lan][LAN]]
-- [[#physical][Physical]]
-  - [[#cable][Cable]]
-    - [[#utp][UTP]]
-    - [[#central-box][central box]]
-- [[#terms][Terms]]
-  - [[#mac-adress][Mac Adress]]
-  - [[#osi-layers][OSI layers]]
-  - [[#tcpip][TCP/IP]]
-  - [[#nic][NIC]]
-  - [[#fcs][FCS]]
-  - [[#pans][PANs]]
-  - [[#lan][LAN]]
-  - [[#man][MAN]]
-  - [[#subnet-mask][Subnet Mask]]
-  - [[#mac-adress][Mac adress]]
-- [[#hostname][hostname]]
-  - [[#def][def]]
-- [[#url][URL]]
-  - [[#def][def]]
-- [[#to-learn][TO LEARN]]
-:END:
 * Progress
 |                                     |                     |   |
 |-------------------------------------+---------------------+---|
 | Networking for System Administrator | Chapter 2: Ethernet |   |
 
 * Load balancing
+* Topology
+** Point-to-point
+- daisy chain
+- hops
+
+** Bus
+Nodes share a common network link.
+
+- wireless networks
+
+** Ring
+Closed loop in which data travels in a single direction.
+
+- fiber-optic network
 * Layers
 ** Layer 1:
 - physical link light, ipconfig/ifconfig, cable replacement
