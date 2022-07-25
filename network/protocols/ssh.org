@@ -1,4 +1,4 @@
-#+TITLE: SSH, the Secure SHell
+#+TITLE: SSH, the Secure Shell
 
 * Progress
 | book        | chapter                         | @                                        |
@@ -29,7 +29,7 @@ uses the same key for both encryption and encryption.
 
 *** asymmetric algorithm
  uses different keys for encryption and decryption.
-* keys
+* Keys
 ** public key
 ~/.ssh/*.pub
 
@@ -65,9 +65,9 @@ public key for that private keys
 
 ** ~/.ssh
 - folder permission must be 0700
-* traits
+* Traits
 - ControlPersist
-* commands
+* Commands
 ** options
 *** -p
 #+begin_src shell
@@ -91,6 +91,8 @@ ssh -l hsolo server.admin.com
 ssh -o StrictHostKeyChecking=no server.admin.com
 #+end_src
 *** -v
+*** -F
+
 * OpenSSH
 ** ssh
 ** sshd
@@ -103,7 +105,6 @@ ssh-keygen -t ecdsa -b 384
 |----+------------------------------------------------------------------------------|
 | -y | ead a private OpenSSH format file and print an OpenSSH public key to stdout. |
 | -f | Specifies the filename of the key file.                                      |
-
 
 ** ssh-keyscan
 ** ssh-add
