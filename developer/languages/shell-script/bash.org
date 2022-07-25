@@ -12,6 +12,32 @@
 *** File descriptors
 https://www.gnu.org/software/bash/manual/html_node/Redirections.html
 https://tldp.org/LDP/abs/html/io-redirection.html
+** Collection Types
+*** Array
+#+begin_src shell
+arr=() 	    # Create an empty array
+arr=(1 2 3) 	# Initialize array
+${arr[2]} 	# Retrieve third element
+${arr[@]} 	# Retrieve all elements
+${!arr[@]} 	# Retrieve array indices
+${#arr[@]} 	# Calculate array size
+arr[0]=3 	# Overwrite 1st element
+arr+=(4) 	# Append value(s)
+str=$(ls) 	# Save ls output as a string
+arr=( $(ls) ) # Save ls output as an array of files
+${arr[@]:s:n} # Retrieve n elements starting at index s
+#+end_src
+
+#+begin_src shell
+meh=(foo bar)
+echo ${meh[1]} # bar
+meh+='forevis'
+
+for m in ${meh[@]}; do
+  echo "$m"
+done
+#+end_src
+
 ** exit
 *no argument*
  returns last command result
@@ -20,19 +46,6 @@ https://tldp.org/LDP/abs/html/io-redirection.html
 *** undeclared vars
 Use :- if you want to test variables that could be undeclared. For instance: if
 [ "${NAME:-}" = "Kevin" ] will set $NAME to be empty if it's not declares.
-*** arrays
-#+begin_src shell
-meh=(foo bar)
-
-echo ${meh[1]} # bar
-
-meh+='forevis'
-
-for m in ${meh[@]}; do
-  echo "$m"
-done
-
-#+end_src
 *** IFS
 field separator
 
