@@ -8,10 +8,10 @@
 | Advanced Bash-Scripting Guide   | Chapter 6. Exit and Exit Status |            |
 
 * Base
-** Redirection
-*** File descriptors
-https://www.gnu.org/software/bash/manual/html_node/Redirections.html
-https://tldp.org/LDP/abs/html/io-redirection.html
+** Types
+*** Numbers
+*** String
+*** Boolean
 ** Collection Types
 *** Array
 #+begin_src shell
@@ -37,7 +37,6 @@ for m in ${meh[@]}; do
   echo "$m"
 done
 #+end_src
-
 ** exit
 *no argument*
  returns last command result
@@ -50,54 +49,7 @@ Use :- if you want to test variables that could be undeclared. For instance: if
 field separator
 
 ** shift
-    shift: shift cli args to next right
-** <<<
-    here-string, give a pre-made string of text to a program
-** >&2
-** >
-    echo 'asd' > temp  | create a file or overwrite existent one
-** >>
-    echo 'asd' >> temp | create a file or append to end of existent one
-** << EOF > OEF
-    here documents
-** <<<
-    here-string
-** unicode
-
-PS: remove + sign as shell does not what is.
-
-#+begin_src shell
-
-# U+f026
-
-echo -e "\Uf026"
-
-#+end_src
-** Group Commands
-*** subshell (...)
-     Placing a list of commands between parentheses causes a subshell
-     environment to be created (see Command Execution Environment), and
-     each of the commands in list to be executed in that subshell.
-     Since the list is executed in a subshell, variable assignments do
-     not remain in effect after the subshell completes.
-
-     The parentheses are operators, and are recognized as separate
-     tokens by the shell even if they are not separated from the list
-     by whitespace.
-     #+begin_src shell-script
-     ()
-     #+end_src
-*** subshell {...}
-     Placing a list of commands between curly braces causes the
-     list to be executed in the current shell context. No subshell
-     is created. The semicolon (or newline) following list is
-     required.
-
-     The braces are reserved words, so they must be separated from the
-     list by blanks or other shell metacharacters.
-     #+begin_src shell-script
-     {...}
-     #+end_src
+shift: shift cli args to next right
 ** Symbols
 *** $#
 length or the number of arguments passed
@@ -222,12 +174,16 @@ Execute the commands in the braces as a group.
 false || { echo "We failed"; exit 1; }
 #+end_src
 
-** Environments Vars
-*** $DIRSTACK
-*** $BASH_ENV
-*** $?
-returns the exit status of the last executed command
-** Redirection
+*** <<<
+    here-string, give a pre-made string of text to a program
+*** >&2
+*** >
+    echo 'asd' > temp  | create a file or overwrite existent one
+*** >>
+    echo 'asd' >> temp | create a file or append to end of existent one
+*** <<<
+    here-string
+*** Redirection
 - > : add or overwrite
 - >>: add or append
 - < : get input from file to program
@@ -242,6 +198,53 @@ who >temp
 wc -l <temp
 
 #+end_src
+*** Redirection
+**** File descriptors
+https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+https://tldp.org/LDP/abs/html/io-redirection.html
+** Here documents
+#+begin_src shell
+<< EOF >
+
+OEF
+#+end_src
+
+** Unicode
+PS: remove + sign as shell does not what is.
+
+#+begin_src shell
+echo -e "\Uf026"
+#+end_src
+** Grouping
+*** subshell (...)
+     Placing a list of commands between parentheses causes a subshell
+     environment to be created (see Command Execution Environment), and
+     each of the commands in list to be executed in that subshell.
+     Since the list is executed in a subshell, variable assignments do
+     not remain in effect after the subshell completes.
+
+     The parentheses are operators, and are recognized as separate
+     tokens by the shell even if they are not separated from the list
+     by whitespace.
+     #+begin_src shell-script
+     ()
+     #+end_src
+*** subshell {...}
+     Placing a list of commands between curly braces causes the
+     list to be executed in the current shell context. No subshell
+     is created. The semicolon (or newline) following list is
+     required.
+
+     The braces are reserved words, so they must be separated from the
+     list by blanks or other shell metacharacters.
+     #+begin_src shell-script
+     {...}
+     #+end_src
+** Environments Variables
+*** $DIRSTACK
+*** $BASH_ENV
+*** $?
+returns the exit status of the last executed command
 ** Pattern Matching
 *** glob
 |     |                                     |
@@ -288,11 +291,8 @@ Wildcard(*) is a symbol used to represent zero, one or more characters.
 mkdir /usr/local/src/bash/{old,new,dist,bugs}
 #+end_src
 
-** regular expression
-
-**
-
-* utilities
+** Regular Expression
+* Utilities
 ** read
 ** echo
 ** set
@@ -350,8 +350,8 @@ fi
 -w FILE - True if the FILE exists and is writable.
 -x FILE - True if the FILE exists and is executable.
 
-* cli
-** options
+* Commands
+** Options
 *** --init-file
      use alternative init file
 *** -c
