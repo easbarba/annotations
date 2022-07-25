@@ -1,16 +1,16 @@
-#+TITLE: Golang
+#+TITLE: Go Language
 
 * Progress
 ** Books
-| name                   | chapter                | @                          |
-|------------------------+------------------------+----------------------------|
-| Cli applications in go | 9 Talking to REST APIs |                            |
-| Learning go            | 6 Pointers             | Pointers Are a Last Resort |
+| name                   | chapter                      | @                                |
+|------------------------+------------------------------+----------------------------------|
+| Cli applications in go | 4 Navigating the File System | Developing a File System Crawler |
+| Learning go            | 6 Pointers                   | Pointers Are a Last Resort       |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
 |-------------+-----------------------+-----------+-------------------|
-| go          | src/archive/tar       | reader.go |                   |
+| go          | net/http              | client.go |                   |
 | podman      | cmd/podman/containers | cp.go     | copyFromContainer |
 
 * Base
@@ -163,12 +163,20 @@ type TeamScores map[string]Score
 #+begin_src go
 var x [3]int // 0,0,0
 var x = [3]int{10, 20, 30}
-var x = [12]int{1, 5: 4, 6, 10: 100, 15} // sparse array
-var x = [...]int{10, 20, 30}
-var x [2][3]int // simulate multidemensional array
+
+// sparse array
+var x = [12]int{1, 5: 4, 6, 10: 100, 15} // [12]int{ 1, 0, 0, 0, 0, 4, 6, 0, 0, 0, 100, 15, }
+
+var x = [...]int{10, 20, 30} // [3]int{ 10, 20, 30, }
+
+var x [2][3]int{0, {}} // [2][3]int{ [3]int{ 0, 0, 0, }, [3]int{ 0, 0, 0, }, }
 #+end_src
-**** functions
-***** len
+
+*len*
+#+begin_src go
+len([2]int{0,0,}) // 2
+#+end_src
+
 *** Slices
 - don’t specify its size
 - not comparable
@@ -1081,9 +1089,6 @@ func main() {
 		}
 	}
 }
-
-// for range
-
 #+end_src
 *** switch
 - compare relatable values
@@ -1191,6 +1196,8 @@ Zero Value Versus No Value
 |                  |              |
 
 ** get
+- modules only
+
 add to project as dependecy
 #+begin_src shell
 go get github.com/russross/blackfriday/v2@latest
@@ -1535,7 +1542,7 @@ goimports -l -w .
 #+end_src
 * Carrer
 - Modules
-- REST API servers
+- REST API
 - Unit Testing
 - Networking knowledge and in depth understanding of network concepts, such as
   different protocols (TCP/IP, UDP, ICMP, etc.), MAC addresses, IP packets, DNS,
