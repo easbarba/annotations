@@ -11,9 +11,6 @@
   - [[#sloc][SLOC]]
 - [[#maven][Maven]]
   - [[#mvnw][mvnw]]
-    - [[#spring-bootrun][spring-boot:run]]
-    - [[#test][test]]
-    - [[#package][package]]
 - [[#gradle][Gradle]]
   - [[#commands][commands]]
     - [[#test][test]]
@@ -34,9 +31,9 @@
 
 * Maven
 ** mvnw
-*** spring-boot:run
-*** test
-*** package
+*spring-boot:run*
+*test*
+*package*
 * Gradle
 ** commands
 *** test
