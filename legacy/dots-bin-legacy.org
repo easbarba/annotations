@@ -24,7 +24,7 @@ firewall-config
 gnome-keyring seahorse
 linux-perf locate stow xonsh wmctrl devilspie2 poppler-utils exuberant-ctags bat wget2
 ncdu
- libfile-mimeinfo-perl
+libfile-mimeinfo-perl
 x11proto-dev  rclone
 fontconfig libfreetype6
 #+end_src
