@@ -1,27 +1,11 @@
-#+TITLE: Spring
+#+TITLE: Spring Framework
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#spring-boot][Spring Boot]]
-- [[#spring-data][Spring Data]]
-- [[#spring-security][Spring Security]]
-- [[#spring-integration][Spring Integration]]
-- [[#spring-batch][Spring Batch]]
-- [[#spring-cloud][Spring Cloud]]
-- [[#spring-native][Spring Native]]
-:END:
 * Progress
 ** Books
-| name             | chapter | @ |
-|------------------+---------+---|
-| Spring in Action |       2 |   |
+| name             | chapter | @                               |
+|------------------+---------+---------------------------------|
+| Spring in Action |       1 | 1.3Writing a Spring application |
+|                  |         |                                 |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -29,7 +13,30 @@
 | spring      |        |      |   |
 | spring-boot |        |      |   |
 
+* Annotations
+*@SpringBootApplication*
+
+
+*@SpringBootConfiguration*
+Designates this class as a configuration class.
+
+*@EnableAutoConfiguration*
+Enables Spring Boot automatic configuration.
+
+*@ComponentScan*
+Enables component scanning.
+
+*@Component*
+
+*@Controller*
+
+*@Service*
+
+* Spring Initializr
+https://start.spring.io/
 * Spring Boot
+** Test
+*@SpringBootTest*
 * Spring Data
 * Spring Security
 * Spring Integration
