@@ -443,6 +443,15 @@ interface IntStack {
 }
 #+end_src
 
+* Commands
+** java
+*-jar*
+#+begin_src java
+java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar
+#+end_src
+
+** javac
+
 * Library
 ** String
 ** Object
