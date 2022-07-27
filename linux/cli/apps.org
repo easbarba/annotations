@@ -641,6 +641,14 @@ stat -c '%n -> %a' $HOME/.bashrc
 * file
 * Text Manipulation
 ** grep
+
+surpass option conflict
+#+begin_src grep
+echo "-t, --tty" | grep -- -t,
+#+end_src
+
+
+
 ** seq
 ** awk
 ** soft
