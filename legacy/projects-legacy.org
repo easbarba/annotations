@@ -11,6 +11,17 @@ black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
 #+end_src
+** golang
+#+begin_src csv
+name,branch,url
+mpb,master,https://github.com/vbauerster/mpb
+shfmt,master,https://github.com/mvdan/sh
+flux2,main,https://github.com/fluxcd/flux2
+crossplane,master,https://github.com/crossplane/crossplane
+kubernetes,master,https://github.com/kubernetes/kubernetes
+consul,main,https://github.com/hashicorp/consul
+go,master,https://go.googlesource.com/go
+#+end_src
 ** rust
 #+begin_src csv
 name,branch,url
@@ -359,7 +370,6 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
     upgrade: upgrade
 
     #+end_src
-* cejo
 * Ports
 ** Ruby
      #+begin_src ruby
@@ -396,9 +406,6 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
 
      #+end_src
 ** .NET
-*** Temp
-      #+begin_src csharp
-     #+end_src
 *** Projects
       #+begin_src csharp
       using System.Collections.Generic;
@@ -477,12 +484,7 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
 		  new ProjectBuilder(_git, _runners, Info()).Build();
 	  }
       }
-
-
-
-
-
-      #+end_src
+#+end_src
 *** Packers
       #+begin_src csharp
 
@@ -742,7 +744,7 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
       }
       #+end_src
 ** Python
-     #+begin_src python
+#+begin_src python
 
 	 def advice(self) -> None:
 	     """Additional instruction before building."""
