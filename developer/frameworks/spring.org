@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| name             | chapter | @                                  |
-|------------------+---------+------------------------------------|
-| Spring in Action |       1 | 1.4 Surveying the Spring landscape |
+| name             | chapter                        | @ |
+|------------------+--------------------------------+---|
+| Spring in Action | 2 Developing web applications  |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -43,14 +43,16 @@ Enables component scanning.
 
 *@Service*
 
-* Spring Initializr
+* Spring Landscape
+** Spring Initializr
 https://start.spring.io/
-* Spring Boot
-** Test
+** Spring Framework
+** Spring Boot
+*** Test
 *@SpringBootTest*
-* Spring Data
-* Spring Security
-* Spring Integration
-* Spring Batch
-* Spring Cloud
-* Spring Native
+** Spring Data
+** Spring Security
+** Spring Integration
+** Spring Batch
+** Spring Cloud
+** Spring Native
