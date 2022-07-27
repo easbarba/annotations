@@ -25,7 +25,6 @@
     - [[#prune][prune]]
     - [[#port][port]]
     - [[#run][run]]
-      - [[#options][options]]
     - [[#rm][rm]]
     - [[#restart][restart]]
     - [[#stats][stats]]
@@ -194,7 +193,6 @@ f0190af89321efec97b9d051f:/data -network moby-counter redis:alpine
 for i in {1..5}; do docker container run -d --name nginx$(printf "$i") nginx; done
 #+end_src
 
-**** options
 |                          |                                                    |
 |--------------------------+----------------------------------------------------|
 | -v <NAME:/WHERE>         |                                                    |
@@ -205,10 +203,27 @@ for i in {1..5}; do docker container run -d --name nginx$(printf "$i") nginx; do
 | -d or --detach           | run container in background and print container ID |
 | --name <NAME>            | set name                                           |
 | -p <ii:II>               | port                                               |
-| -i                       | interactively                                      |
 | -t                       | tty                                                |
 | --pid=<HOST>             |                                                    |
 | --privileged             |                                                    |
+
+*-t, --tty*
+Allocate a pseudo-TTY for container
+
+*-i, --interactive*
+Keep STDIN open even if not attached
+
+*-w, --workdir
+Working directory inside the container
+
+*-p, --publish*
+Publish a container's port, or a range of ports, to the host (default [])
+
+#+begin_src shell
+... -p <OUTER>:<INNER>
+... -p 8080:8080
+#+end_src
+
 
 *** rm
 removes one or more containers from the host. The container name or ID can be used.
@@ -228,6 +243,9 @@ Restart one or more containers
 #+begin_src shell
 docker container restart moby-counter
 #+end_src
+
+*l, --latest*
+
 *** stats
 Display a live stream of container(s) resource usage statistics
 
@@ -239,10 +257,13 @@ docker stats nginx-test
  docker container stop -t 60 nginx3
 #+end_src
 
-|              |   |
-|--------------+---|
-| --time or -t |   |
+*l, --latest*
+*t, --time*
+
 *** start
+*-i*
+*-a*
+*l, --latest*
 *** top
 #+begin_src shell
 Display the running processes of a container
