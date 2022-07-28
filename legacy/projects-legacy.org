@@ -48,18 +48,6 @@ commanderjs,master,https://github.com/tj/commander.js
 tailwindcss,master,https://github.com/tailwindlabs/tailwindcss
 axios,master,https://github.com/axios/axios
 #+end_src
-** c
-#+begin_src csv
-name,branch,url
-openssh,master,https://github.com/openssh/openssh-portable
-openssl,master,git://git.openssl.org/openssl
-dwm,master,https://git.suckless.org/dwm
-tmux,master,https://github.com/tmux/tmux
-redis,master,https://github.com/redis/redis
-curl,master,https://github.com/curl/curl
-postgresql,master,https://git.postgresql.org/git/postgresql
-sway,master,https://github.com/swaywm/sway
-#+end_src
 ** kotlin
 #+begin_src csv
 name,branch,url
