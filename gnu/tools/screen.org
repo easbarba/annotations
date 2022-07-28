@@ -1,10 +1,17 @@
 #+title: Screen
 
 https://www.gnu.org/software/screen/manual
-* cli
+* Command
 |           |   |
 |-----------+---|
 | ‘-c file’ |   |
+
+*-wipe*
+*-q*
+*-ls*
+*-r*
+*-D*
+*-S <SESSION-NAME*
 * bindings
 ** Command
 C-a :
