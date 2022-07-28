@@ -1,20 +1,5 @@
 #+TITLE: Wm Legacy
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
-:CONTENTS:
-- [[#dwm][dwm]]
-  - [[#dwm-bar][dwm-bar]]
-- [[#qtile][Qtile]]
-- [[#xmobar][Xmobar]]
-- [[#xmonad][Xmonad]]
-- [[#stumpwm][StumpWM]]
-- [[#xmobar][Xmobar]]
-- [[#stalonetray][StaloneTray]]
-:END:
-
 * dwm
     #+begin_src c
     /* See LICENSE file for copyright and license details. */

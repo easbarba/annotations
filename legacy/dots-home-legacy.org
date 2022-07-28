@@ -445,17 +445,5 @@ asdf_js()
    #+end_src
 * .xinitrc
 #+begin_src shell
-# ~/.config/autostart-scripts/apps
-exec awesome # dwm
 
-# * APPS
-#xmodmap ~/.config/xmodmap
-
-# * WINDOW MANAGER
-
-# Statusbar loop
-# while true; do
-#     xsetroot -name "$(e_sysinfo)"
-#     sleep 15s # Update time every minute
-# done &
 #+end_src

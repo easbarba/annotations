@@ -162,12 +162,6 @@ fi
    }
 
 
-   if [ ! -f "$XDG_CONFIG_HOME/dwm/dwm-systray-20190208-cb3f58a.diff" ]; then
-       echo -e " -- Patching dwm."
-       wget -c https://dwm.suckless.org/patches/systray/dwm-systray-20190208-cb3f58a.diff
-       git apply dwm-systray-20190208-cb3f58a.diff
-   fi
-
    # -- install
    ((echo -e " -- Make HOME Default Directories"
      mkdir -pv "$HOME"/{Documents,Pictures,.config/screen,.local/{bin,share/fonts}})
@@ -821,7 +815,7 @@ e_dolist "$COMMAND" "${BINARIES[@]}"
 	  # lm-sensors caca-utils x11proto-deve screenkey fonts-nanum
 
 	  echo "-- Windows Manager Software"
-	  sudo pkg install -y dwm awesome dmenu xorg xdotool xautolock \
+	  sudo pkg install -y  awesome dmenu xorg xdotool xautolock \
 	       xf86-video-intel xf86-input-synaptics xf86-input-libinput libinput \
 	       dbus xf86-input-keyboard rofi aria2 socat dunst OpenSSH-askpass \
 	       automount automounter unclutter cmus scrot maim libnotify seahorse
@@ -1044,10 +1038,6 @@ e_dolist "$COMMAND" "${BINARIES[@]}"
 
       elx-st ()
       {
-	  if [ ! -d "$XDG_CONFIG_HOME/st/.git" ]; then
-	      echo -e " -- Cloning dwm to $XDG_CONFIG_HOME"
-	      git clone https://git.suckless.org/st "$XDG_CONFIG_HOME/st"
-	  fi
 
 	  echo " -- Copying config.def.h"
 	  python3 "$ALL/init.py"
@@ -1106,32 +1096,7 @@ e_dolist "$COMMAND" "${BINARIES[@]}"
 	  a-sucess "DONE"
       }
 
-      elx-dwm ()
-      {
-	  (if [ ! -d "$XDG_CONFIG_HOME/dwm/.git" ]; then
-	       rm -rf "$XDG_CONFIG_HOME/dwm" || "Okay, proceed."
-
-	       echo -e " -- Cloning dwm to $XDG_CONFIG_HOME"
-	       git clone https://git.suckless.org/dwm "$XDG_CONFIG_HOME/dwm"
-
-	       cd "$XDG_CONFIG_HOME/dwm" || echo "There is no $_"
-
-	       git checkout 6.2
-	   fi)
-
-	  (echo -e " -- Overwriting config.def.h with my custom one."
-	   python3 "$ALL/a_init")
-
-	  echo -e " -- Installing dwm"
-	  cd "$XDG_CONFIG_HOME/dwm" || echo "There is no $_"
-
-	  rm config.h
-	  make PREFIX="$HOME_LOCAL" config.h clean install
-
-	  echo -e " -- Done"
-      }
-
-      elx-rider()
+           elx-rider()
       {
 	  cd ${BINARIOS} || mkdir ${BINARIOS}
 
