@@ -1,4 +1,12 @@
-#+title: Spring Apps
+#+title: Spring Framework - Applications
 
 * H2
 http://localhost:8080/h2-console
+
+* SLF4J
+https://www.slf4j.org/
+* Thymeleaf
+
+* New
+* lombok
+* tomcat

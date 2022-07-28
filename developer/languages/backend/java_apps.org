@@ -1,23 +1,5 @@
-#+TITLE: Java Apps
+#+TITLE: Java Language - Applications
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#maven][Maven]]
-  - [[#mvnw][mvnw]]
-- [[#gradle][Gradle]]
-  - [[#commands][commands]]
-    - [[#test][test]]
-    - [[#run][run]]
-    - [[#build][build]]
-- [[#junit][JUnit]]
-:END:
 * Progress
 ** Books
 | name             | chapter                       | @                             |
@@ -34,6 +16,8 @@
 *spring-boot:run*
 *test*
 *package*
+
+* Ant
 * Gradle
 ** commands
 *** test
@@ -41,3 +25,5 @@
 *** build
 
 * JUnit
+* jbang
+*

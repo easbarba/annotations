@@ -214,6 +214,12 @@ class B extends A {
 *** super
 - must always be the first statement executed inside a subclass’ constructor.
 *** Abstract Classes
+*** useful methods to implement
+#+begin_src java
+equals()
+hashCode()
+toString()
+#+end_src
 ** Interfaces
 - Prior to JDK 8, an interface could not define any implementation whatsoever.
 - Beginning with JDK 8, it is possible to add a default implementation to an interface method.
@@ -451,6 +457,7 @@ java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar
 #+end_src
 
 ** javac
+** jshell
 
 * Library
 ** String
