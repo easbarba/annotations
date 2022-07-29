@@ -451,12 +451,25 @@ interface IntStack {
 
 * Commands
 ** java
+launch a Java application
+
 *-jar*
 #+begin_src java
 java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar
 #+end_src
 
+*-cp*
+
+#+begin_src shell
+java -cp target/zae-1.0-SNAPSHOT.jar org.easbarba.zae.App
+#+end_src
+
+*-m or --module module[/mainclass]*
+
 ** javac
+read Java declarations and compile them into class files
+** javadoc
+** javap
 ** jshell
 * Environment Variables
 *JAVA_HOME*
