@@ -18,9 +18,7 @@ Class that handles requests and responds with information of some sort.
 *@Controller*
 
 * View
-** Thymeleaf
 ** JSP
-** FreeMarker
 * Model
 * Toolings
 ** Containers
@@ -28,6 +26,28 @@ Class that handles requests and responds with information of some sort.
 #+begin_src shell
 podman run --name taco2 -it -v $PWD:/app -w /app -p 8080:8080 openjdk:17-jdk ./mvnw spring-boot:run
 #+end_src
+* Mapping
+@RequestMapping
+specifies that any request-handling methods in this controller
+will handle requests whose path begins with /orders. When combined with the
+method-level
+
+@GetMapping
+
+@RequestMappingGeneral-purpose
+ request handling
+@GetMappingHandles
+HTTP GET requests
+@PostMappingHandles
+HTTP POST requests
+@PutMappingHandles
+ HTTP PUT requests
+@DeleteMappingHandles
+ HTTP DELETE requests
+@PatchMappingHandles
+ HTTP PATCH requests
+
+
 
 * Test
 *@WebMvcTest*
