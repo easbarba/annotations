@@ -495,3 +495,12 @@ public class HelloScripting {
 }
 
 #+end_src
+* Projects idea
+xcdesz4 points7 hours ago
+The Baeldung spring-boot tutorials are excellent and pretty beginner friendly. I use them even after doing this stuff for years.
+
+If you are going into java, Spring-Boot is probably something you must learn. For starters, make a basic rest-api for a CRUD app, using JPA to write to a SQL database, like PostGres. That is the standard baseline for most java projects that you will encounter in the wild.
+
+Also learn how to write unit tests for the backend endpoints. Learn Git as well, and you will fit right in to most java teams.
+
+A simple spring boot project with static apis would be great, make sure you are familiar with maven or gradle. Get use to postman and calling them locally. Then add a database like postgres and interface it with spring data. After that's working with simple CRUD apis then you can start looking at something like docker or testing or w.e youre interested in. The key is just start small and keep adding onto it. I did something like this awhile ago.
