@@ -44,11 +44,16 @@ git checkout -b <NEW-BRANCH> [start-point]
 ** clone
 Clone a repository into a new directory.
 
-|                                   |   |
-|-----------------------------------+---|
-| <URL> -b <BRANCH> --single-branch |   |
-| -–depth <URL>                     |   |
-| --shallow-exclude <BRANCH>        |   |
+<git clone <repo> <dir>
+
+*-–depth N*
+
+*--sparse*
+Employ a sparse-checkout, with only files in the toplevel directory initially being present.
+
+*--shallow-exclude <BRANCH>*
+
+*--single-branch*
 
 ** commit
 Record changes to the repository.
