@@ -144,20 +144,16 @@ chown $USER:$USER /dados
 
 * Compression/Decompression
 ** gzip / gunzip
-
+#+begin_src
+gzip -d <FILE>
+gzip -c <FILE.tar>
+#+end_src
+** gunzip
+-r
 
 #+begin_src shell
-gzip .history
 gunzip .history.gz
-
-#for more info
-gzip .history
 #+end_src
-
-|    |   |
-|----+---|
-| -r |   |
-
 ** bzip2 / bunzip2
 
 
