@@ -3,6 +3,8 @@
 * commands
 ** describe
 ** install
+*--no-substitutes*
+
 ** size
 ** edit
 |        |                |
