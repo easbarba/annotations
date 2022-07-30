@@ -1,1 +1,12 @@
 #+TITLE: Vim
+
+* Bindings
+
+** jump to line
+N + shift-g
+
+* Commands
+vim [+N] filepath
+
+** +N
+jump to line
