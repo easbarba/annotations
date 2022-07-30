@@ -1,7 +1,11 @@
 #+TILE: Life
 
-* ToWatch
-erika blomkvist, bedrag, rita, koukussa, vares
+* Progress
+|                                   |      |
+|-----------------------------------+------|
+| CSGO: Faze vs Navi @ Cologne 2022 | 2map |
+* WatchList
+- erika blomkvist, bedrag, rita, koukussa, vares
 
 * Movies
 ** Korean
@@ -88,6 +92,20 @@ erika blomkvist, bedrag, rita, koukussa, vares
 - El Bola
 ** Swedish
 - Let the Right One In
+
+* Games
+** RPG
+- Gothic 1
+- Gothic 2
+- Gothic 3
+- Risen
+- Elex
+- Witcher 3
+- Witcher 2
+- Witcher 1
+** Action
+- Counter Strike Global Offensive
+
 * TV Series
 ** Progress
 | name             | episode |
