@@ -1,9 +1,5 @@
 #+TITLE: Github_action
 
-* summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][summary]]
-:END:
+* API
+** releases
+https://api.github.com/repos/<USER>/<REPO_NAME>/releases/latest
