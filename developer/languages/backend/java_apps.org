@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-| name             | chapter                       | @                             |
-|------------------+-------------------------------+-------------------------------|
-| Spring in Action | 2 Developing web applications | 2.1.1 Establishing the domain |
-| JUnit in Action  | 2 Core                        |                               |
+| name  | chapter                | @ |
+|-------+------------------------+---|
+| Junit | 2 Exploring core JUnit |   |
+
 ** SLOC
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
-| spring-boot |        |      |   |
+| junit       |        |      |   |
 
 * Maven
 ** mvnw
@@ -27,8 +27,6 @@ test the compiled source code using a suitable unit testing framework. These tes
 *validate*
 validate the project is correct and all necessary information is available
 
-
-
 integration-test: process and deploy the package if necessary into an environment where integration tests can be run
 verify: run any checks to verify the package is valid and meets quality criteria
 install: install the package into the local repository, for use as a dependency in other projects locally
@@ -39,8 +37,16 @@ site: generates site documentation for this project
 
 
 *-B*
+generate new maven project
+
 #+begin_src shell
 mvn -B archetype:generate -DgroupId=com.sohamkamani -DartifactId=mvn-example -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4
+#+end_src
+
+build
+
+#+begin_src shell
+mvn -B package --file pom.xml
 #+end_src
 
 * Ant
@@ -51,5 +57,16 @@ mvn -B archetype:generate -DgroupId=com.sohamkamani -DartifactId=mvn-example -Da
 *** build
 
 * JUnit
+
+** Annotations
+*@BeforeEach*
+*@BeforeAll*
+*@AfterEach
+*@AfterAll
+*@Before
+*@BeforeClass
+*@After
+*@AfterClass
+
 * jbang
 *
