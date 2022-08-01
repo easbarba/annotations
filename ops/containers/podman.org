@@ -1,55 +1,25 @@
 #+TITLE: Podman
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
-:CONTENTS:
-- [[#progresso][Progresso]]
-  - [[#books][books]]
-  - [[#sloc][sloc]]
-- [[#cli][cli]]
-  - [[#system][system]]
-  - [[#pod][pod]]
-  - [[#ps][ps]]
-- [[#docs][docs]]
-- [[#tricks][tricks]]
-- [[#fixes][fixes]]
-  - [[#sudo--k--n-podman-version---format--exit-status-1-sudo-a-password-is-required]["sudo -k -n podman version --format " exit status 1: sudo: a password is required]]
-  - [[#user-namespaces-are-not-enabled-in-procsyskernelunprivileged_userns_clone][user namespaces are not enabled in /proc/sys/kernel/unprivileged_userns_clone]]
-- [[#podman-composer][podman-composer]]
-- [[#nerdctl][nerdctl]]
-- [[#pods][pods]]
-  - [[#example][example]]
-:END:
-* Progresso
-** books
-| books                 | chapter                           | at |
+* Progress
+** Books
+| name                  | chapter                           | at |
 |-----------------------+-----------------------------------+----|
 | Mastering Docker      | 3 Storing and Distributing Images |    |
 | Docker for Developers |                                   |    |
-** sloc
-| sloc   | @                 | file          | line |
-|--------+-------------------+---------------+------|
-| go     |                   |               |      |
-| podman | cmd/podman/common | completion.go |      |
-* cli
+** SLOC
+|   | @ | file | line |
+|---+---+------+------|
+|   |   |      |      |
+* Commands
 ** system
+** machine
+#+begin_src shell
+podman machine init --cpus 2 --memory 2048 --rootful
+#+end_src
 ** pod
 ** ps
 
-* docs
-http://docs.podman.io/en/latest/index.html
-* tricks
-   - podman info | grep rootless
-* fixes
-** "sudo -k -n podman version --format " exit status 1: sudo: a password is required
-    Add your user to the 'sudoers' file: 'elxbarbosa ALL=(ALL) NOPASSWD: /usr/bin/podman'
-** user namespaces are not enabled in /proc/sys/kernel/unprivileged_userns_clone
-    sudo sysctl -w kernel.unprivileged_userns_clone=1
-* podman-composer
-* nerdctl
-* pods
+* Pods
 ** example
 #+begin_src shell
 podman run --name=babu_app_1 -d
@@ -70,3 +40,13 @@ podman run --name=babu_app_1 -d
     --network-alias app -p 3000:3000
     -w /app babu_app
 #+end_src
+* Docs
+http://docs.podman.io/en/latest/index.html
+* Tricks
+   - podman info | grep rootless
+* Fixes
+** "sudo -k -n podman version --format " exit status 1: sudo: a password is required
+    Add your user to the 'sudoers' file: 'elxbarbosa ALL=(ALL) NOPASSWD: /usr/bin/podman'
+** user namespaces are not enabled in /proc/sys/kernel/unprivileged_userns_clone
+    sudo sysctl -w kernel.unprivileged_userns_clone=1
+* Podman-composer
