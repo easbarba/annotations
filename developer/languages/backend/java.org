@@ -2,15 +2,16 @@
 
 * Progress
 ** Books
-| name                    | chapter               | @ |
-|-------------------------+-----------------------+---|
-| Java Complete Reference | 10 Exception Handling |   |
-| Effective Java 9        |                       |   |
+| name                    | chapter                   | @          |
+|-------------------------+---------------------------+------------|
+| Java Complete Reference | 9 Packages and Interfaces | Interfaces |
+| Junit                   | 1                         |            |
+| Effective Java 9        |                           |            |
 
 ** SLOC
-| Source Code | folder | file | @ |
-|-------------+--------+------+---|
-| jdk         |        |      |   |
+| Source Code | folder                              | file      | @ |
+|-------------+-------------------------------------+-----------+---|
+| openjdk     | src/java.base/share/classes/java/io | Bits.java |   |
 
 * Base
 ** Types
@@ -127,6 +128,50 @@ class BoolTest {
     }
 }
 #+end_src
+** Collection Types
+*** Arrays
+*asList*
+*fill*
+*copyOf*
+*compare*
+*sort*
+** Packages
+#+begin_src java
+package org.foo.bar
+#+end_src
+
+*importing*
+- optional, as oposing fully qualified name usage.
+
+- fully qualified
+#+begin_src java
+class MyDate extends java.util.Date {
+...
+}
+#+end_src
+
+#+begin_src java
+import java.util.Date;
+import java.io.*;
+
+class MyDate extends Date {
+}
+#+end_src
+
+** Classes
+*** Member Acess
+** Modifiers
+*** final
+#+begin_src sh
+final int
+#+end_src
+On methods prevent it to be overriden
+#+begin_src sh
+final void meth() {
+System.out.println("This is a final method.");
+}
+#+end_src
+
 ** Variables
 - an identifier, a type, and an optional initialize
 - has a scope, which defines their visibility, and lifetime
@@ -454,6 +499,7 @@ interface IntStack {
 launch a Java application
 
 *-jar*
+
 #+begin_src java
 java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar
 #+end_src
@@ -466,11 +512,22 @@ java -cp target/zae-1.0-SNAPSHOT.jar org.easbarba.zae.App
 
 *-m or --module module[/mainclass]*
 
+*--list-modules*
+** jlink
+#+begin_src sh
+jlink --add-modules java.base --output javao
+#+end_src
+
 ** javac
 read Java declarations and compile them into class files
 ** javadoc
 ** javap
 ** jshell
+
+* Utilities
+- jlink
+- jpackage
+  -
 * Environment Variables
 *JAVA_HOME*
 *JDK_JAVA_OPTIONS*
@@ -520,3 +577,18 @@ If you are going into java, Spring-Boot is probably something you must learn. Fo
 Also learn how to write unit tests for the backend endpoints. Learn Git as well, and you will fit right in to most java teams.
 
 A simple spring boot project with static apis would be great, make sure you are familiar with maven or gradle. Get use to postman and calling them locally. Then add a database like postgres and interface it with spring data. After that's working with simple CRUD apis then you can start looking at something like docker or testing or w.e youre interested in. The key is just start small and keep adding onto it. I did something like this awhile ago.
+* Jobs
+** Oracle Backend
+BS or MS degree in Computer Science or related field
+3+ years of professional experience in industry
+Experienced and efficient programmer in Java
+Demonstrable strong programming skills in core Java by writing performant and extensible code
+Firm grasp of cloud software concepts
+Good familiarity and understanding of software design patterns
+Experience writing well-maintainable RESTful web services
+Experience with REST APIs, JSON, Web Security, and micro-services architecture
+Basic understanding of distributed systems
+Eager to work on a highly scalable, performance optimized infrastructure which elastically handles customer needs
+Ability to adapt to a fast-paced work environment and can quickly adjust to changing priorities
+Detail oriented with focus on quality of the product, data, and code
+Fluency in spoken/read/written English
