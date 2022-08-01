@@ -165,7 +165,17 @@ awk { print "total pay for", $1, "is", $2 * $3 }
 $2 * $3 > 50 { printf("$%.2f for %s\n", $2 * $3, $1) }
 
 #+end_src
-* Options
-|    |   |
-|----+---|
-| -F |   |
+* Commands
+
+*-F*
+
+*-f*
+#+begin_src awk
+#! /usr/bin/awk -f
+
+#use BEGIN sepecial character to set FS built-in variable
+BEGIN { FS=":" }
+
+#search for username: aaronkilik and print account details
+/aaronkilik/ { print "Username :",$1,"User ID :",$3,"User GID :",$4 }
+#+end_src
