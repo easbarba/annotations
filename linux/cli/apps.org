@@ -637,12 +637,17 @@ stat -c '%n -> %a' $HOME/.bashrc
 * file
 * Text Manipulation
 ** grep
-
 surpass option conflict
-#+begin_src grep
+
+#+begin_src shell
 echo "-t, --tty" | grep -- -t,
 #+end_src
 
+*-R*
+
+#+begin_src shell
+grep -R 'term' meh.sh
+#+end_src
 
 
 ** seq
