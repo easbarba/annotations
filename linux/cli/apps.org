@@ -930,4 +930,3 @@ Control write access of other users to your terminal.
 ** GNU Screen
 * Getters
 ** wget
-** curl

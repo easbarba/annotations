@@ -1,0 +1,40 @@
+#+title: Curl
+
+curl  is  a  tool  for transferring data from or to a server. It supports these protocols: DICT, FILE, FTP, FTPS, GOPHER, GO‐
+       PHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET
+       or TFTP. The command is designed to work without user interaction.
+
+       curl offers a busload of useful tricks like proxy support, user authentication, FTP upload, HTTP post, SSL connections, cook‐
+       ies, file transfer resume and more. As you will see below, the number of features will make your head spin.
+
+* Options
+*-i, --include*
+Mostra o header da resposta no output
+
+*-d, --data*
+Dados a serem enviados no POST
+
+*-H, --header*
+Envia o header da requisição
+
+*-X, --request*
+Especifica o método HTTP a ser usado na requisição
+
+*-v <ip>*
+
+*-<N>*
+
+*-d, --data*
+
+*-A, --user-agent*
+
+* read local file
+#+begin_src shell-script
+curl file:///home/user/.bashrc
+#+end_src
+
+* Examples
+#+begin_src shell
+curl -o /tmp/minikube -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+curl -X GET http://localhost:8080
+#+end_src
