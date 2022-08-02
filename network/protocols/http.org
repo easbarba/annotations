@@ -1,6 +1,6 @@
 #+TITLE: HTTP
 
-* methods
+* Methods
 ** GET
 requests a page to view a resource or more
 ** POST
@@ -13,3 +13,9 @@ deletes a resource
 ** OPTIONS
 ** TRACE
 ** CONNECT
+
+* Components
+- Method
+- Endpoint
+- HTTP headers
+- Body
