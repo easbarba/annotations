@@ -38,7 +38,7 @@
 *** lists
 *listp*
 
-#+begin_src lis
+#+begin_src lisp
 (listp ( a b c))
 
 (if ( l i s t p ' ( a b c))
