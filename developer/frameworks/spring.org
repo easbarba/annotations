@@ -2,15 +2,15 @@
 
 * Progress
 ** Books
-| name             | chapter                        | @ |
-|------------------+--------------------------------+---|
-| Spring in Action | 2 Developing web applications  |   |
+| name             | chapter                       | @                        |
+|------------------+-------------------------------+--------------------------|
+| Spring in Action | 2 Developing web applications | 2.1.3 Designing the view |
 
 ** SLOC
-| Source Code | folder | file | @ |
-|-------------+--------+------+---|
-| spring      |        |      |   |
-| spring-boot |        |      |   |
+| Source Code      | folder | file | @ |
+|------------------+--------+------+---|
+| spring framework |        |      |   |
+| spring-boot      |        |      |   |
 
 * Controller
 Class that handles requests and responds with information of some sort.
@@ -45,10 +45,8 @@ HTTP POST requests
 @DeleteMappingHandles
  HTTP DELETE requests
 @PatchMappingHandles
- HTTP PATCH requests
-
-
-
+ HTTP P
+ ATCH requests
 * Test
 *@WebMvcTest*
 * Annotations
