@@ -2,6 +2,51 @@
 
 * Templates
 ** Thymeleaf
+*th:text*
+
+#+begin_src html
+<p th:text="${message}">placeholder message</p>
+#+end_src
+
+*th:each*
+*th:value*
+*th:field*
+
+#+begin_src html
+<div th:each="ingredient : ${wrap}">
+  <input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+  <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+</div>
+#+end_src
+
+*th:href*
+
+#+begin_src html
+  <link rel="stylesheet" th:href="@{/styles.css}" />
+#+end_src
+
+*th:src*
+
+#+begin_src html
+<img th:src="@{/images/TacoCloud.png}"/>
+#+end_src
+
+*th:object*
+
+#+begin_src html
+<form method="POST" th:object="${taco}">
+#+end_src
+
+*th:if*
+*th:errors*
+
+#+begin_src html
+<span class="validationError"
+      th:if="${#fields.hasErrors('ingredients')}"
+      th:errors="*{ingredients}">Ingredient Error</span>
+#+end_src
+
+
 ** H2
 http://localhost:8080/h2-console
 ** FreMaker
