@@ -28,7 +28,7 @@ Especifica o método HTTP a ser usado na requisição
 
 *-A, --user-agent*
 
-* read local file
+* Read local file
 #+begin_src shell-script
 curl file:///home/user/.bashrc
 #+end_src
