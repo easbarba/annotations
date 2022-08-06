@@ -2,9 +2,10 @@
 
 * Progress
 ** Books
-| name             | chapter                       | @                        |
-|------------------+-------------------------------+--------------------------|
-| Spring in Action | 2 Developing web applications | 2.1.3 Designing the view |
+| name             | chapter                       | @                                    |
+|------------------+-------------------------------+--------------------------------------|
+| Spring in Action | 2 Developing web applications | 2.5 Choosing a view template library |
+|                  |                               |                                      |
 
 ** SLOC
 | Source Code      | folder | file | @ |
@@ -19,6 +20,35 @@ Class that handles requests and responds with information of some sort.
 
 * View
 ** JSP
+* Validation
+#+begin_src java
+import javax.validation.Valid;
+import org.springframework.validation.Errors;
+#+end_src
+
+@notNully
+
+#+begin_src java
+@Size(min=5, message="Name must be at least 5 characters long")
+#+end_src
+
+#+begin_src java
+@NotBlank(message="Zip code is required")
+#+end_src
+
+#+begin_src java
+// hibernate
+@CreditCardNumber(message="Not a valid credit card number")
+#+end_src
+
+#+begin_src java
+@Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([2-9][0-9])$", message="Must be formatted MM/YY")
+#+end_src
+
+#+begin_src java
+@Digits(integer=3, fraction=0, message="Invalid CVV")
+#+end_src
+
 * Model
 * Toolings
 ** Containers
