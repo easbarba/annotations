@@ -729,6 +729,10 @@ Gen<Integer> iOb;
 // to encapsulate the value 88 within an Integer object.
 iOb = new Gen<Integer>(88);
 #+end_src
+** Streams
+** Collections
+* Standard Library
+** java.lang
 
 * Commands
 ** java
