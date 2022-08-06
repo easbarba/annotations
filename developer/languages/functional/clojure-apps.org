@@ -1,0 +1,14 @@
+#+title: Clojure Apps
+* Lein
+** Commands
+*new*
+#+begin_src shell
+lein new app
+#+end_src
+
+*run*
+#+begin_src shell
+lein run
+#+end_src
+
+*repl*
