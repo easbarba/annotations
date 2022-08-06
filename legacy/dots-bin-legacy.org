@@ -7,7 +7,8 @@
 #+begin_src shell
 xorg=()
 wm=( wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
-langs=(lua5.4 luajit luarocks ruby-full ruby-dev)
+langs=(lua5.4 luajit luarocks ruby-full ruby-dev clang clangd clang-format
+    glslang-tools)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)
 term=(zsh)
 editors=(micro)
