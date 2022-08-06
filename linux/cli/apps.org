@@ -580,6 +580,7 @@ filter text in a pipeline which particularly distinguishes it from other types o
 #+begin_src shell
 sed -i 's/Meh/Foo/g'
 sed -ri 's!^(#define CONFIG_DEFAULT_PROTECTED_MODE) 1$!\1 0!' /usr/src/redis/src/server.h;
+sed '/^z//g' infile
 #+end_src
 * sshuttle
 * crypt
