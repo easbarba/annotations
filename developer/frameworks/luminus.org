@@ -1,0 +1,23 @@
+#+title: Luminus
+
+* Namespaces
+** routes
+** db
+Houses database-related logic and serves as the model
+layer for the application.
+
+#+begin_src conf
+APPNAME.db
+#+end_src
+** resources
+Contains all the static assets associated with the application
+
+* Migrations
+#+begin_src clojure
+(start)
+(create-migration "guestbook")
+#+end_src
+
+* Fixes
+** mount.core.DerefableState
+(start)
