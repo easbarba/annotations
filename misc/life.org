@@ -1,9 +1,11 @@
 #+TILE: Life
 
 * Progress
-|                                   |      |
-|-----------------------------------+------|
-| CS GO: Faze vs Navi @ Cologne 2022 | 2map |
+|               |    |
+|---------------+----|
+| OPM           | 93 |
+| Truth be told |  4 |
+|               |    |
 * WatchList
 - erika blomkvist, bedrag, rita, koukussa, vares
 Tengoku to jigoku
