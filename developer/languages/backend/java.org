@@ -573,6 +573,162 @@ class Exc2 {
 - indicates errors having to do with the run-time environment
 - exceptions that are not expected to be caught under normal circumstances by your program.
 *** Types
+** Enumerations
+- specifies the only values that a data type can legally have.
+- can have constructors, methods, and instance variables.
+- can have constructors, add instance variables and methods, and even implement interfaces
+- inherits from java.lang.Enum
+#+begin_src java
+enum Apple {
+    Jonathan, GoldenDel, RedDel, Winesap, Cortland
+}
+class EnumDemo {
+  public static void main(String[] args) {
+    Apple ap;
+    ap = Apple.RedDel;
+    // Output an enum value.
+    System.out.println("Value of ap: " + ap);
+    System.out.println();
+    ap = Apple.GoldenDel;
+    // Compare two enum values.
+    if (ap == Apple.GoldenDel)
+      System.out.println("ap contains GoldenDel.\n");
+    // Use an enum to control a switch statement.
+    switch (ap) {
+    case Jonathan:
+      System.out.println("Jonathan is red.");
+      break;
+    case GoldenDel:
+      System.out.println("Golden Delicious is yellow.");
+      break;
+    case RedDel:
+      System.out.println("Red Delicious is red.");
+      break;
+    case Winesap:
+      System.out.println("Winesap is red.");
+      break;
+    case Cortland:
+      System.out.println("Cortland is red.");
+      break;
+    }
+  }
+}
+#+end_src
+
+*values*
+Returns an array that contains a list of the enumeration constants
+
+#+begin_src java
+public static enum-type [ ] values( )
+#+end_src
+
+*valueOf*
+
+Returns the enumeration constant whose value corresponds to the string
+passed in str.
+
+#+begin_src java
+public static enum-type valueOf(String str )
+#+end_src
+
+returns the enumeration constant whose value corresponds to the string
+passed in str.
+
+#+begin_src java
+enum Apple { Jonathan, GoldenDel, RedDel, Winesap, Cortland }
+class EnumDemo2 {
+  public static void main(String[] args) {
+    Apple ap;
+    System.out.println("Here are all Apple constants:");
+    // use values()
+    Apple[] allapples = Apple.values();
+    for (Apple a : allapples)
+      System.out.println(a);
+    System.out.println();
+    // use valueOf()
+    ap = Apple.valueOf("Winesap");
+    System.out.println("ap contains " + ap);
+  }
+}
+#+end_src
+
+
+*constructor*
+
+#+begin_src java
+// Use an enum constructor, instance variable, and method.
+enum Apple {
+  Jonathan(10),
+  GoldenDel(9),
+  RedDel(12),
+  Winesap(15),
+  Cortland(8);
+  private int price; // price of each apple
+  // Constructor
+  Apple(int p) { price = p; }
+  int getPrice() { return price; }
+}
+
+class EnumDemo3 {
+  public static void main(String[] args) {
+    Apple ap;
+    // Display price of Winesap.
+    System.out.println("Winesap costs " + Apple.Winesap.getPrice() +
+                       " cents.\n");
+    // Display all apples and prices.
+    System.out.println("All apple prices:");
+    for (Apple a : Apple.values())
+      System.out.println(a + " costs " + a.getPrice() + " cents.");
+  }
+}
+#+end_src
+
+- multiple constructors
+
+#+begin_src java
+// Use an enum constructor.
+enum Apple {
+  Jonathan(10),
+  GoldenDel(9),
+  RedDel,
+  Winesap(15),
+  Cortland(8);
+  private int price; // price of each apple
+  // Constructor
+  Apple(int p) { price = p; }
+  // Overloaded constructor
+  Apple() { price = -1; }
+  int getPrice() { return price; }
+}
+#+end_src
+** Annotations
+*** meta annotations
+** Generics
+- parameterized types
+
+#+begin_src java
+class Gen<T> {
+  T ob;
+
+  Gen(T o) {
+    ob = o;
+  }
+
+  T getOb() {
+    return ob;
+  }
+
+  void showType() {
+    System.out.println("Type of T is " + ob.getClass().getName());
+  }
+}
+
+Gen<Integer> iOb;
+// Create a Gen<Integer> object and assign its
+// reference to iOb. Notice the use of autoboxing
+// to encapsulate the value 88 within an Integer object.
+iOb = new Gen<Integer>(88);
+#+end_src
 
 * Commands
 ** java
