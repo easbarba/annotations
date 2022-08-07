@@ -2,23 +2,16 @@
 
 * Progress
 ** Books
-| books           | chapter | @ |
-|-----------------+---------+---|
-| Getting Clojure |       2 |   |
-
-** SLOC
-| Source Code | folder | file | @ |
-|-------------+--------+------+---|
-| clojure     |        |      |   |
-| lein        |        |      |   |
+| books           | chapter                    | @ |
+|-----------------+----------------------------+---|
+| Getting Clojure | 3 Maps, Keywords, and Sets |   |
+** SOC
+| Source Code | folder                  | file     | @ |
+|-------------+-------------------------+----------+---|
+| clojure     | clojure/src/clj/clojure | core.clj |   |
+| lein        |                         |          |   |
+| clojure-lsp |                         |          |   |
 * Base
-** Functions
-#+begin_src clojure
-(defn -main
-  "meh"
-  [& args]
-  (println "Hello World"))
-#+end_src
 ** Collections
 *** Lists
 #+begin_src clojure
@@ -27,15 +20,42 @@
 '([1 2 ("a" "list" "inside a" "vector")] "inside" "a" "list")
 (list 1 2 3 "four" 5 "six")
 #+end_src
+
+#+begin_src clojure
+(def novels '("Emma" "Coma" "War and Peace"))
+(def more-novels (conj novels "Jaws")) ; ("Jaws" "Emma" "Coma" "War and Peace")
+#+end_src
+
 *** Vectors
+- preferred over to lists
+- transformed to list at runtime
+
 #+begin_src clojure
 [1 "two" 3 "four"]
 [1 [true 3 "four" 5] 6]
-(vector true 3 "four" 5)
-(def novels ["Emma" "Coma" "War and Peace"])
-(count novels) ; Returns 3.
 #+end_src
+
+#+begin_src clojure
+(vector true 3 "four" 5)
+#+end_src
+
+#+begin_src clojure
+(def meh ["Emma" "Coma" "War and Peace"])
+(count meh) ; Returns 3.
+(first meh) ; "Emma"
+(rest meh)  ; ("Coma" "War and Peace")
+(first (rest (rest meh))) ; "War and Peace"
+(nth meh 2) ; "War and Peace"
+#+end_src
+
+#+begin_src clojure
+(def meh ["Emma" "Coma" "War and Peace"])
+(conj meh "Carrie") ; ["Emma" "Coma" "War and Peace" "Carrie"]
+(cons "Carrie" meh) ; ("Carrie" "Emma" "Coma" "War and Peace")
+#+end_src
+
 *** Arrays
+*** Sequences
 ** Types
 *** Strings
 *** Numerals
@@ -45,10 +65,29 @@
 true
 false
 #+end_src
+** Functions
+*defn*
+
+#+begin_src clojure
+(defn -main
+  "meh"
+  [& args]
+  (println "Hello World"))
+#+end_src
+
+#+begin_src clojure
+(defn chatty-average [a b]
+  (println "chatty-average function called")
+  (println "** first argument:" a)
+  (println "** second argument:" b)
+  (/ (+ a b) 2.0))
+#+end_src
+
 ** Bindings
 *** def
+*def*
 #+begin_src clojure
-(def foo "bar")
+(def author "Dickens")
 #+end_src
 
 * Commands
