@@ -2,9 +2,10 @@
 
 * Progress
 ** Books
-| books           | chapter | @ |
-|-----------------+---------+---|
-| Getting Clojure | 4 logic |   |
+| books           | chapter | @                |
+|-----------------+---------+------------------|
+| Getting Clojure | 4 logic | Deeply Recursive |
+|                 |         |                  |
 ** SOC
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
@@ -145,6 +146,150 @@ destructive
 #+end_src
 
 *** Sequences
+** Bindings
+*** def
+*def*
+#+begin_src clojure
+(def author "Dickens")
+#+end_src
+** Conditinals
+*** if
+- _false_ and _nil_ are the only falsy values
+
+#+begin_src clojure
+(if false "I like scifi!" "I like mysteries!") ; Mysteries!
+(if nil "I like scifi!" "I like mysteries!") ; Mysteries!
+#+end_src
+
+#+begin_src clojure
+(if [] (println "An empty vector is true!"))
+(if [1 2 3] (println "So is a populated vector!"))
+(if {} (println "An empty map is true!"))
+(if {:title "Make Room! Make Room!" } (println "So is a full map!"))
+(if () (println "An empty list is true!"))
+(if '(:full :list) (println "So is a full list!"))
+#+end_src
+
+#+begin_src clojure
+(defn print-greeting [preferred-customer]
+  (if preferred-customer
+    (println "Welcome back to Blotts Books!")))
+
+; ----------
+
+(defn print-greeting [preferred-customer]
+  (if preferred-customer
+    (println "Welcome back to Blotts Books!")
+    (println "Welcome to Blotts Books!")))
+
+; ----------
+
+(defn shipping-charge [preferred-customer order-amount]
+  (if preferred-customer
+    0.00
+    (* order-amount 0.10)))
+
+; ---------- inline if
+(if preferred-customer "So nice to have you back!")
+#+end_src
+
+#+begin_src clojure
+; equal
+(= 1 1); True!
+(= 2 (+ 1 1)); True again!
+(= "Anna Karenina" "Jane Eyre"); Nope.
+(= "Emma" "Emma"); Yes!
+(= (+ 2 2) 4 (/ 40 10) (* 2 2) (- 5 1)) ; True!
+(= 2 2 2 2 3 2 2 2 2 2) ; False! There's a 3 in there.
+
+; not equal
+(not= "Anna Karenina" "Jane Eyre") ; Yes!
+(not= "Anna Karenina" "Anna Karenina") ; No!
+#+end_src
+
+#+begin_src clojure
+(number? 1984); Yes!
+(number? "Anna Karenina") ; "Anna Karenina" isn't a number.
+(string? "Anna Karenina") ; Yes, it is a string.
+(keyword? "Anna Karenina") ; Not a keyword.
+(keyword? :anna-karenina) ; Yes a keyword.
+(map? :anna-karenina); Not a map.
+(map? {:title 1984}) ; Yes!
+(vector? 1984) ; Nope.
+(vector? [1984]); Yes!
+#+end_src
+*** when
+#+begin_src clojure
+(when preferred-customer
+(println "Hello returning customer!")
+(println "Welcome back to Blotts Books!"))
+#+end_src
+
+#+begin_src clojure
+(when (real-directory? f)
+  (doseq [child (.listFiles f)]
+    (delete-file-recursively child silently)))
+#+end_src
+
+*** cond
+#+begin_src clojure
+(defn shipping-charge [preferred-customer order-amount]
+  (cond
+    preferred-customer 0.0
+    (< order-amount 50.0) 5.0
+    (< order-amount 100.0) 10.0))
+
+(defn shipping-charge [preferred-customer order-amount]
+(cond
+  preferred-customer 0.0
+  (< order-amount 50.0) 5.0
+  (< order-amount 100.0) 10.0
+  :else (* 0.1 order-amount)))
+#+end_src
+*** case
+#+begin_src clojure
+(defn customer-greeting [status]
+(case status
+  :gold "Welcome, welcome, welcome back!!!"
+  :preferred "Welcome back!"
+  "Welcome to Blotts Books"))
+#+end_src
+
+#+begin_src clojure
+(case (:type query)
+  :insert (update-in query [:values] #(map prep-fn %))
+  :update (update-in query [:set-fields] prep-fn)
+  query)
+#+end_src
+
+** Operators
+*** not
+#+begin_src clojure
+(defn shipping-surcharge? [preferred-customer express oversized]
+  (and (not preferred-customer) (or express oversized)))
+#+end_src
+*** or
+*** and
+** Grouping
+*** do
+#+begin_src clojure
+(do
+(println "This is four expressions.")
+(println "All grouped together as one")
+(println "That prints some stuff and then evaluates to 44")
+44)
+#+end_src
+
+#+begin_src clojure
+(defn shipping-charge[preferred-customer order-amount]
+(if preferred-customer
+(do
+(println "Preferred customer, free shipping!")
+0.0)
+(do
+(println "Regular customer, charge them for shipping.")
+(* order-amount 0.10))))
+#+end_src
 ** Functions
 *defn*
 
@@ -155,6 +300,8 @@ destructive
   (println "Hello World"))
 #+end_src
 
+- Obligatory params
+
 #+begin_src clojure
 (defn chatty-average [a b]
   (println "chatty-average function called")
@@ -163,12 +310,92 @@ destructive
   (/ (+ a b) 2.0))
 #+end_src
 
-** Bindings
-*** def
-*def*
+- Optional params
+
 #+begin_src clojure
-(def author "Dickens")
+(defn greet
+  ([to-whom] (println "Welcome to Blotts Books" to-whom))
+  ([message to-whom] (println message to-whom)))
+
+(greet "Dolly") ; Welcomes Dolly to Blotts Books.
+(greet "Howdy" "Stranger") ; Prints Howdy Stranger.
+
+;; call each other to reduce redundancies
+(defn greet
+([to-whom] (greet "Welcome to Blotts Books" to-whom))
+([message to-whom] (println message to-whom))
 #+end_src
+
+- any-number of arguments
+#+begin_src clojure
+(defn print-any-args [& args]
+  (println "My arguments are:" args))
+
+(print-any-args 1 (* 2 4) '(3 4 "meh")) ; My arguments are: (1 8 (3 4 meh))
+#+end_src
+
+*multimethods*
+
+#+begin_src clojure
+(defn dispatch-book-format [book]
+  (cond
+    (vector? book) :vector-book
+    (contains? book :title) :standard-map
+    (contains? book :book) :alternative-map))
+
+(defmulti normalize-book dispatch-book-format)
+
+(defmethod normalize-book :vector-book [book]
+  {:title (first book) :author (second book)})
+
+(defmethod normalize-book :standard-map [book]
+  book)
+
+(defmethod normalize-book :alternative-map [book]
+  {:title (:book book) :author (:by book)})
+
+
+(normalize-book {:title "War and Peace" :author "Tolstoy"})  ;;  returns the same (standard) book map.
+(normalize-book {:book "Emma" :by "Austen"}) ;; {:title "Emma" :author "Austen"}
+(normalize-book ["1984" "Orwell"]) ;; {:title "1984" :author "Orwell"}
+#+end_src
+
+#+begin_src clojure
+(defn dispatch-published [book]
+  (cond
+    (< (:published book) 1928) :public-domain
+    (< (:published book) 1978) :old-copyright
+    :else :new-copyright))
+
+(defmulti compute-royalties dispatch-published)
+
+(defmethod compute-royalties :public-domain [book] 0)
+(defmethod compute-royalties :old-copyright [book]
+  ;; Compute royalties based on old copyright law.
+)
+(defmethod compute-royalties :new-copyright [book]
+  ;; Compute royalties based on new copyright law.
+)
+#+end_src
+
+** Exceptions
+*** try/catch
+#+begin_src clojure
+(try
+(publish-book book)
+(catch ArithmeticException e (println "Math problem."))
+(catch StackOverflowError e (println "Unable to publish..")))
+#+end_src
+
+#+begin_src clojure
+(defn publish-book [book]
+(when (not (:title book))
+(throw
+(ex-info "A book needs a title!" {:book book})))
+;; Lots of publishing stuff...
+  )
+#+end_src
+
 * Commands
 ** clj
 *-M[aliases]*
