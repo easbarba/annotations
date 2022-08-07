@@ -753,6 +753,13 @@ java -cp target/zae-1.0-SNAPSHOT.jar org.easbarba.zae.App
 *-m or --module module[/mainclass]*
 
 *--list-modules*
+
+*cp*
+
+#+begin_src shell
+java -cp target/cdeps-0.1.0.jar clojure.main -m com.tomekw.cdeps.core
+#+end_src
+
 ** jlink
 #+begin_src sh
 jlink --add-modules java.base --output javao
