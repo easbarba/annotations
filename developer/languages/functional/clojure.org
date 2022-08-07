@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| books           | chapter                    | @ |
-|-----------------+----------------------------+---|
-| Getting Clojure | 3 Maps, Keywords, and Sets |   |
+| books           | chapter | @ |
+|-----------------+---------+---|
+| Getting Clojure | 4 logic |   |
 ** SOC
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
@@ -121,6 +121,27 @@ destructive
 #+begin_src clojure
 (keys book) ; (:title :author :published)
 (vals book) ; ("Oliver Twist" "Dickens" 1838)
+(first book) ; [:title "Oliver Twist"]
+(rest book) ; ([:author "Dickens"] [:published 1838])
+(count book) ; 3
+#+end_src
+*** Sets
+#+begin_src clojure
+(def genres #{:sci-fi :romance :mystery})
+(def authors #{"Dickens" "Austen" "King"})
+
+(authors "Austen"); => "Austen"
+(genres :historical); => nil
+#+end_src
+
+#+begin_src clojure
+(contains? authors "Austen"); => true
+(contains? genres "Austen"); => false
+#+end_src
+
+#+begin_src clojure
+(conj authors "Clarke")
+(disj authors "King")
 #+end_src
 
 *** Sequences
