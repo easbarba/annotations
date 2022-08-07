@@ -12,10 +12,33 @@ APPNAME.db
 ** resources
 Contains all the static assets associated with the application
 
-* Migrations
+* Base
+*start*
 #+begin_src clojure
 (start)
+#+end_src
+
+*restart*
+#+begin_src clojure
+(restart)
+#+end_src
+
+*in-ns*
+Change namespace
+
+#+begin_src clojure
+(in-ns 'APPNAME.db.core)
+#+end_src
+
+* Migrations
+*create-migration*
+#+begin_src clojure
 (create-migration "guestbook")
+#+end_src
+
+*migrate*
+#+begin_src clojure
+(migrate)
 #+end_src
 
 * Fixes
