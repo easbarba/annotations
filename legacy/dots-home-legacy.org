@@ -41,9 +41,6 @@ export PATH="$NIX_PROFILE/bin"${PATH:+:}$PATH
 # ** SWIFT
 export PATH=$HOME/.local/swift/usr/bin:$PATH
 
-# COMMON LISP
-export SBCL_HOME=$HOME/.local/lib/sbcl
-
 export DOCKER_HOST=///run/user/$UID/podman/podman.sock
 
 # * LOCALE
