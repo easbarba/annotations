@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| books           | chapter | @                |
-|-----------------+---------+------------------|
-| Getting Clojure | 4 logic | Deeply Recursive |
-|                 |         |                  |
+| books           | chapter                  | @                      |
+|-----------------+--------------------------+------------------------|
+| Getting Clojure | 5 More Capable Functions | Staying Out of Trouble |
+|                 |                          |                        |
 ** SOC
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
