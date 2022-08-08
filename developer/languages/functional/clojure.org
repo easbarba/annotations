@@ -154,7 +154,7 @@ destructive
 #+end_src
 ** Conditinals
 *** if
-- _false_ and _nil_ are the only falsy values
+- _false_ and _nil_ are the only false values
 
 #+begin_src clojure
 (if false "I like scifi!" "I like mysteries!") ; Mysteries!
@@ -230,7 +230,11 @@ destructive
   (doseq [child (.listFiles f)]
     (delete-file-recursively child silently)))
 #+end_src
-
+*** when-not
+#+begin_src clojure
+(when-not (contains? book :title)
+  ​   (throw (ex-info ​ "Books must contain :title" ​ {:book book})))
+#+end_src
 *** cond
 #+begin_src clojure
 (defn shipping-charge [preferred-customer order-amount]
@@ -327,6 +331,7 @@ destructive
 #+end_src
 
 - any-number of arguments
+
 #+begin_src clojure
 (defn print-any-args [& args]
   (println "My arguments are:" args))
@@ -378,6 +383,143 @@ destructive
 )
 #+end_src
 
+#+begin_src clojure
+(defn multi-average
+  "Return the average of 2 or 3 numbers."
+  ([a b]
+   (/ (+ a b) 2.0))
+  ([a b c]
+   (/ (+ a b c) 3.0)))
+#+end_src
+
+*pre condtions*
+- add a map after the arguments—a map with a :pre key
+- its value should be a vector of expression
+- a runtime exception is issued if any of the expressions turn out to be falsy
+
+
+#+begin_src clojure
+(​defn​ publish-book [book]
+        ​   {:pre [(:title book)]}
+        ​   (print-book book)
+        ​   (ship-book book))
+
+
+(​defn​ publish-book [book]
+          ​   {:pre [(:title book) (:author book)]}
+          ​   (print-book book)
+          ​   (ship-book book))
+
+#+end_src
+
+*post condition*
+- check on the value returned from the function
+- the % stands in for the return value in the :post conditions.
+
+#+begin_src clojure
+(​defn​ publish-book [book]
+        ​   {:pre [(:title book) (:author book)]
+             ​   :post [(boolean? %)]}
+        ​   (print-book book)
+        ​   (ship-book book))
+
+#+end_src
+
+** Higher-order Functions
+*apply*
+
+#+begin_src clojure
+(defn sum-copies [books] (apply + (map :copies-sold books)))
+#+end_src
+
+*map*
+** Docstring
+- supports for functions, macros, records...
+
+#+begin_src clojure
+(defn average
+  "Return the average of a and b."
+  [a b]
+  (/ (+ a b) 2.0))
+#+end_src
+
+*doc*
+
+#+begin_src clojure
+(doc average)
+#+end_src
+
+** Iterating
+*** loop
+(loop [bindings*] exprs*)
+
+Evaluates the exprs in a lexical context in which the symbols in
+the binding-forms are bound to their respective init-exprs or parts
+therein. Acts as a recur target.
+
+#+begin_src clojure
+(defn my-re-seq [re string]
+  "Something like re-seq"
+  (let [matcher (re-matcher re string)]
+
+    (loop [match (re-find matcher) ;loop starts with 2 set arguments
+           result []]
+      (if-not match
+        result
+        (recur (re-find matcher)    ;loop with 2 new arguments
+               (conj result match))))))
+
+(my-re-seq #"\d" "0123456789") ; ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9"]
+#+end_src
+** Recursion
+
+#+begin_src clojure
+(def books
+  [{:title "Jaws"
+    {:title "Emma"
+     {:title "2001"
+      :copies-sold 2000000}
+     :copies-sold 3000000}
+    :copies-sold 4000000}])
+
+(defn sum-copies
+  ([books] (sum-copies books 0))
+  ([books total]
+   (if (empty? books)
+     total
+     (sum-copies
+      (rest books)
+      (+ total (:copies-sold (first books)))))))
+#+end_src
+
+*recur*
+Evaluates the exprs in order, then, in parallel, rebinds the bindings of
+the recursion point to the values of the exprs.
+
+#+begin_src clojure
+(defn sum-copies
+  ([books] (sum-copies books 0))
+  ([books total]
+   (if (empty? books)
+     total
+     (recur
+      (rest books)
+      (+ total (:copies-sold (first books)))))))
+#+end_src
+
+Using loop to avoid creating unnecessary function just to serve recur
+
+#+begin_src clojure
+(defn sum-copies [books]
+  (loop [books books total 0]
+    (if (empty? books)
+      total
+      (recur
+       (rest books)
+       (+ total (:copies-sold (first books)))))))
+
+#+end_src
+
 ** Exceptions
 *** try/catch
 #+begin_src clojure
@@ -394,6 +536,11 @@ destructive
 (ex-info "A book needs a title!" {:book book})))
 ;; Lots of publishing stuff...
   )
+#+end_src
+*** throw
+#+begin_src clojure
+(when-not (contains? book :title)
+  ​   (throw (ex-info ​ "Books must contain :title" ​ {:book book})))
 #+end_src
 
 * Commands
