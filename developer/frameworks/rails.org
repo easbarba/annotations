@@ -4,9 +4,9 @@
 ** Books
 |                            |                                          |                                |
 |----------------------------+------------------------------------------+--------------------------------|
+| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Adding Additional Actions      |
 | Beginning Rails 6          | 12. Sending and Receiving Email          | Processing the Email           |
 | Sustainable Rails          | 8 Helpers                                | 8.2.3 Small, Inline Components |
-| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Sending Files and Other Data   |
 | Ruby on Rails tutorial     | 7                                        | 7.2 Signup form                |
 | Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                                |
 | Rails Guides               | Active Record Validations                | 2.12 validates_with            |
@@ -2056,3 +2056,48 @@ volumes:
   db_data:
   node_modules:
 #+end_src
+
+* Jobs
+** StreetBees
+Responsibilities:
+
+From crowdsourced data collection, to image/video processing and visualisation, you'll be working on some interesting technical challenges.
+You will be helping us scale our systems as we increase the data collection streams.
+You’ll be joining an experienced and friendly team of engineers, building a new generation of research and data analysis tools.
+You’ll be using Ruby and JavaScript on a daily basis and dabbling with Elixir and Python.
+
+Requirements:
+
+You have a strong understanding of Ruby and Rails.
+You have a solid understanding of object-oriented programming/
+You have good knowledge of relational databases. We use PostgresSQL.
+You write tested code - from acceptance tests to unit tests.
+You have the ability to integrate multiple data sources and databases into one system.
+You have a huge drive to get something shipped
+
+Nice to haves:
+
+Experience with or a keen interest in Python
+Experience with non-Rails frameworks like Sinatra or Hanami.
+Experience with building and designing GraphQL APIs.
+Knowledge of the React ecosystem. It is a big part of our frontend.
+Knowledge of other technologies we are currently using: Kafka, ElasticSearch, Redis, Docker, Elixir, Node and Go
+** Xteam
+Ruby/Rails Developer
+Most Important
+Solid experience in Ruby/Rails
+Experience with unit testing and testing tools such as RSpec
+Exposure to architectural patterns of large, high-scale web applications
+Strong SQL knowledge (MySQL)
+Experience with RESTful web services
+Write well designed, testable, efficient code
+A passion and curiosity for creating and building things
+Nice to have
+Strong experience with AWS services (S3, SQS)
+Experience working remotely
+Familiar/involved with open source projects
+Personal
+Independent
+Fluent in English, written and spoken
+Problem solver
+Proactive attitude
