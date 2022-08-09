@@ -1,25 +1,5 @@
 #+TITLE: PHP
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#base][Base]]
-  - [[#types][types]]
-    - [[#boolean][boolean]]
-    - [[#integers][integers]]
-      - [[#functions][functions]]
-    - [[#floating][floating]]
-  - [[#variables][variables]]
-    - [[#functions][functions]]
-- [[#library][Library]]
-  - [[#functions][functions]]
-:END:
 * Progress
 ** Books
 | name | chapter | @ |
@@ -117,3 +97,33 @@ var_dump((bool) "");
 ** functions
 - abs()
 - error_reporting(E_ALL)
+
+* Jobs
+** PicPay Pleno
+MAIN RESPONSIBILITIES
+Construir soluções com padrões de qualidade de código
+Criar funcionalidades pensando na performance e segurança
+Implementar testes para melhor manutenção
+Manter documentações dos serviços
+REQUIREMENTS AND SKILLS
+Experiência com as seguintes ferramentas:
+
+
+
+PHP 8.*;
+Frameworks Laravel ou Lumen, com ênfase em aplicações RESTful;
+Armazenamento de dados em MySQL (ou outros bancos relacionais) ou MongoDB (ou outros bancos não relacionais);
+Ambiente de desenvolvimento com Docker;
+Atenção para qualidade de código e design patterns;
+Desenvolvimento orientado a testes;
+Versionamento de códigos utilizando Git.
+
+
+Será um diferencial se tiver experiência com:
+
+
+
+Metodologias ágeis;
+Design e desenvolvimento de micro serviços horizontalmente escaláveis;
+Jobs de alto desempenho e comunicação entre serviços utilizando soluções de fila como Beanstalk, RabbitMQ, Kafka, etc;
+Conhecimento dos riscos comuns de segurança (OWASP).

@@ -6,6 +6,7 @@
 :END:
 #+begin_src shell
 xorg=()
+php=(php php-common php-curl)
 wm=( wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
 langs=(lua5.4 luajit luarocks  clang clangd clang-format glslang-tools)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)

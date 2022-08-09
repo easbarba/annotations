@@ -712,8 +712,6 @@ enum Apple {
 }
 #+end_src
 
-
-
 *** meta annotations
 ** Generics
 - parameterized types
