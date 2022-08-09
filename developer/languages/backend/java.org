@@ -702,6 +702,18 @@ enum Apple {
 }
 #+end_src
 ** Annotations
+- @ declares an  annotation type to the compiler
+
+#+begin_src java
+// A simple annotation type.
+@interface MyAnno {
+    String str();
+    int val();
+}
+#+end_src
+
+
+
 *** meta annotations
 ** Generics
 - parameterized types
@@ -849,3 +861,22 @@ Excellent written and verbal communication skills in English
 Willingness to travel up to 50% of the time, within the North America region, when needed for events and meetings
 Project lead, architecture design, or sales engineering experience is a plus
 Bachelor's or master's degree is a plus
+** Kamila code
+- lambda
+- stream
+- datetime
+- git
+- linux
+- api rest
+- http
+- maven
+- gradle
+- spring: web boot data security
+- test unit junit mockito piramede test
+- swagger
+- nuvem: aws
+- mensageria
+- scrum, agile
+- microserviços
+** Vincius Godoy
+Com certeza, pode ficar no final da lista. Nesse meio tempo vale mais a pena estudar algumas tecnologias importantes como a Collections, o JPA e o SpringBoot. Além de aprofundar o uso de reflexão e anotations.
