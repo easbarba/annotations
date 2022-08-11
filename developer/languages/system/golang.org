@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| name                   | chapter                      | @                                |
-|------------------------+------------------------------+----------------------------------|
-| Cli applications in go | 4 Navigating the File System | Developing a File System Crawler |
-| Learning go            | 6 Pointers                   | Pointers Are a Last Resort       |
+| name                   | chapter                    | @                          |
+|------------------------+----------------------------+----------------------------|
+| Cli applications in go | 3 Working with Files in Go |                            |
+| Learning go            | 6 Pointers                 | Pointers Are a Last Resort |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
