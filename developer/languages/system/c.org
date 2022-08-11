@@ -2,39 +2,57 @@
 
 * Progress
 ** Book
-| Buch              | Capitulo     | em                         |
-|-------------------+--------------+----------------------------|
-| C Primer Plus     | 3 Data and C | The int Type               |
-| C Modern Approach | Pointers     | finding the largest pg 249 |
+| Buch              | Capitulo                  | em           |
+|-------------------+---------------------------+--------------|
+| C Modern Approach | 3 Formatted  Input/output |              |
+| C Primer Plus     | 3 Data and C              | The int Type |
 
 ** SLOC
-| Source Code | folder    | file        | @ |
-|-------------+-----------+-------------+---|
-| curl        | lib/vauth | cleartext.c |   |
-| tmux        |           | alert.c     |   |
+| Source Code | folder | file    | @ |
+|-------------+--------+---------+---|
+| redis       | #+begin_src
+
+#+end_src    |         |   |
+| tmux        |        | alert.c |   |
 
 * Base
 ** Types
-*** int
+*** Int
 - signed integer
 - can be positive, negative, or zero
-*** float
-
+*** Float
 #+begin_src c
 print("%f", 2.0)
 #+end_src
-*** long
-*** short
-*** char
-*** unsigned
-*** signed
-*** void
+*** Long
+*** Short
+*** Char
+*** Unsigned
+*** Signed
+*** Void
 *** _Bool
 *** _complex
 *** _Imaginary
-** Variables
-*constant
+** Collections Types
+** Assignments
+#+begin_src c
+height = 8;
+length = 12;
+width = 10;
 
+printf("Height: %d\n", height);
+#+end_src
+
+
+*Constants*
+#+begin_src c
+
+#+end_src
+
+** Functions
+#+begin_src c
+
+#+end_src
 ** Pointers
 #+begin_src c
 int main(){
@@ -50,17 +68,66 @@ int main(){
 
 
 #+end_src
-** macros
+** Macros
+- macro definition
+
 #+begin_src c
 #define INCHES_PER_POUND 166
+#define RECIPROCAL_OF_PI (1.0f / 3.14159f)
+#+end_src
+** Directives
+#+begin_src c
+#include <stdio.h>
 #+end_src
 
 * Standard Library
 ** stdio
-#scanf
+*#scanf*
+#+begin_src c
+scanf("%d", &i); /* reads an integer; stores into i */
+scanf("%f", &x); /* reads a float value; stores into x */
+#+end_src
 
-#printf
+*#printf*
+** keywords
+auto
+break
+case
+char
+const
+continue
+default
+do
+double
+else
+enum
+extern
+float
+for
+goto
+if
+inline’
+int
+long
+register
 
+restrict
+return
+short
+signed
+sizeof
+static
+struct
+switch
+typedef
+union
+unsigned
+void
+volatile
+while
+_Bool'
+-Complex’
+—Imaginary
 * Books
 ** CPAMA
 *** Chapter 8
@@ -285,8 +352,8 @@ int main ()
 #+end_src
 
 * Tools
-    https://cdecl.org/  - C gibberish ↔ English
-    https://build2.org/
+https://cdecl.org/  - C gibberish ↔ English
+https://build2.org/
 
 * Read later
     Mike Gancarz's The Unix Philosophy
