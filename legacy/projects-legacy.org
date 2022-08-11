@@ -57,17 +57,6 @@ awesome,master,https://github.com/awesomeWM/awesome
 luarocks,master,https://github.com/luarocks/luarocks
 lua,master,https://github.com/lua/lua
 #+end_src
-** golang
-#+begin_src csv
-name,branch,url
-mpb,master,https://github.com/vbauerster/mpb
-shfmt,master,https://github.com/mvdan/sh
-flux2,main,https://github.com/fluxcd/flux2
-crossplane,master,https://github.com/crossplane/crossplane
-kubernetes,master,https://github.com/kubernetes/kubernetes
-consul,main,https://github.com/hashicorp/consul
-go,master,https://go.googlesource.com/go
-#+end_src
 ** rust
 #+begin_src csv
 name,branch,url
