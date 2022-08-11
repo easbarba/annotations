@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-|                            |                                          |                                |
-|----------------------------+------------------------------------------+--------------------------------|
-| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Adding Additional Actions      |
-| Beginning Rails 6          | 12. Sending and Receiving Email          | Processing the Email           |
-| Sustainable Rails          | 8 Helpers                                | 8.2.3 Small, Inline Components |
-| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form                |
-| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                                |
-| Rails Guides               | Active Record Validations                | 2.12 validates_with            |
+|                            |                                          |                                 |
+|----------------------------+------------------------------------------+---------------------------------|
+| Agile WebDev w/ Rails 6    | 20 Action Dispatch and Action Controller | Selecting a Data Representation |
+| uBeginning Rails 6         | 12. Sending and Receiving Email          | Processing the Email            |
+| Sustainable Rails          | 8 Helpers                                | 8.2.3 Small, Inline Components  |
+| Ruby on Rails tutorial     | 7                                        | 7.2 Signup form                 |
+| Rails, Angular,Postgres... | 6 Build a Dynamic UI with AngularJS      |                                 |
+| Rails Guides               | Active Record Validations                | 2.12 validates_with             |
 ** Videos
 |               |    |    |
 |---------------+----+----|
@@ -20,7 +20,7 @@
 |       |                                      |                 |
 |-------+--------------------------------------+-----------------|
 | rails | actioncable/lib/action_cable/channel | broadcasting.rb |
-* Cli
+* Commands
 ** about
 ** assets:
 *assets:precompile*
