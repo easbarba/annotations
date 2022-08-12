@@ -2,13 +2,25 @@
 
 * npm
 ** commands
-*** link
-*** pack
-*** install
-|                      |   |
-|----------------------+---|
-| -—save-dev <package> |   |
+*link*
+*pack*
+*install <package>*
+|                      |                                                           |
+|----------------------+-----------------------------------------------------------|
+| -—save-dev <package> |                                                           |
+| --save, -S           | installs the package as a dependency for your application |
+| --global, -g         | installs the package globally on your computer            |
 
+*uninstall <package>*
+*publish*
+*command*
+*init*
+*start*
+*stop*
+*docs <package>*
+
+** options
+*-l*
 ** package.json
 *** "type": "module"
 loads the file as an ES6 module.
