@@ -1,10 +1,10 @@
-#+TITLE: NodeJS
+#+TITLE: Node.js
 
 * Progress
 ** Books
-| Books                      | Cap                                | @ |
-|----------------------------+------------------------------------+---|
-| Get Programming w/ Node.js | Lesson 3 Creating a Node.js module |   |
+| Books                      | Cap                                        | @ |
+|----------------------------+--------------------------------------------+---|
+| Get Programming w/ Node.js | 4  BUILDING A SIMPLE WEB SERVER IN NODE.JS |   |
 
 ** SLOC
 | Project   | folder                  | file         | @ |
@@ -12,7 +12,7 @@
 | draggable | src/Draggable/DragEvent | DragEvent.js |   |
 | inquirer  |                         |              |   |
 
-* Cli
+* Command
 ** options
 |                        |   |
 |------------------------+---|
