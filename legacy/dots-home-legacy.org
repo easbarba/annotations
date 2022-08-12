@@ -28,12 +28,6 @@ export PATH="$RUST_BIN"${PATH:+:}$PATH
 # ** SECRETS
 #export $(cat "$XDG_CONFIG_HOME/secrets" | xargs)
 
-# ** NPM
-export NPM_CONFIG_PREFIX="$HOME/.local/npm"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
-export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
-export PATH="$NPM_CONFIG_PREFIX/bin"${PATH:+:}$PATH
-# ===================================================
 
 # ** NIX
 export NIX_PROFILE=$HOME/.nix-profile
