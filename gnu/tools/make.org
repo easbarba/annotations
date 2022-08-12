@@ -1,10 +1,28 @@
-#+TITLE: Make
+#+TITLE: GNU Make
 
-* definition
-* base
+* Commands
+** Options
+*-C*
+#+begin_src shell
+make -C /usr/src/redis -j "$(nproc)" all
+#+end_src
+
+*-j*
+
+*-f <makefile>*
+#+begin_src shell
+cat ci.make
+#!/usr/bin/make
+test:
+    echo 'TEST'
+
+make -f ci.make
+make -f ci.build
+#+end_src
+
+* Base
 - starts with a tab character, not spaces.
-* Makefile
-* options
+** Traits
 
 |                 |                                                                 |
 |-----------------+-----------------------------------------------------------------|
@@ -13,13 +31,6 @@
 | <word>: <word2> | other targets that must be run before the speciﬁed target runs. |
 | .PHONY:<word>   | <word> doesn't represent a file name in this Makefile           |
 |                 |                                                                 |
-* commands
-** options
-|    |   |
-|----+---|
-| -C |   |
-| -j |   |
-** examples
-#+begin_src shell
-make -C /usr/src/redis -j "$(nproc)" all
-#+end_src
+* Makefile
+* Resources
+- https://makefiletutorial.com/
