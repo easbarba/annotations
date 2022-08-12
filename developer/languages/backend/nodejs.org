@@ -1,67 +1,10 @@
 #+TITLE: NodeJS
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#cli][Cli]]
-  - [[#options][options]]
-  - [[#env][env]]
-- [[#library][Library]]
-  - [[#fs][fs]]
-    - [[#readfilesync][readFileSync]]
-    - [[#readdirsync][readdirSync]]
-    - [[#writefilesync][writeFileSync]]
-    - [[#readfile][readFile]]
-  - [[#process][process]]
-    - [[#stdin][stdin]]
-    - [[#stdout][stdout]]
-    - [[#env][env]]
-    - [[#cwd][cwd]]
-    - [[#exit][exit]]
-    - [[#on][on]]
-    - [[#setuncaughtexceptioncapturecallback][setUncaughtExceptionCaptureCallback]]
-  - [[#path][path]]
-    - [[#join][join]]
-    - [[#basename][basename]]
-      - [[#extname][extname]]
-  - [[#net][net]]
-  - [[#httpserver][HTTPServer]]
-  - [[#os][os]]
-    - [[#hostname][hostname]]
-    - [[#release][release]]
-    - [[#cpus][cpus]]
-    - [[#fremem][fremem]]
-    - [[#arch][arch]]
-    - [[#tempdir][tempdir]]
-    - [[#inspect][inspect]]
-    - [[#networkinterfaces][networkInterfaces(]]
-    - [[#type][type]]
-- [[#eventemitter][EventEmitter]]
-  - [[#methods][methods]]
-    - [[#emit][.emit]]
-    - [[#on][.on]]
-- [[#asynchronous][Asynchronous]]
-  - [[#callbacks][callbacks]]
-  - [[#promises][Promises]]
-  - [[#asyncawait][async/await]]
-- [[#files][Files]]
-  - [[#mjs][.mjs]]
-  - [[#cjs][.cjs]]
-- [[#frameworks][Frameworks]]
-- [[#es6][ES6]]
-:END:
-
 * Progress
 ** Books
-| Books         | Cap                          | @                          |
-|---------------+------------------------------+----------------------------|
-| Node cookbook | 3: Streams, Streams, Streams | 11.6.1 JSON Customizations |
+| Books                      | Cap                                | @ |
+|----------------------------+------------------------------------+---|
+| Get Programming w/ Node.js | Lesson 3 Creating a Node.js module |   |
 
 ** SLOC
 | Project   | folder                  | file         | @ |
@@ -89,6 +32,20 @@
 *** readdirSync
 *** writeFileSync
 *** readFile
+** module
+*require*
+
+*exports*
+#+begin_src js
+let messages = [
+"A change of environment can be a good thing!",
+"You will make it!",
+"Just run with the code!"
+];
+
+module.exports = {messages}
+#+end_src
+
 ** [[https://nodejs.org/docs/latest-v16.x/api/process.html][process]]
 *** stdin
 *** stdout
