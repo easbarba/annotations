@@ -2,7 +2,7 @@
 
 * Progress
 ** Book
-| Buch              | Capitulo                  | em           |
+| Book              | Chapter                   | @            |
 |-------------------+---------------------------+--------------|
 | C Modern Approach | 3 Formatted  Input/output |              |
 | C Primer Plus     | 3 Data and C              | The int Type |
@@ -10,9 +10,7 @@
 ** SLOC
 | Source Code | folder | file    | @ |
 |-------------+--------+---------+---|
-| redis       | #+begin_src
-
-#+end_src    |         |   |
+| redis       | src/   | acl.c   |   |
 | tmux        |        | alert.c |   |
 
 * Base
@@ -89,6 +87,14 @@ scanf("%f", &x); /* reads a float value; stores into x */
 #+end_src
 
 *#printf*
+- d, Displays an integer in decimal (base 10) form
+- e, Displays a floating-point number in exponential format
+- f, Displays a floating-point number in “fixed decimal” format
+- g, Displays a floating-point number in either exponential format or fixed decimal format
+
+#+begin_src c
+printf("i = %d, j = %d, x = %f, y = %f\n", i, j z x, y);
+#+end_src
 ** keywords
 auto
 break
