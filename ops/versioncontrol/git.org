@@ -65,15 +65,11 @@ git commit -am "commit message"
 
 ** config
 Get and set repository or global options.
-*** --get
+*--get*
+#+begin_src shell
+ --get <name.value>
+#+end_src
 
-|                    |   |
-|--------------------+---|
-| --get <name.value> |   |
-|                    |   |
-
-
-**** usage
 #+begin_src shell
 
 git config --get remote.origin.url
@@ -81,6 +77,12 @@ git config --get user.name
 git config --get pull.ff # only
 
 #+end_src
+
+*push.autoSetupRemote* true
+#+begin_src shell
+git config --global push.autoSetupRemote true
+#+end_src
+
 
 ** diff
 Show changes between commits, commits and working tree, and so on.
