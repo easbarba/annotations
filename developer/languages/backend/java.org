@@ -2,12 +2,12 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                 | @            |
-|--------------------------+---------------------------------------------------------+--------------|
-| Java Complete Reference  | 12 Enumerations, Autoboxing, and Annotations            | Enumerations |
-| Junit                    | 1                                                       |              |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them |              |
-| Effective Java 9         |                                                         |              |
+| name                     | chapter                                                 | @             |
+|--------------------------+---------------------------------------------------------+---------------|
+| Java Complete Reference  | 12 Enumerations, Autoboxing, and Annotations            | Type Wrappers |
+| Junit                    | 1                                                       |               |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them |               |
+| Effective Java 9         |                                                         |               |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -578,10 +578,12 @@ class Exc2 {
 - can have constructors, methods, and instance variables.
 - can have constructors, add instance variables and methods, and even implement interfaces
 - inherits from java.lang.Enum
+
 #+begin_src java
 enum Apple {
     Jonathan, GoldenDel, RedDel, Winesap, Cortland
 }
+
 class EnumDemo {
   public static void main(String[] args) {
     Apple ap;
@@ -652,7 +654,6 @@ class EnumDemo2 {
 }
 #+end_src
 
-
 *constructor*
 
 #+begin_src java
@@ -701,6 +702,28 @@ enum Apple {
   int getPrice() { return price; }
 }
 #+end_src
+
+*ordinal*
+
+indicates an enumeration constant’s position in the list of constants.
+
+#+begin_src java
+ap.Winesap.ordinal() // 3
+#+end_src
+
+*compareTo*
+
+#+begin_src java
+ap.Winesap.compareTo(ap.Cortland) // -1
+#+end_src
+
+*equals*
+
+#+begin_src java
+ap.Winesap.equals(ap.Cortland) // false
+ m.Winesap == m.Cortland // false
+#+end_src
+** Type Wrappers
 ** Annotations
 - @ declares an  annotation type to the compiler
 
