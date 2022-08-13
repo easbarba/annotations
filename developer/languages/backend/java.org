@@ -2,12 +2,12 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                 | @             |
-|--------------------------+---------------------------------------------------------+---------------|
-| Java Complete Reference  | 12 Enumerations, Autoboxing, and Annotations            | Type Wrappers |
-| Junit                    | 1                                                       |               |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them |               |
-| Effective Java 9         |                                                         |               |
+| name                     | chapter                                                 | @                           |
+|--------------------------+---------------------------------------------------------+-----------------------------|
+| Java Complete Reference  | 12 Enumerations, Autoboxing, and Annotations            | A Second Reflection Example |
+| Junit                    | 1                                                       |                             |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them |                             |
+| Effective Java 9         |                                                         |                             |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -17,6 +17,8 @@
 
 * Base
 ** Types
+- can’t pass a primitive type by reference
+
 *** Integers
 - are signed, positive and negative values
 
@@ -132,6 +134,32 @@ class BoolTest {
 #+end_src
 ** Collection Types
 *** Arrays
+*new*
+#+begin_src java
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+int[] myNum = {10, 20, 30, 40};
+#+end_src
+
+*acessing*
+
+#+begin_src java
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+System.out.println(cars[0]);
+#+end_src
+
+*change value*
+
+#+begin_src java
+cars[0] = "Opel";
+#+end_src
+
+*length*
+
+#+begin_src java
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+System.out.println(cars.length);
+#+end_src
+
 *asList*
 *fill*
 *copyOf*
@@ -724,9 +752,45 @@ ap.Winesap.equals(ap.Cortland) // false
  m.Winesap == m.Cortland // false
 #+end_src
 ** Type Wrappers
+- classes that encapsulate a primitive type within an object.
+
+*Character*
+- JDK 9: the Character constructor was deprecated,
+- JDK 16: it has been deprecated for removal.
+ - Its recommended that you use the static method valueOf( ) to obtain a Character object.
+
+#+begin_src java
+static Character valueOf(char ch)
+#+end_src
+
+Get value contained in a Character object,
+#+begin_src java
+char charValue( )
+#+end_src
+
+*Boolean*
+
+#+begin_src java
+static Boolean valueOf(boolean boolValue)
+static Boolean valueOf(String boolString)
+#+end_src
+#+begin_src java
+boolean booleanValue( )
+#+end_src
+
+*numeric*
+
+#+begin_src java
+static Integer valueOf(int val)
+static Integer valueOf(String valStr) throws NumberFormatException
+#+end_src
+
+** Autoboxing
 ** Annotations
 - @ declares an  annotation type to the compiler
-
+- annotation can be annotated.
+- JDK 8: adds the ability to annotate type use
+-
 #+begin_src java
 // A simple annotation type.
 @interface MyAnno {
@@ -735,7 +799,62 @@ ap.Winesap.equals(ap.Cortland) // false
 }
 #+end_src
 
-*** meta annotations
+*Meta Annotations*
+
+*Retention Policies*
+- determines at what point an annotation is discarded: SOURCE, CLASS, and RUNTIME
+- SOURCE: retained only in the source file and is discarded during compilation.
+- CLASS: stored in the .class file during compilation. However, it is not available through the JVM during run time.
+- RUNTIME: stored in the .class file during compilation and is available through the JVM during run time. Thus, RUNTIME retention
+offers the greatest annotation persistence.
+
+#+begin_src java
+@Retention(RetentionPolicy.RUNTIME)
+@interface MyAnno {
+    String str();
+    int val();
+}
+#+end_src
+
+*getAnnotation*
+- returns a reference to the annotation
+- returns null if the annotation is not found
+
+#+begin_src java
+<A extends Annotation> getAnnotation(Class<A> annoType)
+#+end_src
+
+#+begin_src java
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+// An annotation type declaration.
+@Retention(RetentionPolicy.RUNTIME)
+@interface MyAnno {
+  String str();
+  int val();
+}
+
+class Meta {
+  @MyAnno(str = "Annotation Example", val = 100)
+  public static void myMeth() {
+    Meta ob = new Meta();
+
+    try {
+      Class<?> c = ob.getClass();
+
+      Method m = c.getMethod("myMeth");
+
+      MyAnno anno = m.getAnnotation(MyAnno.class);
+
+      System.out.println(anno.str() + " " + anno.val());
+    } catch (NoSuchMethodException exc) {
+      System.out.println("Method Not Found.");
+    }
+  }
+  public static void main(String[] args) { myMeth(); }
+}
+#+end_src
+
 ** Generics
 - parameterized types
 
@@ -766,6 +885,7 @@ iOb = new Gen<Integer>(88);
 ** Collections
 * Standard Library
 ** java.lang
+** java.lang.reflect
 
 * Commands
 ** java
