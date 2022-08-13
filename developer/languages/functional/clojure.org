@@ -5,7 +5,6 @@
 | books           | chapter                  | @                      |
 |-----------------+--------------------------+------------------------|
 | Getting Clojure | 5 More Capable Functions | Staying Out of Trouble |
-|                 |                          |                        |
 ** SOC
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
@@ -422,7 +421,27 @@ destructive
              ​   :post [(boolean? %)]}
         ​   (print-book book)
         ​   (ship-book book))
+#+end_src
 
+*multi-arity function*
+
+#+begin_src clojure
+(defn chatty-multi-average
+  ([a b]
+   (println "chatty-average function called with 2 arguments")
+   (/ (+ a b) 2.0))
+  ([a b c]
+   (println "chatty-average function called with 3 arguments")
+   (/ (+ a b c) 3.0)))
+#+end_src
+
+*match variadic & into a multi-aryti function*
+
+#+begin_src clojure
+(defn one-two-or-more
+  ([a] (println "One arg:" a))
+  ([a b] (println "Two args:" a b))
+  ([a b & more] (println "More than two:" a b more)))
 #+end_src
 
 ** Higher-order Functions
@@ -446,7 +465,7 @@ destructive
 *doc*
 
 #+begin_src clojure
-(doc average)
+(doc +)
 #+end_src
 
 ** Iterating
