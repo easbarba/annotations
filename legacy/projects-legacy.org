@@ -122,18 +122,6 @@ dart-pad,master,https://github.com/dart-lang/dart-pad
 dart-test,master,https://github.com/dart-lang/test
 dart,main,https://github.com/dart-lang/sdk
 #+end_src
-** clojure
-#+begin_src csv
-name,branch,url
-cljfmt,master,https://github.com/weavejester/cljfmt
-luminus-template,master,https://github.com/luminus-framework/luminus-template
-luminus,master,https://github.com/luminus-framework/luminus
-ring,master,https://github.com/ring-clojure/ring
-leiningen,main,https://codeberg.org/leiningen/leiningen
-clojurescript,master,https://github.com/clojure/clojurescript
-clojure-lsp,master,https://github.com/clojure-lsp/clojure-lsp/
-clojure,master,https://github.com/clojure/clojure
-#+end_src
 ** php
 #+begin_src csv
 ,name,branch,repository
