@@ -1,0 +1,6 @@
+#+title: Emacs Apps
+
+* Magit
+** log
+*magit-log-buffer-file* or *--*
+Limit to files
