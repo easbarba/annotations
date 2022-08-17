@@ -6,9 +6,8 @@
 :END:
 #+begin_src shell
 xorg=()
-php=(php php-common php-curl)
-wm=( wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
-langs=(lua5.4 luajit luarocks clojure sbcl erlang elixir openjdk-17 jre)
+wm=(wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
+langs=(lua5.4 luajit luarocks erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)
 term=(zsh)
 editors=(micro)
@@ -28,6 +27,31 @@ ncdu
 libfile-mimeinfo-perl
 x11proto-dev  rclone
 fontconfig libfreetype6
+
+# DART
+if [[ ! -x $(command -v dart) ]]; then
+    sudo apt update
+    sudo apt install -y apt-transport-https
+    curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/dart.gpg
+    echo 'deb [signed-by=/usr/share/keyrings/dart.gpg arch=amd64] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main' | sudo tee /etc/apt/sources.list.d/dart_stable.list
+
+    sudo apt update
+    sudo apt install -y dart
+fi
+
+
+# POSTGRES
+packages=(postgresql postgresql-contrib postgresql-doc)
+s-dolist "$COMMAND" "${packages[@]}"
+sudo systemctl restart postgresql
+
+HBA_CONF='/etc/postgresql/*/main/pg_hba.conf' # psql --version | awk '{print substr($3, 0, 2)}'
+if ! sudo grep -i "$USER" "$HBA_CONF"; then
+    sudo -u postgres createuser -e "$USER" --pwprompt
+    echo -n "local  all  $USER  md5" | sudo tee -a "$HBA_CONF"
+    sudo systemctl restart postgresql
+fi
+
 #+end_src
 
 * e_fedora
