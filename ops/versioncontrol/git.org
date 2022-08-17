@@ -83,7 +83,6 @@ git config --get pull.ff # only
 git config --global push.autoSetupRemote true
 #+end_src
 
-
 ** diff
 Show changes between commits, commits and working tree, and so on.
 
@@ -151,6 +150,13 @@ Update remote refs along with associated objects.
 *--set-upstream origin*
 #+begin_src shell
 git push --set-upstream origin main
+#+end_src
+
+*force*
+
+#+begin_src shell
+git push -f origin main
+git push origin +main
 #+end_src
 
 ** rebase
