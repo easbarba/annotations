@@ -583,6 +583,8 @@ sed -ri 's!^(#define CONFIG_DEFAULT_PROTECTED_MODE) 1$!\1 0!' /usr/src/redis/src
 sed '/^z//g' infile
 #+end_src
 * sshuttle
+* sync
+Synchronize cached writes to persistent storage
 * crypt
 * pv
 * fzf
