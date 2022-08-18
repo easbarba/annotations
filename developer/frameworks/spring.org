@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| name             | chapter                       | @                                    |
-|------------------+-------------------------------+--------------------------------------|
-| Spring in Action | 2 Developing web applications | 2.5 Choosing a view template library |
-|                  |                               |                                      |
+| name                | chapter                                          | @                                    |
+|---------------------+--------------------------------------------------+--------------------------------------|
+| Spring Up & Running | 4 Adding Database Access to Your Spring Boot App |                                      |
+| Spring in Action    | 2 Developing web applications                    | 2.5 Choosing a view template library |
 
 ** SLOC
 | Source Code      | folder | file | @ |
@@ -48,9 +48,41 @@ import org.springframework.validation.Errors;
 #+begin_src java
 @Digits(integer=3, fraction=0, message="Invalid CVV")
 #+end_src
+* Repository
+*@repository*
+Declares that it should be automatically discovered by Spring compo-
+nent scanning and instantiated as a bean in the Spring application context.
+
+* Services
 * Database
 ** JDBC
+|             |                          |
+|-------------+--------------------------|
+| artifact-id | spring-boot-starter-jdbc |
+
+
+#+begin_src java
+private JdbcTemplate jdbcTemplate;
+public Optional<Ingredient> findById(String id) {
+  List<Ingredient> results =
+      jdbcTemplate.query("select id, name, type from Ingredient where id=?",
+                         this::mapRowToIngredient, id);
+  return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
+}
+private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
+    throws SQLException {
+  return new Ingredient(row.getString("id"), row.getString("name"),
+                        Ingredient.Type.valueOf(row.getString("type")));
+}
+#+end_src
+
+*Templates*
+
+
+
 ** JPA
+* Properties
+- application.properties or application.yml
 
 * Model
 * Toolings
@@ -60,12 +92,30 @@ import org.springframework.validation.Errors;
 podman run --name taco2 -it -v $PWD:/app -w /app -p 8080:8080 openjdk:17-jdk ./mvnw spring-boot:run
 #+end_src
 * Mapping
+** @RequestMapping
 @RequestMapping
 specifies that any request-handling methods in this controller
 will handle requests whose path begins with /orders. When combined with the
 method-level
 
-@GetMapping
+#+begin_src java
+@RequestMapping(value = "/coffees", method = RequestMethod.GET)
+#+end_src
+
+*@GetMapping*
+#+begin_src java
+    @GetMapping("/coffees")
+    Iterable<Coffee> getCoffees() {
+        return coffees;
+    }
+
+#+end_src
+
+*@PostMapping*
+*@PutMapping*
+*@PatchMapping*
+*@DeleteMapping*
+
 
 @RequestMappingGeneral-purpose
  request handling
@@ -78,8 +128,8 @@ HTTP POST requests
 @DeleteMappingHandles
  HTTP DELETE requests
 @PatchMappingHandles
- HTTP P
- ATCH requests
+ HTTP PATCH requests
+
 * Test
 *@WebMvcTest*
 * Annotations
