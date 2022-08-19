@@ -54,11 +54,33 @@
 </form>
 #+end_src
 
-
-** H2
-http://localhost:8080/h2-console
 ** FreMaker
 ** Mustache
+
+* Databases
+** H2
+|             |         |
+|-------------+---------|
+| artifact-id | h2      |
+| scope       | runtime |
+
+*spring*
+- pin down database name
+
+#+begin_src conf
+spring.datasource.generate-unique-name=false
+spring.datasource.name=tacocloud
+#+end_src
+
+#+begin_src yaml
+spring:
+  datasource:
+    generate-unique-name: false
+    name: tacocloud
+#+end_src
+
+*connect*
+http://localhost:8080/h2-console
 
 * Loggers
 ** SLF4J
