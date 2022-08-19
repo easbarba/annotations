@@ -457,7 +457,6 @@ find . -name '*.epub' -print0
 #+end_src
 
 *-printf*
-
 #+begin_src shell
 find . -name '*.epub' -printf "%f\n"
 #+end_src
@@ -466,6 +465,14 @@ find . -name '*.epub' -printf "%f\n"
 #+begin_src shell
 find . -type f -not -path '*/\.git/*'
 #+end_src
+
+*-mmin*
+finds files modified in the last N minutes
+#+begin_src shell
+find . -type f -mmin -5 'meh'
+#+end_src
+
+
 ** ripgrep
 ** grep
 | option              | description                                                                                                 |
