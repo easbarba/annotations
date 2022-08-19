@@ -2,9 +2,10 @@
 
 * Progress
 ** Books
-| books           | chapter             | @ |
-|-----------------+---------------------+---|
-| Getting Clojure | 6 Functional things |   |
+| books               | chapter             | @                    |
+|---------------------+---------------------+----------------------|
+| Getting Clojure     | 6 Functional things | A Functional Toolkit |
+| Programming Clojure |                     |                      |
 ** SOC
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
