@@ -41,6 +41,10 @@ git checkout -b <NEW-BRANCH> [start-point]
       Find commits yet to be applied to upstream (branch on the remote).
 ** cherry-pick
       Apply the changes introduced by some existing commits.
+** clean
+#+begin_src shell
+git clean -f -d
+#+end_src
 ** clone
 Clone a repository into a new directory.
 
@@ -54,7 +58,6 @@ Employ a sparse-checkout, with only files in the toplevel directory initially be
 *--shallow-exclude <BRANCH>*
 
 *--single-branch*
-
 ** commit
 Record changes to the repository.
 #+begin_src shell
@@ -180,7 +183,14 @@ git remotek set-url origin https://github.com/user/repo-2.git
 #+end_src
 
 ** reset
-      Reset current HEAD to the specified state.
+Reset current HEAD to the specified state.
+
+*--soft*
+*HEAD^n*
+Undo last n commits
+#+begin_src shell
+git reset --soft HEAD^4
+#+end_src
 
 ** restore
 discard all changes
@@ -192,6 +202,13 @@ discard all changes
       Revert some existing commits.
 ** rm
       Remove files from the working tree and from the index.
+
+--cached
+Upstage files from index (but keep the files locally)
+
+#+begin_src shell
+git rm --cached
+#+end_src
 ** show
       Show various types of objects.
 ** status
@@ -201,6 +218,17 @@ Show the working tree status.
 |----+----------------|
 | -s | shorter status |
 |    |                |
+** switch
+version: 2.3
+
+*-c*
+Move existing, uncommitted work to a new branch
+
+#+begin_src shell
+git switch -c <new-branch>
+#+end_src
+
+
 
 ** submodule
       Initialize, update, or inspect submodules.
