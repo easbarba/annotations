@@ -7,7 +7,7 @@
 | Java Complete Reference  | 14 Generics                                             | Using Wildcard Arguments |
 | Junit                    | 1                                                       |                          |
 | Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them |                          |
-| Effective Java 9         |                                                         |                          |
+| Effective Java 9         | 2 Creating and Destroying Objects                       |                          |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
