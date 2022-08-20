@@ -3,6 +3,9 @@
 * sha256sum
 * md5sum
 * base64
+#+begin_src shell
+echo 'Vai Corinthians' | base64 -i
+#+end_src
 * openssl
 ** passwd
 |               |                              |
