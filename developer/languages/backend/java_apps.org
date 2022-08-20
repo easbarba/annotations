@@ -12,21 +12,59 @@
 | junit       |        |      |   |
 
 * Maven
-** plugins
-*** polyglot
-** mvnw
-*spring-boot:run*
-*test*
-*package*
-** mvn
-*package*
-take the compiled code and package it in its distributable format, such as a JAR.
-*compile*
-compile the source code of the project
-*test*
-test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
+version: JDK7
 
-*clean*
+** phases
+- includes many goals
+*** package
+Take the compiled code and package it in its distributable format, such as a JAR.
+
+- requires manifest
+
+#+begin_src xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>2.4</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <mainClass>com.meh.Main</mainClass>
+            <Automatic-Module-Name>com.meh</Automatic-Module-Name>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+#+end_src
+
+#+begin_src shell
+mvn package
+mvn -B package --file pom.xml
+#+end_src
+
+*** compile
+- maven-compiler-plugin
+- defaults to ./target folder
+
+compile the source code of the project
+
+#+begin_src shell
+mvn compile
+#+end_src
+
+*** test-compile
+Compiles tests too
+
+*** test
+test the compiled source code using a suitable unit testing framework.
+These tests should not require the code be packaged or deployed
+
+*** clean
 
 -U | force update
 
@@ -34,8 +72,14 @@ test the compiled source code using a suitable unit testing framework. These tes
 mvn clean install -U
 #+end_src
 
-*validate*
-validate the project is correct and all necessary information is available
+*** install*
+Install package to local repository
+
+*** deploy
+Make package result available to others, typically run from CI environment
+
+*** validate*
+Validates the project is correct and all necessary information is available
 
 integration-test: process and deploy the package if necessary into an environment where integration tests can be run
 verify: run any checks to verify the package is valid and meets quality criteria
@@ -53,17 +97,25 @@ generate new maven project
 mvn -B archetype:generate -DgroupId=com.sohamkamani -DartifactId=mvn-example -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4
 #+end_src
 
-build
-
 #+begin_src shell
 mvn -B package --file pom.xml
 #+end_src
 
-*dependency*
+*** dependency*
 #+begin_src shell
 mvn dependency:purge-local-repository
 #+end_src
-
+** lifecycle
+*** default
+*** clean
+*** site
+Documentation generation
+** pow.xml
+** plugins
+*** polyglot
+*** spring boot
+*spring-boot:run*
+*** surefire
 * Ant
 * Gradle
 ** commands
