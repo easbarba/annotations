@@ -2,12 +2,13 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                 | @                        |
-|--------------------------+---------------------------------------------------------+--------------------------|
-| Java Complete Reference  | 14 Generics                                             | Using Wildcard Arguments |
-| Junit                    | 1                                                       |                          |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them |                          |
-| Effective Java 9         | 2 Creating and Destroying Objects                       |                          |
+| name                     | chapter                                                    | @                        |
+|--------------------------+------------------------------------------------------------+--------------------------|
+| Java Complete Reference  | 14 Generics                                                | Using Wildcard Arguments |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                          |
+| Junit                    | 1                                                          |                          |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                          |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                          |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -320,7 +321,7 @@ toString()
 ** Interfaces
 - Cannot mantain state
 - JDK 7: an interface could not define any implementation whatsoever.
-- JDK 8:  adds a default implementation to an interface method.
+- JDK 8: adds a default implementation to an interface method.
 - JDK 8: adds static interface methods
 - JDK 9: includes private methods
 
@@ -330,7 +331,7 @@ interface Callback {
 }
 #+end_src
 
-- implicitly final and static
+- variables are implicitly final and static
 - methods and variables are implicitly public.
 - interface's method must be public
 
