@@ -1,93 +1,183 @@
-#+title: Arch
-* install - user
-** Th3Whit3Wolf/Arch Secure Laptop Install.md
-#+begin_src markdown
-## What's Cool
+#+title: Arch Linux
 
-- Encrypted root partition
-  - AES-256 bit cipher
-  - Argon2id variant for PBKDF
-  - Sha3-512 bit hash
-- rEFInd bootloader
-  - With dreary theme
-  - Optimal Settings (optimized for aesthetics, and boot time)
-  - Boot into backups thanks to [refind-btrfs](https://github.com/Venom1991/refind-btrfs)
-- Optimized Settings
-  - pacman.conf (optimized for aesthetics and use)
-  - makepkg.conf (optimized for faster binaries)
-- Xanmod Cacule Linux Kernel
-  - Preemptive Full Tickless Kernel at 500Hz w/ Tuned CPU Core Scheduler.
-  - RCU Boost for better responsiveness and lower overall system latency.
-  - Full multi-core block layer runqueue requests for high I/O throughput.
-  - Caching, Virtual Memory Manager and CPUFreq Governor improvements.
-  - BBR TCP Congestion Control + FQ-PIE Packet Scheduling and AQM Algorithm [5.10].
-  - ORC Unwinder for Kernel Stack Traces (debuginfo) implementation.
-  - Third-party patchset available: BBRv2 TCP Congestion [5.10][as module], ZSTD kernel, initrd and modules support [5.10],     Clear Linux [partial], CK's Hrtimer patchset, Proton Fsync support, PCIe ACS Override, Aufs [5.4] and Graysky's GCC patchset.
-  - Btrfs Checksum hardware acceleration
-  - High responsiveness CacULE scheduler (SCHED_NORMAL) based on ULE interactivity score mechanism build available [5.10-cacule]
-    -  Each CPU has its own runqueue.
-    - NORMAL runqueue is a linked list of sched_entities (instead of RB-Tree).
-    - RT and other runqueues are just the same as the CFS's.
-    - Wake up tasks preempt currently running tasks if its interactivity score value is higher
-- Miscellaneous
-  - Secureboot
-  - Udev rule for faster IO performance from NVME and SSD
-  - Hooks for zsh and secureboot
-  - Improved laptop battery life
-    - Zram
-    - Btrfs
-    - Profile-sync-daemon
-  - Automatic CPU frequency scaling depending on load
-  - Improved system responsiveness in low memory situations
-    - Nohang, an OOM prevention daemon
-    - Prelockd, a daemon that locks memory mapped executables & shared libraries in memory to improve system responsiveness
-    - Memavaild, improve responsiveness during heavy swapping
-  - Zram, compressed swap in ram - Faster swap & less drive writes (longer ssd lifespan)
-  - Profile-sync-daemon, faster web browsing experience and less drive writes (longer ssd lifespan)
-  - Improved security
-    - Nftables Firewall
-    - Apparmor
-    - SSHGuard
-    - Stricter Mount Options
-    - Stricter File access permissions
-    - Enforce a delay after a failed login attempt
-    - Restricting access to kernel pointers in the proc filesystem
-    - BPF hardening
-    - Restrict access to kernel logs
-    - Disable kexec
-    - Intitialize lsm (required to set lockdown mode)
-    - Disabled Unprivileged user namespace usage
-    - TCP SYN cookie protection
-    - Protect against tcp time-wait assassination hazards
-    - Reverse path filtering (helps protect against attackers that are using IP spoofing methods to do harm)
-    - Disable ICMP redirects
-    - Automatic logout for vtconsole
-    - Wayland (unlike x11 applications have GUI-Level isolation)
-  - Cgroups V2
-  - Docker using IPV6
-  - Most responsive DNS autoupdater (lower latency network connections)
-  - Fastest Arch Linux mirror list autoupdater
-  - Automount USB
-  - All the codecs, encryption, and archive formats you could want
-  - Wayland
-  - Chrony for NTP (Best NTP for laptops)
-  - Btrfs filesystem
-    - Optimized mount settings (optimized for IO, storage, and drive lifespan)
-    - Snapshots
-      - On initial install
-      - Pre/Post package install/uninstall/updates
-      - Daily
+* Install
+** keys
+loadkeys br-abnt2
 
-## What this is not
+** connect wifi
+#+begin_src shell
+ping gnu.org
 
-- A minimal or generic arch linux install
 
-This guide should allow you to make an optimized, complete, secure Arch Linux install with out having to touch an editor except for when editing PKGBUILD for linux-xanmod-cacule
+#+end_src
 
-### Why GDM
+Check if wifi/bluetooth are soft blocked, use laptop plane button to unlock those
 
-* Only wayland login manager
-* Can unlock gnome-keyring on automatic login when password is set to LUKS password
+#+begin_src shell
+rfkill list
+#+end_src
+
+up the device
+#+begin_src shell
+ip link
+ip link set wlan0 up
+#+end_src
+
+*** iwd
+#+begin_src conf
+iwctl
+station wlan0 connect barbosas5g
+station wlan0 show
+#+end_src
+
+nano /etc/iwd/main.conf
+#+begin_src conf
+[General]
+EnableNetworkConfiguration=true
+#+end_src
+
+#+begin_src shell
+systemctl restart iwd
+#+end_src
+
+*** ssh
+nano /etc/ssh/sshd_config
+#+begin_src conf
+Port 123
+PermitRootLogin yes
+#+end_src
+
+set a password so foreign can access
+#+begin_src shell
+passwd
+#+end_src
+
+get ip and connect with
+#+begin_src shell
+ip a
+ssh -p 123 root@IP_ADDRESS
+#+end_src
+
+** disk
+*** formating
+> parted
+parted /dev/nvme0n1
+unit gib
+EF00 for EFI
+
+mkfs.vfat -F32 -n EFI /dev/nvme0n1p1
+mkfs.ext4 -L boot /dev/nvme0n1p2
+*** luks
+#+begin_src shell
+cryptsetup luksFormat --type luks2 /dev/disk/by-partlabel/linux
+cryptsetup luksOpen /dev/disk/by-partlabel/linux root
+#+end_src
+
+#+begin_src shell
+mkfs.btrfs -L linux /dev/mapper/root
+#+end_src
+
+*** mount
+#+begin_src shell
+mount /dev/mapper/root/ /mnt
+btrfs subvolume create /mnt/var
+btrfs subvolume create /mnt/home
+mount --mkdir -L boot /mnt/boot
+mount --mkdir -L EFI /mnt/boot/efi
+#+end_src
+
+fstab
+#+begin_src shell
+genfstab -U /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+#+end_src
+** chrooting
+pacstrap -i /mnt base linux linux-firmware
+
+arch-chroot /mnt /bin/bash
+export PS1="(chroot) $PS1"
+
+*** new packages
+pacman -S linux-headers amd-ucode base-devel nano \
+networkmanager iwd lvm2 \
+git \
+
+*** kernel
+nano /etc/mkinitcpio.conf
+
+#+begin_src conf
+MODULES=(vmd)
+HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)
+#+end_src
+
+*** system settings
+**** locale
+Uncomment preferred language(pt_BR.UTF-8 UTF-8)
+
+#+begin_src shell
+nano /etc/locale.gen
+#+end_src
+
+locale-gen
+
+#+begin_src shell
+timedatectl set-timezone America/Sao_Paulo
+#+end_src
+**** network
+
+nano /etc/hostname
+#+begin_src shell
+gnoo
+#+end_src
+
+nano /etc/hosts
+#+begin_src conf
+127.0.0.1       localhost
+::1             localhost
+127.0.1.1       gnoo.localdomain        gnoo
+#+end_src
+
+nano /etc/iwd/main.conf
+#+begin_src conf
+[General]
+EnableNetworkConfiguration=true
+#+end_src
+
+**** tty
+nano /etc/vconsole.conf
+**** user/root
+passwd
+
+#+begin_src shell
+adduser
+passwd easbarba
+#+end_src
+
+**** sudo
+EDITOR=nano visudo
+*** boot loader
+pacman -S grub efibootmgr dosfstools mtools os-prober
+
+nano /etc/default/grub
+
+#+begin_src conf
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
+GRUB_CMDLINE_LINUX="cryptdevice=UUID=125fee5c-92ed-4d87-a285-0848ecd316b1:main:allow-discards root=/dev/mapper/maingroup-root"
+#+end_src
+
+*** initial packages
+pacman -S xorg-xinit xorg-server bspwm sxhkd
+
+*** swap file
+
+** adios
+#+begin_src shell
+umount -R /mnt
+reboot
+#+end_src
+* Feats
+** Only wayland login manager
+** Can unlock gnome-keyring on automatic login when password is set to LUKS password
 
 This means after I unlock LUKS I don't need to enter any more password. SSH, git, and GPG passwords
 are automatically used without me entering them(after you enter them the first time).
@@ -1170,3 +1260,89 @@ EOF
 sudo systemctl enable --now
 ```
 #+end_src
+* Tutorials
+** Th3Whit3Wolf/Arch Secure Laptop Install.md
+#+begin_src markdown
+## What's Cool
+
+- Encrypted root partition
+  - AES-256 bit cipher
+  - Argon2id variant for PBKDF
+  - Sha3-512 bit hash
+- rEFInd bootloader
+  - With dreary theme
+  - Optimal Settings (optimized for aesthetics, and boot time)
+  - Boot into backups thanks to [refind-btrfs](https://github.com/Venom1991/refind-btrfs)
+- Optimized Settings
+  - pacman.conf (optimized for aesthetics and use)
+  - makepkg.conf (optimized for faster binaries)
+- Xanmod Cacule Linux Kernel
+  - Preemptive Full Tickless Kernel at 500Hz w/ Tuned CPU Core Scheduler.
+  - RCU Boost for better responsiveness and lower overall system latency.
+  - Full multi-core block layer runqueue requests for high I/O throughput.
+  - Caching, Virtual Memory Manager and CPUFreq Governor improvements.
+  - BBR TCP Congestion Control + FQ-PIE Packet Scheduling and AQM Algorithm [5.10].
+  - ORC Unwinder for Kernel Stack Traces (debuginfo) implementation.
+  - Third-party patchset available: BBRv2 TCP Congestion [5.10][as module], ZSTD kernel, initrd and modules support [5.10],     Clear Linux [partial], CK's Hrtimer patchset, Proton Fsync support, PCIe ACS Override, Aufs [5.4] and Graysky's GCC patchset.
+  - Btrfs Checksum hardware acceleration
+  - High responsiveness CacULE scheduler (SCHED_NORMAL) based on ULE interactivity score mechanism build available [5.10-cacule]
+    -  Each CPU has its own runqueue.
+    - NORMAL runqueue is a linked list of sched_entities (instead of RB-Tree).
+    - RT and other runqueues are just the same as the CFS's.
+    - Wake up tasks preempt currently running tasks if its interactivity score value is higher
+- Miscellaneous
+  - Secureboot
+  - Udev rule for faster IO performance from NVME and SSD
+  - Hooks for zsh and secureboot
+  - Improved laptop battery life
+    - Zram
+    - Btrfs
+    - Profile-sync-daemon
+  - Automatic CPU frequency scaling depending on load
+  - Improved system responsiveness in low memory situations
+    - Nohang, an OOM prevention daemon
+    - Prelockd, a daemon that locks memory mapped executables & shared libraries in memory to improve system responsiveness
+    - Memavaild, improve responsiveness during heavy swapping
+  - Zram, compressed swap in ram - Faster swap & less drive writes (longer ssd lifespan)
+  - Profile-sync-daemon, faster web browsing experience and less drive writes (longer ssd lifespan)
+  - Improved security
+    - Nftables Firewall
+    - Apparmor
+    - SSHGuard
+    - Stricter Mount Options
+    - Stricter File access permissions
+    - Enforce a delay after a failed login attempt
+    - Restricting access to kernel pointers in the proc filesystem
+    - BPF hardening
+    - Restrict access to kernel logs
+    - Disable kexec
+    - Intitialize lsm (required to set lockdown mode)
+    - Disabled Unprivileged user namespace usage
+    - TCP SYN cookie protection
+    - Protect against tcp time-wait assassination hazards
+    - Reverse path filtering (helps protect against attackers that are using IP spoofing methods to do harm)
+    - Disable ICMP redirects
+    - Automatic logout for vtconsole
+    - Wayland (unlike x11 applications have GUI-Level isolation)
+  - Cgroups V2
+  - Docker using IPV6
+  - Most responsive DNS autoupdater (lower latency network connections)
+  - Fastest Arch Linux mirror list autoupdater
+  - Automount USB
+  - All the codecs, encryption, and archive formats you could want
+  - Wayland
+  - Chrony for NTP (Best NTP for laptops)
+  - Btrfs filesystem
+    - Optimized mount settings (optimized for IO, storage, and drive lifespan)
+    - Snapshots
+      - On initial install
+      - Pre/Post package install/uninstall/updates
+      - Daily
+
+## What this is not
+
+- A minimal or generic arch linux install
+
+This guide should allow you to make an optimized, complete, secure Arch Linux install with out having to touch an editor except for when editing PKGBUILD for linux-xanmod-cacule
+
+### Why GDM
