@@ -138,11 +138,9 @@ Us (2019) [WEBRip] [1080p] [YTS.AM]
 
 * TV Series
 ** Progress
-| name             | episode |
-|------------------+---------|
-| Star Trek DS9    | s07e14  |
-| Star Trek TNG    | s06e    |
-| Juvenile justice | e2      |
+| name       | episode  |
+|------------+----------|
+| Brain 2011 | ep12:31m |
 
 ** American
 - Star Trek - The Next Generation
