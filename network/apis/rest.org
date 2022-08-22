@@ -1,4 +1,4 @@
-#+TITLE: REST
+#+TITLE: REST API
 
 * Progress
 ** Books
@@ -61,8 +61,37 @@ Tries to know all possible methods (GET, POST, and so on) defined
 ** Cross-Origin Resource Sharing (CORS)
 * Request
 * Response
+* Bests Practices
+** Faulty tolerant
+** Cache
+** Timeouts
+** Documentation
+- SWAGGER
+- HATEOAS
+** SSL
+** Versioning
+*** Subdomain
+#+begin_src conf
+v1-meh.com/books
+#+end_src
+
+*** Path Param
+#+begin_src conf
+meh.com/v1/books
+#+end_src
+
+*** Header Param
+Accept
+** Self-Service
+** Marketing
+** Exporting
+- PDF
+- CSV
+- HTML
+** I18N
+** Notifications
+** SOA
 * Resources
 - may be represented in a different format from the one in which it is stored.
 * Frameworks
-** swagger
-* SOA
+** SWAGGER
