@@ -7,7 +7,7 @@
 #+begin_src shell
 xorg=()
 wm=(wofi rofi lxappearance maim screenkey syncthing gopher ssh-askpass-gnome unclutter diodon pasystray volumeicon-alsa)
-langs=(clojure clojure-tools sbcl lua5.4 luajit luarocks erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
+langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop rhythmbox-plugin-alternative-toolbar)
 term=(zsh)
 editors=(micro)

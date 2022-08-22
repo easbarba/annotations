@@ -13,6 +13,24 @@ clojurescript,master,https://github.com/clojure/clojurescript
 clojure-lsp,master,https://github.com/clojure-lsp/clojure-lsp/
 clojure,master,https://github.com/clojure/clojure
 #+end_src
+** ruby
+#+begin_src csv
+name,branch,url
+redis-rb,master,https://github.com/redis/redis-rb
+ruby-lsp,main,https://github.com/Shopify/ruby-lsp
+browser,main,https://github.com/fnando/browser
+brew,master,https://github.com/Homebrew/brew
+sidekiq,main,https://github.com/mperham/sidekiq
+fluentd,master,https://github.com/fluent/fluentd
+devise,main,https://github.com/heartcombo/devise
+rails,main,https://github.com/rails/rails
+mastodon,main,https://github.com/mastodon/mastodon
+pry,master,https://github.com/pry/pry
+rbs,master,https://github.com/ruby/rbs
+debug,master,https://github.com/ruby/debug
+rake,master,https://github.com/ruby/rake
+ruby,master,https://github.com/ruby/ruby
+#+end_src
 ** js
 #+begin_src csv
 name,branch,url
@@ -166,14 +184,7 @@ php-src,master,https://github.com/php/php-src
 #+end_src
 ** devops
 #+begin_src csv
-name,branch,url
-kelseyhightower/kubernetes-the-hard-way,master,https://github.com/kelseyhightower/kubernetes-the-hard-way
-ydamni-kubernetes-the-iac-way,main,https://github.com/ydamni/kubernetes-the-iac-way
-Kubernetes---An-Enterprise-Guide-2E,main,https://github.com/PacktPublishing/Kubernetes---An-Enterprise-Guide-2E
-sustainable-rails-docker,main,https://github.com/davetron5000/sustainable-rails-docker
-docker-compose-rails,master,https://github.com/boltops-learn/docker-compose-rails
-michaelcade-90daysofdevops,main,https://github.com/MichaelCade/90DaysOfDevOps
-github-gitignore,main,https://github.com/github/gitignore
+
 #+end_src
 ** misc
 #+begin_src csv
