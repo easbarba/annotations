@@ -1127,9 +1127,12 @@ java -cp target/cdeps-0.1.0.jar clojure.main -m com.tomekw.cdeps.core
 #+begin_src sh
 jlink --add-modules java.base --output javao
 #+end_src
-
+** jar
+#+begin_src shell
+jar vcf p.jar c
+#+end_src
 ** javac
-read Java declarations and compile them into class files
+Read Java declarations and compile them into class files
 ** javadoc
 ** javap
 ** jshell
