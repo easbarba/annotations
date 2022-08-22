@@ -167,7 +167,14 @@ System.out.println(cars.length);
 *compare*
 *sort*
 ** Packages
+- must be stored in sub-directories represented in the dot path
+- A class declared in a source file with no package declaration belongs to the anonymous default package
+
 #+begin_src java
+import p.C;
+import p.*;
+import static p.C.*;
+
 package org.foo.bar
 #+end_src
 
