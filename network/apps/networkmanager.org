@@ -1,9 +1,0 @@
-#+TITLE: NetworkManager
-
-* cli
-** radio
-** device
-*** wifi
-- rescan
-- list
-- connect SSID-Name wireless-password

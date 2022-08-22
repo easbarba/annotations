@@ -53,7 +53,7 @@
 - [[#nethogs][nethogs]]
 :END:
 
-* iwctl
+
 * nslookup
 * ping
 * resolvectl
@@ -73,6 +73,16 @@ ssh nixcraft@server1.cyberciti.biz -- command1 --arg1 --arg2
 #+end_src
 
  This ensures that command1 will accept --arg1 and --arg2 (or -opt1) as command-line arguments.
+* networkmanager
+** radio
+** device
+*** wifi
+#+begin_src shell
+nmcli rescan
+nmcli list
+nmcli connect SSID-Name wireless-password
+#+end_src
+
 * ping
 #+begin_src shell
 ping 1.1
@@ -130,13 +140,26 @@ configure a network interface
 * dig
 * iwd
 #+begin_src shell
+iwctl device list
+iwctl station device scan
+iwctl station YOURDEVICE scan
+iwctl --passphrase PASSPHRASE station DEVICE connect SSID
+
+iwctl station device get-networks
+
+iwctl station YOURDEVICE disconnect
+#+end_src
+
+#+begin_src shell
 ip a
 iw dev
+
 ip link set wlp2s0 up
 
 iwlist scan
 #+end_src
 
+** debian
 add to /etc/network/interfaces (man interfaces) *Debian-only*
 
 #+begin_src shell
