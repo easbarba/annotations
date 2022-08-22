@@ -940,3 +940,8 @@ Control write access of other users to your terminal.
 ** GNU Screen
 * Getters
 ** wget
+* TTY
+** setfont
+|    |              |
+|----+--------------|
+| -d | doubles font |
