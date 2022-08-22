@@ -14,6 +14,44 @@ Deletes a resource
 ** TRACE
 ** CONNECT
 
+* Status Codes
+** 2xx family
+Indicates that an operation was successful
+
+200: Successful Operation
+201: Successfully Created
+204: No content
+** 3xx family
+conveys redirection messages
+
+301: when a resource is moved permanently to a new URL endpoint.
+304: status code indicates that content is cached and no modification happened for the resource on the server.
+** 4xx family
+error status codes which the client needs to interpret and handle further actions.
+
+*** cases
+- wrong request format
+- ill-formed REST method can cause tese errors
+
+*** codes
+| code | name               | meaning                                                              |
+|------+--------------------+----------------------------------------------------------------------|
+|  400 | Bad Request        | server cannot understand the client request.                         |
+|  401 | Unauthorized       | client is not sending the authorization information in the header.   |
+|  403 | Forbidden          | client has no access to a certain type of resources.                 |
+|  404 | Not Found          | client request is on a resource that is nonexisting.                 |
+|  405 | Method Not Allowed | server bans a few methods on resources. GET and HEAD are exceptions. |
+
+** 5xx family
+The client request may be perfect, but due to a bug in the server code, these errors can arise.
+
+|     |                       |                                                                                                                  |
+|-----+-----------------------+------------------------------------------------------------------------------------------------------------------|
+| 500 | Internal Server Error | status code gives the development error which is caused by some buggy code or some unexpected condition          |
+| 501 | Not Implemented       | server is no longer supporting the method on a resource                                                          |
+| 502 | Bad Gateway           | server itself got an error response from another service vendor                                                  |
+| 503 | Service Unavailable   | server is down due to multiple reasons, like a heavy load or for maintenance                                     |
+| 504 | Gateway Timeout       | server is waiting a long time for a response from another vendor and is taking too much time to serve the client |
 * Components
 - Method
 - Endpoint
