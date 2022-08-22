@@ -291,6 +291,11 @@ print the file name of the terminal connected to standard input
 ** tty console
 *** set bigger fonts
 edit FONTSIZE in /etc/default/console-setup to one of these: 6x12, 8x14, 8x16, 10x20, 11x22, 12x24, 14x28, and 16x32
+* locale
+** setxkbmap
+#+begin_src shell
+setxkbmap -layout br -variant abnt2 -model thinkpad
+#+end_src
 
 * write
 Send a message to another user.
