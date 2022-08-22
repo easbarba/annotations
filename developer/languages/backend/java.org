@@ -87,7 +87,42 @@ class Area {
 "Hello World"
 "two\nlines"
 " \"This is in quotes\""
+"foo" + " bar" // "foo bar"
 #+end_src
+
+**** String Builder
+- java.lang.StringBuilder
+- gradually build a string
+
+#+begin_src java
+new StringBuilder()
+#+end_src
+
+*.append(string)*
+#+begin_src java
+new StringBuilder("meh").append(" foo").append(" bar").toString()
+#+end_src
+
+*.charAt(int)*
+
+*.delete(from, to)*
+
+*.insert(from, v)*
+
+*.length()*
+
+*.replace(from, to, s)*
+
+*.reverse()*
+
+*.setCharAt(i,c)*
+
+*.toString()*
+
+**** String Buffers
+- same as Builder
+- thread-safe
+
 *** Characters
 - store characters
 - range of 0 to 65,535
