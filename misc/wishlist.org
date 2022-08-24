@@ -1,0 +1,6 @@
+#+title: Wishlist
+
+* Books
+- Java Complete Reference
+- Java Precisely
+- C A modern approach
