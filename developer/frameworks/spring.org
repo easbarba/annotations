@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| name                | chapter                                          | @                                    |
-|---------------------+--------------------------------------------------+--------------------------------------|
-| Spring Up & Running | 4 Adding Database Access to Your Spring Boot App |                                      |
-| Spring in Action    | 2 Developing web applications                    | 2.5 Choosing a view template library |
+| name                | chapter                                           | @                                    |
+|---------------------+---------------------------------------------------+--------------------------------------|
+| Spring Up & Running | 5 Configuring and Inspecting Your Spring Boot App |                                      |
+| Spring in Action    | 2 Developing web applications                     | 2.5 Choosing a view template library |
 
 ** SLOC
 | Source Code      | folder | file | @ |
