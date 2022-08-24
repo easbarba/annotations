@@ -53,6 +53,10 @@ import org.springframework.validation.Errors;
 Declares that it should be automatically discovered by Spring compo-
 nent scanning and instantiated as a bean in the Spring application context.
 
+*autowired*
+
+- 4.3: single constructor classes require only one @autowire annotation
+
 * Services
 * Database
 ** JDBC
