@@ -292,8 +292,15 @@ mkdir /usr/local/src/bash/{old,new,dist,bugs}
 #+end_src
 
 ** Regular Expression
-* Utilities
+* Built-in utilities
 ** read
+** help
+Display information about builtin commands.
+
+#+begin_src shell
+help declare
+help if
+#+end_src
 ** echo
 ** set
 display all environment variables and Shell functions
