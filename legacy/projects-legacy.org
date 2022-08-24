@@ -158,6 +158,7 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
 ** perl
 #+begin_src yaml
    --- # Perl
+   - https://github.com/perltidy/perltidy
    - https://github.com/moose/Moose
    - https://github.com/richterger/Perl-LanguageServer
    - https://github.com/imapsync/imapsync
