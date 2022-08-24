@@ -559,6 +559,20 @@ https://build2.org/
 
     https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html
 * Toolings
+* Makefiles
+** eg1
+#+begin_src makefile
+CC=gcc
+CFLAGS=-Wall -w -pedantic -ansi -std=c11
+TARGET=zae
+clean:
+	rm -f *.o $(TARGET)
+
+
+build: clean
+	${CC} ${CC_OPTIONS}	commands.c become.c config.c translate.c -o ${TARGET}
+#+end_src
+
 * Libraries
     https://www.gnu.org/software/libc/
 
