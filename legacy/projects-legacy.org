@@ -1,10 +1,6 @@
 #+TITLE: Personal Projects Legacy
 
 * qas
-** ruby
-#+begin_src csv
-
-#+end_src
 ** js
 #+begin_src csv
 name,branch,url
@@ -121,10 +117,6 @@ laravel,9.x,https://github.com/laravel/laravel
 php-doc-en,master,https://github.com/php/doc-en
 php-src,master,https://github.com/php/php-src
 #+end_src
-** devops
-#+begin_src csv
-
-#+end_src
 ** misc
 #+begin_src csv
 name,repository
@@ -132,8 +124,8 @@ zero.sh,https://github.com/zero-sh/zero.sh
 ansible,https://github.com/ansible/ansible
 #+end_src
 
+** css
 #+begin_src yaml
-
    --- # css
    - https://github.com/IanLunn/Hover
    - https://github.com/jgthms/bulma
@@ -141,9 +133,9 @@ ansible,https://github.com/ansible/ansible
    - https://github.com/oddbird/susy
    - https://github.com/necolas/normalize.css
    - https://github.com/mozdevs/cssremedy
-
-   --- # common lisp
-
+#+end_src
+** haskell
+#+begin_src yaml
 --- # Haskell
 - https://gitlab.haskell.org/ghc/ghc
 - https://gitlab.haskell.org/haskell/ghcup
@@ -153,23 +145,18 @@ ansible,https://github.com/ansible/ansible
 - https://github.com/koalaman/shellcheck
 - https://github.com/jgm/pandoc
 - https://github.com/elm/compiler
-
+#+end_src
+** zig
+#+begin_src yaml
 name,repository
 zig,https://github.com/ziglang/zig
 nitter,https://github.com/zedeus/nitter
 river,https://github.com/ifreund/river
 zls,https://github.com/zigtools/zls
 zig-bootstrap,https://github.com/ziglang/zig-bootstrap
-
-
-   --- # Dart
-   - https://github.com/roughike/inKino
-   - https://github.com/flame-engine/flame
-   - https://github.com/felangel/bloc
-   - https://github.com/flutter/plugins
-   - https://github.com/dart-lang/build
-   - https://github.com/dart-lang/sdk
-
+#+end_src
+** perl
+#+begin_src yaml
    --- # Perl
    - https://github.com/moose/Moose
    - https://github.com/richterger/Perl-LanguageServer
@@ -181,20 +168,20 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/bugzilla/bugzilla
    - https://github.com/hachiojipm/awesome-perl
    - https://github.com/Perl/perl5
+#+end_src
+** dart
+#+begin_src yaml
+   --- # Dart
+   - https://github.com/roughike/inKino
+   - https://github.com/flame-engine/flame
+   - https://github.com/felangel/bloc
+   - https://github.com/flutter/plugins
+   - https://github.com/dart-lang/build
+   - https://github.com/dart-lang/sdk
 
-
-   --- # python
-   - https://github.com/python/cpython
-   - https://github.com/python/mypy
-   - https://github.com/python/peps
-   - https://github.com/pypa/pip
-   - https://github.com/pypa/wheel
-   - https://github.com/pytest-dev/pytest
-   - https://github.com/pypa/setuptools
-   - https://github.com/PyCQA/pylint
-   - https://github.com/nedbat/coveragepy
-   - https://github.com/psf/black
-
+#+end_src
+** php
+#+begin_src yaml
    --- # php
    - https://github.com/PacktPublishing/Mastering-PHP-7
    - https://github.com/bcit-ci/CodeIgniter
@@ -207,7 +194,21 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/symfony/symfony
    - https://github.com/laravel/laravel
    - https://github.com/php/php-src
-   #+end_src
+#+end_src
+** python
+#+begin_src yaml
+   --- # python
+   - https://github.com/python/cpython
+   - https://github.com/python/mypy
+   - https://github.com/python/peps
+   - https://github.com/pypa/pip
+   - https://github.com/pypa/wheel
+   - https://github.com/pytest-dev/pytest
+   - https://github.com/pypa/setuptools
+   - https://github.com/PyCQA/pylint
+   - https://github.com/nedbat/coveragepy
+   - https://github.com/psf/black
+#+end_src
 * zae
     #+begin_src yaml
     ---
