@@ -1,0 +1,147 @@
+#+title: Perl
+
+Practical Extraction and Report Language
+
+* Progress
+|               |   |                          |
+|---------------+---+--------------------------|
+| Learning Perl |   | Perl’s Built-in Warnings |
+
+* Base
+** Types
+*** Numbers
+**** Integers
+
+#+begin_src perl
+0
+2001
+-40
+137
+61298040283768
+61_298_040_283_768
+#+end_src
+
+#+begin_src per
+0377       # same as 255 decima
+0o377       # same as 255 decimal
+0xff       # FF hex, also 255 decimal
+0b11111111 # also 255 decimal
+0b11111111 # also 255 decimal
+#+end_src
+
+**** Floating-point
+#+begin_src perl
+For example:
+1.25
+255.000
+255.0
+7.25e45  # 7.25 times 10 to the 45th power (a big number)
+-6.5e24  # negative 6.5 times 10 to the 24th
+         # (a big negative number)
+-12e-24  # negative 12 times 10 to the -24th
+         # (a very small negative number)
+-1.2E-23 # another way to say that the E may be uppercase
+#+end_src
+*** Strings
+**** Single quotes
+- literal interpretation
+
+#+begin_src perl
+'fred'    # those four characters: f, r, e, and d
+'barney'  # those six characters
+''        # the null string (no characters)
+'⅚∞☃☠'   # Some "wide" Unicode characters
+#+end_src
+
+#+begin_src perl
+'Don\'t let an apostrophe end this string prematurely!'
+'the last character is a backslash: \\'
+'\'\\'    # single quote followed by backslash
+#+end_src
+
+- multiline
+
+#+begin_src perl
+'hello
+there'    # hello, newline, there (11 characters total)
+#+end_src
+
+**** Double quotes
+- interpret symbols and variables
+
+#+begin_src perl
+"barney"        # just the same as 'barney'
+"hello world\n" # hello world, and a newline
+"The last character of this string is a quote mark: \""
+"coke\tsprite"  # coke, a tab, and sprite
+"\x{2668}"      # Unicode HOT SPRINGS character code point
+"\N{SNOWMAN}"   # Unicode Snowman by name
+#+end_src
+
+**** Operators
+
+*join*
+
+#+begin_src perl
+"hello" . "world"       # same as "helloworld"
+"hello" . ' ' . "world" # same as 'hello world'
+'hello world' . "\n"    # same as "hello world\n"
+#+end_src
+
+*string repetition*
+#+begin_src perl
+"fred" x 3       # is "fredfredfred"
+"barney" x (4+1) # is "barney" x 5, or "barneybarneybarneybarneybarney"
+5 x 4.8          # is really "5" x 4, which is "5555"
+#+end_src
+
+
+
+
+** Operator
+#+begin_src perl
+2 + 3      # 2 plus 3, or 5
+5.1 - 2.4  # 5.1 minus 2.4, or 2.7
+3 * 12     # 3 times 12 = 36
+14 / 2     # 14 divided by 2, or 7
+10.2 / 0.3 # 10.2 divided by 0.3, or 34
+10 / 3     # always floating-point divide, so 3.3333333...
+#+end_src
+** Collection Types
+** Printing
+*print*
+
+*say*
+- v5.10
+- adds newline
+
+#+begin_src perl
+#!/usr/bin/perl
+
+use v5.10;
+
+say "Hello World!";
+#+end_src
+** Commentary
+*#*
+
+#+begin_src perl
+# meh
+#+end_src
+** Functions
+*** sub
+#+begin_src perl
+sub { print "meh" }
+#+end_src
+*** my
+
+* Standard Library
+** Getopt::Long
+
+* Commands
+** perl
+** perldoc
+perlintern  perlinterp  perlintro   perliol     perlipc     perlirix
+** perlbug
+** perlivp
+** perlthanks
