@@ -1,4 +1,4 @@
-#+TITLE: Personal Projects Legacy
+#+TITLE: Personal Projects Legacy files
 
 * qas
 ** js
