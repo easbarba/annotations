@@ -14,3 +14,12 @@ echo 'Vai Corinthians' | base64 -i
 | --salt <SALT> |                              |
 | -in <FILE>    | use file containing password |
 |               |                              |
+* gpg
+ gpg is the OpenPGP part of the GNU Privacy Guard (GnuPG). It is a tool to
+ provide digital encryption and signing services using the OpenPGP standard.
+ gpg features complete key management and all the bells and whistles you would
+ expect from a full OpenPGP implementation.
+
+#+begin_src shell
+gpg --dry-run --list-keys
+#+end_src
