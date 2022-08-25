@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                        |
-|--------------------------+------------------------------------------------------------+--------------------------|
-| Java Complete Reference  | 14 Generics                                                | Using Wildcard Arguments |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                          |
-| Junit                    | 1                                                          |                          |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                          |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                          |
+| name                     | chapter                                                    | @                 |
+|--------------------------+------------------------------------------------------------+-------------------|
+| Java Complete Reference  | 14 Generics                                                | Bounded Wildcards |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                   |
+| Junit                    | 1                                                          |                   |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                   |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                   |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -934,8 +934,8 @@ type member( ) default value ;
 *Marker Annotations*
 
 ** Generics
-Creates classes, interfaces, and methods that
-will work in a type-safe manner with various kinds of data
+Creates classes, interfaces, and methods that will work in a type-safe manner
+with various kinds of data
 
 - Parameterized types
 - Any valid identifier could have been used, but T is traditional.
@@ -970,7 +970,6 @@ T getOb() {
 #+begin_src java
 Gen<Integer> intOb = new Gen<Integer>(53); // Correct!
 Gen<int> intOb = new Gen<int>(53); // Error, can't use primitive type
-
 #+end_src
 
 #+begin_src java
@@ -1005,7 +1004,6 @@ public static void main(String[] args) {
 
   String str = strOb.getOb();
 }
-
 #+end_src
 
 *more than one type parameter*
@@ -1072,6 +1070,21 @@ class Gen<T extends MyClass & MyInterface> {}
 #+end_src
 
 *Wildcard Arguments*
+The wildcard argument is specified by the ?, and it represents an unknown type.
+
+#+begin_src java
+// Notice the use of the wildcard.
+boolean isSameAvg(Stats<?> ob) {
+  if(average() == ob.average())
+    return true;
+
+  return false;
+}
+#+end_src
+
+*Bounded Wildcards*
+
+
 
 ** Autoboxing
 ** Type Wrappers
