@@ -1,11 +1,12 @@
 #+TILE: Life
 
 * Progress
-|               |    |
-|---------------+----|
-| OPM           | 93 |
-| Truth be told |  4 |
-|               |    |
+|               |        |
+|---------------+--------|
+| OPM           |     93 |
+| Truth be told |      4 |
+| Brain         | 17:47m |
+|               |        |
 * WatchList
 - erika blomkvist, bedrag, rita, koukussa, vares
 Tengoku to jigoku
