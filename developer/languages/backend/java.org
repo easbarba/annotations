@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                 |
-|--------------------------+------------------------------------------------------------+-------------------|
-| Java Complete Reference  | 14 Generics                                                | Bounded Wildcards |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                   |
-| Junit                    | 1                                                          |                   |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                   |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                   |
+| name                     | chapter                                                    | @                         |
+|--------------------------+------------------------------------------------------------+---------------------------|
+| Java Complete Reference  | 14 Generics                                                | Creating a Generic Method |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                           |
+| Junit                    | 1                                                          |                           |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                           |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                           |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -1083,8 +1083,30 @@ boolean isSameAvg(Stats<?> ob) {
 #+end_src
 
 *Bounded Wildcards*
+- match any type as long as it is that type, or a class derived from it.
 
+upper bound
+#+begin_src java
+<? extends superclass>
+#+end_src
 
+lower bound
+- only classes that are superclasses of subclass are acceptable arguments. This is an inclusive clause.
+
+#+begin_src java
+<? super subclass>
+#+end_src
+
+#+begin_src java
+static void showXYZ(Coords<? extends ThreeD> c) {
+  System.out.println("X Y Z Coordinates:");
+  for(int i=0; i < c.coords.length; i++)
+    System.out.println(c.coords[i].x + " " +
+                       c.coords[i].y + " " +
+                       c.coords[i].z);
+  System.out.println();
+}
+#+end_src
 
 ** Autoboxing
 ** Type Wrappers
