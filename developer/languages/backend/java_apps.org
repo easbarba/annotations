@@ -107,6 +107,11 @@ mvn -B package --file pom.xml
 #+begin_src shell
 mvn dependency:purge-local-repository
 #+end_src
+*** wrapper
+generate nvmw locally
+#+begin_src shell
+mvn wrapper:wrapper
+#+end_src
 ** lifecycle
 *** default
 *** clean
