@@ -4,7 +4,7 @@
 ** Books
 | name                     | chapter                                                    | @                         |
 |--------------------------+------------------------------------------------------------+---------------------------|
-| Java Complete Reference  | 14 Generics                                                | Creating a Generic Method |
+| Java Complete Reference  | 14 Generics                                                | Raw Types and Legacy Code |
 | Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                           |
 | Junit                    | 1                                                          |                           |
 | Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                           |
@@ -1105,6 +1105,113 @@ static void showXYZ(Coords<? extends ThreeD> c) {
                        c.coords[i].y + " " +
                        c.coords[i].z);
   System.out.println();
+}
+#+end_src
+
+*Generic method*
+- Declare a generic method that uses one or more type parameters of its own.
+- Creates a generic method that is enclosed within a  non-generic class.
+- can be either static or non-static.
+
+#+begin_src java
+static <T extends Comparable<T>, V extends T> boolean isIn(T x, V[] y) {
+        for(int i=0; i < y.length; i++)
+    if(x.equals(y[i])) return true;
+
+  return false;
+}
+
+    // Use isIn() on Integers.
+    Integer[] nums = { 1, 2, 3, 4, 5 };
+
+    if(isIn(2, nums))
+      System.out.println("2 is in nums");
+
+    if(!isIn(7, nums))
+      System.out.println("7 is not in nums");
+#+end_src
+
+*Generic constructors*
+- non-generic classes can have generic constructor
+
+#+begin_src java
+// Use a generic constructor.
+class GenCons {
+  private double val;
+
+  <T extends Number> GenCons(T arg) {
+    val = arg.doubleValue();
+  }
+
+  void showVal() {
+    System.out.println("val: " + val);
+  }
+}
+
+class GenConsDemo {
+  public static void main(String[] args) {
+
+    GenCons test = new GenCons(100);
+    GenCons test2 = new GenCons(123.5F);
+
+    test.showVal();
+    test2.showVal();
+  }
+}
+#+end_src
+
+*Generic interfaces*
+- if a class implements a generic interface, then that class must also be generic.
+
+#+begin_src java
+interface interface-name<type-param-list> { // …
+#+end_src
+
+#+begin_src java
+interface MinMax<T extends Comparable<T>> {
+  T min();
+  T max();
+}
+
+class MyClass<T extends Comparable<T>> implements MinMax<T> {
+  T[] vals;
+
+  MyClass(T[] o) { vals = o; }
+
+  // Return the minimum value in vals.
+  public T min() {
+    T v = vals[0];
+
+    for(int i=1; i < vals.length; i++)
+      if(vals[i].compareTo(v) < 0) v = vals[i];
+
+    return v;
+  }
+
+  // Return the maximum value in vals.
+  public T max() {
+    T v = vals[0];
+
+    for(int i=1; i < vals.length; i++)
+      if(vals[i].compareTo(v) > 0) v = vals[i];
+
+    return v;
+  }
+}
+
+class GenIFDemo {
+  public static void main(String[] args) {
+    Integer[] inums = {3, 6, 2, 8, 6 };
+    Character[] chs = {'b', 'r', 'p', 'w' };
+
+    MyClass<Integer> iob = new MyClass<Integer>(inums);
+    MyClass<Character> cob = new MyClass<Character>(chs);
+
+    System.out.println("Max value in inums: " + iob.max());
+    System.out.println("Min value in inums: " + iob.min());
+    System.out.println("Max value in chs: " + cob.max());
+    System.out.println("Min value in chs: " + cob.min());
+  }
 }
 #+end_src
 
