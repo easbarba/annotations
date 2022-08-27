@@ -8,6 +8,7 @@
 ** rsync
 #+begin_src sh
 rsync -avz /from /to
+rsync -vhazrPt /x /y
 #+end_src
 ** tree
 |    |                                              |
