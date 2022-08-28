@@ -1280,6 +1280,17 @@ getDeclaredAnnotation( )
 getAnnotationsByType()
 getDeclaredAnnotationsByType( )
 #+end_src
+** java.util.collection
+*toArray(IntFunction)*
+
+#+begin_src java
+// Java 11
+List<String> list = Arrays.asList("foo","bar","baz");
+String[] array = list.toArray(String[]::new);
+
+// The above is equivalent to:
+String[] array2 = list.toArray(new String[0]);
+#+end_src
 
 * Commands
 ** java
