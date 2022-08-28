@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                         |
-|--------------------------+------------------------------------------------------------+---------------------------|
-| Java Complete Reference  | 14 Generics                                                | Generic Class Hierarchies |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                           |
-| Junit                    | 1                                                          |                           |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                           |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                           |
+| name                     | chapter                                                    | @                              |
+|--------------------------+------------------------------------------------------------+--------------------------------|
+| Java Complete Reference  | 15 Lambda                                                  | Introducing Lambda Expressions |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                                |
+| Junit                    | 1                                                          |                                |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                                |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                                |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
