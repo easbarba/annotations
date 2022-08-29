@@ -2,13 +2,13 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                              |
-|--------------------------+------------------------------------------------------------+--------------------------------|
-| Java Complete Reference  | 15 Lambda                                                  | Introducing Lambda Expressions |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                                |
-| Junit                    | 1                                                          |                                |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                                |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                                |
+| name                     | chapter                                                    | @                        |
+|--------------------------+------------------------------------------------------------+--------------------------|
+| Java Complete Reference  | 15 Lambda                                                  | Block Lambda Expressions |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                          |
+| Junit                    | 1                                                          |                          |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                          |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                          |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -1268,6 +1268,37 @@ class RawDemo {
 //    d = (Double) raw.getOb(); // run-time error
   }
 }
+#+end_src
+** Lambda
+- two constructs: the lambda expression, itself, the functional interface.
+- anonymous method
+- A functional interface is an interface that contains one and only one abstract method.
+- at times referred as SAM type, where SAM stands for Single Abstract Method
+- lambda operator, arrow operator
+- −> can be verbalized as “becomes” or “goes to.”
+
+#+begin_src java
+() -> 123.45
+() -> Math.random() * 100
+#+end_src
+
+- type and number of the lambda expression’s parameters must be compatible  with the method’s parameters
+- return types must be compatible
+- exceptions thrown by the lambda expression must be acceptable to the method.
+
+#+begin_src java
+interface MyNumber {
+  double getValue();
+}
+MyNumber myNum = () -> 123.45;
+myNum.getValue() // 123.45
+
+interface SumMe {
+    double Summing(Double x,Double y);
+}
+
+SumMe summing = (x,y) -> x + y; // ==> $Lambda$21/0x0000000800c0b408@1ddc4ec2
+summing.Summing(1.2,1.2) // ==> 2.4
 #+end_src
 
 ** Autoboxing
