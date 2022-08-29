@@ -2,14 +2,82 @@
 
 * Progress
 ** Books
-| name  | chapter                | @ |
-|-------+------------------------+---|
-| Junit | 2 Exploring core JUnit |   |
+| name  | chapter                | @                                 |
+|-------+------------------------+-----------------------------------|
+| Junit | 2 Exploring Core Junit | 2.1.1 The @DisplayName annotation |
 
 ** SLOC
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
 | junit       |        |      |   |
+
+* JUnit
+** Test Classes
+- may be a top-level class,
+- may be a static member class,
+- may be a inner class annotated as @Nested that contains one or more test methods.
+- cannot be abstract
+- must have a single constructor
+- its constructor must have no arguments, or arguments that can be dynamically resolved at runtime through dependency injection.
+- allowed to be package-private as a minimum requirement for visibility.
+- 5: no longer required that test classes be public
+
+
+ Test only Execute one class
+#+begin_src java
+mvn -Dtest=SUTTest.java clean install.
+#+end_src
+
+
+** Test Methods
+- must not be abstract
+- must not return a value (the return type should be void).
+- annotated with @Test, @Repeated-Test, @ParameterizedTest, @TestFactory, or @TestTemplate.
+
+** Life Cycle
+@TestInstance(Lifecycle.PER_CLASS)
+
+** Life cycle Methods
+- annotated with @BeforeAll, @AfterAll, @BeforeEach, or @AfterEach.
+** Annotations
+
+*@Test*
+
+#+begin_src java
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+@Test
+public void testAdd() {
+   Calculator calculator = new Calculator();
+   assertEquals(60, result, 0);
+}
+#+end_src
+
+*@BeforeEach*
+
+*@BeforeAll*
+
+*@AfterEach*
+
+*@AfterAll*
+
+*@Before*
+
+*@BeforeClass*
+
+*@After*
+
+*@AfterClass*
+
+*@Nested*
+
+*@DisplayName*
+- declares display name for an annotated test class or test method.
+- can be used over classes and test methods
+
+*@Disabled*
+
 
 * Maven
 version: JDK7
@@ -129,18 +197,6 @@ Documentation generation
 *** test
 *** run
 *** build
-
-* JUnit
-
-** Annotations
-*@BeforeEach*
-*@BeforeAll*
-*@AfterEach
-*@AfterAll
-*@Before
-*@BeforeClass
-*@After
-*@AfterClass
 
 * jbang
 *
