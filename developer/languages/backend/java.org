@@ -5,7 +5,6 @@
 | name                     | chapter                                                    | @                        |
 |--------------------------+------------------------------------------------------------+--------------------------|
 | Java Complete Reference  | 15 Lambda                                                  | Block Lambda Expressions |
-| Junit                    | 2 Exploring Core Junit                                     | Core annotations         |
 | Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                          |
 | Effective Java 9         | 2 Creating and Destroying Objects                          |                          |
 | Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                          |
