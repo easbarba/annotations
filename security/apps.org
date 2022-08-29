@@ -1,4 +1,4 @@
-#+TITLE: Apps
+#+TITLE: Security Applications
 
 * sha256sum
 * md5sum
@@ -22,4 +22,20 @@ echo 'Vai Corinthians' | base64 -i
 
 #+begin_src shell
 gpg --dry-run --list-keys
+#+end_src
+
+*--no-warning*
+
+
+
+** set up
+ #+begin_src shell
+gpg --full-generate-key
+#     RSA
+#     4096 bits
+ #+end_src
+
+** list keys
+#+begin_src shell
+gpg --list-secret-keys --keyid-format LONG
 #+end_src

@@ -790,14 +790,7 @@ Control write access of other users to your terminal.
     returns working directory
 ** lsof
 ** sysctl
-** gpg
-*** set up
-     gpg --full-generate-key
-     RSA
-     4096 bits
-*** list keys
-     gpg --list-secret-keys --keyid-format LONG
- ***
+
 ** Df
 ** strace
 ** dstrace
