@@ -12,6 +12,26 @@ express,master,https://github.com/expressjs/express
 #+begin_src csv
 
 #+end_src
+** guile
+#+begin_src csv
+name,branch,url
+artanis,master,https://gitlab.com/hardenedlinux/artanis
+chickadee,master,https://git.dthompson.us/chickadee.git
+haunt,master,https://git.dthompson.us/haunt.git
+guile-json,master,https://github.com/aconchillo/guile-json
+guile-git,master,https://gitlab.com/guile-git/guile-git
+guile-filesystem,master,https://gitlab.com/leoprikler/guile-filesystem
+guile-libyaml,main,https://github.com/mwette/guile-libyaml
+geiser-guile,master,https://gitlab.com/emacs-geiser/guile
+pjotrp-guix-notesz,master,https://github.com/pjotrp/guix-notes
+alezost-guix-config,master,https://github.com/alezost/guix-config
+akku,master,https://gitlab.com/akkuscm/akku
+lokke,main,https://github.com/lokke-org/lokke
+fibers,master,https://github.com/wingo/fibers
+nonguix,master,https://gitlab.com/nonguix/nonguix
+guix,master,https://git.savannah.gnu.org/git/guix
+guile,master,https://git.sv.gnu.org/git/guile
+#+end_src
 ** elixir
 #+begin_src csv
 name,branch,url
