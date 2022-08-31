@@ -76,6 +76,8 @@ public interface CarRepository extends CrudRepository
 
 *JPARepository*
 
+*PagingAndSortingRepository*
+
 *@Query*
 #+begin_src java
 public interface CarRepository extends CrudRepository
@@ -84,7 +86,25 @@ public interface CarRepository extends CrudRepository
     @Query(“select c from Car c where c.brand = ?1")
 }
 #+end_src
-*PagingAndSortingRepository*
+
+*@OneToMany*
+*@ManyToOne*
+- It is recommended that you use FetchType.LAZY for all associations.
+- the toMany relationships defaults to FetchType.LAZY , but the toOne relationships, should defined if needed.
+- lazy strategy means that when it is fetched from the database,  will be fetched when needed.
+- eager means that the it will be fetched immediately.
+
+#+begin_src java
+// Car.java
+@ManyToOne(fetch=FetchType.LAZY)
+@JoinColumn(name="owner")
+private Owner owner;
+#+end_src
+
+#+begin_src java
+@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
+private List<Car> cars;
+#+end_src
 
 * Services
 *@Service*
