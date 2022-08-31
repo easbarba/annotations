@@ -53,6 +53,29 @@ if ! sudo grep -i "$USER" "$HBA_CONF"; then
 fi
 
 #+end_src
+* s-wm-volume
+#+begin_src ruby
+  def output_id_legacy
+    require 'English'
+
+    output = `set -eu; pactl list sinks`
+    raise('pipeline failed') unless $CHILD_STATUS.success?
+
+    case ENV['LANG']
+    when 'pt_BR.UTF-8'
+      dest = 'Destino'
+      state = 'Estado'
+    when 'en_US.UTF-8'
+      dest = 'Sink'
+      state = 'State'
+    end
+
+    # sink id is the first letter in the string returned
+    output.split("#{dest} #").find do |sink|
+      sink if sink.include? "#{state}: RUNNING"
+    end.split(state).first.strip
+  end
+#+end_src
 
 * e_fedora
 #+begin_src shell
