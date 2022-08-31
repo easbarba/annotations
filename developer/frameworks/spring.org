@@ -4,7 +4,7 @@
 ** Books
 | name                  | chapter                                           | @                                    |
 |-----------------------+---------------------------------------------------+--------------------------------------|
-| FullStack Spring Boot | 3 Using JPA to Create and Access a Database       | Creating CRUD repositories           |
+| FullStack Spring Boot | 3 Using JPA to Create and Access a Database       | Adding relationships between tables  |
 | Spring Up & Running   | 5 Configuring and Inspecting Your Spring Boot App |                                      |
 | Spring in Action      | 2 Developing web applications                     | 2.5 Choosing a view template library |
 
@@ -60,7 +60,31 @@ nent scanning and instantiated as a bean in the Spring application context.
 
 *CrudRepository*
 
+#+begin_src java
+public interface CarRepository extends CrudRepository
+    <Car, Long> {
+    // Fetch cars by brand
+    List<Car> findByBrand(String brand);
+
+    // Fetch cars by color
+    List<Car> findByColor(String color);
+
+    // Fetch cars by year
+    List<Car> findByYear(int year);
+}
+#+end_src
+
 *JPARepository*
+
+*@Query*
+#+begin_src java
+public interface CarRepository extends CrudRepository
+    <Car, Long> {
+    // Fetch cars by brand using SQL
+    @Query(“select c from Car c where c.brand = ?1")
+}
+#+end_src
+*PagingAndSortingRepository*
 
 * Services
 *@Service*
