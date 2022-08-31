@@ -58,6 +58,10 @@ nent scanning and instantiated as a bean in the Spring application context.
 
 - 4.3: single constructor classes require only one @autowire annotation
 
+*CrudRepository*
+
+*JPARepository*
+
 * Services
 *@Service*
 
