@@ -222,6 +222,20 @@ generate nvmw locally
 #+begin_src shell
 mvn wrapper:wrapper
 #+end_src
+*** archetype
+*generate*
+#+begin_src shell
+mvn archetype:generate -DgroupId=com.sohamkamani \ -DartifactId=mvn-example \ -DarchetypeArtifactId=maven-archetype-quickstart \ -DarchetypeVersion=1.4
+#+end_src
+
+jar
+integration test
+crawl
+create
+create-from-project
+help
+update-local-catalog
+
 ** lifecycle
 *** default
 *** clean
