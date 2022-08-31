@@ -70,6 +70,10 @@
 #+begin_src conf
 spring.datasource.generate-unique-name=false
 spring.datasource.name=tacocloud
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.datasource.username
+spring.datasource.password.
 #+end_src
 
 #+begin_src yaml
