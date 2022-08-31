@@ -311,7 +311,6 @@ create table customer (
 );
 #+end_src
 
-
 *Check*
 
 #+begin_src sql
@@ -325,10 +324,12 @@ create table high_temperature (
 
 *Indexes*
 
-
 #+begin_src sql
 create index product_supplier_index on product(supplier_id);
 #+end_src
+
+*FK*
+
 ** Views
 CREATE VIEW defines a view of a query. The view is not physically materialized.
 Instead, the query is run every time the view is referenced in a query.
