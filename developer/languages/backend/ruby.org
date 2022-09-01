@@ -1396,8 +1396,7 @@ r.reject {}
 (1..10) === 5   # => true
 (1..10) === 15  # => false
 
-car_age = gets.to_f
-# let's assume it's 9.5
+car_age = 9.5
 case car_age
 when 0...1
   puts "Mmm.. new car smell"
@@ -1410,13 +1409,7 @@ when 10...30
 else
   puts "Vintage gem"
 end
-
-# produces:
-  Reliable but slightly dinged
-
 #+end_src
-
-
 
 *new*
 
