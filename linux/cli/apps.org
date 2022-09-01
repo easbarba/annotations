@@ -170,19 +170,19 @@ either a regular file or a device (e.g. a tape drive, hence the name of
 the program, which stands for tape archiver), which can be located
 either on the local or on a remote machine.
 
-|                    |   |
-|--------------------+---|
-| -f                 |   |
-| -c                 |   |
-| -p                 |   |
-| -r                 |   |
-| -t                 |   |
-| -u                 |   |
-| -v                 |   |
-| -x                 |   |
-| -z                 |   |
-| --strip-components |   |
-| -C                 |   |
+|                    |                   |
+|--------------------+-------------------|
+| -f                 |                   |
+| -c                 |                   |
+| -p                 |                   |
+| -r                 |                   |
+| -t                 |                   |
+| -u                 |                   |
+| -v                 |                   |
+| -x                 |                   |
+| -z                 |                   |
+| --strip-components |                   |
+| -C                 | extract to folder |
 
 #+begin_src shell
 tar -cvf videos.tar ~/Videos
