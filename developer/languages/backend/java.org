@@ -678,7 +678,33 @@ class Exc2 {
 *Error class*
 - indicates errors having to do with the run-time environment
 - exceptions that are not expected to be caught under normal circumstances by your program.
-*** Types
+
+*Nested Try*
+
+#+begin_src java
+class NestTry {
+  public static void main(String[] args) {
+    try {
+      int a = args.length;
+      int b = 42 / a;
+      System.out.println("a = " + a);
+      try {
+        if (a == 1)
+          a = a / (a - a);
+        if (a == 2) {
+          int[] c = {1};
+          c[42] = 99;
+        }
+      } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("Array index out-of-bounds: " + e);
+      }
+    } catch (ArithmeticException e) {
+      System.out.println("Divide by 0: " + e);
+    }
+  }
+}
+#+end_src
+
 ** Enumerations
 - specifies the only values that a data type can legally have.
 - can have constructors, methods, and instance variables.
