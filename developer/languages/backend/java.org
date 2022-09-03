@@ -2,12 +2,12 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                        |
-|--------------------------+------------------------------------------------------------+--------------------------|
-| Java Complete Reference  | 15 Lambda                                                  | Block Lambda Expressions |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                          |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                          |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                          |
+| name                     | chapter                                                    | @                                   |
+|--------------------------+------------------------------------------------------------+-------------------------------------|
+| Java Complete Reference  | 9 Exceptions                                               | Three Additional Exception Features |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                                     |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                                     |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                                     |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -643,6 +643,77 @@ finally {
 // block of code to be executed after try block ends
 }
 #+end_src
+
+*Custom Exceptions*
+
+#+begin_src java
+// This program creates a custom exception type.
+class MyException extends Exception {
+  private int detail;
+  MyException(int a) { detail = a; }
+  public String toString() { return "MyException[" + detail + "]"; }
+}
+class ExceptionDemo {
+  static void compute(int a) throws MyException {
+    System.out.println("Called compute(" + a + ")");
+    if (a > 10)
+      throw new MyException(a);
+    System.out.println("Normal exit");
+  }
+  public static void main(String[] args) {
+    try {
+      compute(1);
+      compute(20);
+    } catch (MyException e) {
+      System.out.println("Caught " + e);
+    }
+  }
+}
+#+end_src
+
+*Chained Exceptions*
+
+Allows you to associate another exception with an exception. This second
+exception describes the cause of the first exception.
+
+#+begin_src java
+Throwable(Throwable causeExc)
+Throwable(String msg, Throwable causeExc)
+#+end_src
+
+#+begin_src java
+Throwable getCause( )
+Throwable initCause(Throwable causeExc)
+#+end_src
+
+- getCause( ) method returns the exception that underlies the current exception or null
+- initCause( ) method associates causeExc with the invoking exception and returns a reference to the exception.
+- can call initCause( ) only once for each exception object
+
+#+begin_src java
+// Demonstrate exception chaining.
+class ChainExcDemo {
+  static void demoproc() {
+    // create an exception
+    NullPointerException e = new NullPointerException("top layer");
+    // add a cause
+    e.initCause(new ArithmeticException("cause"));
+    throw e;
+  }
+
+  public static void main(String[] args) {
+    try {
+      demoproc();
+    } catch (NullPointerException e) {
+      // display top level exception
+      System.out.println("Caught: " + e);
+      // display cause exception
+      System.out.println("Original cause: " + e.getCause());
+    }
+  }
+}
+#+end_src
+
 *** Keywords
 *try/catch*
 - allows you to fix the error
