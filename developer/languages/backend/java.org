@@ -2,12 +2,12 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                                   |
-|--------------------------+------------------------------------------------------------+-------------------------------------|
-| Java Complete Reference  | 9 Exceptions                                               | Three Additional Exception Features |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                                     |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                                     |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                                     |
+| name                     | chapter                                                    | @ |
+|--------------------------+------------------------------------------------------------+---|
+| Java Complete Reference  | 13 I/O, Try-with-Resources, and Other Topics               |   |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |   |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |   |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |   |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -714,7 +714,34 @@ class ChainExcDemo {
 }
 #+end_src
 
-*** Keywords
+*try-with-resources*
+
+*multi-catch*
+- allows two or more exceptions to be caught by the same catch clause.
+- use a single catch clause to handle all of the exceptions without code duplication
+- multi-catch parameters are implicitly final
+
+#+begin_src java
+ // Demonstrate the multi-catch feature.
+class MultiCatch {
+  public static void main(String[] args) {
+    int a = 10, b = 0;
+    int[] vals = {1, 2, 3};
+    try {
+      int result = a / b; // generate an ArithmeticException
+      //
+      vals[10] = 19; // generate an ArrayIndexOutOfBoundsException
+      // This catch clause catches both exceptions.
+    } catch (ArithmeticException | ArrayIndexOutOfBoundsException e) {
+      System.out.println("Exception caught: " + e);
+    }
+    System.out.println("After multi-catch.");
+  }
+}
+#+end_src
+
+*rethrow*
+
 *try/catch*
 - allows you to fix the error
 - prevents the program from automatically terminating
