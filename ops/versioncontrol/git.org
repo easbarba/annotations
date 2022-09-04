@@ -146,7 +146,11 @@ git merge feature main
 ** mv
 Move or rename a file, directory, or symlink.
 ** pull
-      Fetch from, or integrate with, another repository or a local branch.
+Fetch from, or integrate with, another repository or a local branch.
+
+#+begin_src shell
+git --git-dir=/home/easbarba/Projects/java/spring-boot/.git --work-tree=/home/easbarba/Projects/java/spring-boot -c 'core.quotePath=true' -c 'color.ui=false' pull origin master
+#+end_src
 ** push
 Update remote refs along with associated objects.
 
@@ -227,7 +231,6 @@ Move existing, uncommitted work to a new branch
 #+begin_src shell
 git switch -c <new-branch>
 #+end_src
-
 
 
 ** submodule
