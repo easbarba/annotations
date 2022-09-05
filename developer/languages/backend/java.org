@@ -1,13 +1,13 @@
-]#+TITLE: Java
+#+TITLE: Java
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                      |
-|--------------------------+------------------------------------------------------------+------------------------|
-| Java Complete Reference  | 13 I/O, Try-with-Resources, and Other Topics               | Writing Console Output |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                        |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                        |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                        |
+| name                     | chapter                                                    | @                         |
+|--------------------------+------------------------------------------------------------+---------------------------|
+| Java Complete Reference  | 13 I/O, Try-with-Resources, and Other Topics               | Reading and Writing Files |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                           |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                           |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                           |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -956,6 +956,26 @@ ap.Winesap.equals(ap.Cortland) // false
 An abstraction that either produces or consumes information
 
 - must import java.io
+
+*** PrintStream
+
+#+begin_src java
+void write(int byteval)
+#+end_src
+
+#+begin_src java
+class WriteDemo {
+public static void main(String[] args) {
+int b;
+b = 'A';
+System.out.write(b);
+System.out.write('\n');
+}
+}
+#+end_src
+
+*** OutputStream
+
 ** IO
 *** BufferedReader
 
@@ -1043,8 +1063,30 @@ class TinyEdit {
   }
 }
 #+end_src
+*** PrintWriter
+- for real-word its the recommended method of writing to the console
+- makes real-world applications easier to internationalize.
+- If flushingOn is true, flushing automatically takes place.
+- If false, flushing is not automatic.
 
+#+begin_src java
+PrintWriter(OutputStream outputStream, boolean flushingOn)
+#+end_src
 
+#+begin_src java
+import java.io.*;
+
+public class PrintWriterDemo {
+  public static void main(String[] args) {
+    PrintWriter pw = new PrintWriter(System.out, true);
+    pw.println("This is a string");
+    int i = -7;
+    pw.println(i);
+    double d = 4.5e-7;
+    pw.println(d);
+  }
+}
+#+end_src
 
 ** Annotations
 - @ declares an  annotation type to the compiler
