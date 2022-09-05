@@ -1,13 +1,13 @@
-#+TITLE: Java
+]#+TITLE: Java
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @ |
-|--------------------------+------------------------------------------------------------+---|
-| Java Complete Reference  | 13 I/O, Try-with-Resources, and Other Topics               |   |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |   |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |   |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |   |
+| name                     | chapter                                                    | @                      |
+|--------------------------+------------------------------------------------------------+------------------------|
+| Java Complete Reference  | 13 I/O, Try-with-Resources, and Other Topics               | Writing Console Output |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                        |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                        |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                        |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
@@ -953,6 +953,99 @@ ap.Winesap.equals(ap.Cortland) // false
  m.Winesap == m.Cortland // false
 #+end_src
 ** Streams
+An abstraction that either produces or consumes information
+
+- must import java.io
+** IO
+*** BufferedReader
+
+*read()*
+Reads a character from the input stream and returns it as an integer value
+
+#+begin_src java
+int read( ) throws IOException
+#+end_src
+
+#+begin_src java
+import java.io.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+class BRRead {
+  public static void main(String[] args) throws IOException {
+    char c;
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in, System.console().charset()));
+
+    System.out.println("Enter characters, 'q' to quit.");
+
+    do {
+      c = (char)br.read();
+      System.out.println(c);
+    } while (c != 'q');
+  }
+}
+#+end_src
+
+
+*readLine()*
+
+Reads a string from the keyboard
+
+#+begin_src java
+String readLine( ) throws IOException
+#+end_src
+
+#+begin_src java
+import java.io.*;
+class BRReadLines {
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in, System.console().charset()));
+    String str;
+
+    System.out.println("Enter lines of text.");
+    System.out.println("Enter 'stop' to quit.");
+
+    do {
+      str = br.readLine();
+      System.out.println(str);
+    } while (!str.equals("stop"));
+  }
+}
+#+end_src
+
+#+begin_src java
+import java.io.*;
+class TinyEdit {
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in, System.console().charset()));
+    String[] str = new String[100];
+
+    System.out.println("Enter lines of text.");
+    System.out.println("Enter 'stop' to quit.");
+
+    for (int i = 0; i < 100; i++) {
+      str[i] = br.readLine();
+      if (str[i].equals("stop"))
+        break;
+    }
+
+    System.out.println("\nHere is your file:");
+
+    for (int i = 0; i < 100; i++) {
+      if (str[i].equals("stop"))
+        break;
+      System.out.println(str[i]);
+    }
+  }
+}
+#+end_src
+
+
+
 ** Annotations
 - @ declares an  annotation type to the compiler
 - annotation can be annotated.
