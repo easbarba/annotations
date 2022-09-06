@@ -1,0 +1,28 @@
+#+title: C Applications tools
+
+* gdb
+* valgrind
+* Libraries
+** editline
+#+begin_src c
+#include <editline/readline.h>
+#include <editline/history.h>
+#+end_src
+
+*compiling editline*
+
+#+begin_src shell
+cc -std=c99 -Wall prompt.c -ledit -o prompt
+#+end_src
+
+*readline*
+Strips the trailing newline
+
+#+begin_src c
+char* input = readline("lispy> ");
+#+end_src
+
+*add_history*
+#+begin_src c
+add_history(input);
+#+end_src
