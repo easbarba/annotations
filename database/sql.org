@@ -5,3 +5,11 @@
 ** Read
 ** Update
 ** Delete
+* cascade
+#+begin_src sql
+drop table if exists owner CASCADE
+#+end_src
+* alter
+#+begin_src sql
+alter table car add constraint foreign key references owner
+#+end_src
