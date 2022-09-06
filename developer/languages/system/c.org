@@ -2,11 +2,11 @@
 
 * Progress
 ** Book
-| Book                | Chapter                           | @            |
-|---------------------+-----------------------------------+--------------|
-| Build your own Lisp | 5 What is a Programming Language? |              |
-| C Modern Approach   | 3 Formatted  Input/output         |              |
-| C Primer Plus       | 3 Data and C                      | The int Type |
+| Book                | Chapter                   | @            |
+|---------------------+---------------------------+--------------|
+| Build your own Lisp | 7 Evaluation              |              |
+| C Modern Approach   | 3 Formatted  Input/output |              |
+| C Primer Plus       | 3 Data and C              | The int Type |
 
 ** SLOC
 | Source Code | folder | file    | @ |
@@ -79,7 +79,11 @@ int main(){
 #+end_src
 ** PreProcessor
 - #ifdef , #else , and #endif
-
+** Heards
+*** <xx.h>
+Angular brackets searches the system locations for headers first
+*** "xx.h"
+Quotation marks searches the current directory first
 * Standard Library
 ** stdio
 #+begin_src c
