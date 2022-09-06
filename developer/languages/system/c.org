@@ -2,10 +2,11 @@
 
 * Progress
 ** Book
-| Book              | Chapter                   | @            |
-|-------------------+---------------------------+--------------|
-| C Modern Approach | 3 Formatted  Input/output |              |
-| C Primer Plus     | 3 Data and C              | The int Type |
+| Book                | Chapter                   | @            |
+|---------------------+---------------------------+--------------|
+| Build your own Lisp | 4 An Interactive Prompt   |              |
+| C Modern Approach   | 3 Formatted  Input/output |              |
+| C Primer Plus       | 3 Data and C              | The int Type |
 
 ** SLOC
 | Source Code | folder | file    | @ |
@@ -49,7 +50,6 @@ printf("Height: %d\n", height);
 
 ** Functions
 #+begin_src c
-
 #+end_src
 ** Pointers
 #+begin_src c
@@ -80,13 +80,17 @@ int main(){
 
 * Standard Library
 ** stdio
-*#scanf*
+#+begin_src c
+#include <stdio.h>
+#+end_src
+
+*scanf*
 #+begin_src c
 scanf("%d", &i); /* reads an integer; stores into i */
 scanf("%f", &x); /* reads a float value; stores into x */
 #+end_src
 
-*#printf*
+*printf*
 - d, Displays an integer in decimal (base 10) form
 - e, Displays a floating-point number in exponential format
 - f, Displays a floating-point number in “fixed decimal” format
@@ -94,6 +98,34 @@ scanf("%f", &x); /* reads a float value; stores into x */
 
 #+begin_src c
 printf("i = %d, j = %d, x = %f, y = %f\n", i, j z x, y);
+printf("No you're a %s", input)
+#+end_src
+
+*puts*
+
+*fgets*
+#+begin_src c
+/* Read a line of user input of maximum size 2048 */
+fgets(input, 2048, stdin);
+#+end_src
+
+*fputs*
+#+begin_src c
+fputs("lispy> ", stdout);
+#+end_src
+
+*stdin*
+
+*stdout*
+
+** stdlib
+#+begin_src c
+#include <stdlib.h>
+#+end_src
+
+*free*
+#+begin_src c
+free(input)
 #+end_src
 ** keywords
 auto
@@ -318,7 +350,6 @@ _Bool'
 	   selection_sort(a, n-1);
 	 }
 	 #+END_SRC
-
 * Snippets
 ** find exec in path
 #+begin_src c
