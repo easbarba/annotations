@@ -1,11 +1,23 @@
 #+TITLE: GCC
 
 * options
-|            |   |
-|------------+---|
-| -E <file>  |   |
-| -S <file>  |   |
-| -c <file>  |   |
-| -o <file>  |   |
-| -std=gnu99 |   |
-| -std=gnu11 |   |
+*-E <file>*
+
+*-S <file>*
+
+*-c <file>*
+
+*-o <file>*
+
+*-Wall*
+
+#+begin_src shell
+cc -std=c99 -Wall hello_world.c -o hello_world
+#+end_src
+
+*-std*
+#+begin_src shell
+-std=gnu99
+-std=gnu11
+#+end_src
+
