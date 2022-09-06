@@ -1088,6 +1088,14 @@ public class PrintWriterDemo {
 }
 #+end_src
 
+#+begin_src java
+PrintWriter printWriter = new PrintWriter("test.txt");
+printWriter.print("Test PrintWriter Line 1 ");
+printWriter.print("Test PrintWriter Line 2 ");
+printWriter.print("Test PrintWriter Line 3");
+printWriter.close();
+#+end_src
+
 ** Annotations
 - @ declares an  annotation type to the compiler
 - annotation can be annotated.
