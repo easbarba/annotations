@@ -7,7 +7,7 @@
 #+begin_src shell
 xorg=(awesome awesome-extra  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
 wm=(wofi maim screenkey syncthing gopher ssh-askpass-gnome diodon pasystray volumeicon-alsa brightnessctl)
-wayland=(sway swaybg swaylock swayidle foot clipman grim slurp wl-clipboard xwayland mako-notifier)
+wayland=(sway swaybg swaylock swayidle foot clipman grim slurp xwayland mako-notifier)
 langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop )
 term=(zsh)
