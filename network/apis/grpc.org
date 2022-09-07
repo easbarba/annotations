@@ -1,0 +1,11 @@
+#+title: gRPC
+
+* gRPC
+ - it's a specification
+ - uses the Protocol Buffers binary format.
+ - requires that both the client and server in a gRPC data exchange have access to the same schema definition.
+ - Protocol Buffers definition in a .proto file.
+ - binary format as the means of data exchange is that it increases performance
+ - supports bidirectional, asynchronous data exchange.
+ - based on the HTTP/2 protocol.
+ - HTTP/2 allow gRPC to be used in situations where REST or GraphQL can't even be considered.

@@ -1,0 +1,11 @@
+* GraphQL
+- is a specification
+- represent data in a graph
+- graph database is a collection of nodes and edges.
+- types, queries, and mutations are defined in the schema
+- flexible in defining the structure of the data that's returned when making a query against the API.
+- Subscriptions open the door to asynchronous messaging.
+- Query and mutation data exchange are synchronous due to the request-response pattern inherent in the HTTP/1.1 protocol.
+- Synchronous and asynchronous activities are distinct.
+- 2 servers: synchronous HTTP server and also an asynchronous subscription server.
+-  While the specification allows for customization, the basic framework cannot be avoided.
