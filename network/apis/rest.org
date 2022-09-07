@@ -5,8 +5,37 @@
 | Books                  | Chapter                             | At                        |
 |------------------------+-------------------------------------+---------------------------|
 | The Design of Web APIs | 3 Designing a programming interface | 3.1 Introducing REST APIs |
+* Base
+- Representational State Transfer
+- use the standard HTTP methods, GET, POST, PUT and DELETE, to query and mutate resources represented by URIs on the Internet.
+- resource are big dataset that describes a collection of entities of the type
+- agnostic in terms of the format used to structure the response data from a resource.
+- HTTP/1.1 is the protocol used
+- stateless request-response mechanism
+- supports the concept of Hypermedia as the Engine of Application State (HATEOAS).
+- Productivity under REST is almost immediate.
+- clunky and immutable in terms of the data structure of a response.
+- can be slow.
+- limited rule set to follow.
 
-* Verbs
+#+begin_src json
+{
+  "car": {
+    "vin": "KNDJT2A23A7703818",
+    "make": "kia",
+    "model": "soul",
+    "year": 2010,
+    "links": {
+      "service": "/cars/KNDJT2A23A7703818/service",
+      "sell": "/cars/KNDJT2A23A7703818/sell",
+      "clean": "/cars/KNDJT2A23A7703818/sell"
+    }
+  }
+}
+#+end_src
+
+
+** Verbs
 | verb    | action                                               |  Sucess | failure |
 |---------+------------------------------------------------------+---------+---------|
 | GET     | Fetches a record or set of resources from the server |     202 |     404 |
@@ -16,7 +45,7 @@
 | PATCH   | Modifies the given record                            | 200,204 |     404 |
 | DELETE  | Deletes the given resource                           |     200 |     404 |
 
-** POST
+*** POST
 The POST method is used to create a resource on the server.
 
 - success: 201
@@ -28,7 +57,7 @@ The POST method is used to create a resource on the server.
 #+begin_src json
 {"name" : "Lord of the rings", "year": 1954, "author" : "J. R. R. Tolkien"}
 #+end_src
-** PUT
+*** PUT
 used to replace the resource that already exists
 
 - idempotent
@@ -38,7 +67,7 @@ used to replace the resource that already exists
 #+begin_src json
 {"name" : "Lord of the rings", "year": 1955, "author" : "J. R. R. Tolkien"}
 #+end_src
-** PATCH
+*** PATCH
 Patches the column that is being modified.
 
 - won't replace the whole record
@@ -49,18 +78,21 @@ Patches the column that is being modified.
 #+begin_src json
 {"isbn" : "0618640150"}
 #+end_src
-** DELETE
+*** DELETE
 Deletes a resource from the database.
 
 - just needs an ID of the resource to be deletes
 - idempotent.
 
-** OPTIONS
+*** OPTIONS
 Tries to know all possible methods (GET, POST, and so on) defined
 
-** Cross-Origin Resource Sharing (CORS)
-* Request
-* Response
+*** Cross-Origin Resource Sharing (CORS)
+** Request
+** Response
+** Endpoints
+** Resources
+- may be represented in a different format from the one in which it is stored.
 * Bests Practices
 ** Faulty tolerant
 ** Cache
@@ -91,35 +123,9 @@ Accept
 ** I18N
 ** Notifications
 ** SOA
-* Resources
-- may be represented in a different format from the one in which it is stored.
-* Frameworks
-** SWAGGER
-* MORE
-- Representational State Transfer
-- use the standard HTTP methods, GET, POST, PUT and DELETE, to query and mutate resources represented by URIs on the Internet.
-- resource are big dataset that describes a collection of entities of the type
-- agnostic in terms of the format used to structure the response data from a resource.
-- HTTP/1.1 is the protocol used
-- stateless request-response mechanism
-- supports the concept of Hypermedia as the Engine of Application State (HATEOAS).
-- Productivity under REST is almost immediate.
-- clunky and immutable in terms of the data structure of a response.
-- can be slow.
-- limited rule set to follow.
-
-#+begin_src json
-{
-  "car": {
-    "vin": "KNDJT2A23A7703818",
-    "make": "kia",
-    "model": "soul",
-    "year": 2010,
-    "links": {
-      "service": "/cars/KNDJT2A23A7703818/service",
-      "sell": "/cars/KNDJT2A23A7703818/sell",
-      "clean": "/cars/KNDJT2A23A7703818/sell"
-    }
-  }
-}
-#+end_src
+* Tools
+** Swagger
+** Postman
+** Curl
+** RapidAPI Studio
+** HTTPie
