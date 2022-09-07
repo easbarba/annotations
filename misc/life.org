@@ -1,12 +1,12 @@
 #+TILE: Life
 
 * Progress
-|               |        |
-|---------------+--------|
-| OPM           |     93 |
-| Truth be told |      4 |
-| Brain         | 17:47m |
-|               |        |
+|                                 |                       |
+|---------------------------------+-----------------------|
+| OPM                             |                    93 |
+| Truth be told                   |                     4 |
+| The Fellowship of the Ring      | A LONG-EXPECTED PARTY |
+| The Fellowship of the Ring 2001 |                 2h44m |
 * Wishlist
 ** Travel
 - Vales em Jacobina, Bahia
