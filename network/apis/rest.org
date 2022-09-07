@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| Books | Chapter | late | revision |
-|-------+---------+------+----------|
-|       |         |      |          |
+| Books                  | Chapter                             | At                        |
+|------------------------+-------------------------------------+---------------------------|
+| The Design of Web APIs | 3 Designing a programming interface | 3.1 Introducing REST APIs |
 
 * Verbs
 | verb    | action                                               |  Sucess | failure |
