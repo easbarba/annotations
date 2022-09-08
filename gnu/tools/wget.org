@@ -1,0 +1,9 @@
+#+title: GNU wget
+
+* Configuration
+* Options
+* Examples
+
+#+begin_src shell
+wget -qO- URL | tar xvz -C /tmp/
+#+end_src
