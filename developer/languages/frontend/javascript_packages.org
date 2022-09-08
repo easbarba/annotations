@@ -17,6 +17,11 @@ loads the file as a CommonJS module
 
 when no such file is found (or when the file is found but it does not have a
 type property), Node defaults to using CommonJS modules.
+* npx
+** create
+#+begin_src shell
+npx create-react-app myapp
+#+end_src
 * library
 ** JSON
 JavaScript Object Notation
