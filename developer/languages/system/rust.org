@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| name              | chapter             | @ |
-|-------------------+---------------------+---|
-| Command-line Rust | 2 Test for Echo     |   |
-| Programming Rust  | 3 Fundamental Types |   |
+| name              | chapter             | @              |
+|-------------------+---------------------+----------------|
+| Command-line Rust | 2 Test for Echo     | How echo Works |
+| Programming Rust  | 3 Fundamental Types |                |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -33,6 +33,11 @@
 #+begin_src rust
 |a, b| { a*a + b*b }
 #+end_src
+** Bindings
+*** let
+** Access
+*** mut
+Let variables be mutable
 ** Functions
 #+begin_src rust
 fn main() {
@@ -54,11 +59,43 @@ fn say_hello() {
 
 *assert*
 
+#+begin_src rust
+#[test]
+fn runs() {
+    let mut cmd = Command::new("zae");
+    let res = cmd.output();
+    assert!(res.is_ok());
+}
+#+end_src
+
+*assert_cmd*
+#+begin_src shell
+use assert_cmd::Command;
+#+end_src
+
+
 * Standard Library
+
+** misc
+
 *println!*
 #+begin_src rust
 println!("Hello, World!");
 #+end_src
+** assert
+** std::process
+*::abort*
+
+*::exit*
+** Command
+#+begin_src rust
+#[test]
+fn runs() {
+    let mut cmd = Command::cargo_bin("hello").unwrap();
+    cmd.assert().success().stdout("Hello, world!\n");
+}
+#+end_src
+
 * Command line
 ** rust
 *** test
@@ -69,8 +106,18 @@ println!("Hello, World!");
 ** cargo
 *** run
 *** build
+*--quite*
+*--bin*
+name of the binary target to run.
+#+begin_src shell
+cargo run --quiet --bin
+#+end_src
+
 *** help
 #+begin_src shell
 cargo help build
 #+end_src
 *** test
+#+begin_src shell
+cargo test -- --test-threads=1
+#+end_src
