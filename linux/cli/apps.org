@@ -616,6 +616,11 @@ Translate, squeeze, and/or delete characters from standard input, writing to sta
 #+begin_src shell
 echo '"Arch Linux"' | tr -d '"' # 'Arch Linux'
 #+end_src
+
+#+begin_src shell
+echo $PATH | tr : '\n'
+#+end_src
+
 * cut
 Print selected parts of lines from each FILE to standard output.
 
