@@ -33,14 +33,16 @@
 #+begin_src rust
 |a, b| { a*a + b*b }
 #+end_src
-
-* Cli
-** test
-** run
-** build
-** install
-** update
-* Test
+** Functions
+#+begin_src rust
+fn main() {
+    println!("Hello, World!");
+}
+#+end_src
+** Macros
+** Test
+*assert_eq*
+Expects an certain value
 
 #+begin_src rust
 #[test]
@@ -49,3 +51,26 @@ fn say_hello() {
     assert_eq!(hello.to_uppercase(), floss::yell(hello));
 }
 #+end_src
+
+*assert*
+
+* Standard Library
+*println!*
+#+begin_src rust
+println!("Hello, World!");
+#+end_src
+* Command line
+** rust
+*** test
+*** run
+*** build
+*** install
+*** update
+** cargo
+*** run
+*** build
+*** help
+#+begin_src shell
+cargo help build
+#+end_src
+*** test
