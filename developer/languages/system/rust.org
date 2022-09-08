@@ -1,48 +1,11 @@
 #+TITLE: Rust
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#base][Base]]
-  - [[#types][Types]]
-    - [[#integers][Integers]]
-    - [[#float][Float]]
-    - [[#boolean][Boolean]]
-    - [[#char][Char]]
-    - [[#struct][Struct]]
-    - [[#enum][Enum]]
-    - [[#string][String]]
-    - [[#str][&str]]
-    - [[#box][Box]]
-    - [[#array][Array]]
-    - [[#trait-objects][Trait Objects]]
-    - [[#vector][Vector]]
-    - [[#slice][Slice]]
-    - [[#option][Option]]
-    - [[#result][Result]]
-    - [[#pointer][Pointer]]
-    - [[#closure][Closure]]
-- [[#cli][Cli]]
-  - [[#test][test]]
-  - [[#run][run]]
-  - [[#build][build]]
-  - [[#install][install]]
-  - [[#update][update]]
-- [[#test][Test]]
-:END:
-
 * Progress
 ** Books
 | name              | chapter             | @ |
 |-------------------+---------------------+---|
-| Programming Rust  | 3 Fundamental Types |   |
 | Command-line Rust | 2 Test for Echo     |   |
+| Programming Rust  | 3 Fundamental Types |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
