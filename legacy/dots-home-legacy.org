@@ -5,10 +5,6 @@
 # COMMON LISP
 export SBCL_HOME=$HOME/.local/lib/sbcl
 
-# ** RUST
-export RUST_BIN="$HOME/.cargo/bin"
-export PATH="$RUST_BIN"${PATH:+:}$PATH
-
 # ** GNOME KEYRING
 # if [ -n "$DESKTOP_SESSION" ]; then
 # eval $(gnome-keyring-daemon --start)
