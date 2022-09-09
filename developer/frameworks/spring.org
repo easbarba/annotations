@@ -2,11 +2,11 @@
 
 * Progress
 ** Books
-| name                  | chapter                                          | @                                    |
-|-----------------------+--------------------------------------------------+--------------------------------------|
-| FullStack Spring Boot | 9 Useful Third-Party Components for React        |                                      |
-| Spring Up & Running   | 4 Adding Database Access to Your Spring Boot App |                                      |
-| Spring in Action      | 2 Developing web applications                    | 2.5 Choosing a view template library |
+| name                  | chapter                                           | @                                    |
+|-----------------------+---------------------------------------------------+--------------------------------------|
+| Spring in Action      | 2 Developing web applications                     | 2.5 Choosing a view template library |
+| Spring Up & Running   | 5 Configuring and Inspecting Your Spring Boot App |                                      |
+| FullStack Spring Boot | 9 Useful Third-Party Components for React         |                                      |
 
 ** SLOC
 | Source Code      | folder | file | @ |
@@ -14,13 +14,72 @@
 | spring framework |        |      |   |
 | spring-boot      |        |      |   |
 
+* Model
+An object that ferries data between a controller and whatever view is charged with rendering that data.
+
+Data that’s placed in Model attributes is copied into the servlet request attributes, where the
+view can find them and use them to render a page in the user’s browser.
+
+*@ModelAttribute*
+Binds a method parameter or method return value to a named model attribute, and then exposes it to a web view.
+
+* View
+** JSP
 * Controller
 Class that handles requests and responds with information of some sort.
 
 *@Controller*
+Identify class as a controller and to mark it as a candidate for component scanning
 
-* View
-** JSP
+** Mapping
+*@RequestMapping*
+Specifies that any request-handling methods in this controller
+will handle requests whose path begins with /orders. When combined with the
+method-level
+
+#+begin_src java
+@RequestMapping(value = "/coffees", method = RequestMethod.GET)
+#+end_src
+
+*@GetMapping*
+#+begin_src java
+@GetMapping("/coffees")
+Iterable<Coffee> getCoffees() {
+    return coffees;
+}
+#+end_src
+
+*@PostMapping*
+
+*@PutMapping*
+
+*@PatchMapping*
+
+*@DeleteMapping*
+
+*@RestController*
+Combines @Controller with @ResponseBody
+
+
+@RequestMappingGeneral-purpose
+ request handling
+@GetMappingHandles
+HTTP GET requests
+@PostMappingHandles
+HTTP POST requests
+@PutMappingHandles
+ HTTP PUT requests
+@DeleteMappingHandles
+ HTTP DELETE requests
+@PatchMappingHandles
+ HTTP PATCH requests
+
+
+
+** Session
+*@SessionAttributes*
+Indicates that the object that is put into the model in the class should be maintained in session.
+
 * Validation
 #+begin_src java
 import javax.validation.Valid;
@@ -147,7 +206,6 @@ private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
 * Properties
 - application.properties or application.yml
 
-* Model
 * Toolings
 ** Containers
 *** In-line run book examples
@@ -155,44 +213,6 @@ private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
 podman run --name taco2 -it -v $PWD:/app -w /app -p 8080:8080 openjdk:17-jdk ./mvnw spring-boot:run
 #+end_src
 * Mapping
-** @RequestMapping
-@RequestMapping
-specifies that any request-handling methods in this controller
-will handle requests whose path begins with /orders. When combined with the
-method-level
-
-#+begin_src java
-@RequestMapping(value = "/coffees", method = RequestMethod.GET)
-#+end_src
-
-*@GetMapping*
-#+begin_src java
-    @GetMapping("/coffees")
-    Iterable<Coffee> getCoffees() {
-        return coffees;
-    }
-
-#+end_src
-
-*@PostMapping*
-*@PutMapping*
-*@PatchMapping*
-*@DeleteMapping*
-
-
-@RequestMappingGeneral-purpose
- request handling
-@GetMappingHandles
-HTTP GET requests
-@PostMappingHandles
-HTTP POST requests
-@PutMappingHandles
- HTTP PUT requests
-@DeleteMappingHandles
- HTTP DELETE requests
-@PatchMappingHandles
- HTTP PATCH requests
-
 * Test
 *@WebMvcTest*
 * Annotations
