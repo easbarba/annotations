@@ -2,11 +2,11 @@
 
 * Progress
 ** Books
-| name                  | chapter                                           | @                                    |
-|-----------------------+---------------------------------------------------+--------------------------------------|
-| FullStack Spring Boot | 9 Useful Third-Party Components for React         |                                      |
-| Spring Up & Running   | 5 Configuring and Inspecting Your Spring Boot App |                                      |
-| Spring in Action      | 2 Developing web applications                     | 2.5 Choosing a view template library |
+| name                  | chapter                                          | @                                    |
+|-----------------------+--------------------------------------------------+--------------------------------------|
+| FullStack Spring Boot | 9 Useful Third-Party Components for React        |                                      |
+| Spring Up & Running   | 4 Adding Database Access to Your Spring Boot App |                                      |
+| Spring in Action      | 2 Developing web applications                    | 2.5 Choosing a view template library |
 
 ** SLOC
 | Source Code      | folder | file | @ |
