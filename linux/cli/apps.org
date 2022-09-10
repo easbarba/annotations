@@ -374,6 +374,10 @@ concatenate files and print on the standard output
 |----+------------|
 | -u | unbuffered |
 | <> | buffered   |
+
+#+begin_src shell
+cat /da/personal/annotations/**.org | wc -l
+#+end_src
 * tac
 
 * pr
