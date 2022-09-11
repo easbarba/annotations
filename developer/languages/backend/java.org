@@ -975,6 +975,23 @@ System.out.write('\n');
 #+end_src
 
 *** OutputStream
+*** FileInputStream
+#+begin_src java
+FileInputStream(String fileName) throws FileNotFoundException
+#+end_src
+
+*** FileOutputStream
+#+begin_src java
+FileOutputStream(String fileName) throws FileNotFoundException
+#+end_src
+
+*** close()
+Closes a file releases the system resources allocated to the file, allowing them to be used by another file.
+- java.lang. AutoCloseable interface
+
+#+begin_src java
+void close( ) throws IOException
+#+end_src
 
 ** IO
 *** BufferedReader
