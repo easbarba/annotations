@@ -5,9 +5,9 @@
 :ID:       01cb0739-249c-4be7-9739-39f9e5a56381
 :END:
 #+begin_src shell
-xorg=(awesome awesome-extra  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
-wm=(wofi maim screenkey syncthing gopher ssh-askpass-gnome diodon pasystray volumeicon-alsa brightnessctl)
-wayland=(sway swaybg swaylock swayidle foot clipman grim slurp xwayland mako-notifier)
+xorg=(screenkey maim awesome awesome-extra diodon  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
+wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa)
+wayland=(wofi)
 langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop )
 term=(zsh)
@@ -53,6 +53,11 @@ if ! sudo grep -i "$USER" "$HBA_CONF"; then
     sudo systemctl restart postgresql
 fi
 
+#+end_src
+* wm-autostart
+#+begin_src shell
+  'xautolock -time 8 -locker "slock" -detectsleep'
+  'setxkbmap -model abnt2 -layout br -variant abnt2'
 #+end_src
 * s-wm-volume
 #+begin_src ruby
