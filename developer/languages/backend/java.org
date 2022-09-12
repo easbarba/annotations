@@ -200,6 +200,27 @@ System.out.println(cars.length);
 *copyOf*
 *compare*
 *sort*
+*** Lists
+*add*
+Add item to last position
+
+#+begin_src java
+List<String> meh = list.add("foo");
+#+end_src
+
+*addAll*
+Merge lists
+
+#+begin_src java
+List<String> meh = list.addAll(anotherList);
+#+end_src
+*** HashSet
+- unique elements on list
+
+#+begin_src java
+new HashSet<>(listedList)
+#+end_src
+
 ** Packages
 - must be stored in sub-directories represented in the dot path
 - A class declared in a source file with no package declaration belongs to the anonymous default package
@@ -1697,6 +1718,11 @@ static Integer valueOf(String valStr) throws NumberFormatException
 
 * Standard Library
 ** java.lang
+*** System
+#+begin_src java
+String home = System.getProperty("user.home");
+#+end_src
+
 ** java.lang.reflect
 *** AnnotatedElement
 
@@ -1736,6 +1762,24 @@ String[] array = list.toArray(String[]::new);
 // The above is equivalent to:
 String[] array2 = list.toArray(new String[0]);
 #+end_src
+** java.nio
+
+*** file
+
+
+*** Path
+*of*
+- JDK11: preferable over early get
+
+#+begin_src java
+Path.of("/path/of/folder", "filename") // "/path/of/folder/filename"
+#+end_src
+
+get
+#+begin_src java
+Path filepath = Paths.get(System.getProperty("user.home"), "data", "foo.txt");
+#+end_src
+** System
 
 * Commands
 ** java
