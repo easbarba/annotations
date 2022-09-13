@@ -4,7 +4,7 @@
 ** Books
 | name                     | chapter                                                    | @                         |
 |--------------------------+------------------------------------------------------------+---------------------------|
-| Java Complete Reference  | 13 I/O, Try-with-Resources, and Other Topics               | Reading and Writing Files |
+| Java Complete Reference  | 14 Generics                                                | Generic Class Hierarchies |
 | Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                           |
 | Effective Java 9         | 2 Creating and Destroying Objects                          |                           |
 | Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                           |
