@@ -1649,6 +1649,10 @@ class RawDemo {
   }
 }
 #+end_src
+
+- A generic class can act as a superclass or be a subclass.
+- Any type arguments needed by a generic superclass must be passed up the hierarchy by all subclasses
+
 ** Lambda
 - two constructs: the lambda expression, itself, the functional interface.
 - anonymous method
