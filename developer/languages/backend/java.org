@@ -1767,10 +1767,11 @@ String[] array = list.toArray(String[]::new);
 String[] array2 = list.toArray(new String[0]);
 #+end_src
 ** java.nio
-
 *** file
-
-
+*FileSystems*
+#+begin_src java
+  Path start = FileSystems.getDefault().getPath(source);
+#+end_src
 *** Path
 *of*
 - JDK11: preferable over early get
