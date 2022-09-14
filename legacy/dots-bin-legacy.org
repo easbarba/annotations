@@ -1,3 +1,4 @@
+
 #+TITLE: Dots | .local/bin
 
 * e_debian
@@ -7,14 +8,15 @@
 #+begin_src shell
 xorg=(screenkey maim awesome awesome-extra diodon  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
 wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa)
-wayland=(wofi)
+debian=(apt-listbugs apt-listchanges reportbug)
+wayland=(sway swaybg swaylock swayidle foot clipman grim slurp xwayland mako-notifier wl-clipboard bemenu wofi)
 langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop )
 term=(zsh)
 editors=(micro)
 cli=(nnn fzy)
 gtk=(evince cheese transmission-gtk pragha materia-gtk-theme papirus-icon-theme suru-icon-theme)
-books=( texlive texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-latex-base)
+books=(texlive texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-latex-base)
 user=( gaupol )
 gnu=(bash-doc gcc-doc gdb-doc gdbserver fonts-freefont-ttf)
 dev=(libsqlite3-dev cmake)
