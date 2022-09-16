@@ -123,7 +123,6 @@ class DisabledMethodsTest {
 
 * Maven
 version: JDK7
-
 ** phases
 - includes many goals
 *** package
@@ -244,9 +243,22 @@ Documentation generation
 ** pow.xml
 ** plugins
 *** polyglot
-*** spring boot
-*spring-boot:run*
+*** Spring Boot
+
+#+begin_src shell
+mvn spring-boot:run
+mvn spring-boot:build-image
+mvn spring-boot:help -Ddetail=true -Dgoal=<goal-name>
+mvn spring-boot:start
+mvn spring-boot:stop
+mvn spring-boot:repackage
+mvn spring-boot:build-info
+mvn spring-boot:build-image
+#+end_src
+
 *** surefire
+** help
+
 * Ant
 * Gradle
 ** commands
