@@ -1,91 +1,5 @@
 #+TILE: Containers - Annotations
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progresso][Progresso]]
-  - [[#books][books]]
-  - [[#sloc][sloc]]
-- [[#commands][Commands]]
-  - [[#container][container]]
-    - [[#attach][attach]]
-    - [[#commit][commit]]
-    - [[#create][create]]
-    - [[#cp][cp]]
-    - [[#diff][diff]]
-    - [[#exec][exec]]
-    - [[#kill][kill]]
-    - [[#ls][ls]]
-    - [[#logs][logs]]
-    - [[#inspect][inspect]]
-    - [[#pause][pause]]
-    - [[#prune][prune]]
-    - [[#port][port]]
-    - [[#run][run]]
-    - [[#rm][rm]]
-    - [[#restart][restart]]
-    - [[#stats][stats]]
-    - [[#stop][stop]]
-    - [[#start][start]]
-    - [[#top][top]]
-    - [[#update][update]]
-    - [[#unpause][unpause]]
-    - [[#pause][pause]]
-    - [[#ps][ps]]
-  - [[#volume][volume]]
-    - [[#create][create]]
-      - [[#options][options]]
-    - [[#ls][ls]]
-    - [[#inspect][inspect]]
-  - [[#login][login]]
-  - [[#inspect][inspect]]
-  - [[#images][images]]
-  - [[#image][image]]
-    - [[#ls][ls]]
-    - [[#pull][pull]]
-    - [[#build][build]]
-    - [[#history][history]]
-    - [[#inspect][inspect]]
-      - [[#-f][-f]]
-    - [[#save][save]]
-    - [[#tag][tag]]
-    - [[#prune][prune]]
-  - [[#system][system]]
-    - [[#prune][prune]]
-  - [[#network][network]]
-    - [[#ls][ls]]
-    - [[#prune][prune]]
-- [[#volumes][Volumes]]
-- [[#dockerignore][.dockerignore]]
-- [[#docker-entrypointsh][docker-entrypoint.sh]]
-- [[#dockerfile][Dockerfile]]
-  - [[#from][FROM]]
-  - [[#label][LABEL]]
-  - [[#maintainer][MAINTAINER]]
-  - [[#run][RUN]]
-  - [[#copy][COPY]]
-  - [[#add][ADD]]
-  - [[#workdir][WORKDIR]]
-  - [[#env][ENV]]
-  - [[#expose][EXPOSE]]
-  - [[#cmd][CMD]]
-  - [[#entrypoint][ENTRYPOINT]]
-  - [[#volume][VOLUME]]
-- [[#exit][Exit]]
-  - [[#stopquitdetach][Stop/Quit/Detach]]
-- [[#images-registry][Images Registry]]
-- [[#terms][Terms]]
-- [[#best-practices][Best practices]]
-  - [[#multi-stages][Multi-stages]]
-    - [[#eg][eg]]
-- [[#example][Example]]
-- [[#tips][Tips]]
-  - [[#remove-all][Remove all]]
-- [[#makefile][Makefile]]
-:END:
 * Progresso
 ** books
 | books            | chapter        | at |
@@ -303,7 +217,7 @@ docker ps --filter "status=exited"
 ** login
 #+begin_src shell
 docker login -u gnschenker -p <my secret password>
- docker login private.registry.tld:8080 -u <username> -p <password>
+docker login private.registry.tld:8080 -u <username> -p <password>
 #+end_src
 ** inspect
 |          |   |
