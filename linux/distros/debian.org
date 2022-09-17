@@ -1,6 +1,6 @@
 #+TITLE: Debian
 
-* Apt commands
+* Commands
    | comando               | ... |
    |-----------------------+-----|
    | apt list --upgradable |     |
@@ -13,52 +13,675 @@
 ** update-alternatives
     $ update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
 * apt/preference
-   #+begin_src conf
-   Package: *
-   Pin: release a=unstable
-   Pin-Priority: 700
+#+begin_src conf
+Package: *
+Pin: release a=unstable
+Pin-Priority: 700
 
-   Package: *
-   Pin: release a=testing
-   Pin-Priority: 500
+Package: *
+Pin: release a=testing
+Pin-Priority: 500
 
-   Package: *
-   Pin: release a=stable
-   Pin-Priority: 400
+Package: *
+Pin: release a=stable
+Pin-Priority: 400
 
-   Package: *
-   Pin: release a=experimental
-   Pin-Priority: -10
+Package: *
+Pin: release a=experimental
+Pin-Priority: -10
 
-   #+end_src
+#+end_src
 * Documentation
 All available Debian documentation can be found at /usr/share/doc/
 * Debian Install
 ** debootstrap
-
 #+begin_src shell
+debootstrap --verbose --components=main,contrib,non-free \
+--include=firmware-atheros,linux-image-amd64,grub-pc,ssh,vim \
+--exclude=nano \
+--arch amd64 jessie /mnt https://deb.debian.org/debian
+
+update-grub
+grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+update-grub
+
+update-initramfs -u -k all
+
 cat /proc/mounts
 #+end_src
+** users
+
+*** ...
+#+begin_src markdown
+Instructions how to install Debian using debootstrap. Below instructions were verified to work with debootstrapping Debian 11.
+
+# Table of contents
+
+1. [Conventions](#conventions)
+2. [Essential steps](#essential-steps)
+    1. [Install debootstrap](#install-debootstrap)
+    2. [Prepare disk for installing boot loader](#prepare-disk-for-installing-boot-loader)
+        * [BIOS systems](#bios-systems)
+            * [GPT specific instructions](#gpt-specific-instructions)
+            * [MBR specific instructions](#mbr-specific-instructions)
+        * [UEFI systems](#uefi-systems)
+    3. [Set up filesystem for Debian](#set-up-filesystem-for-debian)
+    4. [Mount filesystem](#mount-filesystem)
+    5. [Install base system](#install-base-system)
+    6. [Chroot into installed base system](#chroot-into-installed-base-system)
+    7. [Set up editor](#set-up-editor)
+    8. [Edit fstab file](#edit-fstab-file)
+    9. [Configure apt sources](#configure-apt-sources)
+    10. [Choose timezone](#choose-timezone)
+    11. [Configure locales](#configure-locales)
+    12. [Install kernel](#install-kernel)
+    13. [Install firmware](#install-firmware)
+    14. [Set hostname](#set-hostname)
+    15. [Configure networking](#configure-networking)
+        * [Simpler option: NetworkManager](#simpler-option-networkmanager)
+        * [Other option: network interfaces](#other-option-network-interfaces)
+    16. [Install boot loader](#install-boot-loader)
+    17. [Set root's password](#set-roots-password)
+3. [Optional steps](#optional-steps)
+    1. [Install ssh-server](#install-ssh-server)
+    2. [Create an unprivileged user](#create-an-unprivileged-user)
+    3. [Install additional software](#install-additional-software)
+    4. [Configure console keyboard layout](#configure-console-keyboard-layout)
+4. [Finish installation](#finish-installation)
+    1. [Precautionary reboot](#precautionary-reboot)
+        1. [Boot the old system by default](#boot-the-old-system-by-default)
+        2. [Make kernel reboot after kernel panic](#make-kernel-reboot-after-kernel-panic)
+        3. [Delayed reboot after startup](#delayed-reboot-after-startup)
+        4. [On the next boot, boot the new system once](#on-the-next-boot-boot-the-new-system-once)
+    2. [Install boot loader to disk](#install-boot-loader-to-disk)
+    3. [Exit chroot](#exit-chroot)
+    4. [Unmount `/mnt`](#unmount-mnt)
+    5. [Reboot into the new system](#reboot-into-the-new-system)
+
+# Conventions
+
+- `/dev/PARTITION`: replace it with the partition where Debian is to be installed e.g. `/dev/sda2` or `/dev/sdb1`
+- `/mnt`: mountpoint for `/dev/PARTITION`, you can change it to something else
+- `/dev/GRUBDISK`: the disk on which you want grub to be installed e.g. `/dev/sda` (don't confuse it with a partition e.g. `/dev/sda1`)
+
+# Essential steps
+
+## Install debootstrap
+
+Prepare work directory, e.g:
+```bash
+cd /tmp
+```
+Go https://deb.debian.org/debian/pool/main/d/debootstrap/?C=M;O=D and download latest `debootstrap_X.X.X_all.deb`, e.g.:
+```bash
+wget 'https://deb.debian.org/debian/pool/main/d/debootstrap/debootstrap_1.0.124_all.deb'
+```
+Then install it:
+```bash
+dpkg -i debootstrap_*.*.*_all.deb
+```
+
+## Prepare disk for installing boot loader
+
+BIOS systems require different steps than UEFI systems.
+
+### BIOS systems
+
+If you intend to boot the system you will need a boot loader and it needs a place on disk (see step [Install boot loader to disk](#install-boot-loader-to-disk)).
+
+First check what is the partition table using either `fdisk` or `parted`:
+* `fdisk /dev/GRUBDISK -l` and look for `Disklabel type:`.
+    - `Disklabel type: gpt` means GPT.
+    - `Disklabel type: dos` means MBR.
+    - no `Disklabel type:` probably means partition table is missing.
+* `parted /dev/GRUBDISK print` and look for `Partition Table:`
+    - `Partition Table: gpt` means GPT.
+    - `Partition Table: msdos` means MBR.
+    - `Partition Table: unknown` probably means partition table is missing.
+
+#### GPT specific instructions
+
+GRUB needs unformatted `BIOS boot partition` (see: https://wiki.archlinux.org/title/GRUB#GUID_Partition_Table_(GPT)_specific_instructions). This partition should be big enough, but around 1000 KiB should suffice. To make one you can use e.g. `gdisk`:
+```bash
+apt install gdisk
+gdisk /dev/GRUBDISK
+```
+In `gdisk`, to make some partition a `BIOS boot partition`, change its type to `ef02`.
+
+Below is an example of how one can partition the whole disk e.g. `/dev/vda` (has Logical block size = 512 bytes; first created partition is `BIOS boot partition`, second is a partition for the new Debian):
+```
+[root@debian10:~]# gdisk /dev/vda
+GPT fdisk (gdisk) version 1.0.3
+
+Partition table scan:
+  MBR: protective
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid GPT with protective MBR; using GPT.
+
+Command (? for help): o
+This option deletes all partitions and creates a new protective MBR.
+Proceed? (Y/N): y
+
+Command (? for help): x
+
+Expert command (? for help): l
+Enter the sector alignment value (1-65536, default = 2048): 1
+Warning: Setting alignment to a value that does not match the disk's
+physical block size! Performance degradation may result!
+Physical block size = 4096
+Logical block size = 512
+Optimal alignment = 8 or multiples thereof.
+
+Expert command (? for help): m
+
+Command (? for help): n
+Partition number (1-128, default 1): 42
+First sector (34-20971486, default = 34) or {+-}size{KMGTP}: 34
+Last sector (34-20971486, default = 20971486) or {+-}size{KMGTP}: 2047
+Current type is 'Linux filesystem'
+Hex code or GUID (L to show codes, Enter = 8300): ef02
+Changed type of partition to 'BIOS boot partition'
+
+Command (? for help): n
+Partition number (1-128, default 1):
+First sector (2048-20971486, default = 2048) or {+-}size{KMGTP}:
+Last sector (2048-20971486, default = 20971486) or {+-}size{KMGTP}:
+Current type is 'Linux filesystem'
+Hex code or GUID (L to show codes, Enter = 8300):
+Changed type of partition to 'Linux filesystem'
+
+Command (? for help): p
+Disk /dev/vda: 20971520 sectors, 10.0 GiB
+Sector size (logical/physical): 512/4096 bytes
+Disk identifier (GUID): 2819ACC4-D83C-4DBC-AA01-C517C36A6A7B
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 20971486
+Partitions will be aligned on 1-sector boundaries
+Total free space is 0 sectors (0 bytes)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048        20971486   10.0 GiB    8300  Linux filesystem
+  42              34            2047   1007.0 KiB  EF02  BIOS boot partition
+
+Command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): y
+OK; writing new GUID partition table (GPT) to /dev/vda.
+The operation has completed successfully.
+```
+
+#### MBR specific instructions
+
+The post-MBR gap (between MBR region and the start of the first partition) should be enough for GRUB, so you don't have to do anything.
+
+If your first partition starts at 1 MiB (you can check it using `fdisk /dev/GRUBDISK -l` or `parted /dev/GRUBDISK print`; one sector = logical sector size), then all should be fine. Otherwise you may need to make the beginning of the first partition have bigger offset.
+
+### UEFI systems
+
+TODO
+
+For more information check out: https://wiki.debian.org/UEFI and https://wiki.archlinux.org/title/GRUB#UEFI_systems (should be more helpful).
+
+---
+For more information about setting up GRUB see: https://wiki.archlinux.org/title/GRUB
+
+## Set up filesystem for Debian
+
+E.g.
+```bash
+mkfs.ext4 /dev/PARTITION
+```
+
+## Mount filesystem
+
+```bash
+mount /dev/PARTITION /mnt
+```
+
+## Install base system
+
+Usage: `debootstrap --arch ARCH RELEASE DIR MIRROR`
+E.g.
+```bash
+debootstrap --arch amd64 stable /mnt https://deb.debian.org/debian
+```
+
+## Chroot into installed base system
+
+```bash
+mount --make-rslave --rbind /proc /mnt/proc
+mount --make-rslave --rbind /sys /mnt/sys
+mount --make-rslave --rbind /dev /mnt/dev
+mount --make-rslave --rbind /run /mnt/run
+chroot /mnt /bin/bash
+```
+
+## Set up editor
+
+- `nano`: should already be there as default
+- `vim`:
+    ```bash
+    apt install vim
+    update-alternatives --config editor
+    ```
+    E.g. I chose `/usr/bin/vim.basic`.
+- others: proceed analogously to `vim`
+
+## Edit fstab file
+
+It is not recommended to name partitions by kernel name e.g. `/dev/sda1`, as they may change. One of the alternatives is `UUID`. To get `UUID` of `/dev/PARTITION` you can use:
+```bash
+lsblk -f /dev/PARTITION
+```
+
+-----------------------------
+
+To edit `/etc/fstab` use:
+```bash
+editor /etc/fstab
+```
+E.g. `/etc/fstab` based on the one produced by Debian 11 installer:
+```
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+UUID=f80d9192-2bd3-466b-8c5f-ac10614e1d3d       /       ext4    errors=remount-ro       0 1
+```
+
+To make life easier you can do:
+```bash
+lsblk -f /dev/PARTITION >> /etc/fstab
+editor /etc/fstab
+```
+
+For more details see: `man fstab`
+
+## Configure apt sources
+
+Fill `/etc/apt/sources.list`:
+```bash
+apt install lsb-release
+CODENAME=$(lsb_release --codename --short)
+cat > /etc/apt/sources.list << HEREDOC
+deb https://deb.debian.org/debian/ $CODENAME main contrib non-free
+deb-src https://deb.debian.org/debian/ $CODENAME main contrib non-free
+
+deb https://security.debian.org/debian-security $CODENAME-security main contrib non-free
+deb-src https://security.debian.org/debian-security $CODENAME-security main contrib non-free
+
+deb https://deb.debian.org/debian/ $CODENAME-updates main contrib non-free
+deb-src https://deb.debian.org/debian/ $CODENAME-updates main contrib non-free
+HEREDOC
+```
+Then check if everything is as you like:
+```bash
+editor /etc/apt/sources.list
+```
+Finally, run:
+```bash
+apt update
+```
+
+For more details see: https://wiki.debian.org/SourcesList
+
+## Choose timezone
+
+`dpkg-reconfigure tzdata`
+
+## Configure locales
+
+```bash
+apt install locales
+dpkg-reconfigure locales
+```
+E.g. select `en_US.UTF-8`, then `C.UTF-8`.
+
+## Install kernel
+
+To boot the system you will need Linux kernel and a boot loader. You can search available kernel images by running:
+
+```bash
+apt search linux-image
+```
+Then install your chosen kernel image, e.g.:
+```bash
+apt install linux-image-amd64
+```
+
+## Install firmware
+
+```bash
+apt install firmware-linux
+```
+
+## Set hostname
+
+Set hostname e.g.:
+```bash
+echo "MY_HOSTNAME" > /etc/hostname
+```
+where `MY_HOSTNAME` is the hostname you want to set.
+
+Then update `/etc/hosts`:
+```bash
+cat > /etc/hosts << HEREDOC
+127.0.0.1 localhost
+127.0.1.1 $(cat /etc/hostname)
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+HEREDOC
+```
+## Configure networking
+
+### Simpler option: NetworkManager
+
+```bash
+apt install network-manager
+```
+For more details see: https://wiki.debian.org/NetworkManager
+
+### Other option: network interfaces
+
+> Warning: I had trouble with physically disconnecting and reconnecting Ethernet cables while using this method. With NetworkManager everything works seamlessly.
+
+First take a look at examples in `/usr/share/doc/ifupdown/examples/network-interfaces` and then write your config:
+```bash
+editor /etc/network/interfaces
+```
+or create drop-in files in `/etc/network/interfaces.d/` directory and write your configs there.
+
+Enter your nameserver(s) and search directives in /etc/resolv.conf:
+
+`editor /etc/resolv.conf`
+
+A simple example /etc/resolv.conf:
+```
+search hqdom.local
+nameserver 1.1.1.1
+nameserver 9.9.9.9
+```
+
+For more detailed instructions see: https://wiki.debian.org/NetworkConfiguration
+
+## Install boot loader
+
+```bash
+apt install grub2
+```
+This will not overwrite the current grub installation on disk, we will do it at the very end of these instructions.
+
+## Set root's password
+
+```bash
+passwd
+```
+
+# Optional steps
+
+## Install ssh-server
+
+```bash
+apt install openssh-server
+```
+
+Remember that an unprivileged user has to be created because, by default ssh'ing onto `root` is forbidden.
+
+## Create an unprivileged user
+
+Create user and set password:
+```bash
+useradd USERNAME -m
+passwd USERNAME
+```
+Replace `USERNAME` with username of an user you want to create.
+
+(Optional) If you intend to use `sudo`:
+* Add the new user to group `sudo`:
+    ```bash
+    usermod -aG sudo USERNAME
+    ```
+
+## Install additional software
+
+E.g.
+```bash
+tasksel install standard
+```
+
+To get list of all available tasks use:
+```bash
+tasksel --list-tasks
+```
+
+## Configure console keyboard layout
+
+```bash
+apt install console-setup console-setup-linux
+```
+
+To change layout:
+```bash
+dpkg-reconfigure keyboard-configuration
+systemctl restart console-setup
+```
+
+E.g. I select `Generic 105-key PC (intl.)` > `Polish - Polish (programmer Dvorak)`.
+
+# Finish installation
+
+## Precautionary reboot
+
+It would be great if the machine rebooted into the old system when something goes wrong with the new system. This is attainable to some degree.
+
+*If you can reboot machine physically or remotely if e.g. kernel malfunctions and have access to grub menu during boot, **then below steps are unnecessary for you**.*
+
+### Boot the old system by default
+
+First, set `GRUB_DEFAULT` to `saved`:
+```bash
+editor /etc/default/grub
+```
+or just run:
+```bash
+sed -i 's/^GRUB_DEFAULT=.*/GRUB_DEFAULT=saved/' /etc/default/grub
+```
+
+After that:
+```bash
+update-grub
+```
+
+Now, list all entries in grub menu:
+```bash
+grep -Pi "menu.* '" /boot/grub/grub.cfg | sed "s/' .*/'/g" | ( \
+    IFS=""; A=-1; B=0; \
+    while read x; do \
+        echo "$x" | grep "^\s" -q && \
+            { echo -e "$A>$B\t$x"; B=$((B+1)); } || \
+            { A=$((A+1)); B=0; echo -e "$A\t$x"; }; \
+    done)
+```
+E.g. output:
+```
+0   menuentry 'Debian GNU/Linux'
+1   submenu 'Advanced options for Debian GNU/Linux'
+1>0     menuentry 'Debian GNU/Linux, with Linux 5.10.0-9-amd64'
+1>1     menuentry 'Debian GNU/Linux, with Linux 5.10.0-9-amd64 (recovery mode)'
+2   menuentry 'Debian GNU/Linux 10 (buster) (on /dev/sda1)'
+3   submenu 'Advanced options for Debian GNU/Linux 10 (buster) (on /dev/sda1)'
+3>0     menuentry 'Debian GNU/Linux (on /dev/sda1)'
+3>1     menuentry 'Debian GNU/Linux, with Linux 4.19.0-18-amd64 (on /dev/sda1)'
+3>2     menuentry 'Debian GNU/Linux, with Linux 4.19.0-18-amd64 (recovery mode) (on /dev/sda1)'
+3>3     menuentry 'Debian GNU/Linux, with Linux 4.19.0-11-amd64 (on /dev/sda1)'
+3>4     menuentry 'Debian GNU/Linux, with Linux 4.19.0-11-amd64 (recovery mode) (on /dev/sda1)'
+```
+
+Now we want grub to always boot the old system by default.
+
+To set default system use `grub-set-default 'NUM'` where `NUM` is the number from the first column e.g.
+- For `Debian GNU/Linux 10 (buster) (on /dev/sda1)` use:
+    ```bash
+    grub-set-default '2'
+    ```
+- For `Debian GNU/Linux, with Linux 4.19.0-18-amd64 (on /dev/sda1)` use:
+    ```bash
+    grub-set-default '3>1'
+    ```
+***Remember to change this if the new system boots successfully and you want it to be the default system e.g. `grub-set-default '0'`***
+
+For more details see: https://wiki.debian.org/GrubReboot#With_GRUB_v2
+
+### Make kernel reboot after kernel panic
+
+Now tell kernel to reboot after 10 seconds if kernel panic happens.
+
+Edit `/etc/default/grub` and append `panic=10` to `GRUB_CMDLINE_LINUX` e.g. `GRUB_CMDLINE_LINUX="panic=10"`:
+```bash
+editor /etc/default/grub
+```
+Then
+```bash
+update-grub
+```
+
+### Delayed reboot after startup
+
+To set the system to reboot after 30 seconds if something goes wrong, create systemd service and timer to trigger it and enable the timer:
+```bash
+cat > /etc/systemd/system/precautionary-reboot.service << 'HEREDOC'
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl reboot
+HEREDOC
+cat > /etc/systemd/system/precautionary-reboot.timer << 'HEREDOC'
+[Timer]
+OnBootSec=30sec
+AccuracySec=1sec
+
+[Install]
+WantedBy=timers.target
+HEREDOC
+systemctl enable precautionary-reboot.timer
+```
+
+***Remember to disable this if the new system boots successfully: `systemctl disable --now precautionary-reboot.timer`***
+
+### On the next boot, boot the new system once
+
+Now tell GRUB to choose (only on the next boot) the new system using `grub-reboot 'NUM'` e.g. booting `Debian GNU/Linux`:
+```bash
+grub-reboot '0'
+```
+
+For more details see: https://wiki.debian.org/GrubReboot#With_GRUB_v2
+
+## Install boot loader to disk
+
+***Warning: this step overwrites the current grub installation***
+
+```bash
+update-grub && grub-install --root-directory / /dev/GRUBDISK
+```
+where `/dev/GRUBDISK` is the disk on which you want grub to be installed e.g. `/dev/sda` (don't confuse it with a partition which is e.g. `/dev/sda1`).
+
+## Exit chroot
+
+```bash
+exit
+```
+
+## Unmount `/mnt`
+
+```bash
+umount -R /mnt
+```
+
+## Reboot into the new system
+
+```bash
+reboot
+```
+
+#+end_src
+
 * source.list.
-   #+begin_src conf
-   # [Unstable]
-   deb http://ftp.br.debian.org/debian/ unstable contrib non-free main
-   deb-src http://ftp.br.debian.org/debian/ unstable contrib non-free main
+#+begin_src conf
+# [Unstable]
+deb http://ftp.br.debian.org/debian/ unstable contrib non-free main
+deb-src http://ftp.br.debian.org/debian/ unstable contrib non-free main
 
-   # Testing
-   deb http://ftp.br.debian.org/debian testing main contrib non-free
-   deb-src http://ftp.br.debian.org/debian testing main contrib non-free
+# Testing
+deb http://ftp.br.debian.org/debian testing main contrib non-free
+deb-src http://ftp.br.debian.org/debian testing main contrib non-free
 
-   # Stable
-   deb http://ftp.br.debian.org/debian stable main contrib non-free
-   deb-src http://ftp.br.debian.org/debian stable main contrib non-free
+# Stable
+deb http://ftp.br.debian.org/debian stable main contrib non-free
+deb-src http://ftp.br.debian.org/debian stable main contrib non-free
 
-   # Security updates
-   deb http://security.debian.org/ stable/updates main contrib non-free
-   deb http://security.debian.org/ testing/updates main contrib non-free
-   deb-src http://security.debian.org/ stable/updates main contrib non-free
-   deb-src http://security.debian.org/ testing/updates main contrib non-free
+# Security updates
+deb http://security.debian.org/ stable/updates main contrib non-free
+deb http://security.debian.org/ testing/updates main contrib non-free
+deb-src http://security.debian.org/ stable/updates main contrib non-free
+deb-src http://security.debian.org/ testing/updates main contrib non-free
 
-   #+end_src
+#+end_src
 * Warning
    Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+* System files
+** /etc/fstab
+#+begin_src conf
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p4 during installation
+UUID=854fbe64-6166-4188-92da-8f2c2ef27a4e /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/nvme0n1p2 during installation
+UUID=51886395-0052-4b55-9087-aefb0aa9b604 /boot           ext2    defaults        0       2
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=B310-F14B  /boot/efi       vfat    umask=0077      0       1
+# /da was on /dev/nvme0n1p8 during installation
+UUID=7bf3d173-72d6-4a78-9614-6e553de770da /da             ext4    defaults        0       2
+# /fu was on /dev/nvme0n1p6 during installation
+UUID=ecdc24f5-5722-4a8d-9f2f-582c2ed84502 /fu             ext4    defaults        0       2
+# /home was on /dev/nvme0n1p5 during installation
+UUID=41948de5-911a-4f7b-a71d-74b726ade8fe /home           ext4    defaults        0       2
+# swap was on /dev/nvme0n1p3 during installation
+UUID=49c7d9bb-c548-46e5-a4b4-7e91f95b4a6f none            swap    sw              0       0
+
+#+end_src
+** /etc/network/interfaces
+#+begin_src conf
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+#+end_src
