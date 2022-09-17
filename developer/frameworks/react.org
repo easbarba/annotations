@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| Books | Chapter | late |
-|-------+---------+------|
-|       |         |      |
+| Books                         | Chapter   | late            |
+|-------------------------------+-----------+-----------------|
+| FullStack Spring Boot & React | Front end | Props and state |
 
 ** SLOC
 | Project | folder | file | @ |
