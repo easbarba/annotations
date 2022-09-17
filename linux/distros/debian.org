@@ -131,6 +131,12 @@ BIOS systems require different steps than UEFI systems.
 If you intend to boot the system you will need a boot loader and it needs a place on disk (see step [Install boot loader to disk](#install-boot-loader-to-disk)).
 
 First check what is the partition table using either `fdisk` or `parted`:
+* login manager
+** change login manager
+#+begin_src shell
+sudo dpkg-reconfigure <MANAGER>gdm
+sudo dpkg-reconfigure gdm
+#+end_src
 * `fdisk /dev/GRUBDISK -l` and look for `Disklabel type:`.
     - `Disklabel type: gpt` means GPT.
     - `Disklabel type: dos` means MBR.
