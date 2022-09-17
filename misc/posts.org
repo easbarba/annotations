@@ -1,0 +1,18 @@
+#+title: Posts
+
+* Shell scripting with GNU getopt
+Shell scripts are usually dead simple to use, you just run it and is done.
+
+Sometimes you will need something more flexible that require user's input,
+
+The GNU's getopt, not to confuse with bash's builtin getopt, has some niceties.
+
+One such a cool feature is the long options found in most cli apps that improve clarity to the end-user.
+
+Of course, if you dont want to anyone user as much a '-a, --alternative' is avaiable that lets use to use long option providing only one hiphen:
+
+#+begin_src shell
+./script -yell foo # FOO
+#+end_src
+
+An example can be found in '/usr/share/doc/util-linux/examples/'
