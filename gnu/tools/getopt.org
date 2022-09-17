@@ -1,0 +1,20 @@
+#+title: GNU Getopt
+
+* Options
+** -o,--options
+
+#+begin_src shell
+getopt --options lh:u: -- "-u" # -u --
+#+end_src
+** -l,--longoptions
+- comma is required after colon
+
+#+begin_src shell
+getopt --longoptions last,help:,url: -- "--last" #  --last --
+#+end_src
+** -a,--alternative
+** -n --name NAME
+
+#+begin_src shell
+getopt --name meh --long last,help:,url: -- "--last" #  --last --
+#+end_src
