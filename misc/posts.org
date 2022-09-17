@@ -1,6 +1,6 @@
 #+title: Posts
 
-* Shell scripting with GNU getopt
+* Command-line options in shell scripts with GNU getopt
 Shell scripts are usually dead simple to use, you just run it and is done.
 
 Sometimes you will need something more flexible that require user's input,
