@@ -417,6 +417,9 @@ toString()
 - JDK 8: adds a default implementation to an interface method.
 - JDK 8: adds static interface methods
 - JDK 9: includes private methods
+- a class must provide the complete set of methods required by the interface. 
+- designed to support dynamic method resolution at run time.
+- one class can implement any number of interfaces.
 
 #+begin_src java
 interface Callback {
