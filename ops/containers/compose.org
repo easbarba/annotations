@@ -3,6 +3,9 @@
 * commands
 ** build
 #+begin_src
+podman-compose up -d, --detach
+podman-compose up --build --force-recreate
+podman-compose up --build
 #+end_src
 
 ** up
@@ -13,6 +16,7 @@ docker-compose up -d
 
 *** options
 **** -d
+**** --build
 **** --force-recreate
 ** stop
 ** pause
@@ -35,7 +39,7 @@ docker-compose exec web echo 'ran a different command'
 #+end_src
 ** rm
 ** kill
-* ?-compose.yml
+* docker-compose.yml
 ** links
 ** image
 ** ports
