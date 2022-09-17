@@ -3,12 +3,14 @@
 * Progress
 |               |    |
 |---------------+----|
-| OPM           | 93 |
 | Truth be told |  4 |
 | The Last Wish | II |
 * Wishlist
 ** Travel
 - Vales em Jacobina, Bahia
+** TV Shows
+- My name (korean)
+** Movies
 * Movies
 ** Korean
 - Breathless / 2008
