@@ -12,7 +12,18 @@ One such a cool feature is the long options found in most cli apps that improve 
 Of course, if you dont want to anyone user as much a '-a, --alternative' is avaiable that lets use to use long option providing only one hiphen:
 
 #+begin_src shell
-./script -yell foo # FOO
+getopt -a -l yell -- "$@"
+
+./script -a -yell foo # FOO
+#+end_src
+
+-o.--options
+
+if an option needs to provided with an argument, do append it with a colon(:):
+
+#+begin_src shell
+getopt -o al:h -- -l
+getopt --longoptions add,listen:,help -- --listen
 #+end_src
 
 An example can be found in '/usr/share/doc/util-linux/examples/'
