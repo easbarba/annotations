@@ -1,0 +1,79 @@
+#+title: Find
+
+* options
+|           |   |
+|-----------+---|
+| -maxdepth |   |
+| -type     |   |
+| -not      |   |
+| -name     |   |
+| -exec     |   |
+
+
+*-type*
+
+all dirs
+
+#+begin_src shell
+find . -type d
+#+end_src
+
+all files
+#+begin_src shell
+find . -type f
+#+end_src
+
+*-name*
+ find all files with extension in folder
+
+#+begin_src shell
+find . -type f -name "*.txt"
+#+end_src
+
+*-exec*
+
+#+begin_src shell
+find /home/usertest -name *.php -exec rm {} \;
+#+end_src
+
+*-perm*
+
+#+begin_src shell
+find /home/usertest -type f -perm 0777 -print -exec chmod 644 {} \;
+#+end_src
+
+*-user*
+
+#+begin_src shell
+find /home/usertest -user codigofonte -iname "*.txt"
+#+end_src
+
+
+*-size*
+
+#+begin_src shell :results output
+find /home/usertest -size +150M –exec rm -rf {} \;
+#+end_src
+#+RESULTS:
+
+*-print0*
+
+#+begin_src shell
+find . -name '*.epub' -print0
+#+end_src
+
+*-printf*
+#+begin_src shell
+find . -name '*.epub' -printf "%f\n"
+#+end_src
+
+-not -path
+#+begin_src shell
+find . -type f -not -path '*/\.git/*'
+#+end_src
+
+*-mmin*
+finds files modified in the last N minutes
+#+begin_src shell
+find . -type f -mmin -5 'meh'
+#+end_src
