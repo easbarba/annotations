@@ -319,6 +319,12 @@ display all environment variables and Shell functions
 | -o pipefail |                                                                                                                                    |
 | --          | the positional parameters are set to the arguments                                                                                 |
 | +           | options to be turned off.                                                                                                          |
+** --
+Do not treat anything following this as an option
+
+#+begin_src shell
+man grep | grep -- -Z #  -Z, --null
+#+end_src
 
 ** shopt
 ** test
