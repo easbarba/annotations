@@ -381,6 +381,39 @@ fi
 -w FILE - True if the FILE exists and is writable.
 -x FILE - True if the FILE exists and is executable.
 ** getopts
+#+begin_src shell
+# Replace long arguments
+for arg; do
+    case "$arg" in
+        --to) ARGS+=(-t) ;;
+        --from) ARGS+=(-f) ;;
+        --create) ARGS+=(-c) ;;
+        --remove) ARGS+=(-r) ;;
+        --pretend) ARGS+=(-p) ;;
+        --overwrite) ARGS+=(-o) ;;
+        --help) ARGS+=(-h) ;;
+        *) ARGS+=("$arg") ;;
+    esac
+done
+
+set -- "${ARGS[@]}"
+
+while getopts "crpoiht:f:" OPTION; do
+    : "$OPTION" "$OPTARG"
+    case $OPTION in
+        t) TO="$OPTARG" ;;
+        f) FROM="$OPTARG" ;;
+        c) CREATE=true ;;
+        r) REMOVE=true ;;
+        p) PRETEND=true ;;
+        o) OVERWRITE=true ;;
+        h) print_usage ;;
+        i) print_info ;;
+        *) exit_abnormal ;;
+    esac
+done
+#+end_src
+
 * Commands
 ** Options
 *** --init-file
