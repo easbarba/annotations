@@ -12,6 +12,17 @@
 *** Numbers
 *** String
 *** Boolean
+*true or :*
+
+- : was used historicaly to mean true in early shells
+
+#+begin_src shell
+#+end_src
+
+*false or let 0*
+#+begin_src shell
+#+end_src
+
 ** Collection Types
 *** Array
 #+begin_src shell
@@ -292,7 +303,7 @@ mkdir /usr/local/src/bash/{old,new,dist,bugs}
 #+end_src
 
 ** Regular Expression
-* Built-in utilities
+* Built-in Tools
 ** read
 ** help
 Display information about builtin commands.
@@ -305,7 +316,14 @@ help if
 ** set
 display all environment variables and Shell functions
 
-|             |                                                                                                                                    |
+*--*
+the positional parameters are set to the arguments
+
+#+begin_src shell
+set one two three
+echo "args: $1 $2 $3" # args: one two three
+#+end_src
+
 |-------------+------------------------------------------------------------------------------------------------------------------------------------|
 | -e          | exit immediately if it returns a non-zero status                                                                                   |
 | -x          | Print commands and their arguments as they are executed.                                                                           |
@@ -317,7 +335,7 @@ display all environment variables and Shell functions
 | -p          | Turn on privileged mode.                                                                                                           |
 | -t          | Exit after reading and executing one command.                                                                                      |
 | -o pipefail |                                                                                                                                    |
-| --          | the positional parameters are set to the arguments                                                                                 |
+| --          |                                                                                  |
 | +           | options to be turned off.                                                                                                          |
 ** --
 Do not treat anything following this as an option
@@ -362,6 +380,7 @@ fi
 -u FILE - True if the FILE exists, and set-user-id (suid) flag is set.
 -w FILE - True if the FILE exists and is writable.
 -x FILE - True if the FILE exists and is executable.
+** getopts
 * Commands
 ** Options
 *** --init-file
