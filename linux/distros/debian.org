@@ -1,18 +1,30 @@
 #+TITLE: Debian
 
-* Commands
-   | comando               | ... |
-   |-----------------------+-----|
-   | apt list --upgradable |     |
-   | apt upgrade --dry-run |     |
-
-** debstrap
-    - mmdebstrap --variant=minbase --include=init,python3 buster /tmp/chroot-python3 http://apt-proxy-ng:3142/debian
-    chroot /tmp/chroot-python3 apt install --no-install-recommends xfce4  ===> 228 MB of additional disk space will be used.
-
+* Applications
+** debootstrap
+#+begin_src shell
+- mmdebstrap --variant=minbase --include=init,python3 buster /tmp/chroot-python3 http://apt-proxy-ng:3142/debian
+chroot /tmp/chroot-python3 apt install --no-install-recommends xfce4  ===> 228 MB of additional disk space will be used.
+#+end_src
 ** update-alternatives
-    $ update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
-* apt/preference
+#+begin_src shell
+update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+#+end_src
+** apt
+*** commands
+**** install
+#+begin_src shell
+apt install screen=4.3.1-2build1
+#+end_src
+**** list
+#+begin_src shell
+apt list --upgradable
+#+end_src
+**** upgrade
+#+begin_src shell
+apt upgrade --dry-run
+#+end_src
+*** preference
 #+begin_src conf
 Package: *
 Pin: release a=unstable
@@ -29,11 +41,46 @@ Pin-Priority: 400
 Package: *
 Pin: release a=experimental
 Pin-Priority: -10
-
 #+end_src
+** dpkg-reconfigure
+*** Locale
+#+begin_src
+sudo dpkg-reconfigure locales
+#+end_src
+*** change login manager
+#+begin_src shell
+sudo dpkg-reconfigure <MANAGER>gdm
+sudo dpkg-reconfigure gdm
+#+end_src
+
 * Documentation
 All available Debian documentation can be found at /usr/share/doc/
-* Debian Install
+
+* Errors & Warning
+Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+* Installation
+** /etc/apt/source.list.
+#+begin_src conf
+# [Unstable]
+deb http://ftp.br.debian.org/debian/ unstable contrib non-free main
+deb-src http://ftp.br.debian.org/debian/ unstable contrib non-free main
+
+# Testing
+deb http://ftp.br.debian.org/debian testing main contrib non-free
+deb-src http://ftp.br.debian.org/debian testing main contrib non-free
+
+# Stable
+deb http://ftp.br.debian.org/debian stable main contrib non-free
+deb-src http://ftp.br.debian.org/debian stable main contrib non-free
+
+# Security updates
+deb http://security.debian.org/ stable/updates main contrib non-free
+deb http://security.debian.org/ testing/updates main contrib non-free
+deb-src http://security.debian.org/ stable/updates main contrib non-free
+deb-src http://security.debian.org/ testing/updates main contrib non-free
+
+#+end_src
+
 ** debootstrap
 #+begin_src shell
 debootstrap --verbose --components=main,contrib,non-free \
@@ -131,17 +178,11 @@ BIOS systems require different steps than UEFI systems.
 If you intend to boot the system you will need a boot loader and it needs a place on disk (see step [Install boot loader to disk](#install-boot-loader-to-disk)).
 
 First check what is the partition table using either `fdisk` or `parted`:
-* login manager
-** change login manager
-#+begin_src shell
-sudo dpkg-reconfigure <MANAGER>gdm
-sudo dpkg-reconfigure gdm
-#+end_src
-* `fdisk /dev/GRUBDISK -l` and look for `Disklabel type:`.
+** `fdisk /dev/GRUBDISK -l` and look for `Disklabel type:`.
     - `Disklabel type: gpt` means GPT.
     - `Disklabel type: dos` means MBR.
     - no `Disklabel type:` probably means partition table is missing.
-* `parted /dev/GRUBDISK print` and look for `Partition Table:`
+** `parted /dev/GRUBDISK print` and look for `Partition Table:`
     - `Partition Table: gpt` means GPT.
     - `Partition Table: msdos` means MBR.
     - `Partition Table: unknown` probably means partition table is missing.
@@ -460,7 +501,46 @@ passwd USERNAME
 Replace `USERNAME` with username of an user you want to create.
 
 (Optional) If you intend to use `sudo`:
-* Add the new user to group `sudo`:
+** /etc/network/interfaces
+#+begin_src conf
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+#+end_src
+** /etc/fstab
+#+begin_src conf
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p4 during installation
+UUID=854fbe64-6166-4188-92da-8f2c2ef27a4e /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/nvme0n1p2 during installation
+UUID=51886395-0052-4b55-9087-aefb0aa9b604 /boot           ext2    defaults        0       2
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=B310-F14B  /boot/efi       vfat    umask=0077      0       1
+# /da was on /dev/nvme0n1p8 during installation
+UUID=7bf3d173-72d6-4a78-9614-6e553de770da /da             ext4    defaults        0       2
+# /fu was on /dev/nvme0n1p6 during installation
+UUID=ecdc24f5-5722-4a8d-9f2f-582c2ed84502 /fu             ext4    defaults        0       2
+# /home was on /dev/nvme0n1p5 during installation
+UUID=41948de5-911a-4f7b-a71d-74b726ade8fe /home           ext4    defaults        0       2
+# swap was on /dev/nvme0n1p3 during installation
+UUID=49c7d9bb-c548-46e5-a4b4-7e91f95b4a6f none            swap    sw              0       0
+
+#+end_src
+** Add the new user to group `sudo`:
     ```bash
     usermod -aG sudo USERNAME
     ```
@@ -626,68 +706,4 @@ umount -R /mnt
 reboot
 ```
 
-#+end_src
-
-* source.list.
-#+begin_src conf
-# [Unstable]
-deb http://ftp.br.debian.org/debian/ unstable contrib non-free main
-deb-src http://ftp.br.debian.org/debian/ unstable contrib non-free main
-
-# Testing
-deb http://ftp.br.debian.org/debian testing main contrib non-free
-deb-src http://ftp.br.debian.org/debian testing main contrib non-free
-
-# Stable
-deb http://ftp.br.debian.org/debian stable main contrib non-free
-deb-src http://ftp.br.debian.org/debian stable main contrib non-free
-
-# Security updates
-deb http://security.debian.org/ stable/updates main contrib non-free
-deb http://security.debian.org/ testing/updates main contrib non-free
-deb-src http://security.debian.org/ stable/updates main contrib non-free
-deb-src http://security.debian.org/ testing/updates main contrib non-free
-
-#+end_src
-* Warning
-   Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
-* System files
-** /etc/fstab
-#+begin_src conf
-# /etc/fstab: static file system information.
-#
-# Use 'blkid' to print the universally unique identifier for a
-# device; this may be used with UUID= as a more robust way to name devices
-# that works even if disks are added and removed. See fstab(5).
-#
-# systemd generates mount units based on this file, see systemd.mount(5).
-# Please run 'systemctl daemon-reload' after making changes here.
-#
-# <file system> <mount point>   <type>  <options>       <dump>  <pass>
-# / was on /dev/nvme0n1p4 during installation
-UUID=854fbe64-6166-4188-92da-8f2c2ef27a4e /               ext4    errors=remount-ro 0       1
-# /boot was on /dev/nvme0n1p2 during installation
-UUID=51886395-0052-4b55-9087-aefb0aa9b604 /boot           ext2    defaults        0       2
-# /boot/efi was on /dev/nvme0n1p1 during installation
-UUID=B310-F14B  /boot/efi       vfat    umask=0077      0       1
-# /da was on /dev/nvme0n1p8 during installation
-UUID=7bf3d173-72d6-4a78-9614-6e553de770da /da             ext4    defaults        0       2
-# /fu was on /dev/nvme0n1p6 during installation
-UUID=ecdc24f5-5722-4a8d-9f2f-582c2ed84502 /fu             ext4    defaults        0       2
-# /home was on /dev/nvme0n1p5 during installation
-UUID=41948de5-911a-4f7b-a71d-74b726ade8fe /home           ext4    defaults        0       2
-# swap was on /dev/nvme0n1p3 during installation
-UUID=49c7d9bb-c548-46e5-a4b4-7e91f95b4a6f none            swap    sw              0       0
-
-#+end_src
-** /etc/network/interfaces
-#+begin_src conf
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
 #+end_src
