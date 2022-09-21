@@ -71,7 +71,9 @@ memory, disks, partitioning, file systems, networking, running processes
 data for processes running on the system.
 -  /run/media, is also used to automatically mount external file systems such as those that are on optical and flash USB.
 ** sys
-
+#+begin_src shell
+cat /sys/devices/virtual/dmi/id/board_name
+#+end_src
 * users
 ** root
 - superuser
