@@ -413,7 +413,14 @@ while getopts "crpoiht:f:" OPTION; do
     esac
 done
 #+end_src
+** readarray - mapfile
+Read lines from the standard input into an indexed array variable.
 
+- readarray is a synonym for `mapfile'.
+
+#+begin_src shell
+mapfile -t IGNORED </da/personal/lar/.dotsignore
+#+end_src
 * Commands
 ** Options
 *** --init-file
