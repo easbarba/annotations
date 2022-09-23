@@ -300,6 +300,7 @@ Wildcard(*) is a symbol used to represent zero, one or more characters.
 ** Brace Expansion
 #+begin_src shell
 mkdir /usr/local/src/bash/{old,new,dist,bugs}
+touch file{1..100}.txt  # file1.txt ... file100.txt
 #+end_src
 
 ** Regular Expression
@@ -427,6 +428,14 @@ mapfile -t IGNORED </da/personal/lar/.dotsignore
      use alternative init file
 *** -c
      run command and arguments
+* Bindings
+|             |                      |
+|-------------+----------------------|
+| ctrl-r      | reverse search       |
+| ctrl-{bafe} | move through words   |
+| ctrl-k      | cut text after point |
+|             |                      |
+
 * Tips
 #+begin_src shell-script
 #  get word after $char in string $var
