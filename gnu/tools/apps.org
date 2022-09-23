@@ -1,0 +1,31 @@
+#+title: Apps
+
+* cat
+concatenate files and print on the standard output
+|    |            |
+|----+------------|
+| -u | unbuffered |
+| <> | buffered   |
+
+#+begin_src shell
+cat /da/personal/annotations/**.org | wc -l
+#+end_src
+* tac
+* sed
+Sed is a stream editor.  A stream editor is used to perform basic text transformations on an input stream (a file or
+input from a pipeline).  While in some ways similar to an editor which permits scripted  edits  (such  as  ed),  sed
+works  by  making  only  one pass over the input(s), and is consequently more efficient.  But it is sed's ability to
+filter text in a pipeline which particularly distinguishes it from other types of editors.
+
+|    |   |
+|----+---|
+| -r |   |
+| -i |   |
+
+
+#+begin_src shell
+sed -i 's/Meh/Foo/g'
+sed -ri 's!^(#define CONFIG_DEFAULT_PROTECTED_MODE) 1$!\1 0!' /usr/src/redis/src/server.h;
+sed '/^z//g' infile
+echo 'mehtopolis' | sed -e '/^meh//g'
+#+end_src
