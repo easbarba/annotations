@@ -1214,6 +1214,9 @@ printWriter.close();
 #+end_src
 
 ** Annotations
+Enables to embed supplemental information into a source file.
+
+- java.lang.annotation
 - @ declares an  annotation type to the compiler
 - annotation can be annotated.
 - JDK 8: adds the ability to annotate type use
@@ -1297,6 +1300,8 @@ annos = m.getAnnotations();
 *Default Values*
 Default values that will be used if no value is specified when the annotation is applied
 
+- A default value is specified by adding a default clause to a member’s declaration.
+
 #+begin_src java
 type member( ) default value ;
 #+end_src
@@ -1314,6 +1319,9 @@ type member( ) default value ;
 @MyAnno(str = "Testing", val = 100) // no defaults
 #+end_src
 
+#+begin_src java
+
+#+end_src
 *Marker Annotations*
 
 ** Generics
@@ -1729,6 +1737,7 @@ static Integer valueOf(String valStr) throws NumberFormatException
 #+begin_src java
 String home = System.getProperty("user.home");
 #+end_src
+*** Annotation
 
 ** java.lang.reflect
 *** AnnotatedElement
