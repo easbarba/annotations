@@ -247,3 +247,7 @@ https://start.spring.io/
 ** Spring Batch
 ** Spring Cloud
 ** Spring Native
+* Commands
+#+begin_src shell
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+#+end_src
