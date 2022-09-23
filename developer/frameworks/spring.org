@@ -251,3 +251,36 @@ https://start.spring.io/
 #+begin_src shell
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
 #+end_src
+
+#+begin_src yaml
+ datasource:
+  driverClassName:
+     org:
+       postgresql: Driver
+  platform: postgres
+
+thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+
+
+spring:
+  sql:
+    init:
+      platform: h2
+
+  h2:
+    console:
+      enabled: true
+      path: /console
+
+  datasource:
+    generate-unique-name: false
+    url:
+      jdbc: h2:mem:pitadb
+      name: pitadb
+
+application-production.yml
+#+end_src
