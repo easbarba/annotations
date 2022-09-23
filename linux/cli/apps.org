@@ -273,6 +273,10 @@ send a signal to a process
 ** pgrep
 look up, signal, or wait for processes based on name and other attributes
 ** pkill
+#+begin_src shell
+pkill fire*
+#+end_src
+
 ** pwait
 ** nice
 run a program with modified scheduling priority
@@ -368,18 +372,6 @@ default, command is run every 2 seconds and watch will run until inter‐ rupted
 
 2t0 # copy line 2 to line 0
 #+end_src
-* cat
-concatenate files and print on the standard output
-|    |            |
-|----+------------|
-| -u | unbuffered |
-| <> | buffered   |
-
-#+begin_src shell
-cat /da/personal/annotations/**.org | wc -l
-#+end_src
-* tac
-
 * pr
 concatenate files and print on the standard output
 |                  |                         |
@@ -501,24 +493,6 @@ print records from a recfile
 * xargs
 #+begin_src shell-script
 echo 'Meh' | xargs -I {} echo 'Ultra {}' # ultra Meh
-#+end_src
-* sed
-Sed is a stream editor.  A stream editor is used to perform basic text transformations on an input stream (a file or
-input from a pipeline).  While in some ways similar to an editor which permits scripted  edits  (such  as  ed),  sed
-works  by  making  only  one pass over the input(s), and is consequently more efficient.  But it is sed's ability to
-filter text in a pipeline which particularly distinguishes it from other types of editors.
-
-|    |   |
-|----+---|
-| -r |   |
-| -i |   |
-
-
-#+begin_src shell
-sed -i 's/Meh/Foo/g'
-sed -ri 's!^(#define CONFIG_DEFAULT_PROTECTED_MODE) 1$!\1 0!' /usr/src/redis/src/server.h;
-sed '/^z//g' infile
-echo 'mehtopolis' | sed -e '/^meh//g'
 #+end_src
 * sshuttle
 * sync
