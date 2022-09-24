@@ -1926,6 +1926,24 @@ Bachelor's or master's degree is a plus
 - microserviços
 ** Vincius Godoy
 Com certeza, pode ficar no final da lista. Nesse meio tempo vale mais a pena estudar algumas tecnologias importantes como a Collections, o JPA e o SpringBoot. Além de aprofundar o uso de reflexão e anotations.
+** meta
+Quais serão as suas responsabilidades?
+
+
+    Desenvolvimento de APIs para integração entre sistemas;
+    Alteração em interfaces;
+    Manutenção de sistemas legados;
+    Suporte a equipe de QA para realização dos testes;
+
+O que você precisa para participar desse processo seletivo?
+    Experiência mínima de 3 anos em JAVA;
+    Domínio na plataforma JEE – JPA, EJB, Servelets, JSP, JSF;
+    Domínio em Spring Boot e Micro serviços;
+    Domínio em GIT e SVN;
+    Domínio em SQL, DDL e DML;
+    Fortes conhecimentos em linguagem SQL;
+    Fortes conhecimentos em Bancos de dados PostgreSQL ;
+    Inglês técnico, nível intermediário;
 * Projects idea
 - TODO List. Implementa um Trello usando só Java.
 - Sisteminha de caixa de restaurante. Pega o pedido, vai pra cozinha, faz balanço de estoque, etc...
