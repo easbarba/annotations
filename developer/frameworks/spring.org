@@ -165,6 +165,16 @@ private Owner owner;
 private List<Car> cars;
 #+end_src
 
+*Queries*
+#+begin_src java
+    List<Car> findByBrand(String brand);
+    List<Car> findByColor(String color);
+    List<Car> findByYear(int year);
+    List<Car> findByBrandAndModel(String brand, String model);
+    List<Car> findByBrandOrColor(String brand, String color);
+    List<Car> findByBrandOrderByYearAsc(String brand);
+#+end_src
+
 * Services
 *@Service*
 
@@ -278,5 +288,47 @@ application-production.yml
   # profiles:
     # active: production
 
+
+#+end_src
+** compose-mysql
+#+begin_src yaml
+version: "3"
+
+services:
+  database:
+    image: mysql:8
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DATABASE_PASSWORD
+      - MYSQL_DATABASE=$DATABASE_NAME
+    ports: 3307:$3306
+    volumes: db:/var/lib/mysql
+
+  backend:
+    build: .
+    env_file: .env
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/${DATABASE_NAME}?useSSL=false
+      - SPRING_DATASOURCE_USERNAME=${DATABASE_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.mariadb.jdbc.Driver
+    ports: 8081:8080
+    depends_on: database
+    restart: on-failure
+    volumes:
+      - ./src:/app/src
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+
+  # frontend:
+  #   build: .
+  #   ports:
+  #     - 8081:8080
+  #   depends_on: backend
+
+volumes:
+  dbdata:
 
 #+end_src
