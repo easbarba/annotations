@@ -1151,9 +1151,13 @@ nnection refused - :econnrefused
 initdb -D .postgres -A md5 -U $USER --pwprompt
 # or
 initdb -D .postgres -A md5 -U $USER --pwfile=/path/to/passfile
+initdb -U $USER -A md5 --pwfile=<(echo $DATABASE_PASSWORD)
 
 pg_ctl -D .postgres -w start
 createdb -U $USER mydb
+
+psql -p 5432 -U $USER -d pitadb
+psql "postgresql://$DB_USER:$DB_PWD@$DB_SERVER/$DB_NAME"
 #+end_src
 ** container from cli
 #+begin_src sh
