@@ -2,18 +2,19 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                         |
-|--------------------------+------------------------------------------------------------+---------------------------|
-| Java Complete Reference  | 14 Generics                                                | Generic Class Hierarchies |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                           |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                           |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                           |
+| name                     | chapter                                                    | @                  |
+|--------------------------+------------------------------------------------------------+--------------------|
+| Java Complete Reference  | Chapter 12  Enumerations, Autoboxing, and Annotations      | Marker Annotations |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                    |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                    |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                    |
 
 ** SLOC
 | Source Code | folder                               | file           | @ |
 |-------------+--------------------------------------+----------------+---|
 | openjdk     | src/java.base/share/classes/java/io  | Bits.java      |   |
 | common-cli  | src/main/java/org/apache/commons/cli | GnuParser.java |   |
+| jbang       |                                      |                |   |
 
 * Base
 ** Types
@@ -1738,6 +1739,82 @@ static Integer valueOf(String valStr) throws NumberFormatException
 String home = System.getProperty("user.home");
 #+end_src
 *** Annotation
+*** Class<T>
+- encapsulates the run-time state of a class or interface.
+
+*Class<?>*
+- ? wildcard
+- JDK16: includes methods that support records.
+- JDK 17: includes methods that support sealed classes and interfaces.
+- JDK 11: provides three methods that relate to a nest - a group of classes and/or interfaces nested within an outer class or interface.
+Class is a parameterizable class, the syntax Class<T> where T is a type.
+Class<?>, declares a Class object which can be of any type (? is a wildcard).
+The Class type is a type that contains meta-information about a class.
+
+
+In generic code, the question mark (?), called the wildcard, represents an unknown type. The wildcard can be used in a variety of situations: as the type of a parameter, field, or local variable; sometimes as a return type (though it is better programming practice to be more specific). The wildcard is never used as a type argument for a generic method invocation, a generic class instance creation, or a supertype.
+
+#+begin_src java
+Meta3 ob = new Meta3();
+Class<?> c = ob.getClass();
+Method m = c.getMethod("myMeth");
+MyAnno anno = m.getAnnotation(MyAnno.class);
+System.out.println(anno.str() + " " + anno.val());
+#+end_src
+
+#+begin_src java
+package com.w3spoint;
+
+public class TestClass {
+	public void display(String message){
+		System.out.println(message);
+	}
+}
+
+// ----
+
+package com.w3spoint;
+
+import java.lang.reflect.Method;
+
+public class ReflectionTest {
+	public static void main(String args[]){
+		try {
+			Class c=Class.forName("com.w3spoint.TestClass");
+			Method method = c.getMethod("display", String.class);
+			System.out.println("Return Type: " + method.getReturnType());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+#+end_src
+
+#+begin_src java
+class X {
+  int a;
+  float b;
+}
+
+class Y extends X {
+  double c;
+}
+
+class RTTI {
+public
+  static void main(String[] args) {
+    X x = new X();
+    Y y = new Y();
+    Class < ? > clObj;
+    clObj = x.getClass(); // get Class reference
+    System.out.println("x is object of type: " + clObj.getName());
+    clObj = y.getClass(); // get Class reference
+    System.out.println("y is object of type: " + clObj.getName());
+    clObj = clObj.getSuperclass();
+    System.out.println("y's superclass is " + clObj.getName());
+  }
+}
+#+end_src
 
 ** java.lang.reflect
 *** AnnotatedElement
