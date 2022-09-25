@@ -166,6 +166,7 @@ private List<Car> cars;
 #+end_src
 
 *Queries*
+
 #+begin_src java
     List<Car> findByBrand(String brand);
     List<Car> findByColor(String color);
@@ -175,6 +176,15 @@ private List<Car> cars;
     List<Car> findByBrandOrderByYearAsc(String brand);
 #+end_src
 
+*@Query*
+
+#+begin_src java
+@Query(“select c from Car c where c.brand = ?1")
+List<Car> findByBrand(String brand);
+
+@Query(“select c from Car c where c.brand like %?1")
+List<Car> findByBrandEndsWith(String brand);
+#+end_src
 * Services
 *@Service*
 
