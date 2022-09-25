@@ -232,6 +232,9 @@ Move existing, uncommitted work to a new branch
 git switch -c <new-branch>
 #+end_src
 
+#+begin_src shell
+git switch --detach <commit>
+#+end_src
 
 ** submodule
       Initialize, update, or inspect submodules.
