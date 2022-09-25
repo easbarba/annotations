@@ -2,10 +2,10 @@
 
 * Progress
 ** Books
-| books               | chapter             | @                    |
-|---------------------+---------------------+----------------------|
-| Getting Clojure     | 6 Functional things | A Functional Toolkit |
-| Programming Clojure |                     |                      |
+| books               | chapter             | @                                         |
+|---------------------+---------------------+-------------------------------------------|
+| Getting Clojure     | 6 Functional things | A Functional Toolkit                      |
+| Programming Clojure | 1 Getting Started   | Clojure Simplifies Concurrent Programming |
 ** SOC
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
@@ -34,6 +34,7 @@
 true
 false
 #+end_src
+*** Atoms
 ** Collections
 *** Lists
 #+begin_src clojure
@@ -146,12 +147,17 @@ destructive
 #+end_src
 
 *** Sequences
+*** References
+*** Agens
+
 ** Bindings
 *** def
 *def*
 #+begin_src clojure
 (def author "Dickens")
 #+end_src
+** Records
+** Protocols
 ** Conditinals
 *** if
 - _false_ and _nil_ are the only false values
