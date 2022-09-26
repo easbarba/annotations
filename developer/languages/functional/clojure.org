@@ -596,6 +596,35 @@ Using loop to avoid creating unnecessary function just to serve recur
 
 * Commands
 ** clj
+*** deps
+#+begin_src shell
+ clj -X:deps find-versions :lib clojure.java-time/clojure.java-time
+#+end_src
+*** load file
+#+begin_src clojure
+(load-file "temp.clj")
+#+end_src
+*** exceptions
+**e*
+Holds the last exception.
+
+*Print Stack Trace*
+
+#+begin_src clojure
+(/ 1 0)
+(pst)
+#+end_src
+*** misc
+*Special variables*
+
+-  *1, *2, and *3,
+#+begin_src clojure
+(defn hello [name] (str "Hello, " name)) ;; -> #'user/hello
+(hello "Stu") ;; -> "Hello, Stu"
+(hello "Clojure") ;; -> "Hello, Clojure"
+(str *1 " and " *2) ;; -> "Hello, Clojure and Hello, Stu"
+#+end_src
+
 *-M[aliases]*
 Use concatenated aliases to modify classpath or supply main opts
 
@@ -624,3 +653,10 @@ clj -Auberjar
 
 *-X[aliases]*
 Use concatenated aliases to modify classpath or supply exec fn/args
+** clojure
+* Scripting
+#+begin_src clojure
+echo $'#!/usr/bin/env clojure\n(println "hello!")' > hello
+chmod +x hello
+time ./hello
+#+end_src
