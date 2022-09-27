@@ -1,0 +1,8 @@
+#+title: Laravel_apps
+
+* Artisan
+** key
+ new randomly generated string that’s used to encrypt data.
+#+begin_src shell
+artisan key:generate
+#+end_src

@@ -1,0 +1,22 @@
+#+title: Laravel
+
+* Progress
+** Books
+| name              | chapter | @ |
+|-------------------+---------+---|
+| Practical Laravel |         |   |
+|                   |         |   |
+
+** SLOC
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| Laravel     |        |      |   |
+* Base
+** Functions
+*env*
+Pulls a value from your .env file with that same key.
+#+begin_src php
+env('HOME')
+#+end_src
+
+* Commands
