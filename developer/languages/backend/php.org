@@ -1,10 +1,12 @@
 #+TITLE: PHP
 
 * Progress
-** Books
-| name | chapter | @ |
-|------+---------+---|
-|      |         |   |
+** Resource
+| name                    | chapter | @          |
+|-------------------------+---------+------------|
+| PHP Language Reference  | Types   | Boolean    |
+| YT Edson Maia           | OOP     | Prediction |
+| The Art of modern PHP 8 |         |            |
 
 ** SLOC
 | Source Code | folder | file      | @ |
@@ -12,8 +14,8 @@
 |             |        |           |   |
 
 * Base
-** types
-*** boolean
+** Types
+*** Booleans
 A bool expresses a truth value. It can be either *True* or *False*.
 
 *Falsy values*
@@ -38,10 +40,11 @@ $bar = False;
 ?>
 #+end_src
 
-*** integers
-An int is a number of the set ℤ = {..., -2, -1, 0, 1, 2, ...}.
+*** Integers
+A number of the set ℤ = {..., -2, -1, 0, 1, 2, ...}.
 
  - decimal (base 10), hexadecimal (base 16), octal (base 8) or binary (base 2) notation
+- PHP 8.1.0: octal notation can also be preceded with 0o or 0O.
 
 #+begin_src php
 <?php
@@ -69,7 +72,8 @@ var_dump(round(25/7));  // float(4)
 - intval()
 - round()
 
-*** floating
+*** Floating numbers
+Floating point numbers (also known as "floats", "doubles", or "real numbers")
 #+begin_src php
 
 <?php
@@ -80,9 +84,58 @@ $d = 1_234.567; // as of PHP 7.4.0
 ?>
 
 #+end_src
+*** String
+#+begin_src php
+<?php
+echo "He4rtDevs <3";
+echo "Melhor grupo do mundo para devs iniciantes";
+#+end_src
+** Collection Types
+*** Array
+*** Array Associative
+#+begin_src php
+<?php
 
-** variables
-*** functions
+$array = array(
+    "foo" => "bar",
+    "bar" => "foo",
+);
+
+
+$array = [
+    "foo" => "bar",
+    "bar" => "foo",
+];
+
+?>
+#+end_src
+
+** Variables
+** Functions
+** Commentary
+#+begin_src shell
+
+#+end_src
+** Tags
+***  <?php ?>
+** Classes
+*** Abstract
+** Interface
+** Autoload
+* Library
+** Global
+*getenv*
+*abs()*
+
+*echo*
+Output one or more strings
+
+#+begin_src php
+<?php
+
+echo "He4rtDevs";
+echo 123456;
+#+end_src
 
 *var_dump*
 Dumps information about a variable
@@ -90,13 +143,39 @@ Dumps information about a variable
 #+begin_src php
 <? php
 var_dump((bool) "");
+var_dump(new stdClass());
 #+end_src
 
-* Library
+*error_reporting(E_ALL)*
+** Global Variables
+*** $argn
+* Misc
+** Scripting
+#+begin_src php
+#!/usr/bin/env php
+<?php
 
-** functions
-- abs()
-- error_reporting(E_ALL)
+echo 'Meh';
+$options = getopt("hcoprf:t:");
+var_dump($options);
+
+?>
+#+end_src
+
+* Commands
+** options
+*** -r <code>
+#+begin_src shell
+php -r 'echo "one two three";'
+#+end_src
+*** -R
+#+begin_src shell
+cat file.txt | php -R 'echo ">: " . $argn . "\n";'
+#+end_src
+*** -S <PORT>
+#+begin_src shell
+php -S localhost:8081 # go to https://localhost:8081/index.php in a browser
+#+end_src
 
 * Jobs
 ** PicPay Pleno
@@ -127,3 +206,29 @@ Metodologias ágeis;
 Design e desenvolvimento de micro serviços horizontalmente escaláveis;
 Jobs de alto desempenho e comunicação entre serviços utilizando soluções de fila como Beanstalk, RabbitMQ, Kafka, etc;
 Conhecimento dos riscos comuns de segurança (OWASP).
+** Xteam
+Job Description
+PHP Developer
+Most Important
+
+    Expert experience with PHP, and expertise with the newest versions of PHP
+    Extensive experience with various PHP frameworks (Laravel/Symfony/CodeIgniter/CakePHP/Yii, etc.)
+    Solid skills in SQL databases (MySQL, PostgreSQL, MariaDB etc)
+    Experience writing high-quality unit tests
+    Ability to build and consume RESTful web services
+    Code optimization and performance improvements
+    Passionate about writing beautiful and clean code
+
+Nice to have
+
+    Experience with JavaScript, React.js, etc.
+    Experience working with AWS cloud architecture (Docker, Kubernetes, CI/CD Pipelines)
+    Experience working remotely
+    Familiar/involved with open source projects
+
+Personal
+
+    Independent
+    Fluent in English, written and spoken
+    Problem solver
+    Proactive attitude
