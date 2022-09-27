@@ -2,8 +2,19 @@
 
 * [[https://getcomposer.org/][Composer]]
 A Dependency Manager for PHP
-
 ** phar
+** commands
+*** suggest
+*** global
+#+begin_src shell
+composer global require "laravel/installer"
+#+end_src
+*** fund
+*** create-project
+#+begin_src shell
+composer create-project laravel/laravel projectName
+#+end_src
+
 * Frameworks
 ** drupal
 *** drush
