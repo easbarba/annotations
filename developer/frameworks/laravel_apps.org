@@ -6,3 +6,4 @@
 #+begin_src shell
 artisan key:generate
 #+end_src
+** tinker
