@@ -1,26 +1,32 @@
 #+TITLE: Oracle Mysql
 
-* cli
+* Cli
 |    |          |
 |----+----------|
 | -u | user     |
 | -p | password |
 
-* setup
+* Setup
 ** create database and user w/ pass
 
 #+begin_src sql
-CREATE DATABASE example_database;
-CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-GRANT ALL ON example_database.* TO 'example_user'@'%';
+CREATE DATABASE mehdb;
+CREATE USER 'sammy'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+GRANT ALL ON mehdb.* TO 'sammy'@'%';
+
+-- GRANT PRIVILEGE ON database.table TO 'username'@'host';
+-- GRANT ALL PRIVILEGES ON *.* TO 'sammy'@'localhost' WITH GRANT OPTION;
+
+-- alter user password type
+ALTER USER 'sammy'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 #+end_src
 
 - test if the new user has the proper permissions
 #+begin_src sh
-mysql -u example_user -p
+mysql -u sammy -D foodb -p
 #+end_src
 
-* container
+* Container
 #+begin_src sh
 podman run -d --rm --name mine -e MYSQL_ROOT_PASSWORD=test mysql
 podman exec -it mine mysql -p
