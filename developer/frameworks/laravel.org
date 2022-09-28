@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| name              | chapter | @            |
-|-------------------+---------+--------------|
-| Practical Laravel |         | Route Groups |
+| name              | chapter                            | @                 |
+|-------------------+------------------------------------+-------------------|
+| Practical Laravel | Chapter 3: Routing and Controllers | Subdomain Routing |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -18,6 +18,7 @@ Pulls a value from your .env file with that same key.
 env('HOME')
 #+end_src
 ** Routes
+*** Rout verbs
 #+begin_src php
 Route::get('/', function () {
 return 'Hello, World!';
@@ -38,4 +39,40 @@ Route::match(['get', 'post'], '/', function () {
 // Handle GET or POST requests to this route
 });
 #+end_src
+*** Route Parameters
+*** Route Handling
+*** Route Name
+*** Route Groups
+#+begin_src php
+Route::group(function () {
+    Route::get('hello', function () {
+        return 'Hello';
+    });
+    Route::get('world', function () {
+        return 'World';
+    });
+});
+#+end_src
+** Middleware
+#+begin_src php
+Route::middleware('auth')->group(function() {
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    });
+    Route::get('account', function () {
+        return view('account');
+    });
+});
+
+#+end_src
+** Views
+*** Tags
+*@extends*
+
+*@section() @endsection*
+
+*@yield()*
+
+*{{ }}*
+
 * Commands

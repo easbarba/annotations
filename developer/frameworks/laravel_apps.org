@@ -7,3 +7,21 @@
 artisan key:generate
 #+end_src
 ** tinker
+** make:
+*** controller
+#+begin_src shell
+php artisan make:controller # prior 5.3
+php artisan make:controller TasksController --resource # post 5.3
+php artisan make:controller TasksController --test
+#+end_src
+
+** serve
+*** options
+|               |   |
+|---------------+---|
+| --port <PORT> |   |
+** route
+#+begin_src shell
+php artisan route:list
+#+end_src
+** optimize
