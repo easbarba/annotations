@@ -129,9 +129,8 @@ git log --format="%h %an %ar %s"
 #+end_src
 
 ** merge
-      Join two or more development histories together.
+Join two or more development histories together.
 #+begin_src shell
-
 git checkout feature
 git merge main
 
@@ -139,8 +138,7 @@ git merge main
 
 git merge feature main
 
-
-
+git merge featureBranch --squash --no-commit
 #+end_src
 
 ** mv
