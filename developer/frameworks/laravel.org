@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| name              | chapter                            | @                  |
-|-------------------+------------------------------------+--------------------|
-| Practical Laravel | Chapter 3: Routing and Controllers | Getting User Input |
+| name              | chapter                            | @                   |
+|-------------------+------------------------------------+---------------------|
+| Practical Laravel | Chapter 3: Routing and Controllers | Route Model Binding |
 
 ** SLOC
 | Source Code | folder | file | @ |
