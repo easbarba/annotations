@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| name              | chapter                            | @                 |
-|-------------------+------------------------------------+-------------------|
-| Practical Laravel | Chapter 3: Routing and Controllers | Subdomain Routing |
+| name              | chapter                            | @                  |
+|-------------------+------------------------------------+--------------------|
+| Practical Laravel | Chapter 3: Routing and Controllers | Getting User Input |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -53,6 +53,10 @@ Route::group(function () {
     });
 });
 #+end_src
+*** Signed Routes
+signed URLs
+ makes it easy to build a signature authentication sys‐
+tem for sending out authenticated links.
 ** Middleware
 #+begin_src php
 Route::middleware('auth')->group(function() {
@@ -74,5 +78,18 @@ Route::middleware('auth')->group(function() {
 *@yield()*
 
 *{{ }}*
+*** View Composers
+Share variables
+#+begin_src php
+view()->share('variableName', 'variableValue');
+#+end_src
+** Controllers
+** Models
 
 * Commands
+** new
+#+begin_src shell
+laravel new myapp --git
+#+end_#+begin_src
+
+#+end_src
