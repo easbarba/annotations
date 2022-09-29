@@ -1,6 +1,6 @@
 #+TITLE: Oracle Mysql
 
-* Cli
+* Commands
 |    |          |
 |----+----------|
 | -u | user     |
@@ -25,6 +25,12 @@ ALTER USER 'sammy'@'localhost' IDENTIFIED WITH mysql_native_password BY 'passwor
 #+begin_src sh
 mysql -u sammy -D foodb -p
 #+end_src
+* inline commands
+#+begin_src sql
+show tables;
+show full tables;
+show columns from products;
+#+end_src
 
 * Container
 #+begin_src sh
@@ -32,7 +38,7 @@ podman run -d --rm --name mine -e MYSQL_ROOT_PASSWORD=test mysql
 podman exec -it mine mysql -p
 #+end_src
 
-* examples
+* Examples
 ** ROOT - create user/pass
 #+begin_src sql
 CREATE DATABASE assisdb;
@@ -62,12 +68,12 @@ SELECT * FROM assisdb.todo_list;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '.10machado11-';
 #+end_src
 
-* security
+* Security
 There are a few other things you should do to secure a production
 MySQL server, including removing the test database, adding a password
 for the root user account, restricting the IP addresses allowed to access port
 3306 more closely, and some other minor cleanups.
 
-* minimal knownledge
+* Minimal knownledge
 select com left/right join, um insert, um update, um delete e um create
 table/view você já resolve 90% dos seus BOs como dev.
