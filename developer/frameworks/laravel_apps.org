@@ -14,7 +14,13 @@ php artisan make:controller # prior 5.3
 php artisan make:controller TasksController --resource # post 5.3
 php artisan make:controller TasksController --test
 #+end_src
-
+** db
+#+begin_src shell
+php artisan db:seed --class=ArticlesTableSeeder
+#+end_src
+*** :show
+*** :table <NAME>
+** env
 ** serve
 *** options
 |               |   |
