@@ -6,7 +6,7 @@
 |-------------------+------------------------------------+---------------------|
 | Practical Laravel | Chapter 3: Routing and Controllers | Route Model Binding |
 
-** SLOC
+** SOC
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
 | Laravel     |        |      |   |
@@ -38,6 +38,9 @@ Route::any('/', function () {
 Route::match(['get', 'post'], '/', function () {
 // Handle GET or POST requests to this route
 });
+
+Route::get(), Route::post(), Route::any(), or Route::match(). You
+can also match with Route::patch(), Route::put(), and Route::delete().
 #+end_src
 *** Route Parameters
 *** Route Handling
@@ -57,6 +60,8 @@ Route::group(function () {
 signed URLs
  makes it easy to build a signature authentication sys‐
 tem for sending out authenticated links.
+*** Route Model Binding
+***
 ** Middleware
 #+begin_src php
 Route::middleware('auth')->group(function() {
@@ -78,6 +83,13 @@ Route::middleware('auth')->group(function() {
 *@yield()*
 
 *{{ }}*
+
+*@foreach @foreachend*
+#+begin_src html
+@foreach ($users as $user)
+    <p>This is user {{ $user->id }}</p>
+@endforeach
+#+end_src
 *** View Composers
 Share variables
 #+begin_src php

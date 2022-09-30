@@ -13,6 +13,8 @@ artisan key:generate
 php artisan make:controller # prior 5.3
 php artisan make:controller TasksController --resource # post 5.3
 php artisan make:controller TasksController --test
+php artisan make:controller BOOKController --resource --model=book
+php artisan make:controller MySampleResourceController --api
 #+end_src
 ** db
 #+begin_src shell
@@ -27,6 +29,7 @@ php artisan db:seed --class=ArticlesTableSeeder
 |---------------+---|
 | --port <PORT> |   |
 ** route
+*** list
 #+begin_src shell
 php artisan route:list
 #+end_src
