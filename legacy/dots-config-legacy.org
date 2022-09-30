@@ -162,11 +162,19 @@ hex,main,https://github.com/hexpm/hex
 phoenix,master,https://github.com/phoenixframework/phoenix
 elixir,main,https://github.com/elixir-lang/elixir
 #+end_src
-** js
+** php
 #+begin_src csv
 name,branch,url
-https://github.com/facebook/react/
-axios,master,https://github.com/axios/axios
+psysh,main,https://github.com/bobthecow/psysh
+guzzle,master,https://github.com/guzzle/guzzle
+symfony-console,6.2,https://github.com/symfony/console
+phpunit,main,https://github.com/sebastianbergmann/phpunit
+composer,main,https://github.com/composer/composer
+laravel-framework,9.x,https://github.com/laravel/framework
+laravel,9.x,https://github.com/laravel/laravel
+php-doc-base,master,https://github.com/php/doc-base
+php-doc-en,master,https://github.com/php/doc-en
+php-src,master,https://github.com/php/php-src
 #+end_src
 ** rust
 #+begin_src csv

@@ -56,6 +56,8 @@ if ! sudo grep -i "$USER" "$HBA_CONF"; then
 fi
 
 #+end_src
+* e-debian-dev
+php-curl php-dom php-bcmath php-mbstring php-zip php-xml php-mysql prettier/plugin-php
 * wm-autostart
 #+begin_src shell
   'xautolock -time 8 -locker "slock" -detectsleep'
