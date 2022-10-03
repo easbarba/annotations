@@ -20,246 +20,6 @@
 |       |                                      |                 |
 |-------+--------------------------------------+-----------------|
 | rails | actioncable/lib/action_cable/channel | broadcasting.rb |
-* Commands
-** about
-** assets:
-*assets:precompile*
-
-*assets:clobber*
-
-Purge public/assets completely
-
-*assets:clean*
-
-Allows for rolling deploys that may still be linking to an old
-asset while the new assets are being built.
-
-** console
-- let access the app and helper instances.
-
-*app*
-
-#+begin_src ruby
-app.root_path
-app.get _
-#+end_src
-
-*helper*
-
-#+begin_src ruby
-helper.time_ago_in_words 30.days.ago # "about 1 month"
-helper.my_custom_helper # "my custom helper"
-#+end_src
-
-*-e*
-
-#+begin_src sh
-bin/rails console -e staging
-#+end_src
-
-*--sandbox*
-
-*examples*
-                                                                                                                                       |
-#+begin_src ruby
-create(title: "foo", body: "bar", published_at: '2020-01-31')
-a.save  / a.save!
-a.new
-A.count
-A.find(3) / A.find([4,5])
-A.first   / A.first.title
-A.last
-A.all / A.all.size / A.all.each { \a\ puts a.title }
-A.order(:order) / A.order(:order :desc)
-A.where(title: 'foo')
-update_attributes(title: "foo", published_at: 1.day.ago)
-
-a.x << x                                                          A.destroy(1) / .destroy([3,4])                                    rors                                                                                  |
-                                                                                                                                                        |
-a.errors.any? / a.errors.full_messages / a.errors.messages[:title]                                                                                      |
-a.valid?
-#+end_src
-
-*** reload!
-reloads the Rails application environment within your console session. You need
-to call it when you make changes to existing code.
-** database
-| cmd                             | desc                                                                          |
-|---------------------------------+-------------------------------------------------------------------------------|
-| db-console                       |                                                                               |
-| console                         |                                                                               |
-| db:create                       |                                                                               |
-| db:create:all                   | create test,production and development database                               |
-| db:migrate                      | create schema                                                                 |
-| db:rollback                     | rollback recently created schema                                              |
-| db:load_config                  |                                                                               |
-| db:check_protected_environments |                                                                               |
-| db:truncate_all                 |                                                                               |
-| db:system:change                | switch databases                                                              |
-| db:seed                         |                                                                               |
-| db:seed:replant                 | truncates tables of each database for current environment and loads the seeds |
-| db:setup                        | recreate database and adds the seed data as you may expect.                   |
-| db:reset                        | drop database, recreates it, loads the schema, and seeds your database        |
-y
-** dbconsole
-*--db, [--database=DATABASE]*
-
-Specifies the database to use.
-
-#+begin_src sh
-bin/rails dbconsole --database=animals
-#+end_src
-** db:
-*db:migrate*
- VERSION=0
-*db:create*
-*db:truncate*
-*db:version*
-*db:schema_migrations*
-** destroy
-
-#+begin_src sh
-destroy model Oops
-destroy controller articles
-destroy model Artile
-#+end_src
-
-** generate
-*** resource
-*** scaffold
-full set of model, database migration for that model, controller to manipulate
-it, views to view and manipulate the data, and a test suite
-
-#+begin_src sh
-generate scaffold Article <options>
-generate scaffold Article title author body:text
-generate scaffold Article title:string body:text published_at:datetime
-#+end_src
-**** options
-  -f, [--force]                    # Overwrite files that already exist
-  -p, [--pretend], [--no-pretend]  # Run but do not make any changes
-  -q, [--quiet], [--no-quiet]      # Suppress status output
-  -s, [--skip], [--no-skip]        # Skip files that already exist
-
-
-*** models
-#+begin_src ruby
-generate model <Name>
-#+end_src
-
-*** channels
-#+begin_src
-generate channels <name>
-#+end_src
-** new
-| how               | desc                                              |
-+-------------------+---------------------------------------------------|
-| –d or --database= | use the database management system of your choice |
-| new <name>        |                                                   |
-
-
-#+begin_src shell
-rails _6.1.5.1_ new app --database=postgresql
-#+end_src
-
-** test
-*test:controllers*
-
-** routes
-*** options
-*-g GROUP, --grep=GROUP*
-*-E, --expanded*
-*-c CONTROLLER, --controller=CONTROLLER*
-
-** server
-*-e*
-
-#+begin_src shell
-bin/rails server -e development
-bin/rails server -e test
-bin/rails server -e production
-#+end_src
-
-|                               |   |
-|-------------------------------+---|
-| --binding=[PORT] or -b [PORT] |   |
-
-** misc
-| what       | how         | desc |
-|------------+-------------+------|
-| destroy    | destroy / d |      |
-| belongs_to |             |      |
-
-** notes
-Searches through your code for comments beginning with a specific keyword.
-
-*--annotations*
-#+begin_src sh
-notes --annotations FIXME RELEASE
-#+end_src
-
-*tags*
-*directories*
-
-** tasks
-Rails 6 uses rake as task runner
-
-|              |                         |
-|--------------+-------------------------|
-| --task or -T | list all task available |
-|              |                         |
-
-** tmp:
-The Rails.root/tmp directory is, like the *nix /tmp directory, the holding place
-for temporary files like process id files and cached actions.
-
-*tmp:cache:clear*
-clears tmp/cache.
-
-*tmp:sockets:clear*
-clears tmp/sockets.
-
-*tmp:screenshots:clear*
- clears tmp/screenshots.
-
-*tmp:clear*
- clears all cache, sockets, and screenshot files.
-
-*tmp:create*
- creates tmp directories for cache, sockets, and pids.
-
-** log
-|                  |   |
-|------------------+---|
-| :clear LOGS=test |   |
-
-** migration
-|                    |   |
-|--------------------+---|
-| AddXXXToTABLE      |   |
-| RemoveXXXFromTABLE |   |
-
-** initializers
-** middleware
-** stats
-** secret
-** time:zones:all
-** webpacker
-#+begin_src sh
-webpacker:compile
-#+end_src
-** rake tasks
-
-#+begin_src sh
-bin/rails generate task
-#+end_src
-
-** runner
-runs ruby code in the context of rails non-interactively.
-
-#+begin_src sh
-bin/rails runner "Model.long_running_method"
-#+end_src
 * bin
 Useful personal scripts
 
@@ -1398,6 +1158,10 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 .create({})
 .find_or_create_by({})
 #+end_src
+** Tips
+#+begin_src shell
+rails runner "p ActiveRecord::Base.connection_config"
+#+end_src
 
 * Action Dispatch
 - handles routing
@@ -1838,7 +1602,8 @@ export PATH="$NPM_BIN":$PATH
 #+end_src
 ** Project Base
 #+begin_src shell
-podman run --rm -it -v $(pwd):/app/ -w /app ruby:3.1-alpine3.16 sh -c 'apk add --update build-base curl git tzdata postgresql-dev && gem install rails && rails new . --force --database=postgresql --css tailwind'
+podman run --rm -v $(pwd):/app/ -w /app ruby:3.1-alpine sh -c 'apk add --update build-base curl git tzdata postgresql-dev && gem
+ install rails:6 && rails new <NAME> --database=postgresql --css tailwind --master main'
 #+end_src
 
 #+begin_src ruby
@@ -2101,3 +1866,244 @@ Independent
 Fluent in English, written and spoken
 Problem solver
 Proactive attitude
+* Commands
+** about
+** assets:
+*assets:precompile*
+
+*assets:clobber*
+
+Purge public/assets completely
+
+*assets:clean*
+
+Allows for rolling deploys that may still be linking to an old
+asset while the new assets are being built.
+
+** console
+- let access the app and helper instances.
+
+*app*
+
+#+begin_src ruby
+app.root_path
+app.get _
+#+end_src
+
+*helper*
+
+#+begin_src ruby
+helper.time_ago_in_words 30.days.ago # "about 1 month"
+helper.my_custom_helper # "my custom helper"
+#+end_src
+
+*-e*
+
+#+begin_src sh
+bin/rails console -e staging
+#+end_src
+
+*--sandbox*
+
+*examples*
+                                                                                                                                       |
+#+begin_src ruby
+create(title: "foo", body: "bar", published_at: '2020-01-31')
+a.save  / a.save!
+a.new
+A.count
+A.find(3) / A.find([4,5])
+A.first   / A.first.title
+A.last
+A.all / A.all.size / A.all.each { \a\ puts a.title }
+A.order(:order) / A.order(:order :desc)
+A.where(title: 'foo')
+update_attributes(title: "foo", published_at: 1.day.ago)
+
+a.x << x                                                          A.destroy(1) / .destroy([3,4])                                    rors                                                                                  |
+                                                                                                                                                        |
+a.errors.any? / a.errors.full_messages / a.errors.messages[:title]                                                                                      |
+a.valid?
+#+end_src
+
+*** reload!
+reloads the Rails application environment within your console session. You need
+to call it when you make changes to existing code.
+** database
+| cmd                             | desc                                                                          |
+|---------------------------------+-------------------------------------------------------------------------------|
+| db-console                       |                                                                               |
+| console                         |                                                                               |
+| db:create                       |                                                                               |
+| db:create:all                   | create test,production and development database                               |
+| db:migrate                      | create schema                                                                 |
+| db:rollback                     | rollback recently created schema                                              |
+| db:load_config                  |                                                                               |
+| db:check_protected_environments |                                                                               |
+| db:truncate_all                 |                                                                               |
+| db:system:change                | switch databases                                                              |
+| db:seed                         |                                                                               |
+| db:seed:replant                 | truncates tables of each database for current environment and loads the seeds |
+| db:setup                        | recreate database and adds the seed data as you may expect.                   |
+| db:reset                        | drop database, recreates it, loads the schema, and seeds your database        |
+y
+** dbconsole
+*--db, [--database=DATABASE]*
+
+Specifies the database to use.
+
+#+begin_src sh
+bin/rails dbconsole --database=animals
+#+end_src
+** db:
+*db:migrate*
+ VERSION=0
+*db:create*
+*db:truncate*
+*db:version*
+*db:schema_migrations*
+** destroy
+
+#+begin_src sh
+destroy model Oops
+destroy controller articles
+destroy model Artile
+#+end_src
+
+** generate
+*** resource
+*** scaffold
+full set of model, database migration for that model, controller to manipulate
+it, views to view and manipulate the data, and a test suite
+
+#+begin_src sh
+generate scaffold Article <options>
+generate scaffold Article title author body:text
+generate scaffold Article title:string body:text published_at:datetime
+#+end_src
+**** options
+  -f, [--force]                    # Overwrite files that already exist
+  -p, [--pretend], [--no-pretend]  # Run but do not make any changes
+  -q, [--quiet], [--no-quiet]      # Suppress status output
+  -s, [--skip], [--no-skip]        # Skip files that already exist
+
+
+*** models
+#+begin_src ruby
+generate model <Name>
+#+end_src
+
+*** channels
+#+begin_src
+generate channels <name>
+#+end_src
+** new
+| how               | desc                                              |
++-------------------+---------------------------------------------------|
+| –d or --database= | use the database management system of your choice |
+| new <name>        |                                                   |
+
+
+#+begin_src shell
+rails _6.1.7_ new <NAME> --database=postgresql --webpack=vue --skip-bundle
+rails new . --webpack=react --database=postgresql --skip-sprockets --skip-javascript --skip-turbolinks --skip-action-mailer --skip-action-cable --skip-coffee  --skip-system-test
+#+end_src
+
+** test
+*test:controllers*
+
+** routes
+*** options
+*-g GROUP, --grep=GROUP*
+*-E, --expanded*
+*-c CONTROLLER, --controller=CONTROLLER*
+
+** server
+*-e*
+
+#+begin_src shell
+bin/rails server -e development
+bin/rails server -e test
+bin/rails server -e production
+#+end_src
+
+|                               |   |
+|-------------------------------+---|
+| --binding=[PORT] or -b [PORT] |   |
+
+** misc
+| what       | how         | desc |
+|------------+-------------+------|
+| destroy    | destroy / d |      |
+| belongs_to |             |      |
+
+** notes
+Searches through your code for comments beginning with a specific keyword.
+
+*--annotations*
+#+begin_src sh
+notes --annotations FIXME RELEASE
+#+end_src
+
+*tags*
+*directories*
+
+** tasks
+Rails 6 uses rake as task runner
+
+|              |                         |
+|--------------+-------------------------|
+| --task or -T | list all task available |
+|              |                         |
+
+** tmp:
+The Rails.root/tmp directory is, like the *nix /tmp directory, the holding place
+for temporary files like process id files and cached actions.
+
+*tmp:cache:clear*
+clears tmp/cache.
+
+*tmp:sockets:clear*
+clears tmp/sockets.
+
+*tmp:screenshots:clear*
+ clears tmp/screenshots.
+
+*tmp:clear*
+ clears all cache, sockets, and screenshot files.
+
+*tmp:create*
+ creates tmp directories for cache, sockets, and pids.
+
+** log
+|                  |   |
+|------------------+---|
+| :clear LOGS=test |   |
+
+** migration
+|                    |   |
+|--------------------+---|
+| AddXXXToTABLE      |   |
+| RemoveXXXFromTABLE |   |
+
+** initializers
+** middleware
+** stats
+** secret
+** time:zones:all
+** webpacker
+#+begin_src sh
+webpacker:compile
+#+end_src
+** rake tasks
+
+#+begin_src sh
+bin/rails generate task
+#+end_src
+
+** runner
+runs ruby code in the context of rails non-interactively.
+
+#+begin_src sh
+bin/rails runner "Model.long_running_method"
+#+end_src
