@@ -146,6 +146,7 @@ openjdk,master,https://github.com/openjdk/jdk
 ** ruby
 #+begin_src csv
 name,branch,url
+sustainable-rails-docker,main,https://github.com/davetron5000/sustainable-rails-docker
 ruby-lsp,main,https://github.com/Shopify/ruby-lsp
 sidekiq,main,https://github.com/mperham/sidekiq
 fluentd,master,https://github.com/fluent/fluentd

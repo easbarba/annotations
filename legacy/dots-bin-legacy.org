@@ -1,4 +1,3 @@
-
 #+TITLE: Dots | .local/bin
 
 * e_debian
@@ -7,9 +6,9 @@
 :END:
 #+begin_src shell
 xorg=(screenkey maim awesome awesome-extra diodon  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
-wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa)
-debian=(apt-listbugs apt-listchanges reportbug)
-wayland=(sway swaybg swaylock swayidle foot clipman grim slurp xwayland mako-notifier wl-clipboard bemenu wofi)
+wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa mpd mpc ncmpcpp playerctl brightnessctl zathura)
+debian=()
+wayland=(sway swaybg swaylock swayidle foot clipman grim slurp xwayland mako-notifier wofi)
 langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop )
 term=(zsh)
@@ -48,12 +47,6 @@ packages=(postgresql postgresql-contrib postgresql-doc)
 s-dolist "$COMMAND" "${packages[@]}"
 sudo systemctl restart postgresql
 
-HBA_CONF='/etc/postgresql/*/main/pg_hba.conf' # psql --version | awk '{print substr($3, 0, 2)}'
-if ! sudo grep -i "$USER" "$HBA_CONF"; then
-    sudo -u postgres createuser -e "$USER" --pwprompt
-    echo -n "local  all  $USER  md5" | sudo tee -a "$HBA_CONF"
-    sudo systemctl restart postgresql
-fi
 
 #+end_src
 * e-debian-dev
