@@ -2,8 +2,19 @@
 
 * npm
 ** commands
-*** link
+*** bin
+Display npm bin folder
+*** ci
+*** config
+**** ls
+*-l*
+*** diff
+*** explore
+*** explain
+*** exec
+*-- <PACKAGE>*
 *** pack
+*** link
 *** install
 *-—save-dev <package>*
 *** uninstall
@@ -13,9 +24,14 @@ Update all packages
 *** outdated
 *** list
 *--depth=<N>*
-*** config
-*ls*
-
+*** rebuild
+*** restart
+Restart a package
+*** run
+ Run arbitrary package scripts
+*** npmrc
+npm gets its config settings from the command line, environment variables, and npmrc files.
+** life cycles
 ** package.json
 *** "type": "module"
 loads the file as an ES6 module.
@@ -24,8 +40,11 @@ loads the file as a CommonJS module
 
 when no such file is found (or when the file is found but it does not have a
 type property), Node defaults to using CommonJS modules.
+*** "scripts"
 ** package-lock.json
 * npx
+Run a command from a local or remote npm package
+
 ** create
 #+begin_src shell
 npx create-react-app myapp
@@ -84,3 +103,6 @@ npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
 ** eslit
 ** prettier
 --write
+* TODO
+- https://docs.npmjs.com/cli/v8/using-npm/scripts
+- https://github.com/npm/cli
