@@ -5,9 +5,14 @@
 *** link
 *** pack
 *** install
-|                      |   |
-|----------------------+---|
-| -—save-dev <package> |   |
+*-—save-dev <package>*
+*** uninstall
+*** update
+*-g,--global*
+Update all packages
+*** outdated
+*** list
+*--depth=<N>*
 
 ** package.json
 *** "type": "module"
@@ -17,6 +22,7 @@ loads the file as a CommonJS module
 
 when no such file is found (or when the file is found but it does not have a
 type property), Node defaults to using CommonJS modules.
+** package-lock.json
 * npx
 ** create
 #+begin_src shell
