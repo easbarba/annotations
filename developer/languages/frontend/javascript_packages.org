@@ -13,6 +13,8 @@ Update all packages
 *** outdated
 *** list
 *--depth=<N>*
+*** config
+*ls*
 
 ** package.json
 *** "type": "module"
