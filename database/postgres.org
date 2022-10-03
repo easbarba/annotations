@@ -1,4 +1,4 @@
-#+TILE: Postgres
+#+TILE: PostgreSQL
 
 * Progress
 | book                    | chapter                  | @                   |
@@ -376,7 +376,6 @@ select * from us_president;
 #+end_src
 
 ** User
-
 #+begin_src sql
 create user mary;
 #+end_src
@@ -976,7 +975,14 @@ ORDER BY
   last_name ASC ;
 QUERY PLAN
 #+end_src
-* CLI Apps
+** Create new user
+#+begin_src sql
+CREATE ROLE user1 with LOGIN;
+\password user1
+ALTER USER user1 CREATEDB;
+#+end_src
+
+* Commands
 ** psql
 A command-line client that allows you to interact with, connect, and administer
 databases and the cluster itself.
@@ -1077,12 +1083,17 @@ set intervalstyle to 'postgres_verbose';
     - walwriter
     - stats collector
     - logical replication launcher
+** dropuser
+#+begin_src shell
+sudo -u postgres dropuser <user> -e
+#+end_src
 ** initdb
 ** createdb
 ** createuser
 #+begin_src shell
 createuser -dPs doe
 createuser -interactive wiki
+sudo -u postgres createuser --createdb --createrole --pwprompt "$USER"
 #+end_src
 
 * Test
@@ -1145,7 +1156,9 @@ Extract
 nnection refused - :econnrefused
 #+end_src
 
-* Running from CLI
+* Online tools
+- https://mockaroo.com/
+* Ops
 ** local and non-root database
 #+begin_src shell-script
 initdb -D .postgres -A md5 -U $USER --pwprompt
@@ -1202,5 +1215,3 @@ pk int GENERATED ALWAYS AS IDENTITY
 );
 #+end_src
 
-* online tools
-- https://mockaroo.com/
