@@ -1,27 +1,5 @@
 #+TITLE: Typescript
 
-* Summary
-    :PROPERTIES:
-    :TOC:      :include all :depth 2 :ignore this
-    :END:
-  :CONTENTS:
-  - [[#progress][Progress]]
-    - [[#books][Books]]
-    - [[#sloc][SLOC]]
-    - [[#skills][SKills]]
-  - [[#features][Features]]
-    - [[#nubers][Nubers]]
-  - [[#concepts][Concepts]]
-  - [[#books][Books]]
-    - [[#eloquent-javascript][Eloquent JavaScript]]
-  - [[#sites][Sites]]
-    - [[#web-js---misc][Web JS - Misc]]
-    - [[#web-js---online-tools][Web JS - Online Tools]]
-  - [[#frameworks][Frameworks]]
-  - [[#refactoring][Refactoring]]
-  - [[#articles][Articles]]
-  - [[#interview][Interview]]
-  :END:
 * Progress
 ** Books
 | Books         | Cap                          | @ |
@@ -32,3 +10,11 @@
 |-----------+-------------------------+--------------+---|
 | draggable | src/Draggable/DragEvent | DragEvent.js |   |
 | inquirer  |                         |              |   |
+* Base
+** Types
+** Collection Types
+** Function
+* Standard Library
+* Commands
+** npm
+** npx

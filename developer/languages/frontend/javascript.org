@@ -1578,3 +1578,32 @@ let p = JSON.parse(s); // p == {x: 1, y: {z: [false, null, ""]}}
 #+end_src
 *** JSON.stringify
 *** JSON.parse
+* Jobs
+** Globo senior
+Como será seu dia a dia:
+
+    ﻿Escrever código limpo, de fácil manutenção, utilizando as melhores práticas de desenvolvimento de software;
+    Procurar sempre criar para os produtos Globo a melhor experiência de uso para o usuário final;
+    Atuar como um team-player, comprometendo-se com os objetivos do time e trabalhando em harmonia com todos;
+    Estar sempre crescendo e se desenvolvendo tecnicamente e profissionalmente;
+    Participar de times geograficamente distribuídos.
+
+
+Requisitos e qualificações
+
+Do que você precisa:
+
+    Ter habilidades em algoritmos e estruturas de dados;
+    Conhecimento em engenharia de software, como princípios, boas práticas e padrões de arquitetura;
+    Experiência com desenvolvimento de aplicações escaláveis;
+    Vivência com as seguintes tecnologias: Node.js, Express, Restful API, Javascript, Vue, Sequelize, Docker, Ferramentas CleanCode.;
+    Prática com as ferramentas de versionamento (como GIT, SVN, etc.);
+    Conhecimento em bancos de dados relacional e não-relacional (MySQL, SQL, MongoDB, etc);
+    Vivência com metodologias ágeis.
+
+
+﻿Conhecimentos que te destacam:
+
+    ﻿Experiência com Cloud, como Azure e Google Cloud Platform;
+    Experiência com testes;
+    Experiência com Typescript.
