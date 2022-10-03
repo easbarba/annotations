@@ -205,6 +205,10 @@ a?.[index++]
 #+end_src
 **** methods
 ***** push
+***** splice
+#+begin_src javascript
+[0,1,2].splice(1) // [1,2]
+#+end_src
 ***** Array.from
 ES6
 ***** toString
@@ -1395,17 +1399,12 @@ explicitly throws one using the throw statement.
 
 #+begin_src js
 try {
-// Ask the user to enter a number
-let n = Number(prompt("Please enter a positive integer", ""));
-// Compute the factorial of the number, assuming the input is valid
-let f = factorial(n);
-// Display the result
-alert(n + "! = " + f);
+    let n = Number(prompt("Please enter a positive integer", ""));
+    let f = factorial(n);
+
+    alert(n + "! = " + f);
 }
-catch(ex) {
-// If the user's input was not valid, we end up here
-alert(ex); // Tell the user what the error is
-}
+catch (ex) { alert(ex); }
 #+end_src
 Simulate *for* in a *while* w/ the aid of try/catch
 #+begin_src js

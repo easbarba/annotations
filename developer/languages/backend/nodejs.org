@@ -13,6 +13,8 @@
 | inquirer  |                         |              |   |
 
 * Command
+** install / i
+*--save*
 ** options
 |                        |   |
 |------------------------+---|
@@ -21,6 +23,7 @@
 | -i                     |   |
 | --check or -c          |   |
 | --require or -r        |   |
+| --save                 |   |
 ** env
 |             |   |
 |-------------+---|

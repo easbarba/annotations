@@ -2,9 +2,9 @@
 
 * Progress
 ** Books
-| Books         | Cap                          | @ |
-|---------------+------------------------------+---|
-| Node cookbook | 3: Streams, Streams, Streams |   |
+| Books               | Cap | @ |
+|---------------------+-----+---|
+| Learning Typescript |     |   |
 ** SLOC
 | Project   | folder                  | file         | @ |
 |-----------+-------------------------+--------------+---|
@@ -14,6 +14,22 @@
 ** Types
 ** Collection Types
 ** Function
+#+begin_src typescript
+function firstElement(arr: any[]) {
+  return arr[0];
+}
+#+end_src
+
+-
+
+#+begin_src typescript
+function getOptions(options: string[]): string[]  {
+    let arguments = options.splice(2);
+    let shortOptions : string[] = arguments.filter(option => option.startsWith('-'));
+
+    return shortOptions;
+}
+#+end_src
 * Standard Library
 * Commands
 ** npm
