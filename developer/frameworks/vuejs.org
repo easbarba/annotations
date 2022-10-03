@@ -2,15 +2,15 @@
 
 * Progress
 ** Books
-| Books                   | Cap                         | @                                |
-|-------------------------+-----------------------------+----------------------------------|
-| Front-end dev w/ Vue.js | 2                           | Deep Watching Concepts           |
-| Fullstack Vue           | II - Single-file components | Breaking the app into components |
+| Books                           | Cap                         | @                                |
+|---------------------------------+-----------------------------+----------------------------------|
+| Front-end development w/ Vue.js | 2                           | Deep Watching Concepts           |
+| Fullstack Vue                   | II - Single-file components | Breaking the app into components |
 
 ** SLOC
-| SLOC | folder | file | @ |
-|------+--------+------+---|
-| vue  |        |      |   |
+| SLOC  | folder | file | @ |
+|-------+--------+------+---|
+| vuejs |        |      |   |
 * Base
 ** Directives
 *** v-bind
@@ -71,6 +71,8 @@ create event listeners within the DOM.
 #+end_src
 ** Components
 Vue components are Vue instances.
+
+-  create a Vue component calling the app.component() method.
 
 *** props
 *** hooks
@@ -209,11 +211,82 @@ export default {
 ** Watchers
 
 * Commands
-** add
-** serve
-* Tips
-** container
+* Ops
+** Container
+*New Vue 3 project*
+#+begin_src shell
+podman run --rm -it -w /app -p 8081:5173 node:18 bash
+npm init vue@latest
+#+end_src
 
 #+begin_src shell
-docker run --rm -d -v $(pwd):/app/ -v /app/node_modules -w /app -p 8081:8080 debian:unstable bash -c 'apt-get update && apt install -y nodejs npm && npm i -g yarn && yarn && yarn serve'
+#+end_src
+
+
+#+begin_src shell
+podman run --rm -v $(pwd):/app/ -v /app/node_modules -w /app -p 8081:5173 node:18 bash -c 'npm install && npm run lint && npm run dev --host'
+#+end_src
+
+#+begin_src shell
+podman run --rm -d -v $(pwd):/app/ -v /app/node_modules -w /app -p 8081:8080 node:18 bash -c 'yarn && yarn && yarn serve'
+#+end_src
+* Instruction
+#+begin_src markdown
+This template should help get you started developing with Vue 3 in Vite.
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Type Support for `.vue` Imports in TS
+
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+
+1. Disable the built-in TypeScript Extension
+    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+
+```sh
+npm run build
+npm run test:e2e # or `npm run test:e2e:ci` for headless testing
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
 #+end_src
