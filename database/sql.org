@@ -13,3 +13,18 @@ drop table if exists owner CASCADE
 #+begin_src sql
 alter table car add constraint foreign key references owner
 #+end_src
+* Scripts
+#+begin_src sql
+-- git@github.com:pramsey/pgsql-http.git
+CREATE EXTENSION http;
+WITH dados AS (
+    SELECT
+        content::jsonb AS obj
+    FROM
+        http_get('https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json')
+),
+cand AS (
+    SELECT jsonb_array_elements(obj->'cand') AS obj FROM dados
+)
+SELECT obj->>'nm', (obj->>'vap')::int, (replace(obj->>'pvap', ',', '.'))::numeric FROM cand;
+#+end_src
