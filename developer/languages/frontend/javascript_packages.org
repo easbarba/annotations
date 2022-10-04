@@ -29,6 +29,7 @@ Update all packages
 Restart a package
 *** run
  Run arbitrary package scripts
+*** start
 *** npmrc
 npm gets its config settings from the command line, environment variables, and npmrc files.
 ** life cycles
