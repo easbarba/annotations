@@ -99,7 +99,12 @@ BigInt()
 - In ES6, strings are iterable
 - ES6 added backstick string
 - ES5 allow break string lines w/ backslash '\'
-- template literal: `meh ${foo}`
+- template literal:
+#+begin_src javascript
+const foo = 'tah'
+console.log(`meh ${foo}`); // meh tah
+#+end_src
+
 - tagged template literals
 - pair of slashes constitutes a regular expression literal
 
