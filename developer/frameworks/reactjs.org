@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-| Books                         | Chapter   | late            |
-|-------------------------------+-----------+-----------------|
-| FullStack Spring Boot & React | Front end | Props and state |
+| Books                       | Chapter                   | late |
+|-----------------------------+---------------------------+------|
+| Beginning React Foundations | 2 The Foundation of React |      |
 
 ** SLOC
 | Project | folder | file | @ |
 |---------+--------+------+---|
-| react   |        |      |   |
+| next.js |        |      |   |
 
 * Base
 * Options
