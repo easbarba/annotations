@@ -178,7 +178,6 @@ php -S localhost:8081 # go to https://localhost:8081/index.php in a browser
 #+end_src
 *** -m
 
-
 * Jobs
 ** PicPay Pleno
 MAIN RESPONSIBILITIES
