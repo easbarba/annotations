@@ -7,9 +7,11 @@
 |       |         |      |
 
 ** SLOC
-| Project    | folder | file | @ |
-|------------+--------+------+---|
-| nestjs     |        |      |   |
-| nestjs-cli |        |      |   |
+| Project    | folder                            | file                   | @ |
+|------------+-----------------------------------+------------------------+---|
+| nestjs     | /packages/common/cache/decorators | cache-key.decorator.ts |   |
+| nestjs-cli |                                   |                        |   |
 * Base
 * Options
+** new
+*--strict*
