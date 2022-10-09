@@ -1,16 +1,5 @@
 #+TILE: Life
 
-* Progress
-|               |    |
-|---------------+----|
-| Truth be told |  4 |
-| The Last Wish | II |
-* Wishlist
-** Travel
-- Vales em Jacobina, Bahia
-** TV Shows
-- My name (korean)
-** Movies
 * Movies
 ** Korean
 - Breathless / 2008
@@ -115,6 +104,7 @@
 | name       | episode  |
 |------------+----------|
 | Brain 2011 | ep12:31m |
+| my name    |          |
 
 ** American
 - Star Trek - The Next Generation
@@ -200,16 +190,12 @@
 - Saint Seya
 - Trigun
 - Hellsing
+* Travel
+- Vales em Jacobina, Bahia
+
 * Lectures
 ** Teacher
 - Osvaldo Coggiola
-* Gift
-- father's eye surgery
-- mom's eye surgery
-- father's teeth implant
-- mom's teeth implant
-- AP restoration
-- help on sell/buy a house
 * Composers
 ** Classic Composers
 - Berlioz
@@ -336,26 +322,28 @@
 
 * Books
 ** Books, Videos
-| Books                 | Capts                      | @                               |
-|-----------------------+----------------------------+---------------------------------|
-| Last Wish             | The Voice of Reason 2      |                                 |
-| Study in Scarlet      | 2 The Science of Deduction | SHERLOCK HOLMES  -  his limits. |
-| The War of the Worlds |                            |                                 |
+| Books               | Capts                 | @ |
+|---------------------+-----------------------+---|
+| Last Wish           | The Voice of Reason 2 |   |
+| Communist manifesto | Chapter II            |   |
 
-** Favs
+** Favorites
 - Dr Jekyll and Hide
 - The Lost World
 
-** Wishlist
-- Well Grounded Rubyist
-- The art of SQL
-- Last Wish
-* * Gifts
+* Gifts
 ** Nephews
 - Nintendo Switch
 - College Car
 - College Fee
 
+** misc
+- father's eye surgery
+- mom's eye surgery
+- father's teeth implant
+- mom's teeth implant
+- AP restoration
+- help on sell/buy a house
 * Paintings
 - Candido Portinari
 - J. M. W. Turner
