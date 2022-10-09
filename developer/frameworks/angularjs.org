@@ -1,0 +1,30 @@
+#+title: Angular.js
+
+* Progress
+** Books
+| Books            | Chapter | late |
+|------------------+---------+------|
+| Learning Angular |         |      |
+
+** SLOC
+| Project | folder | file | @ |
+|---------+--------+------+---|
+| nestjs  |        |      |   |
+|         |        |      |   |
+* Base
+* Options
+** add
+** build
+** deploy
+** generate
+** new
+*--strict*
+
+*--routing*
+#+begin_src shell
+ng new todo --routing false --style css --skip-git --skip-tests
+#+end_src
+
+** update
+** test
+** serve

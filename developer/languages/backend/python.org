@@ -1,5 +1,29 @@
 #+TITLE: Python
 
+* Progress
+** Books
+| Books | Chapter | late |
+|-------+---------+------|
+|       |         |      |
+
+** Videos
+|   |   |   |
+|---+---+---|
+|   |   |   |
+
+** SOC
+| Project   | folder | file | @ |
+|-----------+--------+------+---|
+| pyperclip |        |      |   |
+
+* Base
+** Types
+*** Strings
+*print()*
+*Interpolation*
+#+begin_src python
+
+#+end_src
 * Modules
     | Modules   |   |
     |-----------+---|

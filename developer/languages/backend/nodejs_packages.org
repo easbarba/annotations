@@ -3,7 +3,9 @@
 * npm
 ** Commands
 *link*
+
 *pack*
+
 *install <package>*
 |                      |                                                           |
 |----------------------+-----------------------------------------------------------|
@@ -13,16 +15,20 @@
 | --production         |                                                           |
 
 *uninstall <package>*
-*publish*
-*command*
-*init*
-*start*
-*stop*
-*docs <package>*
 
+*publish*
+
+*command*
+
+*init*
+
+*start*
+
+*stop*
+
+*docs <package>*
 ** Options
 *-l*
-
 
 ** package.json
 *** "type": "module"

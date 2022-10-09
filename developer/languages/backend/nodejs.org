@@ -29,6 +29,12 @@
 |-------------+---|
 | FORCE_COLOR |   |
 | NO_COLOR    |   |
+* REPL
+*.save <FILENAME>*
+
+*.exit*
+
+*.help*
 * Library
 ** [[https://nodejs.org/api/fs.html][fs]]
 *** readFileSync
@@ -103,6 +109,11 @@ console.error("Uncaught exception:", e);
 *** inspect
 *** networkInterfaces(
 *** type
+* Global
+** module
+*** exports
+*** require
+** eval
 
 * EventEmitter
 ** methods
