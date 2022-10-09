@@ -2095,6 +2095,11 @@ clears tmp/sockets.
 #+begin_src sh
 webpacker:compile
 #+end_src
+
+*** misc
+./bin/webpack --profile --json > webpack-stats.json
+./bin/webpack-dev-server
+
 ** rake tasks
 
 #+begin_src sh
