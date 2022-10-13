@@ -1162,6 +1162,11 @@ scope :where_title, -> (term) { where("articles.title LIKE ?", "%#{term}%") }
 #+begin_src shell
 rails runner "p ActiveRecord::Base.connection_config"
 #+end_src
+** Errors
+*** relation XXX exist
+#+begin_src shell
+rails db:{drop,create,migrate}
+#+end_src
 
 * Action Dispatch
 - handles routing
