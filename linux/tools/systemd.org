@@ -20,6 +20,11 @@ user.conf.d directories. See systemd-system.conf(5) for more information.
 ** reset
 
 ** --user
+** set-default
+#+begin_src shell
+systemctl set-default multi-user
+systemctl set-default graphical;
+#+end_src
 
 * systemd
 ** systemd-analyze
