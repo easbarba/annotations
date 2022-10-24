@@ -50,6 +50,20 @@ Run a command from a local or remote npm package
 #+begin_src shell
 npx create-react-app myapp
 #+end_src
+* npx
+Executes <command> either from a local node_modules/.bin, or from a central
+cache, installing any packages needed in order for <command> to run.
+
+** run different versions of node
+#+begin_src shell
+npx node@10 -v #v10.18.1
+npx node@12 -v #v12.14.1
+#+end_src
+** run remote scripts
+#+begin_src shell
+npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
+#+end_src
+
 * library
 ** JSON
 JavaScript Object Notation
@@ -86,22 +100,10 @@ function deepcopy(o) {
   return JSON.parse(JSON.stringify(o))
 }
 #+end_src
-** npx
-Executes <command> either from a local node_modules/.bin, or from a central
-cache, installing any packages needed in order for <command> to run.
-
-*** run different versions of node
-#+begin_src shell
-npx node@10 -v #v10.18.1
-npx node@12 -v #v12.14.1
-#+end_src
-*** run remote scripts
-#+begin_src shell
-npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
-#+end_src
-
 * third-party
 ** eslit
+** jquery
+
 ** prettier
 --write
 * TODO
