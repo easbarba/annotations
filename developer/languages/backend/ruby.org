@@ -27,6 +27,913 @@
 | ruby-lsp |        |            |   |
 
 * Base
+** Types
+*** Boolean
+- any value that is not nil or the constant false is true
+- nil is false
+- The number zero is not interpreted as a false value. Neither is a zero-length string.
+
+*** String
+- dealing with text or data
+- objects of class String
+
+#+begin_src ruby
+'escape using "\\"' # => escape using "\"
+'That\'s right' # => That's right
+%q{You needn't escape apostrophes or quotation marks (', '', ", "") when using %q.}
+
+str = "Hi "
+str << "there." # => "Hi there."
+#+end_src
+
+#+begin_src ruby
+puts
+"now is #{ def the(a)
+'the ' + a
+end
+the('time')
+} for all bad coders..."
+#+end_src
+
+#+begin_src ruby
+%q/general single-quoted string/ # => general single-quoted string
+%Q!general double-quoted string! # => general double-quoted string
+%Q{Seconds/day: #{24*60*60}} # => Seconds/day: 86400
+
+# even simpler
+
+%!general double-quoted string! # => general double-quoted string
+%{Seconds/day: #{24*60*60}} # => Seconds/day: 86400
+#+end_src
+
+
+*Interpolation*
+
+#+begin_src ruby
+age  = 33
+name = "Jesus"
+
+"Hello, my name is #{name} & I'm #{age} years old."
+#+end_src
+
+*HERE documents*
+
+#+begin_src ruby
+<<EOL # double quote document
+   \n
+#{Time.now}
+EOL
+
+<<EOL.to_i * 10
+EOL
+
+<<'EOL' # single quote document
+   \n
+#{Time.now}
+EOL
+
+<<~EOL
+EOL
+
+[1,2, <<EO asdasd EO]
+
+a(false, <<EO asd... EO)
+#+end_src
+
+*<<-  minus sign*
+
+- can be indented from the margin.
+
+#+begin_src ruby
+<<-EOL
+Concat
+        STRING1
+    enate
+EOL
+
+#+end_src
+
+*Quoting*
+
+   %char{text}
+   #+begin_src ruby
+   a = %q(a b c d)
+
+   b = %Q(a b c)
+   #+end_src
+
+*Encondig*
+
+#+begin_src ruby
+#encoding: utf-8
+#+end_src
+
+#+begin_src ruby
+plain_string = "dog"
+puts "Encoding of #{plain_string.inspect} is #{plain_string.encoding}" # Encoding of "dog" is UTF-8
+utf_string = "δog"
+puts "Encoding of #{utf_string.inspect} is #{utf_string.encoding}" # Encoding of "δog" is UTF-8
+#+end_src
+
+*Character Constants*
+
+- deprecated
+
+#+begin_src ruby
+?a
+?\n
+?\C-a
+?\M-a
+?\M-\C-a
+?\C-?
+# => "a"
+(printable character)
+# => "\n"
+(code for a newline (0x0a))
+# => "\u0001" (control a)
+# => "\xE1" (meta sets bit 7)
+# => "\x81" (meta and control a)
+# => "\u007F" (delete character)
+#+end_src
+
+*More examples*
+
+#+begin_src ruby
+"Test" + "Test" #TestTest
+"test".capitalize #Test
+"Test".downcase #test
+"Test".chop #Tes
+"Test".next #Tesu
+"Test".reverse #tseT
+"Test".sum #416
+"Test".swapcase #tEST
+"Test".upcase #TEST
+"Test".upcase.reverse #TSET
+"Test".upcase.reverse.next
+"Test".ord
+"Test".chr
+"xyz".scan(/./) { |letter| puts letter }
+string.count("^aey. ")
+empty
+include?
+string.index("cool")
+"a".ord
+# SUBSTITUTION
+
+"".sub('i', '') # only does one substitution at a time, on the first instance of the text to match
+"".gsub('i', '') #  whereas gsub does multiple substitutions at once
+#+end_src
+
+new
+
+#+begin_src ruby
+String.new("an unfrozen string")
+#+end_src
+
+*concat*
+
+#+begin_src ruby
+str = ""
+
+str.concat("a")
+str.concat("a")
+
+str
+# "aa"
+#+end_src
+
+*dup*
+
+*freeze/ unfreezen*
+
+#+begin_src ruby
+str = "frozen!"
+str.frozen? # true
+
+unfrozen_str = +str
+unfrozen_str.frozen? # false
+#+end_src
+
+String comparison and ordering
+
+#+begin_src ruby
+"a" <=> "b"
+=> -1
+>> "b" > "a"
+=> true
+>> "a" > "A"
+=> true
+>> "." > "
+#+end_src
+*each_byte*
+
+TRANSFORMATIONS
+
+#+begin_src ruby
+string.rjust(25)
+string.ljust(25)
+"The middle".center(20, "*") # "*****The middle*****"
+string.strip
+string.lstrip
+string.rstrip
+"David A. Black".chop
+"David A. Black\n".chomp
+string.clear
+string.replace("David A. Black")
+"David A. Black".delete("abc")
+"David A. Black".crypt("34")
+"a".succ # b
+#+end_src
+
+Conversions
+
+#+begin_src ruby
+"100".to_i(17) # => 289
+>> "100".oct # => 64
+>> "100".hex # => 256
+#+end_src
+
+*scan*
+#+begin_src ruby
+s = 'Peter Piper picked a peck of pickled peppers'
+s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
+#+end_src
+
+*#display*
+
+#+begin_src ruby
+"Hello".display
+#+end_src
+
+*** Symbols
+- undeclared constant names guaranteed to be unique.
+- an identifier in your code,
+#+begin_src ruby
+:Object
+:my_variable
+:"Ruby rules"
+a = "cat"
+:'catsup' # => :catsup
+:"#{a}sup" # => :catsup
+:'#{a}sup' # => :"\#{a}sup"
+#+end_src
+*** Numbers
+- can be any length
+- objects of class Fixnum and Bignum
+- 0 for octal, 0d for decimal, 0x for hex, or 0b for binary
+- includes support for rational and complex numbers
+- all numbers are objects
+
+#+begin_src ruby
+num = 10001
+4.times do
+puts "#{num.class}: #{num}"
+num *= num
+end
+produces:
+
+Fixnum: 10001
+Fixnum: 100020001
+Fixnum: 10004000600040001
+Bignum: 100080028005600700056002800080001
+#+end_src
+
+#+begin_src ruby
+123456
+0d123456
+123_456
+-543
+0xaabb
+0377
+-0b10_1010
+123_456_789_123_456_789
+#+end_src
+
+#+begin_src ruby
+3.times
+{ print "X " }
+1.upto(5)
+{|i| print i, " " }
+99.downto(95) {|i| print i, " " }
+50.step(80, 5) {|i| print i, " " }
+10.downto(7).with_index {|num, index| puts "#{index}: #{num}"}
+#+end_src
+
+*Rational*
+- Rationals are slower than floats, but since they are exact numbers,
+- use a rational whenever you need to do calculations with non-integer values and you need exact answers.
+
+#+begin_src ruby
+Rational(2,3)
+1.1r
+#+end_src
+
+*Complex*
+
+#+begin_src ruby
+Complex(1,2)
+#+end_src
+*** nil
+
+- a signal that a method that modifies the receiver did not make a modification
+
+NilClass
+
+** Collections
+*** Array
+- index collection
+
+#+begin_src ruby
+a = [ 3.14159, "pie", 99 ]
+a = %w[3.14159 pie 99]
+a.class # => Array
+#+end_src
+
+*length*
+
+*sub-index*
+
+#+begin_src ruby
+a = [ 1, 3, 5, 7, 9 ]
+a[1, 3] # => [3, 5, 7]
+a[3, 1] # => [7]
+a[-3, 2] # => [5, 7]
+#+end_src
+
+*ranging*
+
+- two-period form includes the end position
+
+#+begin_src ruby
+a = [ 1, 3, 5, 7, 9 ]
+a[1..3]
+# => [3, 5, 7]
+a[1...3] # => [3, 5]
+a[3..3]
+# => [7]
+a[-3..-1] # => [5, 7, 9]
+#+end_src
+
+*intersection (&)*
+
+#+begin_src ruby
+[1, 2, 3].intersection([2, 3, 4])
+# [2, 3]
+
+[1, 2, 3] & [2, 3, 4]
+# [2, 3]
+#+end_src
+
+union (|)
+
+difference (-)
+
+queue
+
+#+begin_src ruby
+queue = []
+
+queue.unshift "apple"
+queue.unshift "orange"
+queue.unshift "banana"
+
+# ["banana", "orange", "apple]"
+
+queue.pop
+# "apple"
+
+queue.pop
+# "orange"
+#+end_src
+
+
+new
+#+begin_src ruby
+Array.new(4) # [nil, nil, nil, nil]
+Array.new(4) { |x| x + 1 } # [1, 2, 3, 4]
+#+end_src
+
+Kernel#Array
+- More forgiving than .to_a
+
+#+begin_src ruby
+Array 1 # [1]
+#+end_src
+
+push
+pop
+access
+find
+delete
+max_by
+compact
+new
+
+#+begin_src ruby
+a = Array.new
+# shallow copy
+b = Array.new [1,2,3]
+#+end_src
+
+reverse_each
+
+each_index
+
+*More Examples*
+
+#+begin_src ruby
+array = [ 1, 2, 3, 4, 5, 6, 7 ]
+array.first(4) # => [1, 2, 3, 4]
+array.last(4) # => [4, 5, 6, 7]
+#+end_src
+
+   #+begin_src ruby
+   h = { a: 100, b: 20 }
+   h.delete_if { |key, value| value < 25 }
+   h.delete(:a)
+   #+end_src
+
+   #+begin_src ruby
+   # creation
+   a = [1, ["a", "b"], 4]
+   a = Array.new(1,2)
+   a = arr = %w( Hey!\tIt is now -#{Time.now}- )
+
+
+   # indexing
+   arr[1][0]
+   [1,2][0]
+   arr.dig(3,0) value_at, a[2,3] = ..
+				   a[2..3]
+   a.slice()
+   a.[]=(0, "first")
+   a.[](2)
+   a = %w(a b c)
+   a= %W({a} b c)
+   x.to_ary
+   x.to_arr
+   Array()
+   def string.to_arr
+   end
+   a.unshift(0)
+   a.push(1,2,3)
+   a << 5
+   a.pop
+   a.shift
+   a.concat
+   a.replace([1,2,3])
+   a.flatten
+   a.reverse
+   a.join(" , ")
+   a = *
+       a.uniq
+   a.compact
+   a.size
+   a.empty
+   a.include?
+   a.first
+   a.first[<num>]
+   a.last
+   a.sample # return
+   a.count(1)
+   #+end_src
+
+*slice*
+
+#+begin_src ruby
+[:a,:b,:c].slice(1) # :b
+#+end_src
+
+*#**
+
+#+begin_src ruby
+array =[1,2,3,4]
+[*array] # [1,2,3,4]
+[array] # [[[[1,2,3,]]4]]
+#+end_src
+*** Range
+|     |                                      |
+|-----+--------------------------------------|
+| ..  | inclusive                            |
+| ... | exclusive, excludes its last element |
+
+#+begin_src ruby
+# create a new range object
+r = 1..2
+
+# include all elements
+r =  1..99
+
+# exclude last element
+r = 1...199
+
+# range of object need to return the next object `succ` and be comparable <=>
+
+# ranges as conditions
+while line = gets
+  puts line if line =~ /start/ .. line =~ /end/
+end
+
+r.cover? 2
+r.include? 3
+r.max
+r.reject {}
+
+('a'..'m').inject :+ # => "abcdefghijklm"
+
+(1..10).to_a # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+('bar'..'bat').to_a # => ["bar", "bas", "bat"]
+#+end_src
+
+*as intervals*
+#+begin_src ruby
+(1..10) === 5   # => true
+(1..10) === 15  # => false
+
+car_age = 9.5
+case car_age
+when 0...1
+  puts "Mmm.. new car smell"
+when 1...3
+  puts "Nice and new"
+when 3...10
+  puts "Reliable but slightly dinged"
+when 10...30
+  puts "Clunker"
+else
+  puts "Vintage gem"
+end
+#+end_src
+
+*new*
+
+#+begin_src ruby
+r = Range.new(1,100)
+r = Range.new(1,100, true)
+#+end_src
+
+*to_enum*
+
+#+begin_src ruby
+enum = ('bar'..'bat').to_enum
+enum.next # => "bar"
+enum.next # => "bas"
+#+end_src
+
+*methods*
+
+#+begin_src ruby
+class PowerOfTwo
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+
+  def <=>(other)
+    @value <=> other.value
+  end
+
+  def succ
+    PowerOfTwo.new(@value + @value)
+  end
+
+  def to_s
+    @value.to_s
+  end
+end
+p1 = PowerOfTwo.new(4)
+p2 = PowerOfTwo.new(32)
+puts (p1..p2).to_a
+4
+8
+16
+32
+#+end_src
+
+*endless range*
+
+#+begin_src ruby
+["a", "b", "c"].zip(1..)
+# [["a", 1], ["b", 2], ["c", 3]]
+
+[1,2,3,4,5][1..]
+# [2, 3, 4, 5]
+
+(1..).step(5).take(100)
+# [1, 6, 11, 16, 21, 26, 31, 36, 41, 46]
+#+end_src
+
+*ArithmethicSequence*
+
+#+begin_src ruby
+(1..10).step(2) == (1..10).step(2)
+# false - Ruby 2.5 (and older)
+
+(1..10).step(2) == (1..10).step(2)
+# true - Ruby 2.6
+#+end_src
+
+*%*
+
+#+begin_src ruby
+((0..) % 2).take(5)
+
+# [0, 2, 4, 6, 8]
+#+end_src
+*** Hash
+- keys must be comparable
+- rehash force the hash to be reindexed whenever a key has changed
+- remains in initial order
+- index collection
+
+store
+acess
+delete
+
+has_key?
+
+#+begin_src ruby
+if counts.has_key?(next_word)
+counts[next_word] += 1
+else
+counts[next_word] = 1
+end
+#+end_src
+
+each_key
+each_value
+find(<value>)
+
+#+begin_src ruby
+# Strings keys
+h = { "one" => 1, "two" => 2 }
+
+# Symbols keys
+h = { one: 1, two: 2 }
+
+# Empty Hash
+h = Hash.new
+
+# default value is zero
+h = Hash.new(0)
+
+# Hash alternative(old) version
+h = Hash[1, "one", 2, "two"]
+
+
+# get value
+h["one"] = 1
+h[:one]
+
+h.rehash # force the hash to be reindexed
+
+h.[]=("New York", "NY")
+h.store("New York", "NY")
+a.update(b)
+h.select {k,vk > 1 } !
+h.reject {  k,v  k > 1 } !
+h.reject! {  k,v  k > 1 }
+h = { street: "127th Street", apt: nil }.compact!
+h = { street: "127th Street", apt: nil }.compact!
+h.invert
+h.clear
+h = {...}.replace({...})
+h.key?
+h.empty?
+#+end_src
+
+*merge*
+
+#+begin_src ruby
+a.merge(b)
+a = { a: 1 }
+b = { b: 2 }
+c = { c: 3 }
+
+a.merge(b).merge(c)
+# {:a=>1, :b=>2, :c=>3}
+
+# ruby 2.6
+a.merge(b, c)
+# {:a=>1, :b=>2, :c=>3}
+#+end_src
+
+
+*fetch values*
+
+#+begin_src ruby
+h = { a: 1, b: 2, c: 3 }
+h.fetch_values(:a,:c) # [1,3]
+#+end_src
+*** Sets
+   #+begin_src ruby
+   s = Set.new(array)
+   s = Set.new(names) {name name.upcase }
+   s << 5
+   s.add 5
+   s.delete(1)
+   s.intersection|&| x
+   s.union x
+   s + x
+   s.difference x
+   s - x
+   s ^ x
+   s.merge [2]
+   s.subset? b
+   s.superset? b
+   s.proper_subset? x
+   s.proper_superset? x
+   #+end_src
+*** Queue
+- thread-safe, blocking.
+- If the queue is empty, calling pop will put your current thread to sleep &
+  wait until something is added to the queue.
+- passing true to avoid blocking
+
+
+#+begin_src ruby
+que = Queue.new
+
+que << 1
+que << 2
+que << 3
+
+que.pop # 1
+que.pop # 2
+
+que.pop(true)
+#+end_src
+*** Sized Queue
+- push (same as <<) operation will suspend the current thread until an item is taken off the queue.
+- same as a regular queue but with a size limit.
+- raise an exception instead, passing true as an argument to push
+
+#+begin_src ruby
+que = SizedQueue.new(5)
+que.push(:bacon)
+que.push(:bacon, true) # raises ThreadError: queue full
+#+end_src
+** Variables
+*multiple assignment*
+
+#+begin_src ruby
+@class_name, @receiver, @original_message = exception.name, exception.receiver, exception.original_message
+#+end_src
+
+*Delayed assignment ||=*
+
+- no assignment is made at all if the variable is already set.
+
+#+begin_src ruby
+@corrections ||= SpellChecker.new(dictionary: class_names)
+#+end_src
+
+*class variables*
+
+- available throughout a class or module body
+- must be initialized before use
+- is shared among all instances of a class and is available within the class itself.
+
+#+begin_src ruby
+class Meh
+  @@foo = 'Bar'
+
+  def value
+    @@foo
+  end
+end
+#+end_src
+
+*instance variables*
+
+#+begin_src ruby
+class Meh
+  @foo = 'Bar'
+
+  def to_s
+    @foo
+  end
+end
+#+end_src
+
+*Global variables*
+- at global scope
+
+#+begin_src ruby
+$x = 1
+
+class G
+  def self.forevis
+    p $x
+  end
+
+  def meh
+    $x = 2
+  end
+end
+
+C.forevis # 1
+C.new.meh # 2
+cC.forevis # 2
+#+end_src
+
+*constant*
+- constants can change, but issues a warning message.
+
+#+begin_src ruby
+ADULT_AGE = 18
+ABC = 1
+Goo = 2
+Foo = 3
+
+class RubyBlog
+  URL    = "rubyguides.com"
+  AUTHOR = "Jesus Castello"
+end
+
+p RubyBlog::AUTHOR # "Jesus Castello"
+
+#+end_src
+
+::constants
+::const_get
+::const_set
+::const_missing
+::const_defined?
+::remove_const
+::private_constant
+
+*private_constant*
+
+#+begin_src ruby
+ private_constant :ADULT_AGE
+#+end_src
+
+#+begin_src ruby
+person1 = "Tim"
+person2 = person1.dup
+#+end_src
+
+#+begin_src ruby
+person1 = "Tim"
+person1.freeze
+#+end_src
+
+*Parallel Assignment*
+
+#+begin_src ruby
+a, b = 1, 2 # a=1, b=2
+a, b = b, a # b=2, a=1
+
+a = 1, 2, 3, 4 # a=[1, 2, 3, 4]
+b = [1, 2, 3, 4] # b=[1, 2, 3, 4]
+a, b, c, d, e = *(1..2), 3, *[4, 5] # a=1, b=2, c=3, d=4, e=5
+#+end_src
+
+*Excessive is discarded*
+
+#+begin_src ruby
+a, b = 1, 2, 3, 4 # a=1, b=2
+c, = 1, 2, 3, 4 # c=1
+#+end_src
+
+*Splat just a few*
+
+#+begin_src ruby
+*a, b = 1, 2, 3, 4# a=[1, 2, 3], b=4
+c, *d, e = 1, 2, 3, 4# c=1, d=[2, 3], e=4
+f, *g, h, i, j = 1, 2, 3, 4# f=1, g=[], h=2, i=3, j=4
+#+end_src
+
+*Ignoring values*
+
+#+begin_src ruby
+first, *, last = 1,2,3,4,5,6 # first=1, last=6
+#+end_src
+
+*Nested Assignments*
+
+#+begin_src ruby
+a, (b, c), d = 1,2,3,4# a=1, b=2, c=nil, d=3
+a, (b, c), d = [1,2,3,4]# a=1, b=2, c=nil, d=3
+a, (b, c), d = 1,[2,3],4# a=1, b=2, c=3, d=4
+a, (b, c), d = 1,[2,3,4],5# a=1, b=2, c=3, d=5
+a, (b,*c), d = 1,[2,3,4],5# a=1, b=2, c=[3, 4], d=5
+#+end_src
+
+*block-local variables*
+
+#+begin_src ruby
+square = 'yes'
+total = 0
+[1, 2, 3].each do |val; square|
+  square = val * val
+  total += square
+end
+puts "Total = #{total}, square = #{square}"
+#+end_src
+
 ** Objects
 *** methods query
 Returns a list of the names of public and protected methods of obj.
@@ -715,6 +1622,8 @@ puts animals.select {¦n¦ n[0] < 'M' }.map(&:upcase).join(", ")
 if tourney_roster2.players&.first&.position == "Forward"
   puts "Forward: #{tourney_roster1.players.first.name}"
 end
+
+nil&.foo(raise "It evals args") # nil
 #+end_src
 
 *to_ methods*
@@ -733,885 +1642,6 @@ to_i # to integer
 to_f
 #+end_src
 
-** Variables
-*multiple assignment*
-
-#+begin_src ruby
-@class_name, @receiver, @original_message = exception.name, exception.receiver, exception.original_message
-#+end_src
-
-*Delayed assignment ||=*
-
-- no assignment is made at all if the variable is already set.
-
-#+begin_src ruby
-@corrections ||= SpellChecker.new(dictionary: class_names)
-#+end_src
-
-*class variables*
-
-- available throughout a class or module body
-- must be initialized before use
-- is shared among all instances of a class and is available within the class itself.
-
-#+begin_src ruby
-class Meh
-  @@foo = 'Bar'
-
-  def value
-    @@foo
-  end
-end
-#+end_src
-
-*instance variables*
-
-#+begin_src ruby
-class Meh
-  @foo = 'Bar'
-
-  def to_s
-    @foo
-  end
-end
-#+end_src
-
-*Global variables*
-- at global scope
-
-#+begin_src ruby
-$x = 1
-
-class G
-  def self.forevis
-    p $x
-  end
-
-  def meh
-    $x = 2
-  end
-end
-
-C.forevis # 1
-C.new.meh # 2
-cC.forevis # 2
-#+end_src
-
-*constant*
-- constants can change, but issues a warning message.
-
-#+begin_src ruby
-ADULT_AGE = 18
-ABC = 1
-Goo = 2
-Foo = 3
-
-class RubyBlog
-  URL    = "rubyguides.com"
-  AUTHOR = "Jesus Castello"
-end
-
-p RubyBlog::AUTHOR # "Jesus Castello"
-
-#+end_src
-
-::constants
-::const_get
-::const_set
-::const_missing
-::const_defined?
-::remove_const
-::private_constant
-
-*private_constant*
-
-#+begin_src ruby
- private_constant :ADULT_AGE
-#+end_src
-
-#+begin_src ruby
-person1 = "Tim"
-person2 = person1.dup
-#+end_src
-
-#+begin_src ruby
-person1 = "Tim"
-person1.freeze
-#+end_src
-
-*Parallel Assignment*
-
-#+begin_src ruby
-a, b = 1, 2 # a=1, b=2
-a, b = b, a # b=2, a=1
-
-a = 1, 2, 3, 4 # a=[1, 2, 3, 4]
-b = [1, 2, 3, 4] # b=[1, 2, 3, 4]
-a, b, c, d, e = *(1..2), 3, *[4, 5] # a=1, b=2, c=3, d=4, e=5
-#+end_src
-
-*Excessive is discarded*
-
-#+begin_src ruby
-a, b = 1, 2, 3, 4 # a=1, b=2
-c, = 1, 2, 3, 4 # c=1
-#+end_src
-
-*Splat just a few*
-
-#+begin_src ruby
-*a, b = 1, 2, 3, 4# a=[1, 2, 3], b=4
-c, *d, e = 1, 2, 3, 4# c=1, d=[2, 3], e=4
-f, *g, h, i, j = 1, 2, 3, 4# f=1, g=[], h=2, i=3, j=4
-#+end_src
-
-*Ignoring values*
-
-#+begin_src ruby
-first, *, last = 1,2,3,4,5,6 # first=1, last=6
-#+end_src
-
-*Nested Assignments*
-
-#+begin_src ruby
-a, (b, c), d = 1,2,3,4# a=1, b=2, c=nil, d=3
-a, (b, c), d = [1,2,3,4]# a=1, b=2, c=nil, d=3
-a, (b, c), d = 1,[2,3],4# a=1, b=2, c=3, d=4
-a, (b, c), d = 1,[2,3,4],5# a=1, b=2, c=3, d=5
-a, (b,*c), d = 1,[2,3,4],5# a=1, b=2, c=[3, 4], d=5
-#+end_src
-
-*block-local variables*
-
-#+begin_src ruby
-square = 'yes'
-total = 0
-[1, 2, 3].each do |val; square|
-  square = val * val
-  total += square
-end
-puts "Total = #{total}, square = #{square}"
-#+end_src
-
-** Types
-*** Boolean
-- any value that is not nil or the constant false is true
-- nil is false
-- The number zero is not interpreted as a false value. Neither is a zero-length string.
-
-*** String
-- dealing with text or data
-- objects of class String
-
-#+begin_src ruby
-'escape using "\\"' # => escape using "\"
-'That\'s right' # => That's right
-%q{You needn't escape apostrophes or quotation marks (', '', ", "") when using %q.}
-
-str = "Hi "
-str << "there." # => "Hi there."
-#+end_src
-
-#+begin_src ruby
-puts
-"now is #{ def the(a)
-'the ' + a
-end
-the('time')
-} for all bad coders..."
-#+end_src
-
-#+begin_src ruby
-%q/general single-quoted string/ # => general single-quoted string
-%Q!general double-quoted string! # => general double-quoted string
-%Q{Seconds/day: #{24*60*60}} # => Seconds/day: 86400
-
-# even simpler
-
-%!general double-quoted string! # => general double-quoted string
-%{Seconds/day: #{24*60*60}} # => Seconds/day: 86400
-#+end_src
-
-
-*Interpolation*
-
-#+begin_src ruby
-age  = 33
-name = "Jesus"
-
-"Hello, my name is #{name} & I'm #{age} years old."
-#+end_src
-
-*HERE documents*
-
-#+begin_src ruby
-<<EOL # double quote document
-   \n
-#{Time.now}
-EOL
-
-<<EOL.to_i * 10
-EOL
-
-<<'EOL' # single quote document
-   \n
-#{Time.now}
-EOL
-
-<<~EOL
-EOL
-
-[1,2, <<EO asdasd EO]
-
-a(false, <<EO asd... EO)
-#+end_src
-
-*<<-  minus sign*
-
-- can be indented from the margin.
-
-#+begin_src ruby
-<<-EOL
-Concat
-        STRING1
-    enate
-EOL
-
-#+end_src
-
-*Quoting*
-
-   %char{text}
-   #+begin_src ruby
-   a = %q(a b c d)
-
-   b = %Q(a b c)
-   #+end_src
-
-*Encondig*
-
-#+begin_src ruby
-#encoding: utf-8
-#+end_src
-
-#+begin_src ruby
-plain_string = "dog"
-puts "Encoding of #{plain_string.inspect} is #{plain_string.encoding}" # Encoding of "dog" is UTF-8
-utf_string = "δog"
-puts "Encoding of #{utf_string.inspect} is #{utf_string.encoding}" # Encoding of "δog" is UTF-8
-#+end_src
-
-*Character Constants*
-
-- deprecated
-
-#+begin_src ruby
-?a
-?\n
-?\C-a
-?\M-a
-?\M-\C-a
-?\C-?
-# => "a"
-(printable character)
-# => "\n"
-(code for a newline (0x0a))
-# => "\u0001" (control a)
-# => "\xE1" (meta sets bit 7)
-# => "\x81" (meta and control a)
-# => "\u007F" (delete character)
-#+end_src
-
-*More examples*
-
-#+begin_src ruby
-"Test" + "Test" #TestTest
-"test".capitalize #Test
-"Test".downcase #test
-"Test".chop #Tes
-"Test".next #Tesu
-"Test".reverse #tseT
-"Test".sum #416
-"Test".swapcase #tEST
-"Test".upcase #TEST
-"Test".upcase.reverse #TSET
-"Test".upcase.reverse.next
-"Test".ord
-"Test".chr
-"xyz".scan(/./) { |letter| puts letter }
-string.count("^aey. ")
-empty
-include?
-string.index("cool")
-"a".ord
-# SUBSTITUTION
-
-"".sub('i', '') # only does one substitution at a time, on the first instance of the text to match
-"".gsub('i', '') #  whereas gsub does multiple substitutions at once
-#+end_src
-
-new
-
-#+begin_src ruby
-String.new("an unfrozen string")
-#+end_src
-
-*concat*
-
-#+begin_src ruby
-str = ""
-
-str.concat("a")
-str.concat("a")
-
-str
-# "aa"
-#+end_src
-
-*dup*
-
-*freeze/ unfreezen*
-
-#+begin_src ruby
-str = "frozen!"
-str.frozen? # true
-
-unfrozen_str = +str
-unfrozen_str.frozen? # false
-#+end_src
-
-String comparison and ordering
-
-#+begin_src ruby
-"a" <=> "b"
-=> -1
->> "b" > "a"
-=> true
->> "a" > "A"
-=> true
->> "." > "
-#+end_src
-*each_byte*
-
-TRANSFORMATIONS
-
-#+begin_src ruby
-string.rjust(25)
-string.ljust(25)
-"The middle".center(20, "*") # "*****The middle*****"
-string.strip
-string.lstrip
-string.rstrip
-"David A. Black".chop
-"David A. Black\n".chomp
-string.clear
-string.replace("David A. Black")
-"David A. Black".delete("abc")
-"David A. Black".crypt("34")
-"a".succ # b
-#+end_src
-
-Conversions
-
-#+begin_src ruby
-"100".to_i(17) # => 289
->> "100".oct # => 64
->> "100".hex # => 256
-#+end_src
-
-*scan*
-#+begin_src ruby
-s = 'Peter Piper picked a peck of pickled peppers'
-s.scan(/[Pp]\w*/) {|word| puts("The word is #{word}")}
-#+end_src
-*** Symbols
-- undeclared constant names guaranteed to be unique.
-- an identifier in your code,
-#+begin_src ruby
-:Object
-:my_variable
-:"Ruby rules"
-a = "cat"
-:'catsup' # => :catsup
-:"#{a}sup" # => :catsup
-:'#{a}sup' # => :"\#{a}sup"
-#+end_src
-*** Numbers
-- can be any length
-- objects of class Fixnum and Bignum
-- 0 for octal, 0d for decimal, 0x for hex, or 0b for binary
-- includes support for rational and complex numbers
-- all numbers are objects
-
-#+begin_src ruby
-num = 10001
-4.times do
-puts "#{num.class}: #{num}"
-num *= num
-end
-produces:
-
-Fixnum: 10001
-Fixnum: 100020001
-Fixnum: 10004000600040001
-Bignum: 100080028005600700056002800080001
-#+end_src
-
-#+begin_src ruby
-123456
-0d123456
-123_456
--543
-0xaabb
-0377
--0b10_1010
-123_456_789_123_456_789
-#+end_src
-
-#+begin_src ruby
-3.times
-{ print "X " }
-1.upto(5)
-{|i| print i, " " }
-99.downto(95) {|i| print i, " " }
-50.step(80, 5) {|i| print i, " " }
-10.downto(7).with_index {|num, index| puts "#{index}: #{num}"}
-#+end_src
-
-*Rational*
-- Rationals are slower than floats, but since they are exact numbers,
-- use a rational whenever you need to do calculations with non-integer values and you need exact answers.
-
-#+begin_src ruby
-Rational(2,3)
-1.1r
-#+end_src
-
-*Complex*
-
-#+begin_src ruby
-Complex(1,2)
-#+end_src
-*** nil
-
-- a signal that a method that modifies the receiver did not make a modification
-
-NilClass
-
-** Collections
-*** Array
-- index collection
-
-#+begin_src ruby
-a = [ 3.14159, "pie", 99 ]
-a = %w[3.14159 pie 99]
-a.class # => Array
-#+end_src
-
-*length*
-
-*sub-index*
-
-#+begin_src ruby
-a = [ 1, 3, 5, 7, 9 ]
-a[1, 3] # => [3, 5, 7]
-a[3, 1] # => [7]
-a[-3, 2] # => [5, 7]
-#+end_src
-
-*ranging*
-
-- two-period form includes the end position
-
-#+begin_src ruby
-a = [ 1, 3, 5, 7, 9 ]
-a[1..3]
-# => [3, 5, 7]
-a[1...3] # => [3, 5]
-a[3..3]
-# => [7]
-a[-3..-1] # => [5, 7, 9]
-#+end_src
-
-*intersection (&)*
-
-#+begin_src ruby
-[1, 2, 3].intersection([2, 3, 4])
-# [2, 3]
-
-[1, 2, 3] & [2, 3, 4]
-# [2, 3]
-#+end_src
-
-union (|)
-
-difference (-)
-
-queue
-
-#+begin_src ruby
-queue = []
-
-queue.unshift "apple"
-queue.unshift "orange"
-queue.unshift "banana"
-
-# ["banana", "orange", "apple]"
-
-queue.pop
-# "apple"
-
-queue.pop
-# "orange"
-#+end_src
-
-
-new
-#+begin_src ruby
-Array.new(4) # [nil, nil, nil, nil]
-Array.new(4) { |x| x + 1 } # [1, 2, 3, 4]
-#+end_src
-
-Kernel#Array
-- More forgiving than .to_a
-
-#+begin_src ruby
-Array 1 # [1]
-#+end_src
-
-push
-pop
-access
-find
-delete
-max_by
-compact
-new
-
-#+begin_src ruby
-a = Array.new
-# shallow copy
-b = Array.new [1,2,3]
-#+end_src
-
-reverse_each
-
-each_index
-
-*More Examples*
-
-#+begin_src ruby
-array = [ 1, 2, 3, 4, 5, 6, 7 ]
-array.first(4) # => [1, 2, 3, 4]
-array.last(4) # => [4, 5, 6, 7]
-#+end_src
-
-   #+begin_src ruby
-   h = { a: 100, b: 20 }
-   h.delete_if { |key, value| value < 25 }
-   h.delete(:a)
-   #+end_src
-
-   #+begin_src ruby
-   # creation
-   a = [1, ["a", "b"], 4]
-   a = Array.new(1,2)
-   a = arr = %w( Hey!\tIt is now -#{Time.now}- )
-
-
-   # indexing
-   arr[1][0]
-   [1,2][0]
-   arr.dig(3,0) value_at, a[2,3] = ..
-				   a[2..3]
-   a.slice()
-   a.[]=(0, "first")
-   a.[](2)
-   a = %w(a b c)
-   a= %W({a} b c)
-   x.to_ary
-   x.to_arr
-   Array()
-   def string.to_arr
-   end
-   a.unshift(0)
-   a.push(1,2,3)
-   a << 5
-   a.pop
-   a.shift
-   a.concat
-   a.replace([1,2,3])
-   a.flatten
-   a.reverse
-   a.join(" , ")
-   a = *
-       a.uniq
-   a.compact
-   a.size
-   a.empty
-   a.include?
-   a.first
-   a.first[<num>]
-   a.last
-   a.sample # return
-   a.count(1)
-   #+end_src
-   [[file:path]]
-*** Range
-|     |                                      |
-|-----+--------------------------------------|
-| ..  | inclusive                            |
-| ... | exclusive, excludes its last element |
-
-#+begin_src ruby
-# create a new range object
-r = 1..2
-
-# include all elements
-r =  1..99
-
-# exclude last element
-r = 1...199
-
-# range of object need to return the next object `succ` and be comparable <=>
-
-# ranges as conditions
-while line = gets
-  puts line if line =~ /start/ .. line =~ /end/
-end
-
-r.cover? 2
-r.include? 3
-r.max
-r.reject {}
-
-('a'..'m').inject :+ # => "abcdefghijklm"
-
-(1..10).to_a # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-('bar'..'bat').to_a # => ["bar", "bas", "bat"]
-#+end_src
-
-*as intervals*
-#+begin_src ruby
-(1..10) === 5   # => true
-(1..10) === 15  # => false
-
-car_age = 9.5
-case car_age
-when 0...1
-  puts "Mmm.. new car smell"
-when 1...3
-  puts "Nice and new"
-when 3...10
-  puts "Reliable but slightly dinged"
-when 10...30
-  puts "Clunker"
-else
-  puts "Vintage gem"
-end
-#+end_src
-
-*new*
-
-#+begin_src ruby
-r = Range.new(1,100)
-r = Range.new(1,100, true)
-#+end_src
-
-*to_enum*
-
-#+begin_src ruby
-enum = ('bar'..'bat').to_enum
-enum.next # => "bar"
-enum.next # => "bas"
-#+end_src
-
-*methods*
-
-#+begin_src ruby
-class PowerOfTwo
-  attr_reader :value
-
-  def initialize(value)
-    @value = value
-  end
-
-  def <=>(other)
-    @value <=> other.value
-  end
-
-  def succ
-    PowerOfTwo.new(@value + @value)
-  end
-
-  def to_s
-    @value.to_s
-  end
-end
-p1 = PowerOfTwo.new(4)
-p2 = PowerOfTwo.new(32)
-puts (p1..p2).to_a
-4
-8
-16
-32
-#+end_src
-
-*endless range*
-
-#+begin_src ruby
-["a", "b", "c"].zip(1..)
-# [["a", 1], ["b", 2], ["c", 3]]
-
-[1,2,3,4,5][1..]
-# [2, 3, 4, 5]
-
-(1..).step(5).take(100)
-# [1, 6, 11, 16, 21, 26, 31, 36, 41, 46]
-#+end_src
-
-*ArithmethicSequence*
-
-#+begin_src ruby
-(1..10).step(2) == (1..10).step(2)
-# false - Ruby 2.5 (and older)
-
-(1..10).step(2) == (1..10).step(2)
-# true - Ruby 2.6
-#+end_src
-
-*%*
-
-#+begin_src ruby
-((0..) % 2).take(5)
-
-# [0, 2, 4, 6, 8]
-#+end_src
-*** Hash
-- keys must be comparable
-- rehash force the hash to be reindexed whenever a key has changed
-- remains in initial order
-- index collection
-
-store
-acess
-delete
-
-has_key?
-
-#+begin_src ruby
-if counts.has_key?(next_word)
-counts[next_word] += 1
-else
-counts[next_word] = 1
-end
-#+end_src
-
-each_key
-each_value
-find(<value>)
-
-#+begin_src ruby
-# Strings keys
-h = { "one" => 1, "two" => 2 }
-
-# Symbols keys
-h = { one: 1, two: 2 }
-
-# Empty Hash
-h = Hash.new
-
-# default value is zero
-h = Hash.new(0)
-
-# Hash alternative(old) version
-h = Hash[1, "one", 2, "two"]
-
-
-# get value
-h["one"] = 1
-h[:one]
-
-h.rehash # force the hash to be reindexed
-
-h.[]=("New York", "NY")
-h.store("New York", "NY")
-a.update(b)
-h.select {k,vk > 1 } !
-h.reject {  k,v  k > 1 } !
-h.reject! {  k,v  k > 1 }
-h = { street: "127th Street", apt: nil }.compact!
-h = { street: "127th Street", apt: nil }.compact!
-h.invert
-h.clear
-h = {...}.replace({...})
-h.key?
-h.empty?
-#+end_src
-
-*merge*
-
-#+begin_src ruby
-a.merge(b)
-a = { a: 1 }
-b = { b: 2 }
-c = { c: 3 }
-
-a.merge(b).merge(c)
-# {:a=>1, :b=>2, :c=>3}
-
-# ruby 2.6
-a.merge(b, c)
-# {:a=>1, :b=>2, :c=>3}
-#+end_src
-*** Sets
-   #+begin_src ruby
-   s = Set.new(array)
-   s = Set.new(names) {name name.upcase }
-   s << 5
-   s.add 5
-   s.delete(1)
-   s.intersection|&| x
-   s.union x
-   s + x
-   s.difference x
-   s - x
-   s ^ x
-   s.merge [2]
-   s.subset? b
-   s.superset? b
-   s.proper_subset? x
-   s.proper_superset? x
-   #+end_src
-*** Queue
-- thread-safe, blocking.
-- If the queue is empty, calling pop will put your current thread to sleep &
-  wait until something is added to the queue.
-- passing true to avoid blocking
-
-
-#+begin_src ruby
-que = Queue.new
-
-que << 1
-que << 2
-que << 3
-
-que.pop # 1
-que.pop # 2
-
-que.pop(true)
-#+end_src
-*** Sized Queue
-- push (same as <<) operation will suspend the current thread until an item is taken off the queue.
-- same as a regular queue but with a size limit.
-- raise an exception instead, passing true as an argument to push
-
-#+begin_src ruby
-que = SizedQueue.new(5)
-que.push(:bacon)
-que.push(:bacon, true) # raises ThreadError: queue full
-#+end_src
 ** Expression
 
 *<<*
@@ -1892,7 +1922,7 @@ method chaining
 "joe".upcase.reverse # "EOJ"
 #+end_src
 
-*map*
+*#map*
 
 - returns array
 - non-destructive
@@ -1901,7 +1931,7 @@ method chaining
 a.map { |x| x.uppercase}
 #+end_src
 
-*map!*
+*#map!*
 
 - destructive
 
@@ -1909,11 +1939,17 @@ a.map { |x| x.uppercase}
 a.map! { |x| x.uppercase}
 #+end_src
 
-*flat_map*
+*#flat_map*
 
 #+begin_src ruby
 [["1","2"],["3","4"]].flat_map {|i| i[0] }     # => ["1", "3"]
 [["1","2"],["3","4"]].flatten.map {|i| i[0] }  # => ["1", "2", "3", "4"]
+#+end_src
+
+*#member*
+
+#+begin_src ruby
+(1..10).member? 10 # truemy
 #+end_src
 
 ** Functional
@@ -3293,6 +3329,10 @@ module A
   extend FFI::Library
   ffi_lib 'c'
 end
+#+end_src
+** Socket
+#+begin_src ruby
+require 'socket'
 #+end_src
 * Standard Modules
 ** continuation

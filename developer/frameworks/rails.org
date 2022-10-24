@@ -867,6 +867,7 @@ article.errors.full_messages
 articles.size
 Article.count
 #+end_src
+** Transaction
 ** Scopes
 #+begin_src ruby
 class Book < ApplicationRecord
