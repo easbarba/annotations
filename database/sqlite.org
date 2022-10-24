@@ -1,12 +1,13 @@
-#+TITLE: sqlite
+#+TITLE: SQLite
 
-* commands
-|            |   |
-|------------+---|
-| .databases |   |
-| .exit      |   |
-| .help      |   |
-* cli
+* Base
+** Commands
+*** .database
+*** .tables
+*** .schema <TABLE>
+*** .exit
+*** .help
+* Options
 - -line
 #+begin_src shell
  sqlite3 -line db/development.sqlite3 "select * from orders limit 1"
