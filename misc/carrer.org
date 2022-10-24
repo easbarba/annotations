@@ -1,0 +1,33 @@
+#+title: Carrer
+* leandrosp
+** no-frameworks full stack
+1) Fundamentos de HTTP: arquitetura client-server, socket TCP, rotas, cookies, natureza stateless do protocolo
+
+Dica -> construir um HTTP server com sua linguagem de programação favorita. Preferencialmente um sistema de login web para entender o problema que cookies resolvem
+
+2) HTML, CSS e Javascript (ES6): servir uma página HTML simples, utilizar os headers HTTP corretos para comprimir, utilizar cache; entender o processo do browser fazendo pedidos CSS e JS à parte; escrever ES6 padrão e simples
+
+3) Persistência de dados: guardar os dados em alguma estrutura como txt ou outra de preferência; gravar, ler, percorrer listas, criar índices
+
+(esta parte vai exigir um estudo paralelo em algumas estruturas de dados e algoritmos, como arrays, listas ligadas e hash tables).
+
+4)  WebComponents: shadow DOM, template engine; tentar ao máximo componentizar e organizar código ES6 apenas com webcomponents;
+
+5) SPA (single page application): aqui coisas como npm, yarn e webpack vão ajudar a criar um bundle único para ser servido no primeiro pedido HTTP
+
+6) SSR (server side rendering): diferente do SPA, aqui é utilizar AJAX para fazer pedidos ao HTTP server, que responde "pedaços" de HTML para serem substituídos no DOM
+
+7) Websockets: implementar websockets no HTTP server; uso dos headers apropriados, frames, natureza stateful para troca de mensagens com client
+
+Dica -> no client HTTP (browser), utilizar a própria lib de websockets do JS
+
+8) Deploy na nuvem: comprar um domínio, configurar o DNS, provisionar máquina; treinar comandos ssh, scp
+
+Dica -> criar um arquivo shell script para o deploy (exige estudo paralelo no básico de shell script)
+
+9) Depois das bases em cada área da stack, vem o momento de trocar por frameworks q facilitam a vida
+
+- React/Angular p/ organizar código do frontend
+- Djang/ Rails/Express p/ organizar código do backend
+- PostgreSQL p/ guardar os dados
+- Docker p/ não ter que instalar as coisas
