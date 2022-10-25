@@ -4,6 +4,7 @@
 ** Books
 | Books                           | Cap                         | @                                |
 |---------------------------------+-----------------------------+----------------------------------|
+| Vue.js by Example               |                             |                                  |
 | Front-end development w/ Vue.js | 2                           | Deep Watching Concepts           |
 | Fullstack Vue                   | II - Single-file components | Breaking the app into components |
 
