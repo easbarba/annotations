@@ -86,19 +86,6 @@
 ** Swedish
 - Let the Right One In
 
-* Games
-** RPG
-- Gothic 1
-- Gothic 2
-- Gothic 3
-- Risen
-- Elex
-- Witcher 3
-- Witcher 2
-- Witcher 1
-** Action
-- Counter Strike Global Offensive
-
 * TV Series
 ** Progress
 | name       | episode  |
@@ -132,7 +119,7 @@
 - Kingdom
 - Rooftop Prince
 - A Gentleman's Dignity
-- awl
+- Awl
 - When the Camellia Blooms
 - Pasta (2010)
 - Baby Faced Beauty
@@ -152,6 +139,23 @@
 - Valhalla murders
 - Karppi
 - Sorjonen
+* Writers
+- Machado do Assias
+- Lima Barreto
+
+* Games
+** RPG
+- Gothic 1
+- Gothic 2
+- Gothic 3
+- Risen
+- Elex
+- Witcher 3
+- Witcher 2
+- Witcher 1
+** Action
+- Counter Strike Global Offensive
+
 * Food
 ** Fruits
 - Pinha
