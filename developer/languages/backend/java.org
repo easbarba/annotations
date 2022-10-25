@@ -1959,6 +1959,61 @@ public class HelloScripting {
 }
 
 #+end_src
+* Utilities
+** Container
+#+begin_src  dockerfile
+FROM maven:3-eclipse-temurin-17 AS builder
+MAINTAINER EAS Barbosa <easbarba@outlook.com>
+WORKDIR /app
+COPY pom.xml .
+RUN mvn clean install
+COPY . .
+RUN mvn verify
+
+FROM openjdk:17-jdk
+MAINTAINER EAS Barbosa <easbarba@outlook.com>
+ENV PITA_VERSION=0.0.1-SNAPSHOT
+COPY --from=builder /app/target/pita-$PITA_VERSION.jar application.jar
+CMD ["java", "-jar", "application.jar"]
+#+end_src
+
+#+begin_src yaml
+version: "3"
+
+services:
+  database:
+    image: postgres:14
+    restart: on-failure
+    env_file: .env
+    environment:
+      POSTGRES_USER: "$DATABASE_USER"
+      POSTGRES_PASSWORD: "$DATABASE_PASSWORD"
+      POSTGRES_DB: "$DATABASE_NAME"
+    volumes: dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+
+  backend:
+    build: .
+    depends_on:
+      database:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      - SPRING_PROFILES_ACTIVE=production # dev
+    ports: 8081:8080
+
+  # frontend:
+  #   build: .
+  #   ports:
+  #     - 8081:8080
+  #   depends_on: backend
+
+volumes:
+  dbdata:
+#+end_src
+
 * Jobs
 ** oracle backend
 BS or MS degree in Computer Science or related field
