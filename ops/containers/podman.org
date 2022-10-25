@@ -12,6 +12,7 @@
 |   |   |      |      |
 * Commands
 ** system
+*** reset
 ** machine
 #+begin_src shell
 podman machine init --cpus 2 --memory 2048 --rootful

@@ -417,10 +417,12 @@ docker run --platform linux/amd64 --rm ljishen/sysbench /root/results/output_cpu
 ** Remove all
 #+begin_src shell
 # Stop all containers
-docker stop `docker ps -qa`
+docker stop $(docker ps -qa)
+podman stop $(podman ps -a)
 
 # Remove all containers
-docker rm `docker ps -qa`
+docker rm $(docker ps -qa)
+podman rm $(podman ps -a)
 
 # Remove all images
 docker rmi -f $(docker images -qa)
