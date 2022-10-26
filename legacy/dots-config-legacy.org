@@ -145,7 +145,19 @@ openjdk,master,https://github.com/openjdk/jdk
 #+end_src
 ** ruby
 #+begin_src csv
-
+name,branch,url
+yata-wiki,master,https://github.com/leandronsp/yata.wiki
+yata,main,https://github.com/leandronsp/yata
+sustainable-rails-docker,main,https://github.com/davetron5000/sustainable-rails-docker
+mastodon,main,https://github.com/mastodon/mastodon
+ruby-lsp,main,https://github.com/Shopify/ruby-lsp
+sidekiq,main,https://github.com/mperham/sidekiq
+fluentd,master,https://github.com/fluent/fluentd
+rails,main,https://github.com/rails/rails
+rake,master,https://github.com/ruby/rake
+debug,master,https://github.com/ruby/debug
+rbs,master,https://github.com/ruby/rbs
+ruby,master,https://github.com/ruby/ruby
 #+end_src
 ** elixir
 #+begin_src csv
