@@ -1,0 +1,28 @@
+#+TITLE: Express
+
+* Progress
+** Books
+| Books                                 | Cap | @                                                         |
+|---------------------------------------+-----+-----------------------------------------------------------|
+| Modern Full-Stack Development         |     |                                                           |
+| Wep Development with Node and Express |     |                                                           |
+| Node Web development                  |     | Computationally intensive code and the Node.js event loop |
+
+** SLOC
+| Project   | folder                  | file         | @ |
+|-----------+-------------------------+--------------+---|
+| draggable | src/Draggable/DragEvent | DragEvent.js |   |
+| inquirer  |                         |              |   |
+
+* app
+* Error
+** error handler
+#+begin_src js
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+  res.render('error');
+});
+#+end_src
