@@ -186,3 +186,30 @@ https://adonisjs.com/
 Node allows ES6 modules to load CommonJS modules using
 the import keyword. The reverse is not true, however: a CommonJS module cannot
 use require() to load an ES6 module.
+* Jobs
+** X-team
+Node.js Developer
+Most Important
+
+    Extensive experience as BackEnd developer using Node.js
+    Experience with Node.js frameworks (e.g. Express, Koa, Hapi)
+    Experience with JavaScript unit testing
+    Experience with RESTful web services
+    Experience with relational and NoSQL databases
+    Write well designed, testable, efficient code
+    A passion and curiosity for creating and building things
+    Experience working within a continuous integration and deployment (CI/CD) environment
+
+Nice to have
+
+    Experience working with AWS services
+    Experience with GraphQL
+    Experience working remotely
+    Familiar/involved with open source projects
+
+Personal
+
+    Independent
+    Fluent in English, written and spoken
+    Problem solver
+    Proactive attitude

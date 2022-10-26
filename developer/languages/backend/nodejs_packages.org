@@ -27,6 +27,13 @@
 *stop*
 
 *docs <package>*
+
+*ls*
+
+#+begin_src shell
+npm ls -g --depth=0
+#+end_src
+
 ** Options
 *-l*
 

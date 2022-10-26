@@ -1302,6 +1302,24 @@ class Motorcycle extends Vehicle {
 #+end_src
 *** prototype
 - When nothing is specified when creating a class, the objects inherit from the Object.prototype prototype.
+** Commentary
+*** one-line
+#+begin_src javascript
+// meh
+#+end_src
+
+*** multi-line
+#+begin_src js
+/*
+{
+  command: ,
+    aliases: ,
+  desc: ,
+    handler: (argv) => { cmds.(argv.package) }
+}
+*/
+const a = '2'
+#+end_src
 ** Errors
 *** throw
 
