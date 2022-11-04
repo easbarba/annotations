@@ -196,7 +196,7 @@
 - Hellsing
 * Travel
 - Vales em Jacobina, Bahia
-
+- AM, PA, AP, SE, TO, AL, PE, MA, CE, RN, PB, BA, PI, MG.
 * Lectures
 ** Teacher
 - Osvaldo Coggiola
