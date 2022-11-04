@@ -41,6 +41,23 @@
 *** readdirSync
 *** writeFileSync
 *** readFile
+** http
+*createServer*
+
+*** res
+*write*
+#+begin_src js
+res.write('<html>')
+res.write('<h1>Foo</h1>')
+res.write('</html>')
+res.end
+#+end_src
+
+*end*
+
+*statusCode*
+
+*setHeader*
 ** module
 *require*
 
