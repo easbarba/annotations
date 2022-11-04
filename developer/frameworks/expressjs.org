@@ -1,4 +1,4 @@
-#+TITLE: Express
+#+TITLE: Express.js
 
 * Progress
 ** Books
@@ -9,14 +9,17 @@
 | Node Web development                  |     | Computationally intensive code and the Node.js event loop |
 
 ** SLOC
-| Project   | folder                  | file         | @ |
-|-----------+-------------------------+--------------+---|
-| draggable | src/Draggable/DragEvent | DragEvent.js |   |
-| inquirer  |                         |              |   |
+| Project | folder | file | @ |
+|---------+--------+------+---|
+| express |        |      |   |
 
-* app
-* Error
-** error handler
+* Base
+** Routes
+** View
+** Controller
+** Middleware
+** Error
+*** error handler
 #+begin_src js
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
