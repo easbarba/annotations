@@ -992,7 +992,7 @@ let a = { b: null };
 a.b?.c.d // => undefined
 #+end_src
 *** methods
-**** Object.values
+*values
 #+begin_src js
 let sum = 0;
 for(let v of Object.values(o)) {
@@ -1000,8 +1000,10 @@ sum += v;
 }
 sum // => 6
 #+end_src
-**** Object.seal
-**** toString
+
+*seal
+
+*toString
 - takes no arguments
 
 #+begin_src js
@@ -1018,7 +1020,8 @@ let point = {
 String(point);
 // => "(1, 2)": toString() is used for string conversions
 #+end_src
-**** toLocaleString
+
+*toLocaleString
 - return a localized string representation of the object
 
 #+begin_src js
@@ -1035,7 +1038,8 @@ let point = {
 point.toString(); // => "(1000, 2000)"
 point.toLocaleString(); // => "(1,000, 2,000)": note thousands separators
 #+end_src
-**** valueOf
+
+*valueOf
 to convert an object to some primitive type other than a string, typically, a number.
 
 - called automatically if an object is used in a context where a primitive value is required.
@@ -1054,7 +1058,7 @@ point > 4; // => true
 point > 5; // => false
 point < 6; // => true
 #+end_src
-**** toJSON
+*toJSON
 JSON.stringify() method (see §6.8) looks for a toJSON() method on any object it is asked to serialize.
 
 #+begin_src js
@@ -1071,22 +1075,17 @@ let point = {
 JSON.stringify([point]); // => '["(1, 2)"]'
 
 #+end_src
-**** Object.freeze
-**** __proto__
+
+*freeze
+
+*__proto__
 #+begin_src js
 o1.__proto__ // { x: 1, y: 2 }
 #+end_src
-**** Object.assign
-**** Object.keys
-#+begin_src js
-let o = { x: 1, y: 2, z: 3 };
-let keys = "";
-for(let k of Object.keys(o)) {
-keys += k;
-}
-keys // => "xyz"
-#+end_src
-**** Object.entries
+
+*assign
+
+*entries()*
 #+begin_src js
 let pairs = "";
 for(let [k, v] of Object.entries(o)) {
@@ -1094,7 +1093,8 @@ pairs += k + v;
 }
 pairs // => "x1y2z3"
 #+end_src
-**** Object.create()
+
+*create()*
 - passing null to create a new object the newly created object will not inherit anything.
 - create an empty object by passing a Object.prototype
 - also takes an optional second argument that describes the properties of the new object.
