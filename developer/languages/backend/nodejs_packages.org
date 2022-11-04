@@ -7,12 +7,13 @@
 *pack*
 
 *install <package>*
-|                      |                                                           |
-|----------------------+-----------------------------------------------------------|
-| -—save-dev <package> |                                                           |
-| --save, -S           | installs the package as a dependency for your application |
-| --global, -g         | installs the package globally on your computer            |
-| --production         |                                                           |
+|                 |                                                           |
+|-----------------+-----------------------------------------------------------|
+| --save-prod, -P | install in production                                     |
+| -—save-dev      |                                                           |
+| --save, -S      | installs the package as a dependency for your application |
+| --global, -g    | installs the package globally on your computer            |
+| --production    |                                                           |
 
 *uninstall <package>*
 
