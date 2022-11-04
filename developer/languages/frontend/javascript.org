@@ -204,20 +204,38 @@ typeof m // 'symbol'
 *** Array
 - is a object
 
-**** conditional property access
+#+begin_src js
+let arr = [1,2, 'meh']
+#+end_src
+
+*conditional property access*
 #+begin_src js
 a?.[index++]
 #+end_src
-**** methods
-***** push
-***** splice
+
+*push*
+#+begin_src js
+arr.push(3) // [ 1, 2, 3 ]
+#+end_src
+
+*splice*
 #+begin_src javascript
 [0,1,2].splice(1) // [1,2]
 #+end_src
-***** Array.from
-ES6
-***** toString
+
+*Array.from*
+- ES6
+
+*toString*
 obtain a list of the array elements, themselves each converted to a string
+
+*spread operator*
+- copy array
+
+#+begin_src js
+let arr2 = [...arr] //  [1,2, 'meh']
+#+end_src
+
 
 *** Set
 *** Map
