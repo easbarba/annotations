@@ -12,6 +12,14 @@
 | inquirer  |                         |              |   |
 * Base
 ** Types
+** Union Types
+#+begin_src typescript
+let thinker: string | null = null;
+
+let lifespan: number | "ongoing" | "uncertain";
+lifespan = 89; // Ok
+lifespan = "ongoing"; // Ok
+#+end_src
 ** Collection Types
 ** Function
 #+begin_src typescript
@@ -19,8 +27,6 @@ function firstElement(arr: any[]) {
   return arr[0];
 }
 #+end_src
-
--
 
 #+begin_src typescript
 function getOptions(options: string[]): string[]  {
