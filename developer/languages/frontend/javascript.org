@@ -1137,6 +1137,17 @@ let varContainingFunction = function() {
 varContainingFunction();
 #+end_src
 
+*rest operator*
+- returns array
+
+#+begin_src js
+function fool(...args) {
+    return args
+}
+
+fool([1,2,3]) // [1,2,3]
+#+end_src
+
 *** Template tag functions
 
 *** recursive
