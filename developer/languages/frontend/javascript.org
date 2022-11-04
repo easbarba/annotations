@@ -587,7 +587,7 @@ with(document.forms[0]) {
 - almost all objects have a prototype, but only a relatively small number of objects have a prototype property.
 - In order to make an object iterable (so it can be used with a for/of loop), you must define a method with the symbolic name Symbol.iterator
 
-*** Literal
+*Literal*
 is an expression that creates and initializes a new and distinct object
 each time it is evaluated.
 
@@ -602,13 +602,18 @@ let book = {
   author: {
     firstname: "David",
     surname: "Flanagan"
-  }
+  },
+  greet() { console.log('Fool')}
 };
 
-Object.create()
+book["main title"]
+book.for
+book.greet() // Fool
+
+({a:1,b:2})
 #+end_src
 
-*** new
+*new*
 #+begin_src js
 let o = new Object();
 let a = new Array();
