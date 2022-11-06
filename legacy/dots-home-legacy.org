@@ -5,10 +5,8 @@
 # COMMON LISP
 export SBCL_HOME=$HOME/.local/lib/sbcl
 
-# ** GOLANG
-export GOPATH=$HOME/.local/go
-export PATH="$GOPATH/bin":$PATH
-
+# PHP
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
 # ** GNOME KEYRING
 # if [ -n "$DESKTOP_SESSION" ]; then

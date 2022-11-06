@@ -227,17 +227,6 @@ black,https://github.com/psf/black
 mypy,https://github.com/python/mypy
 cpython,https://github.com/python/cpython
 #+end_src
-** go
-#+begin_src csv
-name,branch,url
-mpb,master,https://github.com/vbauerster/mpb
-shfmt,master,https://github.com/mvdan/sh
-flux2,main,https://github.com/fluxcd/flux2
-crossplane,master,https://github.com/crossplane/crossplane
-kubernetes,master,https://github.com/kubernetes/kubernetes
-consul,main,https://github.com/hashicorp/consul
-go,master,https://go.googlesource.com/go
-#+end_src
 ** hare
 #+begin_src csv
 name,branch,url
