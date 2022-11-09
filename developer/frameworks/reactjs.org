@@ -1,4 +1,4 @@
-#+TITLE: React
+#+TITLE: React.js
 
 * Progress
 ** Books
@@ -13,3 +13,23 @@
 
 * Base
 * Options
+* Ops
+** Dockerfile
+* Carrer
+** Xteam
+Most Important
+
+    Solid experience with React.js, and related frameworks such as Next.js, Redux, Material UI, etc.
+    Experience with TypeScript
+    Experience with Webpack
+    Experience writing high-performance, reusable code for UI components
+    Experience with testing frameworks such as Jest, React Testing Library, etc.
+    Experience with continuous integration and deployment (CI/CD) environment
+    A passion and curiosity for creating and building things
+    Strong communication skills
+
+Nice to have
+
+    Experience working with AWS services
+    Experience working remotely
+    Familiar/involved with open source projects
