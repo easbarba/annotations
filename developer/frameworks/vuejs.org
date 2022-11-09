@@ -91,6 +91,7 @@ Vue components are Vue instances.
 *updated*
 
 *** Single-File Components
+** Templates
 ** Data Binding
 ** Directives
 *v-text*
@@ -212,6 +213,11 @@ export default {
 ** Watchers
 
 * Commands
+** create
+#+begin_src
+vue create meh
+#+end_src
+** serve
 * Ops
 ** Container
 *New Vue 3 project*
@@ -231,6 +237,25 @@ podman run --rm -v $(pwd):/app/ -v /app/node_modules -w /app -p 8081:5173 node:1
 #+begin_src shell
 podman run --rm -d -v $(pwd):/app/ -v /app/node_modules -w /app -p 8081:8080 node:18 bash -c 'yarn && yarn && yarn serve'
 #+end_src
+* Carrer
+** Jobs
+*** Xteam
+Most Important
+
+    Expert level experience with Vue.js
+    Strong overall experience with JavaScript
+    Solid experience with Vuex, TypeScript, and/or Nuxt.js and/or Vuetify
+    Write high-performance, reusable code for UI components
+    Experience with JavaScript testing frameworks
+    Experience with unit testing
+    Solid HTML/CSS/JavaScript basis
+    Passionate about writing beautiful and clean code
+
+Nice to have
+
+    Experience with continuous integration and deployment (CI/CD) environment
+    Experience working remotely
+    Familiar/involved with open source projects
 * Instruction
 #+begin_src markdown
 This template should help get you started developing with Vue 3 in Vite.
