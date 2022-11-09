@@ -1,0 +1,12 @@
+#+title: Gin
+
+* Route
+* Ops
+* curl
+#+begin_src shell
+curl http://localhost:8080/evals \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "POST" \
+    --data '{"name": "Tampita",	"score": "0x0",	"game": "Corinthians vs Flamengo",	"body": [		"muito pilantra",		"penalty foram uma farsa",		"pouco tempo interrogação"	]}'
+#+end_src
