@@ -187,9 +187,17 @@ git remote set-url origin https://github.com/user/repo-2.git
 ** reset
 Reset current HEAD to the specified state.
 
+*unstage all*
+
+#+begin_src
+git reset
+#+end_src
+
 *--soft*
+
 *HEAD^n*
 Undo last n commits
+
 #+begin_src shell
 git reset --soft HEAD^4
 #+end_src
