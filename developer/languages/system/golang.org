@@ -14,7 +14,7 @@
 | podman      | cmd/podman/containers | cp.go     | copyFromContainer |
 
 * Base
-** Basic Types
+** Types
 - comparable
 
 *** integers
@@ -44,7 +44,7 @@ int32. On most 64-bit CPUs, int is a 64-bit signed integer, just like an int64.
 | float32 |   |
 | float64 |   |
 
-*** complext
+*** complex
 *** literals
 |                |                              |
 |----------------+------------------------------|
@@ -87,33 +87,42 @@ var s string = "Hello there"
 var b byte = s[6]
 var s string = "Hello there"
 
-// slicing
-var s2 string = s[4:7]
-var s3 string = s[:5]
-var s4 string = s[6:]
-
 fmt.Println("goodbye" + s[5:]) // "goodbye, world"
 
 s[0] = 'L' // compile error: cannot assign to s[0]
 #+end_src
 
-// raw strings
+*slicing*
+
+#+begin_src go
+var s2 string = s[4:7]
+var s3 string = s[:5]
+var s4 string = s[6:]
+#+end_src
+
+*raw strings*
+
+#+begin_src go
 const GoUsage = `Go is a tool for managing Go source code.
 
 Usage:
     go command [arguments]
 ...`
+#+end_src
 
-
-
-**** functions
-- len
+*len*
 
 *** boolean
 - zero value = false
 - true or false
 - no other type can be converted to a bool, implicitly or explicitly
 - convert to boolean with: \== , != , > , < , <= , or >=
+
+
+#+begin_src go
+t := true
+f := false
+#+end_src
 
 *** runes
 - single quotes
@@ -203,14 +212,19 @@ x := make([]int, 5)
 num := copy(y, x) // indenpedent copy of original slice
 #+end_src
 
+*len*
 
-**** functions
-- len
-- append
-- make
-- copy
+*append*
+#+begin_src go
+var a = []int{1, 5: 4, 6, 10: 100, 15}
+append(a, 111)
+#+end_src
 
-**** slicing
+*make*
+
+*copy*
+
+*slicing*
 - can slice arrays
 
 #+begin_src go
@@ -1540,6 +1554,9 @@ vet is a tool for static analysis of Go programs.
 #+begin_src shell-script
 goimports -l -w .
 #+end_src
+* Ops
+** Dockerfile
+** Makefile
 * Carrer
 - Modules
 - REST API
@@ -1550,3 +1567,24 @@ goimports -l -w .
 - Unix systems internals and networking.
 - Microservices
 - Swagger
+** xteam
+Most Important
+
+    Excellent programming skills in Golang and at least one production available service with good throughput under their belt
+    Track record of built and deployed production quality microservices, with a focus on scalability
+    Previous experience with the development pipeline from end-to-end of production applications
+    Knowledge of AWS services such as Amazon Simple Notification Service (SNS) and Simple Queue Service (SQS), EC2, Lambda…
+    Previous experience with NodeJS
+    Experience with RESTful API development
+    Expertise in continuous performance measurement throughout the application’s lifecycle
+    Distributed request tracing for profiling and monitoring microservices dependant applications
+    Working understanding of infrastructure as code
+    Source control and software versioning experience on Git
+    Former experience working in an Agile environment
+    Documentation skills
+
+Nice to have
+
+    Understanding of AWS services
+    Experience working remotely
+    Familiar/involved with open source projects
