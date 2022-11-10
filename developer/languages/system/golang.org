@@ -1194,83 +1194,6 @@ Zero Value Versus No Value
 - as exception, use a pointer field to indicate no value.
 - prefer to use the comma ok idiom that we saw for maps and return a value type and a boolean.
 
-* Commands
-** vet
-      Examines Go source code and reports suspicious constructs
-
-      |   |   |
-      |---+---|
-      |   |   |
-
-** build
-- build project and create binary
-|                  |              |
-|------------------+--------------|
-| -o <name> <file> | set location |
-|                  |              |
-
-** get
-- modules only
-
-add to project as dependecy
-#+begin_src shell
-go get github.com/russross/blackfriday/v2@latest
-#+end_src
-** doc
-** mod
-*** init
-#+begin_src shell
-go mod init MODULE_PATH
-#+end_src
-*** tidy
-Add/remove deps non listed in dep file
-*** download
-Download downloads the named modules, which can be module patterns selecting
-dependencies of the main module or module queries of the form path@version.
-With no arguments, download applies to all dependencies of the main module
-(equivalent to 'go mod download all').
-
-The go command will automatically download modules as needed during ordinary
-execution. The "go mod download" command is useful mainly for pre-filling
-the local cache or to compute the answers for a Go module proxy.
-
-*** vendor
-#+begin_src shell
-go mod vendor
-#+end_src
-*** graph
-*** edit
-** list
-|        |   |
-|--------+---|
-| -m all |   |
-|        |   |
-
-** install
-|               |                            |
-|---------------+----------------------------|
-| <name>        |                            |
-| <name>@latest | latest version of the tool |
-
-#+begin_src shell
-
-go install github.com/rakyll/hey@latest
-
-#+end_src
-
-** run
-Run compiles and runs the named main Go package.
-
-** env
-- list golang environment variables
-*** $GOPATH
-*** $GOPROXY
-** test
-|                 |   |
-|-----------------+---|
-| -v or --verbose |   |
-| -h or --help    |   |
-
 * Standard Library
 ** bufio
 Package bufio implements buffered I/O. It wraps an io.Reader or io.Writer
@@ -1319,8 +1242,13 @@ io.EOF
 *Writer*
 
 ** ioutil
-** json
+** enconding
+*** json
 - only exported fields are marshaled
+#+begin_src go
+import "encoding/json"
+#+end_src
+** log
 ** math
 |                 |   |
 |-----------------+---|
@@ -1422,6 +1350,83 @@ t.Run("AddNewTask", func(t *testing.T) {
 - IsLetter
 - IsUpper
 - IsLower
+* Commands
+** vet
+      Examines Go source code and reports suspicious constructs
+
+      |   |   |
+      |---+---|
+      |   |   |
+
+** build
+- build project and create binary
+|                  |              |
+|------------------+--------------|
+| -o <name> <file> | set location |
+|                  |              |
+
+** get
+- modules only
+
+add to project as dependecy
+#+begin_src shell
+go get github.com/russross/blackfriday/v2@latest
+#+end_src
+** doc
+** mod
+*** init
+#+begin_src shell
+go mod init MODULE_PATH
+#+end_src
+*** tidy
+Add/remove deps non listed in dep file
+*** download
+Download downloads the named modules, which can be module patterns selecting
+dependencies of the main module or module queries of the form path@version.
+With no arguments, download applies to all dependencies of the main module
+(equivalent to 'go mod download all').
+
+The go command will automatically download modules as needed during ordinary
+execution. The "go mod download" command is useful mainly for pre-filling
+the local cache or to compute the answers for a Go module proxy.
+
+*** vendor
+#+begin_src shell
+go mod vendor
+#+end_src
+*** graph
+*** edit
+** list
+|        |   |
+|--------+---|
+| -m all |   |
+|        |   |
+
+** install
+|               |                            |
+|---------------+----------------------------|
+| <name>        |                            |
+| <name>@latest | latest version of the tool |
+
+#+begin_src shell
+
+go install github.com/rakyll/hey@latest
+
+#+end_src
+
+** run
+Run compiles and runs the named main Go package.
+
+** env
+- list golang environment variables
+*** $GOPATH
+*** $GOPROXY
+** test
+|                 |   |
+|-----------------+---|
+| -v or --verbose |   |
+| -h or --help    |   |
+
 * Project Structure
 ** go.mod
 *** require
@@ -1556,7 +1561,11 @@ goimports -l -w .
 #+end_src
 * Ops
 ** Dockerfile
+#+begin_src dockerfile
+#+end_src
 ** Makefile
+#+begin_src makefile
+#+end_src
 * Carrer
 - Modules
 - REST API
