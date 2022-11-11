@@ -157,12 +157,23 @@ Update remote refs along with associated objects.
 git push --set-upstream origin main
 #+end_src
 
-*force*
+*--force*
 
 #+begin_src shell
 git push -f origin main
 git push origin +main
 #+end_src
+
+*--force-with-lease*
+
+#+begin_src shell
+git push origin --force-with-lease
+#+end_src
+
+
+#+begin_quote
+only overwrite the branch ref on the server if the branch pushed is related to the branch on the server. So, this avoids to accidentially overwrite the server branch with a completely different branch creating lots of confusion (locally and on the server), maybe not only for yourself.
+#+end_quote
 
 ** rebase
 Forward-port local commits to the updated upstream head.
@@ -249,7 +260,7 @@ git switch --detach <commit>
 ** tag
       Create, list, delete, or verify a tagged object.
 ** worktree
-      Manage multiple working trees.
+Manage multiple working trees.
 * Official
     https://git-scm.com/docs
 
