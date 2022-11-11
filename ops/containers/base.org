@@ -127,7 +127,7 @@ Allocate a pseudo-TTY for container
 *-i, --interactive*
 Keep STDIN open even if not attached
 
-*-w, --workdir
+*-w, --workdir*
 Working directory inside the container
 
 *-p, --publish*
@@ -138,6 +138,7 @@ Publish a container's port, or a range of ports, to the host (default [])
 ... -p 8080:8080
 #+end_src
 
+*--env-file*
 
 *** rm
 removes one or more containers from the host. The container name or ID can be used.
