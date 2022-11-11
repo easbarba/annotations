@@ -1,6 +1,5 @@
 #+title: Golang Applications
 
-
 * Swagger
 ** generate
 #+begin_src shell
