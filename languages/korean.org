@@ -1,0 +1,46 @@
+#+title: Korean
+
+| formal              | Informal       |                     |
+|---------------------+----------------+---------------------|
+|                     | 안녕            | Peace(hi)           |
+| annyeon-haseyo      |                | Hi, are you ok?     |
+|                     |                |                     |
+|                     | 만나서 반가워     | Nice to meet you.   |
+| 오랜만이네요           |                | its been a long Sun |
+| 올만이네              |                | im comming          |
+| annyeonghi jumuseyo |                | good night          |
+| 그리고                |                | and?                |
+|                     | 모르겠어         | I dont know         |
+|                     | 어떻게 지내요?    | how are you?        |
+| 넘                   |                | too much / very     |
+|                     |                |                     |
+|                     | 할머니           | grand mother        |
+| annyeonghi gyeseyo  | 잘있어           | good bye            |
+|                     | joesonghamnida | im sorry            |
+| 예쁜                 |                | pretty              |
+| 좋은                 |                | good                |
+|                     | jeogiyo        | excuse me           |
+| motasenggin         |                | ugly                |
+| 나쁜                 |                | bad                 |
+| 얼굴                 |                | face                |
+|                     | 쉬운            | easy                |
+|                     | 어려운           |                     |
+|                     | 가까이에         | near                |
+|                     | 멀리            | far                 |
+|                     | 작은            | small               |
+|                     | 오늘            | today               |
+|                     | 어제            | yesterday           |
+|                     | 내일 봐요        | see you tomorrow    |
+|                     | 주              | weak                |
+| 좋은 아침이에요         | 좋은 아침        | good morning        |
+| 소녀                 |                | girl                |
+| 여자                 |                | woman               |
+| 안녕하세요             | 안녕            | hello               |
+| tto bwayo           |                | see you again       |
+| ja gayo             | 잘가            | go well             |
+| 잘 자                |                | good night          |
+| 감사합니다             | 고마워           | thank you           |
+| 안녕                 |                | were welcome        |
+|                     | ye / ne        | yes                 |
+|                     | aniyo          | no                  |
+| Jeoneun Aleximnida  |                |                     |
