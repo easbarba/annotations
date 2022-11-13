@@ -123,6 +123,51 @@ fputs("lispy> ", stdout);
 *stdin*
 
 *stdout*
+** getopt
+#+begin_src c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(int argc, char **argv) {
+  int c;
+  int digit_optind = 0;
+  int aopt = 0, bopt = 0;
+  char *copt = 0, dopt = 0;
+
+  while ((c = getopt(argc, argv, "ac:0")) != 1) {
+    int this_option_optind = optind ? optind : 1;
+
+    switch (c) {
+    case '0':
+      printf("Vai Corinthians");
+      exit(0);
+      break;
+    case 'a':
+      printf("Fool");
+      exit(0);
+      break;
+    case 'c':
+      printf("voce disse: %s", optarg);
+      copt = optarg;
+      exit(0);
+      break;
+    default:
+      printf("errado, mae da foca!");
+      abort();
+    }
+  }
+
+  if (optind < argc) {
+    printf("non-option ARGV-elements: ");
+    while (optind < argc) {
+      printf("%s ", argv[optind++]);
+    }
+    printf("\n");
+  }
+  exit(0);
+}
+#+end_src
 
 ** stdlib
 #+begin_src c
@@ -398,83 +443,6 @@ int main ()
 https://cdecl.org/  - C gibberish ↔ English
 https://build2.org/
 
-* Read later
-    Mike Gancarz's The Unix Philosophy
-    The Pragmatic Programmer [Hunt-Thomas
-    The Practice of Programming [Kernighan-Pike99
-    Zen Flesh, Zen Bones [Reps-Senzaki],
-
-    https://multun.net/obscure-c-features.html
-
-    https://norasandler.com/2017/11/29/Write-a-Compiler.html
-
-    https://ecc-comp.blogspot.com/2014/12/homogeneous-operating-systems-are-better.html
-
-    https://usesthis.com/interviews/christopher.allan.webber/
-
-    https://raphlinus.github.io/programming/rust/2018/08/17/undefined-behavior.html
-
-    https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html
-
-    https://mort.coffee/home/obscure-c-features/
-
-    https://monades.roperzh.com/rediscovering-make-automatic-variables/
-
-    https://monades.roperzh.com/rediscovering-make-power-behind-rules/
-
-    http://www.shubhro.com/2018/01/20/brushing-up-os-c/
-
-    https://solarianprogrammer.com/2017/01/08/c99-c11-dynamic-array-mimics-cpp-vector-api-improvements/
-
-    https://solarianprogrammer.com/2017/01/06/c99-c11-dynamic-array-mimics-cpp-vector/
-
-    http://collin.moe/post.php?i=8
-
-    https://www.viva64.com/en/b/0558/
-
-    http://devarea.com/the-c-preprocessor/
-
-    https://fgiesen.wordpress.com/2018/02/19/reading-bits-in-far-too-many-ways-part-1/
-
-    https://gustedt.wordpress.com/2012/10/14/c11-defects-c-threads-are-not-realizable-with-posix-threads/
-
-    http://arjunsreedharan.org/post/148675821737/write-a-simple-memory-allocator
-
-    https://www.manager.com.br/empregos-c-programador-desenvolvedor
-
-    https://github.com/aleksandar-todorovic/awesome-c
-
-    https://queue.acm.org/detail.cfm?id=3212479
-
-    https://www.quora.com/Why-does-it-seem-that-Unix-is-written-in-C-and-not-written-with-any-C++-Isn%E2%80%99t-C++-more-powerful-than-C
-
-    http://www.code-in-c.com/galton-board-in-c/
-
-    https://wozniak.ca/blog/2018/06/25/Massacring-C-Pointers/index.html
-
-    http://www.itachay.com/2018/06/cc-programming-questions-practice.html
-
-    http://nullprogram.com/blog/2018/06/23/
-
-    http://www.code-in-c.com/an-introduction-to-ncurses-in-c/
-
-    https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/C-Extensions.html
-
-    https://www.ibm.com/developerworks/linux/library/l-gcc-hacks/
-
-    https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html
-
-    http://www.buildyourownlisp.com/chapter6_parsing
-
-    http://nullprogram.com/blog/2018/06/10/
-
-    https://stefansf.de/post/pointers-are-more-abstract-than-you-might-expect/
-
-    https://www.reddit.com/r/C_Programming/comments/8h4pda/c_is_not_a_lowlevel_language/
-
-    https://github.com/ruslo/hunter
-
-    https://github.com/oriansj/knight-vm
 * Articles
     http://arjunsreedharan.org/post/82710718100/kernel-101-lets-write-a-kernel
 
@@ -596,8 +564,9 @@ https://build2.org/
 
     https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html
 * Toolings
-* Makefiles
-** eg1
+* Ops
+** Makefiles
+*** eg1
 #+begin_src makefile
 CC=gcc
 CFLAGS=-Wall -w -pedantic -ansi -std=c11
@@ -609,7 +578,6 @@ clean:
 build: clean
 	${CC} ${CC_OPTIONS}	commands.c become.c config.c translate.c -o ${TARGET}
 #+end_src
-
 * Libraries
     https://www.gnu.org/software/libc/
 
@@ -659,3 +627,80 @@ build: clean
 - write API's and not just use them.
 - experience in programming micro-controllers.
 - gcc/autoconf/automake
+* Read later
+    Mike Gancarz's The Unix Philosophy
+    The Pragmatic Programmer [Hunt-Thomas
+    The Practice of Programming [Kernighan-Pike99
+    Zen Flesh, Zen Bones [Reps-Senzaki],
+
+    https://multun.net/obscure-c-features.html
+
+    https://norasandler.com/2017/11/29/Write-a-Compiler.html
+
+    https://ecc-comp.blogspot.com/2014/12/homogeneous-operating-systems-are-better.html
+
+    https://usesthis.com/interviews/christopher.allan.webber/
+
+    https://raphlinus.github.io/programming/rust/2018/08/17/undefined-behavior.html
+
+    https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html
+
+    https://mort.coffee/home/obscure-c-features/
+
+    https://monades.roperzh.com/rediscovering-make-automatic-variables/
+
+    https://monades.roperzh.com/rediscovering-make-power-behind-rules/
+
+    http://www.shubhro.com/2018/01/20/brushing-up-os-c/
+
+    https://solarianprogrammer.com/2017/01/08/c99-c11-dynamic-array-mimics-cpp-vector-api-improvements/
+
+    https://solarianprogrammer.com/2017/01/06/c99-c11-dynamic-array-mimics-cpp-vector/
+
+    http://collin.moe/post.php?i=8
+
+    https://www.viva64.com/en/b/0558/
+
+    http://devarea.com/the-c-preprocessor/
+
+    https://fgiesen.wordpress.com/2018/02/19/reading-bits-in-far-too-many-ways-part-1/
+
+    https://gustedt.wordpress.com/2012/10/14/c11-defects-c-threads-are-not-realizable-with-posix-threads/
+
+    http://arjunsreedharan.org/post/148675821737/write-a-simple-memory-allocator
+
+    https://www.manager.com.br/empregos-c-programador-desenvolvedor
+
+    https://github.com/aleksandar-todorovic/awesome-c
+
+    https://queue.acm.org/detail.cfm?id=3212479
+
+    https://www.quora.com/Why-does-it-seem-that-Unix-is-written-in-C-and-not-written-with-any-C++-Isn%E2%80%99t-C++-more-powerful-than-C
+
+    http://www.code-in-c.com/galton-board-in-c/
+
+    https://wozniak.ca/blog/2018/06/25/Massacring-C-Pointers/index.html
+
+    http://www.itachay.com/2018/06/cc-programming-questions-practice.html
+
+    http://nullprogram.com/blog/2018/06/23/
+
+    http://www.code-in-c.com/an-introduction-to-ncurses-in-c/
+
+    https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/C-Extensions.html
+
+    https://www.ibm.com/developerworks/linux/library/l-gcc-hacks/
+
+    https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html
+
+    http://www.buildyourownlisp.com/chapter6_parsing
+
+    http://nullprogram.com/blog/2018/06/10/
+
+    https://stefansf.de/post/pointers-are-more-abstract-than-you-might-expect/
+
+    https://www.reddit.com/r/C_Programming/comments/8h4pda/c_is_not_a_lowlevel_language/
+
+    https://github.com/ruslo/hunter
+
+    https://github.com/oriansj/knight-vm
