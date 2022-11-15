@@ -84,6 +84,20 @@ export PATH="$HOME/.cargo/bin"${PATH:+:}$PATH
 
 
 #+end_src
+* env vars
+#+begin_src shell
+# RUST
+export CARGO_HOME=$HOME/.cargo
+export PATH="$CARGO_HOME/bin":$PATH
+
+# BUN
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# DENO
+export DENO_INSTALL="/home/easbarba/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+#+end_src
 * irbrc
    #+begin_src ruby
 

@@ -28,3 +28,19 @@ ng new todo --routing false --style css --skip-git --skip-tests
 ** update
 ** test
 ** serve
+* Jobs
+** PicPay
+    HTML/CSS/JAVASCRIPT/TYPESCRIPT;
+    Experiência com Angular;
+    Conhecimento de Git;
+    Conhecimento de metodologias ágeis;
+    Patterns CSS (BEM, SMACSS...);
+    Design Patterns (SOLID, Clean Code);
+    Conhecer alguma lib de estilização (Material, Tailwind, Boodstrap...);
+    Linters (Prettier, TSLint/ESlint);
+    RxJS;
+    Conceito de componentização (smart, dumb components…);
+    Testes unitários;
+    Gerenciamento de estado (Akita, Redux, Ngxs);
+    Conhecimento diversificado em arquitetura;
+    Experiência com Code Review.

@@ -9,9 +9,9 @@
 | The Art of modern PHP 8 |         |            |
 
 ** SLOC
-| Source Code | folder | file      | @ |
-|-------------+--------+-----------+---|
-|             |        |           |   |
+| Source Code | folder | file | @ |
+|-------------+--------+------+---|
+| composer    |        |      |   |
 
 * Base
 ** Types
@@ -207,6 +207,27 @@ Metodologias ágeis;
 Design e desenvolvimento de micro serviços horizontalmente escaláveis;
 Jobs de alto desempenho e comunicação entre serviços utilizando soluções de fila como Beanstalk, RabbitMQ, Kafka, etc;
 Conhecimento dos riscos comuns de segurança (OWASP).
+** PicPay Jr
+Requisitos e qualificações:
+
+    Experiência com PHP;
+    Armazenamento de dados em MySQL (ou outros bancos relacionais) ou MongoDB (ou outros bancos não relacionais);
+    Atenção para qualidade de código e design patterns;
+    Versionamento de códigos utilizando Git.
+
+
+
+Será um diferencial se tiver conhecimento em:
+
+    Metodologias ágeis;
+    Frameworks Laravel ou Lumen, com ênfase em aplicações RESTful;
+    Desenvolvimento orientado a testes;
+    Ambiente de desenvolvimento com Docker;
+    Design e desenvolvimento de micro serviços horizontalmente escaláveis;
+    Jobs de alto desempenho e comunicação entre serviços utilizando soluções de fila como Beanstalk, RabbitMQ, Kafka, etc;
+    Conhecimento dos riscos comuns de segurança (OWASP).
+
+
 ** Xteam
 Job Description
 PHP Developer
