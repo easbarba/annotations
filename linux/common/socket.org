@@ -1,0 +1,13 @@
+#+title:  Unix Domain Sockets
+
+* Concept
+- Unix sockets don’t actually write the data they send to the disk
+- all the data is retained within kernel memory
+- a socket file is to maintain a reference to the socket, and to give it filesystem permissions to control acces
+- a socket file doesn’t contain anything, and you shouldn’t modify it directly, except for the permissions where applicable
+- TCP-based sockets are called stream sockets, where all data will arrive in order.
+- UDP-based sockets are datagram sockets, where order (or even delivery) isn’t guaranteed.
+- raw sockets don’t have any restrictions
+- alternative to network-based TCP connections when processes are running on the same machine.
+* Stream sockets
+- uses the SOCK_STREAM protocol
