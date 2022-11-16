@@ -1,6 +1,6 @@
-#+TILE: Containers - Annotations
+#+TILE: Containers | base
 
-* Progresso
+* Progress
 ** books
 | books            | chapter        | at |
 |------------------+----------------+----|
@@ -269,20 +269,21 @@ docker tag 7146a802571b railsapp
 *** ls
 *** prune
 * Volumes
-* .dockerignore
-* docker-entrypoint.sh
-* Dockerfile
-** FROM
+* Network
+* Images
+* Files
+** Dockerfile
+*** FROM
 |                       |                   |
 |-----------------------+-------------------|
 | scratch               | tart from scratch |
 | <image-name> or <uri> |                   |
-** LABEL
+*** LABEL
 add extra information to the image
-** MAINTAINER
-** RUN
-** COPY
-** ADD
+*** MAINTAINER
+*** RUN
+*** COPY
+*** ADD
 ADD keyword also lets us copy and unpack TAR files, as well as providing a URL
 as a source for the files and folders to copy.
 
@@ -294,18 +295,18 @@ ADD http://example.com/sample.txt /data/
 ADD --chown=11:22 ./data/web* /app/data/
 #+end_src
 
-** WORKDIR
-** ENV
+*** WORKDIR
+*** ENV
 define env variables
 
 #+begin_src dockerfile
 ENV meh foo # only set one ENV per line
 ENV meh=foo bar=posix # multiple environmental variables on the same line
 #+end_src
-** EXPOSE
+*** EXPOSE
 declare all ports that the application is listening on and that need to be
 accessible from outside of the container
-** CMD
+*** CMD
 used to define the parameters of the program set in ENTRYPOINT
 
 - executed only at the start of image run
@@ -318,7 +319,7 @@ CMD ["-c","3","8.8.8.8"]
 podman container run -it --rm pinger -w 5 gnu.org
 
 #+end_src
-** ENTRYPOINT
+*** ENTRYPOINT
 used to define the command of the expression
 
 - executed only at the start of image run
@@ -331,37 +332,17 @@ CMD ["-c","3","8.8.8.8"]
 
 podman container run -it --rm --entrypoint bin/sh meh
 #+end_src
-** VOLUME
-* Exit
-** Stop/Quit/Detach
-|         |          |
-|---------+----------|
-| C-c     | stop all |
-| C-p C-q | detach   |
-| c-d     | kill     |
-
-* Images Registry
-- https:/​/​cloud.​google.​com/​container-​registry
-- https:/​/​aws.​amazon.​com/​ecr/​
-- https:/​/​azure.​microsoft.​com/​en-​us/
-- https:/​/​access.​redhat.​com/​containers/​
-- https:/​/​jfrog.​com/​integration/​artifactory-docker-​registry/​
+*** VOLUME
+** .dockerignore
+** docker-entrypoint.sh
 * Terms
 - kernel namespace & cgropus
 - noisy-neighbor problem
 - common vulnerabilities and exposures (CVEs)
 - content trust
 - man-in-the-middle (MITM)
-* Best practices
-- should be ephemeral
-- order individuals commands so to leverage caching as much as possible
-- less layers by combining related commands, smaller images, faster builds and startup times
-- use .dockerignore to keep image as lean as possible by not copy unnecessary files
-- avoid installing unnecessary packages
-- use multi-stages builds
-
-** Multi-stages
-*** eg
+* Multi-stages
+** eg
 #+begin_src shell
 FROM alpine:3.7 AS build
 RUN apk update && \
@@ -376,7 +357,21 @@ FROM alpine:3.7
 COPY --from=build /app/bin/hello /app/hello
 CMD /app/hello
 #+end_src
-* Example
+* Images Registry
+- https:/​/​cloud.​google.​com/​container-​registry
+- https:/​/​aws.​amazon.​com/​ecr/​
+- https:/​/​azure.​microsoft.​com/​en-​us/
+- https:/​/​access.​redhat.​com/​containers/​
+- https:/​/​jfrog.​com/​integration/​artifactory-docker-​registry/​
+* Best practices
+- should be ephemeral
+- order individuals commands so to leverage caching as much as possible
+- less layers by combining related commands, smaller images, faster builds and startup times
+- use .dockerignore to keep image as lean as possible by not copy unnecessary files
+- avoid installing unnecessary packages
+- use multi-stages builds
+
+* Examples
 - Rails
 
 #+begin_src ruby
@@ -437,6 +432,15 @@ podman volume rm -f $(podman volume ls -q)
 docker network rm $(docker network ls -q)
 podman network rm $(podman network ls -q)
 #+end_src
+** WatchTower
+** Exit
+*** Stop/Quit/Detach
+|         |          |
+|---------+----------|
+| C-c     | stop all |
+| C-p C-q | detach   |
+| c-d     | kill     |
+
 * Makefile
 #+begin_src makefile
 # Compose
