@@ -32,6 +32,15 @@ podman machine init --cpus 2 --memory 2048 --rootful
 
 ** pod
 ** ps
+** generate
+ Generate structured data based on containers, pods or volumes
+** play
+Create containers, pods or volumes based on Kubernetes YAML
+* Options
+*--runtime*
+#+begin_src shell
+$ podman --runtime /usr/bin/crun run --rm --pids-limit 1
+#+end_src
 * Pods
 ** example
 #+begin_src shell
