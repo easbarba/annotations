@@ -1,11 +1,11 @@
 #+title: Posts
 
-* Command-line options in shell scripts with GNU getopt
+* Command-line options in shell scripts with getopt from util-linux
 Shell scripts are usually dead simple to use, you just run it and is done.
 
 Sometimes you will need something more flexible that require user's input,
 
-The GNU's getopt, not to confuse with bash's builtin getopt, has some niceties.
+The GNU's getopt, not to be confuses with UNIX's Shell builtin getopt, has some niceties.
 
 One such a cool feature is the long options found in most cli apps that improve clarity to the end-user.
 
