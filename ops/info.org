@@ -1,0 +1,31 @@
+#+title: DevOps
+
+* Carrer
+** datarain Junior
+Responsabilidades e atribuições
+
+    Atuará principalmente na construção e manutenção de pipelines;
+    Com forte atuação também em provisionamento de imagens/registry;
+    Publicação de containers em Docker, Dockerfiles e ECS;
+    Atuará também na construção e manutenção de branchs em ambiente Git;
+    E na elaboração de documentos técnicas que se fizerem necessários para entendimento e suporte ao processo;
+    Terá papel importante na ampliação e refinamento das automatizações de serviços de infraestrutura;
+    E na melhoria de performance e segurança dos ambientes onde executam os sistemas do cliente envolvidos nestes processos de CI/CD.
+
+Requisitos e qualificações
+
+    Profissional Junior/Pleno com experiência em DevOps;
+    Experiência com Terraform, Git, GitLab CI, Linux, Docker e Kubernetes;
+    Experiência com algumas dessas linguagens de programação/plataformas, como Python, Bash, Shell scripting, Java, Java Script, Node.JS, React e Angular;
+    Desejável experiência com Jenkins, Helm, Istio, Anthos;
+    Desejável experiência com os serviços AWS: CloudWatch, Route 53, ECR, S3, SQN e SNS;
+    Experiência com ferramenta de automação de compilação, como Maven;
+    Superior Completo em Ciências da Computação, Engenharia da Computação, Análise e Desenvolvimento de sistemas ou demais cursos de tecnologia.
+
+Informações adicionais
+
+Diferenciais:
+
+    Desejável inglês com fluência para escrita, leitura e conversação;
+    Desejável conhecimento da linguagem SQL, e bancos relacionais e NoSQL;
+    Certificações AWS ou de ferramentas de DevOps.
