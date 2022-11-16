@@ -471,3 +471,23 @@ rpurge:
 	$(RUNNER) rm $(CONTAINER_NAME)
 	$(RUNNER) stop $(CONTAINER_NAME)
 #+end_src
+* Scripts
+#+begin_src shell
+# for RUNTIME in runc crun do \
+    \time -v sh -c "for i in {1..100}; do $RUNTIME run foo < /dev/null; done" \
+done
+    Command being timed: "sh -c for i in {1..100}; do runc run foo; done"
+    User time (seconds): 2.16
+    System time (seconds): 4.60
+    Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.89
+    ...
+    Maximum resident set size (kbytes): 15120
+...
+    Command being timed: "sh -c for i in {1..100}; do crun run foo; done"
+    User time (seconds): 0.53
+    System time (seconds): 1.87
+    Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.86
+    ...
+    Maximum resident set size (kbytes): 3752
+ ...
+#+end_src
