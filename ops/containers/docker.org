@@ -26,6 +26,8 @@
    - prevent MITM attack
    - images are immutable
 * Commands
+** config
+
    | command             | description                            |
    |---------------------+----------------------------------------|
    | login               |                                        |

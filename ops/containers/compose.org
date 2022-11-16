@@ -7,7 +7,6 @@ podman-compose up -d, --detach
 podman-compose up --build --force-recreate
 podman-compose up --build
 #+end_src
-
 ** up
 #+begin_src shell
 docker-compose up
@@ -38,6 +37,11 @@ docker-compose run --rm web echo 'ran a different command'
 docker-compose exec web echo 'ran a different command'
 #+end_src
 ** rm
+*--rmi <all|x>*
+
+#+begin_src shell
+docker-compose down --rmi all
+#+end_src
 ** kill
 * docker-compose.yml
 ** links
