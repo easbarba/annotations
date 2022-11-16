@@ -14,12 +14,24 @@
 ** system
 *** reset
 ** machine
+*init*
+
 #+begin_src shell
 podman machine init --cpus 2 --memory 2048 --rootful
 #+end_src
+
+*start*
+
+*ssh*
+
+*stop*
+
+*list*
+
+*ls*
+
 ** pod
 ** ps
-
 * Pods
 ** example
 #+begin_src shell
