@@ -33,6 +33,18 @@ Copy the contents of SRC_PATH to the DEST_PATH.
 docker container cp nginx-test:/tmp/testing testing
 podman cp ~/Downloads/users.sql postin:/users.sql
 #+end_src
+
+- copying log files on host
+#+begin_src shell
+docker cp container:/var/log/nginx/example.log example.log
+#+end_src
+
+- pull out entire directory
+
+#+begin_src shell
+docker cp nginx:/etc/nginx/ nginxconfig/
+#+end_src
+
 *** diff
 - A: added
 - C: changed
@@ -48,6 +60,16 @@ podman container diff sample
 | -t | provide tty               |
 | -e | define env vars           |
 | -d | run as daemon             |
+
+#+begin_src shell
+docker exec -it containerID tail /var/log/nginx/access.log
+#+end_src
+
+- run scripts inside containers
+#+begin_src shell
+docker exec -it containerID script.sh
+#+end_src
+
 *** kill
 The docker kill subcommand kills one or more containers. The main process inside
 the container is sent SIGKILL signal (default), or the signal that is specified
@@ -341,8 +363,9 @@ podman container run -it --rm --entrypoint bin/sh meh
 - common vulnerabilities and exposures (CVEs)
 - content trust
 - man-in-the-middle (MITM)
-* Multi-stages
-** eg
+* Traits
+** Multi-stages
+*** eg
 #+begin_src shell
 FROM alpine:3.7 AS build
 RUN apk update && \
@@ -357,6 +380,35 @@ FROM alpine:3.7
 COPY --from=build /app/bin/hello /app/hello
 CMD /app/hello
 #+end_src
+** Mounting a host directory
+#+begin_src shell
+docker run -d -it  --name container --mount type=bind,source=/nginxconfig,target=/etc/nginx nginx:latest
+#+end_src
+
+- create volume
+#+begin_src shell
+docker volume create nginx-config
+docker run -d --name devtest --mount source=nginx-config,target=/etc/nginx nginx:latest
+#+end_src
+
+- composing
+#+begin_src yaml
+version: "3.0"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - nginx-config:/etc/nginx/
+volumes:
+  nginx-config:
+#+end_src
+** Mounting single files
+#+begin_src shell
+docker run -it --mount type=bind,source=/path/file.cfg,target=/etc/example/file.cfg nginx sh
+#+end_src
+
 * Images Registry
 - https:/​/​cloud.​google.​com/​container-​registry
 - https:/​/​aws.​amazon.​com/​ecr/​
