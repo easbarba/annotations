@@ -2118,3 +2118,64 @@ runs ruby code in the context of rails non-interactively.
 #+begin_src sh
 bin/rails runner "Model.long_running_method"
 #+end_src
+* Ops
+** dockerfile
+#+begin_src dockerfile
+FROM ruby:slim-bullseye
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
+    build-essential wget curl
+
+# NODEJS / YARN
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
+    nodejs libpq-dev && \
+    npm i -g yarn
+
+WORKDIR /usr/src/app
+
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler --no-document
+RUN bundle install
+
+COPY package.json yarn.lock ./
+RUN yarn install --check-files
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+#+end_src
+
+#+begin_src dockerfile
+FROM golang:1.17-alpine3.14 as builder
+LABEL maintainer="EAS Barbosa"
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+ENV GO111MODULE=on
+ENV GOOS linux
+
+RUN go build -race -ldflags "-extldflags '-static'" -o pak cmd/pak/main.go
+
+# ---
+
+FROM golang:1.17-alpine3.14
+
+COPY --from=builder /app/pak /usr/local/bin/pak
+RUN chmod +x /usr/local/bin/pak
+
+COPY docs/examples/*.yaml /root/.config/pak/
+
+CMD ["pak"]
+
+# ---
+# ENV LOG /root/.local/share/pak
+#+end_src
