@@ -10,6 +10,23 @@
 rsync -avz /from /to
 rsync -vhazrPt /x /y
 #+end_src
+
+*--include*
+
+#+begin_src shell
+rsync -a -m --include='*.jpg' --include='*/' --exclude='*' src_directory/ dst_directory/
+#+end_src
+
+*--exclude*
+#+begin_src shell
+rsync -a --exclude 'dir1/*' src_directory/ dst_directory/
+rsync -a --exclude={'file1.txt','dir1/*','dir2'} src_directory/ dst_directory/
+rsync -a --exclude '*.jpg*' src_directory/ dst_directory/
+rsync -a -m --include='*.jpg' --include='*/' --exclude='*' src_directory/ dst_directory/
+#+end_src
+
+*--exclude-from <FILE>*
+
 ** tree
 |    |                                              |
 |----+----------------------------------------------|
