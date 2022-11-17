@@ -1,106 +1,5 @@
 #+TITLE: Dots | .config | Legacy
 
-* zae
-    #+begin_src yaml
-    ---
-    builddep: builddep
-    clean: autoremove
-    depends: repoquery --requires --resolve
-    download: ''
-    fix: fix
-    help: help
-    info: info
-    install: install
-    installed: list installed
-    remove: remove
-    search: search
-    sysupgrade: sysupgrade
-    update: update
-    upgrade: upgrade
-
-    ---
-    builddep: ''
-    clean: autoremove
-    depends: ''
-    download: fetch
-    fix: fix
-    help: help
-    info: query
-    install: install
-    installed: version
-    remove: remove
-    search: search
-    sysupgrade: ''
-    update: update
-    upgrade: upgrade
-    ---
-    builddep: ''
-    clean: autoremove
-    depends: ''
-    download: fetch
-    fix: fix
-    help: help
-    info: query
-    install: install
-    installed: version
-    remove: remove
-    search: search
-    sysupgrade: ''
-    update: update
-    upgrade: upgrade
-
-    ---
-    builddep: build-dep
-    clean: nix-store --gc
-    depends: depends
-    download: download
-    fix: install -f
-    help: help
-    info: show
-    install: nix-env --install
-    install+: nix-env --install -A
-    installed: nix-env -qa
-    remove: nix-env --uninstall
-    search: nix-env -qa
-    sysupgrade: ''
-    update: nix-env --update
-    upgrade: nix-env --upgrade
-
-
-    ---
-    builddep: ''
-    clean: ''
-    depends: ''
-    download: ''
-    fix: ''
-    help: help
-    info: ''
-    install: "-S"
-    installed: ''
-    remove: "-R"
-    search: "-Ss"
-    sysupgrade: ''
-    update: "-Syy"
-    upgrade: "-Syu"
-
-
-    ---
-    builddep: ''
-    clean: autoremove
-    depends: ''
-    download: fetch
-    fix: fix
-    help: help
-    info: query
-    install: install
-    installed: version
-    remove: remove
-    search: search
-    sysupgrade: ''
-    update: update
-    upgrade: upgrade
-
-    #+end_src
 * qas
 ** devops
 #+begin_src csv
@@ -211,16 +110,13 @@ harec,master,https://git.sr.ht/~sircmpwn/harec
 hautils,master,https://git.sr.ht/~sircmpwn/hautils
 hare,master,https://git.sr.ht/~sircmpwn/hare
 #+end_src
-** c
+** javascript
 #+begin_src csv
 name,branch,url
-sway,master,https://github.com/swaywm/sway
-openssh,master,https://github.com/openssh/openssh-portable
-openssl,master,git://git.openssl.org/openssl
-dwm,master,https://git.suckless.org/dwm
-tmux,master,https://github.com/tmux/tmux
-redis,unstable,https://github.com/redis/redis
-curl,master,https://github.com/curl/curl
+frontity,dev,https://github.com/frontity/frontity
+lucasfcosta-testing-javascript-applications,master,https://github.com/lucasfcosta/testing-javascript-applications
+axios,main,https://github.com/axios/axios
+npm,latest,https://github.com/npm/cli
 #+end_src
 ** lua
 #+begin_src csv
@@ -345,6 +241,107 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/dart-lang/sdk
 
 #+end_src
+* zae
+    #+begin_src yaml
+    ---
+    builddep: builddep
+    clean: autoremove
+    depends: repoquery --requires --resolve
+    download: ''
+    fix: fix
+    help: help
+    info: info
+    install: install
+    installed: list installed
+    remove: remove
+    search: search
+    sysupgrade: sysupgrade
+    update: update
+    upgrade: upgrade
+
+    ---
+    builddep: ''
+    clean: autoremove
+    depends: ''
+    download: fetch
+    fix: fix
+    help: help
+    info: query
+    install: install
+    installed: version
+    remove: remove
+    search: search
+    sysupgrade: ''
+    update: update
+    upgrade: upgrade
+    ---
+    builddep: ''
+    clean: autoremove
+    depends: ''
+    download: fetch
+    fix: fix
+    help: help
+    info: query
+    install: install
+    installed: version
+    remove: remove
+    search: search
+    sysupgrade: ''
+    update: update
+    upgrade: upgrade
+
+    ---
+    builddep: build-dep
+    clean: nix-store --gc
+    depends: depends
+    download: download
+    fix: install -f
+    help: help
+    info: show
+    install: nix-env --install
+    install+: nix-env --install -A
+    installed: nix-env -qa
+    remove: nix-env --uninstall
+    search: nix-env -qa
+    sysupgrade: ''
+    update: nix-env --update
+    upgrade: nix-env --upgrade
+
+
+    ---
+    builddep: ''
+    clean: ''
+    depends: ''
+    download: ''
+    fix: ''
+    help: help
+    info: ''
+    install: "-S"
+    installed: ''
+    remove: "-R"
+    search: "-Ss"
+    sysupgrade: ''
+    update: "-Syy"
+    upgrade: "-Syu"
+
+
+    ---
+    builddep: ''
+    clean: autoremove
+    depends: ''
+    download: fetch
+    fix: fix
+    help: help
+    info: query
+    install: install
+    installed: version
+    remove: remove
+    search: search
+    sysupgrade: ''
+    update: update
+    upgrade: upgrade
+
+    #+end_src
 * Dot
 ** golang
 #+begin_src golang
