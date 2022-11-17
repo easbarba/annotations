@@ -29,3 +29,23 @@ Diferenciais:
     Desejável inglês com fluência para escrita, leitura e conversação;
     Desejável conhecimento da linguagem SQL, e bancos relacionais e NoSQL;
     Certificações AWS ou de ferramentas de DevOps.
+** pagseguro sre
+
+Requisitos
+
+    Superior em Tecnologia da Informação ou áreas correlatas.
+    Conhecimento em sistema operacional Linux (segurança, troubleshoot, coleta de métricas e análise de performance).
+    Experiência com rede (firewall e roteamento).
+    Experiência com serviços web (Nginx e Apache).
+    Experiência com programação (desenvolver em linguagens de script Bash, PowerShell, Shell Script e Python).
+    Experiência com versionamento (Git).
+
+
+Desejável
+
+    Conhecimento em Jenkins e Groovy.
+    Conhecimento em microsserviços (Docker e Kubernetes).
+    Conhecimento em conceitos de SDN e Service Discovery.
+    Conhecimento em prático básico de integração continua (CI CD).
+    Conhecimento em Cloud (AWS).
+    Experiência com automação das ferramentas: Chef, Puppet, Salt, Ansible e Terraform.
