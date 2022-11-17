@@ -1,12 +1,13 @@
 #+TILE: Containers | base
 
 * Progress
-** books
-| books            | chapter        | at |
-|------------------+----------------+----|
-| Mastering Docker | Docker Compose |    |
+** Books
+| books            | chapter                            | at |
+|------------------+------------------------------------+----|
+| Mastering Docker | Docker Compose                     |    |
+| Learn Docker     | 4 Creating and Managing containers |    |
 
-** sloc
+** SLOC
 | sloc           | @ | file | line |
 |----------------+---+------+------|
 | awesome-docker |   |      |      |
@@ -105,6 +106,11 @@ docker container logs --since 2020-03-28T15:52:00 -t nginx-test
 #+begin_src sh
 docker container inspect nginx-test
 #+end_src
+
+#+begin_src shell
+docker container inspect -f "{{json .State}}" trivia | jq .
+#+end_src
+
 *** pause
 Pause all proces
 
