@@ -5,7 +5,7 @@
 | name                   | chapter                    | @                          |
 |------------------------+----------------------------+----------------------------|
 | Cli applications in go | 3 Working with Files in Go |                            |
-| Learning go            | 6 Pointers                 | Pointers Are a Last Resort |
+| Learning go            | 8 Errors                   | Pointers Are a Last Resort |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -1225,7 +1225,14 @@ flag.Parse()
 ** fmt
 - Sprintf
 - Scanf
-- Printf: %T, %t, %x, %c
+
+*** printf
+- %T, %t, %x, %c
+
+#+begin_src go
+fmt.Printf("%[1]  %[2]. %[2]", name age)
+#+end_src
+
 ** http
 ** io
 Package io provides basic interfaces to I/O primitives. Its primary job is to
