@@ -1,9 +1,10 @@
 #+TITLE: Network
 
 * Progress
-|                                     |                     |   |
-|-------------------------------------+---------------------+---|
-| Networking for System Administrator | Chapter 2: Ethernet |   |
+|                                                                           |                          |   |
+|---------------------------------------------------------------------------+--------------------------+---|
+| Networking for System Administrator                                       | Chapter 2: Ethernet      |   |
+| https://yourdevopsmentor.com/blog/networking-for-devops-a-complete-guide/ | Domain Name System (DNS) |   |
 
 * Load balancing
 * Topology
