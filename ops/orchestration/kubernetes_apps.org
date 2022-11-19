@@ -6,13 +6,48 @@ export ETCDCTL_API=3
 * kubectl
 ** get
 *** nodes
+*-o*
+#+begin_src shell
+kubectl get nodes -o wide
+#+end_src
+*** pod
+*-o*
+#+begin_src shell
+kubectl get pod -o "custom-columns=PodName:.metadata.name,Containers:.spec.containers[*].name,Image:.spec.containers[*].image"
+#+end_src
 *** pods
+*-n*
+#+begin_src shell
+kubectl get pods -n apitada
+#+end_src
+*** deployment
+*-n*
+
+#+begin_src
+#+end_src
+*** logs
+** exec
 ** edit
 *** deployment / deploy
 
 ** create
-*** deployment / deploy
+*** deployment / deploy <NAME>
+*--image=<IMAGE>*
+#+begin_src shell
+kubectl create deployment go-depl --image=golang:1.19-alpine
+#+end_src
 
+*--replicas=<N>*
+#+begin_src shell
+kubectl create deploy gofirst --image=first-go-image:v1.0 --replicas=1
+#+end_src
+*** namespace
+
+** describe
+*** deployment
+#+begin_src shell
+kubectl describe deployments.apps go-depl -n apitada
+#+end_src
 * kube-apiserver
 * kubelet
 * kube-proxy
@@ -45,6 +80,10 @@ minikube config set driver podman
 * k3d
 ** commands
 *** kubeconfig
+#+begin_src shell
+export KUBECONFIG=$(k3d kubeconfig write k3s-default)
+#+end_src
+
 **** get
 ** podman
 XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
