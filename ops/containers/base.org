@@ -469,26 +469,39 @@ docker run --platform linux/amd64 --rm ljishen/sysbench /root/results/output_cpu
 
 * Tips
 ** Remove all
+- Stop all containers
 #+begin_src shell
-# Stop all containers
 docker stop $(docker ps -qa)
 podman stop $(podman ps -a)
+#+end_src
 
-# Remove all containers
+- Remove all containers
+#+begin_src shell
 docker rm $(docker ps -qa)
 podman rm $(podman ps -a)
+#+end_src
 
-# Remove all images
+- Remove all images
+#+begin_src shell
 docker rmi -f $(docker images -qa)
 podman rmi -f $(podman images -qa)
+#+end_src
 
-# Remove all volumes
+- Remove all volumes
+#+begin_src shell
 docker volume rm $(docker volume ls -qf)
 podman volume rm -f $(podman volume ls -q)
+#+end_src
 
-# Remove all networks
+- Remove all networks
+#+begin_src shell
 docker network rm $(docker network ls -q)
-podman network rm $(podman network ls -q)
+podman network rm -f $(podman network ls -q)
+#+end_src
+
+- clean all artificats
+#+begin_src shell
+podman system prune --all --volumes
 #+end_src
 ** WatchTower
 ** Exit
