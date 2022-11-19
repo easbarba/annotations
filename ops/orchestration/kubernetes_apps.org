@@ -1,0 +1,38 @@
+#+title: Kubernetes Apps
+
+* etcd
+** env vars
+export ETCDCTL_API=3
+* kubectl
+** get
+*** nodes
+*** pods
+** edit
+*** deployment / deploy
+
+** create
+*** deployment / deploy
+
+* kube-apiserver
+* kubelet
+* kube-proxy
+* minikube
+** start
+
+*--driver=DRIVER*
+#+begin_src shell
+minikube start --driver=podman
+#+end_src
+
+** config
+*** set
+**** driver
+To make podman the default driver:
+
+#+begin_src  shell
+minikube config set driver podman
+#+end_src
+* k3s
+** tips
+*** uninstall
+ /usr/local/bin/k3s-uninstall.sh
