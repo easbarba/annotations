@@ -19,6 +19,12 @@ export ETCDCTL_API=3
 * minikube
 ** start
 
+*--container-runtime=<containerd|cri-o>*
+
+#+begin_src shell
+minikube start --container-runtime=containerd
+#+end_src
+
 *--driver=DRIVER*
 #+begin_src shell
 minikube start --driver=podman
@@ -36,3 +42,42 @@ minikube config set driver podman
 ** tips
 *** uninstall
  /usr/local/bin/k3s-uninstall.sh
+* k3d
+** commands
+*** kubeconfig
+**** get
+** podman
+XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+k3d cluster create
+
+# You can now use the registry like this (example):
+# 1. create a new cluster that uses this registry
+k3d cluster create --registry-use k3d-mycluster-registry:40385
+
+# 2. tag an existing local image to be pushed to the registry
+docker tag nginx:latest k3d-mycluster-registry:40385/mynginx:v0.1
+
+# 3. push that image to the registry
+docker push k3d-mycluster-registry:40385/mynginx:v0.1
+
+# 4. run a pod that uses this image
+kubectl run mynginx --image k3d-mycluster-registry:40385/mynginx:v0.1
+** errors
+*** failed to find cpuset cgroup (v2)
+Enabling CPU, CPUSET, and I/O delegation
+
+#+begin_src shell
+$ sudo mkdir -p /etc/systemd/system/user@.service.d
+$ cat <<EOF | sudo tee /etc/systemd/system/user@.service.d/delegate.conf
+[Service]
+Delegate=cpu cpuset io memory pids
+EOF
+$ sudo systemctl daemon-reload
+#+end_src
+*** mmm
+#+begin_src shell
+ k3d cluster create apito \
+    --registry-use k3d-apito-registry:40385 \
+    --k3s-arg '--kubelet-arg=feature-gates=KubeletInUserNamespace=true@server:*'
+#+end_src
