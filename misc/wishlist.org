@@ -13,3 +13,13 @@
 - ANSI Common LISP
 - Common LISP_ A Gentle Introduction to Symbolic Computation
 - Docker for Rails Developers_ Build, Ship, and Run Your Applications Everywhere
+* Movies
+    Boomerang [1991]
+    Crooklyn.1994
+    Django Unchained (2012)
+    Eve's Bayou
+    Hidden.Figures.2016
+    Judas And The Black Messiah (2021)
+    Losing Isaiah [Halle Berry] (1995)
+    Nope (2022)
+    The Help (2011)
