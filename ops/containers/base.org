@@ -135,6 +135,10 @@ f0190af89321efec97b9d051f:/data -network moby-counter redis:alpine
 for i in {1..5}; do docker container run -d --name nginx$(printf "$i") nginx; done
 #+end_src
 
+#+begin_src shell
+docker container run -d --name registry.localhost -v local_registry:/var/lib/registry --restart always -p 5000:5000 registry:2
+#+end_src
+
 |                          |                                                    |
 |--------------------------+----------------------------------------------------|
 | -v <NAME:/WHERE>         |                                                    |
