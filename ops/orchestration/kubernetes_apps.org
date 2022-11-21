@@ -10,6 +10,7 @@ export ETCDCTL_API=3
 #+begin_src shell
 kubectl get nodes -o wide
 #+end_src
+*** all
 *** pod
 *-o*
 #+begin_src shell
@@ -26,6 +27,12 @@ kubectl get pods -n apitada
 #+begin_src
 #+end_src
 *** logs
+*** service / svc
+*** port-forward
+#+begin_src shell
+kubectl port-forward meh-dpl-749f47f6d6-x7nlk 8080:8888
+#+end_src
+** apply
 ** exec
 ** edit
 *** deployment / deploy
@@ -48,12 +55,14 @@ kubectl create deploy gofirst --image=first-go-image:v1.0 --replicas=1
 #+begin_src shell
 kubectl describe deployments.apps go-depl -n apitada
 #+end_src
+** cluster-info
+** config
+*** get-contexts
 * kube-apiserver
 * kubelet
 * kube-proxy
 * minikube
 ** start
-
 *--container-runtime=<containerd|cri-o>*
 
 #+begin_src shell
@@ -85,9 +94,38 @@ export KUBECONFIG=$(k3d kubeconfig write k3s-default)
 #+end_src
 
 **** get
+*** cluster
+**** list
+**** delete
+**** create
+*--agents*
+*--servers*
+*--registry-use*
+#+begin_src shell
+k3d cluster create apito --registry-use k3d-apito-registry
+#+end_src
+
+*--k3s-arg*
+#+begin_src shell
+k3d cluster create apito --registry-use k3d-apito-registry \
+ --k3s-arg'--kubelet-arg=feature-gates=KubeletInUserNamespace=true@server:*'
+#+end_src
+*--api-port*
+*--volume*
+*** config
+*** node
+*** registry
+**** list
+**** create
+**** delete
+*** image
+**** import
+
 ** podman
 XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+export DOCKER_SOCK=$XDG_RUNTIME_DIR/podman/podman.sock
+
 k3d cluster create
 
 # You can now use the registry like this (example):
@@ -103,6 +141,17 @@ docker push k3d-mycluster-registry:40385/mynginx:v0.1
 # 4. run a pod that uses this image
 kubectl run mynginx --image k3d-mycluster-registry:40385/mynginx:v0.1
 ** errors
+*** Error response from daemon: container create: unable to find network configuration for podman: network not found
+#+begin_src shell
+podman system reset
+
+k3d registry create --default-network podman apito-registry
+
+k3d cluster create apito \
+    -p "8082:30080@agent:0" --agents 2 \
+    --registry-use k3d-apito-registry:40385 \
+    --k3s-arg '--kubelet-arg=feature-gates=KubeletInUserNamespace=true@server:*'
+#+end_src
 *** failed to find cpuset cgroup (v2)
 Enabling CPU, CPUSET, and I/O delegation
 
@@ -113,10 +162,4 @@ $ cat <<EOF | sudo tee /etc/systemd/system/user@.service.d/delegate.conf
 Delegate=cpu cpuset io memory pids
 EOF
 $ sudo systemctl daemon-reload
-#+end_src
-*** mmm
-#+begin_src shell
- k3d cluster create apito \
-    --registry-use k3d-apito-registry:40385 \
-    --k3s-arg '--kubelet-arg=feature-gates=KubeletInUserNamespace=true@server:*'
 #+end_src
