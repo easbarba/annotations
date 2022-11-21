@@ -136,6 +136,12 @@ for i in {1..5}; do docker container run -d --name nginx$(printf "$i") nginx; do
 #+end_src
 
 #+begin_src shell
+podman run -ti -v /:/host -e hello=world alpine
+echo $hello
+cat /host/etc/os-release # ubuntu
+#+end_src
+
+#+begin_src shell
 docker container run -d --name registry.localhost -v local_registry:/var/lib/registry --restart always -p 5000:5000 registry:2
 #+end_src
 
