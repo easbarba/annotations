@@ -89,6 +89,14 @@ git config --get pull.ff # only
 git config --global push.autoSetupRemote true
 #+end_src
 
+*--global*
+
+*--edit*
+
+#+begin_src shell
+git config --global --edit
+#+end_src
+
 ** diff
 Show changes between commits, commits and working tree, and so on.
 
