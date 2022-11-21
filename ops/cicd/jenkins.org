@@ -141,7 +141,9 @@ pipeline{
   }
 }
 #+end_src
-
+**** when
+**** expression
+**** echo
 * Plugins
 - Pipeline Stage View
 - Blue Ocean
