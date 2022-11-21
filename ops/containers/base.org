@@ -471,18 +471,63 @@ curl make gcc g++ git libffi-dev libyaml-dev
 docker run --platform linux/amd64 --rm ljishen/sysbench /root/results/output_cpu.prof --test=cpu --cpu-max-prime=99999 --num-threads=8 run
 #+end_src
 
+#+begin_src dockerfile
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    env_file:
+      - ./backend/.env
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - database
+
+  fronted:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    env_file:
+      - ./frontend/.env
+    ports:
+      - 7000:7000
+    expose:
+      - 7000
+
+  database:
+    image: docker.io/mongo:6
+    env_file:
+      .env
+    ports:
+      - 27017:27017
+    volumes:
+      - db-data:/data/db
+      - mongo-config:/data/configdb
+
+volumes:
+  db-data:
+  mongo-config:
+#+end_src
+
 * Tips
 ** Remove all
 - Stop all containers
 #+begin_src shell
 docker stop $(docker ps -qa)
-podman stop $(podman ps -a)
+podman stop $(podman ps -aq)
 #+end_src
 
 - Remove all containers
 #+begin_src shell
 docker rm $(docker ps -qa)
-podman rm $(podman ps -a)
+podman rm $(podman ps -aq)
 #+end_src
 
 - Remove all images
