@@ -55,9 +55,24 @@ kubectl create deploy gofirst --image=first-go-image:v1.0 --replicas=1
 #+begin_src shell
 kubectl describe deployments.apps go-depl -n apitada
 #+end_src
+*** service
+#+begin_src shell
+kubectl describe service todo
+#+end_src
 ** cluster-info
 ** config
 *** get-contexts
+** delete
+*** pod
+#+begin_src shell
+kubectl delete pod todo-655ff549f8-qq8ff
+#+end_src
+** scale
+*--replicas*
+#+begin_src shell
+kubectl scale --replicas=5 deployment todo
+#+end_src
+
 * kube-apiserver
 * kubelet
 * kube-proxy
