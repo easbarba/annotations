@@ -186,6 +186,11 @@ var x [2][3]int{0, {}} // [2][3]int{ [3]int{ 0, 0, 0, }, [3]int{ 0, 0, 0, }, }
 len([2]int{0,0,}) // 2
 #+end_src
 
+*array of arrays*
+#+begin_src go
+[2][]int{ {1,2,3}, {1,2,3} }
+#+end_src
+
 *** Slices
 - don’t specify its size
 - not comparable
@@ -233,6 +238,16 @@ y := x[2:] // 4, 6, 10, 15
 n := x[:2] // 1, 4
 h := x[0:2:2] // 1,4 with 2 of cap
 #+end_src
+
+*multi dimensional array*
+
+#+begin_src go
+test := [][]int{[]int{1,2,3},[]int{1,2,3}}
+
+# concise
+test := [][]int{{1,2,3},{1,2,3}}
+#+end_src
+
 *** Maps
 |            |     |
 |------------+-----|
