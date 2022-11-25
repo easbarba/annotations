@@ -74,9 +74,9 @@
 
 * Progress
 ** Books
-| Books               | chapter                  | @ |
-|---------------------+--------------------------+---|
-| Terraform in Action | 6 Terraform with friends |   |
+| Books               | chapter | @                                  |
+|---------------------+---------+------------------------------------|
+| Terraform in Action |         | Deploying a Cluster of Web Servers |
 * HCL
 ** Variables
 *** Input variables
@@ -315,6 +315,14 @@ data "archive_file" "mad_libs" {
   output_path = "${path.cwd}/madlibs.zip"
 }
 #+end_src
+*** user_data
+#+begin_src terraform
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World" > index.xhtml
+              nohup busybox httpd -f -p ${var.server_port} &
+              EOF
+#+end_src
 
 ** locals
 #+begin_src terraform
@@ -403,8 +411,8 @@ EOT
 container_name[*]
 ** lifecycle
 * Commands
-** --options
-*** -var
+** -- options
+*** --var
 ** apply
 relates or updates infrastructure according to Terraform configuration
 files in the current directory.
@@ -462,11 +470,23 @@ terraform show -json plan.out > plan.json
 *** list
 ** refresh
 - get from provider current state
-* providers
+* Providers
 ** aws
 *** "aws"
 *** resources
 **** aws_security_group
+#+begin_src terraform
+resource "aws_security_group" "instance" {
+  name = "terraform-example-instance"
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+#+end_src
 **** aws_instance
 **** aws_launch_configuration
 **** aws_autoscaling_group
