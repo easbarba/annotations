@@ -107,6 +107,13 @@ on familiar servers such as Apache, Nginx, Passenger, and IIS.
 
 - don’t choose resources
 - generates costs according to how resources are consumed
+* Terms
+** CIDR
+Classless Inter-Domain Routing CIDR stands for Classless Inter-Domain Routing
+and is used for IP addressing and routing. It allocates IP addresses in a more
+flexible manner as compared to the original system of Internet Protocol (IP)
+address classes. In this way, it increases the number of available IP addresses
+with extensive use of NAT (Network Address Translation).
 * Marketplace
 * Console
 * Containers
