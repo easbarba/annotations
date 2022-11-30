@@ -1,82 +1,10 @@
 #+TITLE: Terraform
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-- [[#base][Base]]
-  - [[#features][Features]]
-  - [[#resouces][resouces]]
-    - [[#ami][ami]]
-    - [[#instance_type][instance_type]]
-    - [[#tags][tags]]
-    - [[#data][data]]
-    - [[#local][local]]
-  - [[#terraform][terraform]]
-  - [[#expression][expression]]
-    - [[#for][for]]
-    - [[#conditional-expressionternary][conditional expression(ternary)]]
-    - [[#splat][splat]]
-  - [[#modules][modules]]
-    - [[#minimal-structure][minimal structure]]
-  - [[#output][output]]
-  - [[#variables][variables]]
-  - [[#data][data]]
-    - [[#archive_file][archive_file]]
-  - [[#locals][locals]]
-  - [[#types][types]]
-    - [[#string][string]]
-    - [[#number][number]]
-    - [[#list][list]]
-    - [[#bool][bool]]
-    - [[#map][map]]
-  - [[#functions][functions]]
-    - [[#join][join]]
-    - [[#tolist][tolist]]
-    - [[#fileset][fileset]]
-    - [[#templatefile][templatefile]]
-    - [[#count][count]]
-    - [[#substr][substr]]
-  - [[#provisioners][provisioners]]
-    - [[#local][local]]
-    - [[#local-exec][local-exec]]
-    - [[#random][random]]
-    - [[#archive][archive]]
-    - [[#random_string][random_string]]
-  - [[#misc][misc]]
-    - [[#splat][splat]]
-  - [[#lifecycle][lifecycle]]
-- [[#commands][Commands]]
-  - [[#--options][--options]]
-    - [[#-var][-var]]
-  - [[#apply][apply]]
-  - [[#console][console]]
-  - [[#refresh][refresh]]
-  - [[#destroy][destroy]]
-  - [[#fmt][fmt]]
-  - [[#graph][graph]]
-  - [[#output][output]]
-  - [[#plan][plan]]
-    - [[#options][options]]
-  - [[#show][show]]
-  - [[#state][state]]
-    - [[#list][list]]
-  - [[#refresh][refresh]]
-- [[#files][Files]]
-  - [[#tfvars][.tfvars]]
-  - [[#tf][.tf]]
-  - [[#terraformtfstate][terraform.tfstate]]
-:END:
-
 * Progress
 ** Books
-| Books               | chapter | @                                  |
-|---------------------+---------+------------------------------------|
-| Terraform in Action |         | Deploying a Cluster of Web Servers |
+| Books               | chapter                          | @ |
+|---------------------+----------------------------------+---|
+| Terraform in Action | 3. How to Manage Terraform State |   |
 * HCL
 ** Variables
 *** Input variables
@@ -201,7 +129,7 @@ templatefile("templates/alice.txt" ,{nouns = ["cat","milk","sun"] ...})
 - more advanced in orchestration
 - better for infrastructure
 
-** resouces
+** Resouces
 *** ami
 The Amazon Machine Image (AMI) to run on the EC2 Instance.
 *** instance_type
@@ -209,7 +137,7 @@ The type of EC2 Instance to run.
 *** tags
 *** data
 *** local
-** terraform
+** Terraform
 special configuration block responsible for configuring Terraform
 ** expression
  anything that returns a value.
@@ -489,11 +417,32 @@ resource "aws_security_group" "instance" {
 #+end_src
 **** aws_instance
 **** aws_launch_configuration
+*lifecycle*
+
+#+begin_src terraform
+resource "aws_launch_configuration" "example" {
+  image_id        = "ami-0fb653ca2d3203ac1"
+  instance_type   = "t2.micro"
+  security_groups = [aws_security_group.instance.id]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+#+end_src
+
+*subnet_ids*
+
 **** aws_autoscaling_group
 **** aws_lb_listener
 **** aws_lb
 *** data
 **** aws_vpc
+#+begin_src terraform
+data "aws_vpc" "default" {
+  default = true
+}
+#+end_src
 ** azure
 *** resources
 - azurerm_storage_blob
