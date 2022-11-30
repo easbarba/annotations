@@ -95,10 +95,10 @@
 
 * TV Series
 ** Progress
-| name       | episode  |
-|------------+----------|
-| Brain 2011 | ep12:31m |
-| my name    |          |
+| name        | episode |
+|-------------+---------|
+| mr sunshine | 6       |
+| lost        | 2 - 14  |
 
 ** American
 - Star Trek - The Next Generation
