@@ -1034,7 +1034,6 @@ current_date
 *** global data-like functions
 now();
 
-
 *** default prompt
 #+begin_src sql
 \set PROMPT1 '%~%x%# '
@@ -1062,6 +1061,10 @@ set intervalstyle to 'postgres_verbose';
 | --variable "n=10" |                                                         |
 | -f FILE.sql       |                                                         |
 | --no-psqlrc       |                                                         |
+
+#+begin_src shell
+
+#+end_src
 
 ** pg_ctl
 |                          |                                                                                                                                          |
