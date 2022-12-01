@@ -4,6 +4,13 @@
 ** env vars
 export ETCDCTL_API=3
 * kubectl
+** --options
+|                 |   |
+|-----------------+---|
+| --namespace     |   |
+| --all-namespace |   |
+| --dry-run       |   |
+| --output        |   |
 ** get
 *** nodes
 *-o*
@@ -34,6 +41,10 @@ kubectl port-forward meh-dpl-749f47f6d6-x7nlk 8080:8888
 #+end_src
 ** apply
 ** exec
+#+begin_src shell
+kubectl exec etcd-master -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / --prefix --keys-only --limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  --key /etc/kubernetes/pki/etcd/server.key"
+#+end_src
+
 ** edit
 *** deployment / deploy
 
@@ -73,6 +84,166 @@ kubectl delete pod todo-655ff549f8-qq8ff
 kubectl scale --replicas=5 deployment todo
 #+end_src
 
+** autoscale
+#+begin_src yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-deployment
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-deployment
+  targetCPUUtilizationPercentage: 50
+#+end_src
+
+** create
+*** --options
+|                       |   |
+|-----------------------+---|
+| --namespace=NAMESPACE |   |
+*** namespace
+*** deployment
+*** secret
+**** generic
+***** --options
+|             |   |
+|-------------+---|
+| --from-file |   |
+*** configmap
+Create a config map based on a file, directory, or specified literal value.
+
+*<name> <data>*
+
+*--from-file*
+
+#+begin_src sh
+kubectl create configmap config-test --from-file=/apps/nginx-config/nginx.conf
+#+end_src
+
+*folder*
+
+all files in folder
+
+#+begin_src sh
+ls myapp # config1 config2 config3
+
+kubectl create configmap config-test --from-file=/apps/config/myapp
+#+end_src
+
+** config
+*** set-context
+Set a context entra in kubeconfig
+#+begin_src shell
+kubectl config set-context my-context --namespace=mystuff
+#+end_src
+*** use-contex
+Set the current-context in a kubeconfig file
+
+#+begin_src shell
+kubectl config use-context my-context
+#+end_src
+*** current-context
+Display the current-context
+** cordon
+** describe
+*** nodes
+#+begin_src sh
+kubectl describe node
+#+end_src
+** edit
+*** deployment
+** explain
+*** pods
+|             |   |
+|-------------+---|
+| --recursive |   |
+*** deployment
+** expose
+Expose a resource as a new Kubernetes service.
+
+ Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector for that
+resource as the selector for a new service on the specified port. A deployment or replica set will be exposed as a
+service only if its selector is convertible to a selector that service supports, i.e. when the selector contains only
+the matchLabels component. Note that if no port is specified via --port and the exposed resource has multiple ports, all
+will be re-used by the new service. Also if no labels are specified, the new service will re-use the labels from the
+resource it exposes.
+
+ Possible resources include (case insensitive):
+
+ pod (PO), service (svc), replicationcontroller (RC), deployment (deploy), replicaset (rs)
+** exec
+|       |   |
+|-------+---|
+| --tty |   |
+| -t    |   |
+| -i    |   |
+
+** get
+Display one or many resources.
+
+Prints a table of the most important information about the specified resources.
+You can filter the list using a label selector and the --selector flag. If the
+desired resource type is namespaced you will only see results in your current
+namespace unless you pass --all-namespaces.
+
+By specifying the output as 'template' and providing a Go template as the value
+of the --template flag, you can filter the attributes of the fetched resources.
+
+*** all
+|                  |   |
+|------------------+---|
+| --all-namespaces |   |
+
+*** componentstatuses
+*** containers
+*** csinodes
+*** clusterrolebinding
+ cluster-admin -o yaml
+*** deployments
+*** deployment
+*** endpoints
+*** events
+*** limitrange
+*** namespaces
+*** node
+*** nodes
+*** replicaset
+*** services
+
+*** secret
+
+*** storageclasses
+*** pods
+|                                       |   |
+|---------------------------------------+---|
+| -n NAMESPACE or --namespace=NAMESPACE |   |
+*** persistentvolume
+pv
+
+** taint
+
+** top
+** logs
+** labels
+** proxy
+** patch
+Update fields of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.
+** replace
+** rollout
+*** status
+*** history
+** scale
+*** deployment
+|                  |   |
+|------------------+---|
+| --replicas <INT> |   |
+** set
+*** image
+** uncordon
 * kube-apiserver
 * kubelet
 * kube-proxy
