@@ -290,13 +290,28 @@ fmt.Println(v, ok)
 v, ok = m["goodbye"]
 if !ok { fmt.Print("MEEEEEEEEEEH") }
 
-delete(m, "hello")
 
 #+end_src
-**** functions
-- delete
-- len
-- range
+
+*delete*
+#+begin_src go
+delete(m, "hello")
+#+end_src
+*len*
+
+*sort*
+#+begin_src go
+import "sort"
+
+var names []string
+for name := range ages {
+    names = append(names, name)
+}
+sort.Strings(names)
+for _, name := range names {
+    fmt.Printf("%s\t%d\n", name, ages[name])
+}
+#+end_src
 
 *** Struct
 |            |                                                    |
@@ -1310,13 +1325,19 @@ const (
 ** net
 *path*
 ** os
+*Getwd()*
+
+*Exit*
+
+*Remove*
+
 *** exec
 *Command*
 *Run*
 *StdinPipe*
 *.Close*
-*** Exit
-*** Remove
+
+
 ** path
 *** filepath
 ** path
