@@ -97,8 +97,8 @@
 ** Progress
 | name        | episode |
 |-------------+---------|
-| mr sunshine | 6       |
-| lost        | 2 - 14  |
+| Mr Sunshine | 6       |
+| Lost        | 3 - 01  |
 
 ** American
 - Star Trek - The Next Generation
