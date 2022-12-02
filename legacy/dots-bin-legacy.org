@@ -27,6 +27,10 @@ ncdu
 libfile-mimeinfo-perl
 x11proto-dev  rclone
 fontconfig libfreetype6
+#+end_src
+* e-debian-dev
+#+begin_src shell
+php=(php-curl php-dom php-bcmath php-mbstring php-zip php-xml php-mysql prettier/plugin-php)
 
 # DART
 if [[ ! -x $(command -v dart) ]]; then
@@ -39,16 +43,13 @@ if [[ ! -x $(command -v dart) ]]; then
     sudo apt install -y dart
 fi
 
-
 # POSTGRES
 packages=(postgresql postgresql-contrib postgresql-doc)
 s-dolist "$COMMAND" "${packages[@]}"
 sudo systemctl restart postgresql
 
-
 #+end_src
-* e-debian-dev
-php-curl php-dom php-bcmath php-mbstring php-zip php-xml php-mysql prettier/plugin-php
+
 * wm-autostart
 #+begin_src shell
   'xautolock -time 8 -locker "slock" -detectsleep'
