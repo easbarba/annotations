@@ -198,7 +198,7 @@ System.out.println(cars.length);
 
 *asList*
 *fill*
-*copyOf*
+*copy Of*
 *compare*
 *sort*
 *** Lists
@@ -220,6 +220,54 @@ List<String> meh = list.addAll(anotherList);
 
 #+begin_src java
 new HashSet<>(listedList)
+#+end_src
+*** Map
+*import*
+
+#+begin_src java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+#+end_src
+
+#+begin_src java
+Map<integer, string=""> mapaNomes = new HashMap<integer, string="">();
+#+end_src
+
+*put*
+
+#+begin_src java
+mapaNomes.put(1, "João Delfino");
+mapaNomes.put(2, "Maria do Carmo");
+mapaNomes.put(3, "Claudinei Silva");
+#+end_src
+
+*get*
+#+begin_src java
+System.out.println(mapaNomes.get(2));
+#+end_src
+
+#+begin_src java
+  Set<entry<integer, string="">> set = mapaNomes.entrySet();
+    Iterator it = set.iterator();
+
+    System.out.println("Código\t\tValor");
+#+end_src
+
+#+begin_src java
+while(it.hasNext()){
+      Entry<integer, string=""> entry = (Entry)it.next();
+      System.out.println(entry.getKey() + "\t\t"+entry.getValue());
+    }
+#+end_src
+
+#+begin_src java
+ Map<integer, string=""> mapaOrdenado = new TreeMap(compInt);
+    mapaOrdenado.putAll(mapaNomes);
+
+    for(Integer valor : mapaOrdenado.keySet()){
+      System.out.println(valor + " " + mapaNomes.get(valor));
+    }
 #+end_src
 
 ** Packages
@@ -826,6 +874,18 @@ class NestTry {
     }
   }
 }
+#+end_src
+** Optional
+#+begin_src java
+Optional<Meh> meh = new Meh("as", "asd");
+#+end_src
+
+*of()*
+
+*ofNullable()*
+
+#+begin_src java
+Optional.ofNullable*(new Meh("as", "asd"))
 #+end_src
 
 ** Enumerations

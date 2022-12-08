@@ -9,7 +9,6 @@
 | Source Code | folder                                                | file          | @ |
 |-------------+-------------------------------------------------------+---------------+---|
 | JUnit5      | junit-jupiter-api/src/main/java/org/junit/jupiter/api | AfterAll.java |   |
-
 * JUnit
 ** Test Classes
 - may be a top-level class,
@@ -120,6 +119,27 @@ class DisabledMethodsTest {
     }
 }
 #+end_src
+* Lombok
+** Annotations
+*@Value*
+ annotation provided by Lombok groups some other annotations in this library that we could also use
+separately. Each of the following annotations instructs Lombok to generate code blocks before the Java build phase:
+
+*@AllArgsConstructor*
+creates a constructor with all the existing fields.
+
+ *@FieldDefaults*
+ makes our fields private and final.
+
+ *@Getter*
+ generates getters for factorA and factorB.
+
+ *@ToString*
+ includes a simple implementation concatenating fields.
+
+ *@EqualsAndHashCode*
+ generates basic equals() and hashCode() methods using all fields by default, but we could also
+ customize it.
 
 * Maven
 version: JDK7

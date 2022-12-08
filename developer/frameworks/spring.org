@@ -2,11 +2,12 @@
 
 * Progress
 ** Books
-| name                  | chapter                                           | @                                    |
-|-----------------------+---------------------------------------------------+--------------------------------------|
-| Spring in Action      | 2 Developing web applications                     | 2.5 Choosing a view template library |
-| Spring Up & Running   | 5 Configuring and Inspecting Your Spring Boot App |                                      |
-| FullStack Spring Boot | 9 Useful Third-Party Components for React         |                                      |
+| name                            | chapter                                      | @                                    |
+|---------------------------------+----------------------------------------------+--------------------------------------|
+| FullStack Spring Boot and React | 3: Using JPA to Create and Access a Database | Adding relationships between tables  |
+| Learn Microservices w/ Spring   | 3 A Basic Spring Boot Application            | API-First Approach                   |
+| Spring in Action                | 2 Developing web applications                | 2.5 Choosing a view template library |
+| Spring Up & Running             | 5 Configuring and Inspecting Spring App      |                                      |
 
 ** SLOC
 | Source Code      | folder | file | @ |
@@ -185,6 +186,25 @@ List<Car> findByBrand(String brand);
 @Query(“select c from Car c where c.brand like %?1")
 List<Car> findByBrandEndsWith(String brand);
 #+end_src
+* DAO
+#+begin_quote
+The DAO API hides from the application all the complexity of performing CRUD operations in the underlying storage mechanism. This permits both layers to evolve separately without knowing anything about each other.
+#+end_quote
+* Librar
+** HttpStatus
+#+begin_src java
+HttpStatus.I_AM_A_TEAPOT
+HttpStatus.OK
+#+end_src
+** ResponseEntity
+#+begin_src java
+  @GetMapping("/hello")
+  public ResponseEntity<String> greetName(
+      @RequestParam(name = "name", required = false, defaultValue = "Corinthians.") String name) {
+    return new ResponseEntity<>(String.format("Hello, %s", name), HttpStatus.OK);
+  }
+#+end_src
+
 * Services
 *@Service*
 
@@ -254,6 +274,92 @@ Enables component scanning.
 
 *@Controller*
 
+*@RequestParam*
+Extract query parameters, form parameters, and even files from the request.
+
+- variable name and the parameter name should match
+#+begin_src java
+@GetMapping("/api/foos")
+@ResponseBody
+public String getFoos(@RequestParam String id) {
+    return "ID: " + id;
+}
+#+end_src
+
+- name attribute
+W/ different variable/parameter name
+
+#+begin_src java
+@PostMapping("/api/foos")
+@ResponseBody
+public String addFoo(@RequestParam(name = "id") String fooId, @RequestParam String name) {
+    return "ID: " + fooId + " Name: " + name;
+}
+#+end_src
+
+- required attribute
+
+#+begin_src java
+@GetMapping("/api/foos")
+@ResponseBody
+public String getFoos(@RequestParam(required = false) String id) {
+    return "ID: " + id;
+}
+#+end_src
+
+- multiple name attribute
+
+#+begin_src java
+@PostMapping("/api/foos")
+@ResponseBody
+public String addFoo(@RequestParam(name = "id") String fooId, @RequestParam String name) {
+    return "ID: " + fooId + " Name: " + name;
+}
+#+end_src
+
+- default value
+#+begin_src java
+@GetMapping("/api/foos")
+@ResponseBody
+public String getFoos(@RequestParam(defaultValue = "test") String id) {
+    return "ID: " + id;
+}
+#+end_src
+
+
+*@PathVariable*
+
+#+begin_src java
+public String greet(@PathVariable("name") String name) {
+    return String.format("Hello, %s", name);
+  }
+#+end_src
+
+*@ResponseEntity*
+
+#+begin_src java
+
+#+end_src
+
+*@ResponseStatus*
+#+begin_src java
+
+#+end_src
+* URL structure
+GET http://ourhost.com/challenges/5?factorA=40
+These are its different parts:
+
+-* GET is the HTTP verb.
+
+-* http://ourhost.com/ is the host where the web server is running. In this example, the application is serving from the root
+ context, /.
+
+-* /challenges/ is an API context created by the application, to provide functionalities around this domain.
+
+-* /5 is called a path variable. In this case, it represents the Challenge object with identifier 5.
+
+-* factorA=40 is a request parameter and its value.
+
 * Spring Landscape
 ** Spring Initializr
 https://start.spring.io/
@@ -267,16 +373,17 @@ https://start.spring.io/
 ** Spring Batch
 ** Spring Cloud
 ** Spring Native
+* application.properties
+#+begin_src conf
+#+end_src
 * Commands
 #+begin_src shell
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
 #+end_src
 
 #+begin_src yaml
-
 application-production.yml
 #+end_src
-
 * Ops
 ** dockerfile
 #+begin_src conf
@@ -286,6 +393,18 @@ application-production.yml
 # # EXPOSE 9966
 # ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "pita-0.0.1-SNAPSHOT.jar"]
 #+end_src
+
+#+begin_src dockerfile
+FROM adoptopenjdk/openjdk16:alpine-jre
+VOLUME /tmp
+ARG SPRING_PROFILE=prod
+ENV MY_SPRING_PROFILE=$SPRING_PROFILE
+ARG JAR_FILE
+ADD target/$JAR_FILE /app.jar
+ENV JAVA_OPTS="-XX:+UseG1GC -XX:MaxGCPauseMillis=150 -XX:+UseStringDeduplication"
+ENTRYPOINT exec java $JAVA_OPTS -Dspring.profiles.active=$MY_SPRING_PROFILE -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+#+end_src
+
 ** compose
 #+begin_src yaml
     environment:
