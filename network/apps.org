@@ -1,63 +1,13 @@
 #+TITLE: Network cli apps
 
-* summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][summary]]
-- [[#iwctl][iwctl]]
-- [[#nslookup][nslookup]]
-- [[#ping][ping]]
-- [[#resolvectl][resolvectl]]
-  - [[#status][status]]
-- [[#wget][wget]]
-- [[#curl][curl]]
-  - [[#options][options]]
-  - [[#read-local-file][read local file]]
-  - [[#examples][examples]]
-- [[#ngrep][ngrep]]
-- [[#ssh][ssh]]
-  - [[#--][--]]
-- [[#ping][ping]]
-- [[#ss][ss]]
-- [[#dig][dig]]
-- [[#ip][ip]]
-- [[#ifconfig][ifconfig]]
-- [[#whois][whois]]
-- [[#host][host]]
-- [[#dig][dig]]
-- [[#iwd][iwd]]
-- [[#dhcpd][dhcpd]]
-- [[#iw][iw]]
-- [[#wpa_supplicant][wpa_supplicant]]
-- [[#nmap][nmap]]
-- [[#nmcli][nmcli]]
-- [[#nslookup][nslookup]]
-- [[#route][route]]
-- [[#netstat][netstat]]
-- [[#netcat][netcat]]
-- [[#tcpdump][tcpdump]]
-  - [[#http-get][HTTP GET]]
-  - [[#http-post][HTTP POST:]]
-- [[#ethtool][ethtool]]
-- [[#telnet][telnet]]
-- [[#rlogin][rlogin]]
-- [[#traceroute][traceroute]]
-- [[#ethtool][ethtool]]
-- [[#arp][arp]]
-- [[#socat][socat]]
-- [[#wireshark][wireshark]]
-- [[#ngrep][ngrep]]
-- [[#iftop][iftop]]
-- [[#nethogs][nethogs]]
-:END:
-
-
 * nslookup
 * ping
 * resolvectl
 ** status
+* lsof
+#+begin_src shell
+lsof -i tcp:7889
+#+end_src
 * wget
 * ngrep
 * ssh
@@ -260,6 +210,11 @@ Address.
 Socat  is  a  command line based utility that establishes two bidirectional byte streams and transfers data between them. Be‐
 cause the streams can be constructed from a large set of different types of data sinks and sources (see address  types),  and
 because lots of address options may be applied to the streams, socat can be used for many different purposes.
+
+#+begin_src shell
+socat tcp-listen:7889,bind=127.0.0.1 stdout &
+#+end_src
+
 * wireshark
 * ngrep
 * iftop
