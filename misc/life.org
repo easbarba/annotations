@@ -97,8 +97,8 @@
 ** Progress
 | name        | episode |
 |-------------+---------|
-| Mr Sunshine | 6       |
-| Lost        | 3 - 01  |
+| Mr Sunshine |       6 |
+| Lost        |     4x4 |
 
 ** American
 - Star Trek - The Next Generation
