@@ -110,13 +110,12 @@ import org.springframework.validation.Errors;
 @Digits(integer=3, fraction=0, message="Invalid CVV")
 #+end_src
 * Repository
+** Super interfaces
 *@repository*
-Declares that it should be automatically discovered by Spring compo-
-nent scanning and instantiated as a bean in the Spring application context.
 
-*autowired*
+Declares that it should be automatically discovered by Spring component scanning
+and instantiated as a bean in the Spring application context.
 
-- 4.3: single constructor classes require only one @autowire annotation
 
 *CrudRepository*
 
@@ -137,6 +136,13 @@ public interface CarRepository extends CrudRepository
 *JPARepository*
 
 *PagingAndSortingRepository*
+
+** Methods
+
+*autowired*
+
+- 4.3: single constructor classes require only one @autowire annotation
+
 
 *@Query*
 #+begin_src java
