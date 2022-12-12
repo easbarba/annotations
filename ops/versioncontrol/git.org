@@ -63,10 +63,24 @@ Employ a sparse-checkout, with only files in the toplevel directory initially be
 *--single-branch*
 ** commit
 Record changes to the repository.
+
+*-m*
+#+begin_src shell
+git commit -m "commit message"
+#+end_src
+
+*-a*
 #+begin_src shell
 git commit -a
-git commit -m "commit message"
+#+end_src
+
+#+begin_src shell
 git commit -am "commit message"
+#+end_src
+
+*--allow-empty*
+#+begin_src shell
+git commit --allow-empty -m "Trigger CI"
 #+end_src
 
 ** config
