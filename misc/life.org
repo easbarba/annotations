@@ -94,11 +94,10 @@
 - Let the Right One In
 
 * TV Series
-** Progress
 | name        | episode |
 |-------------+---------|
 | Mr Sunshine |       6 |
-| Lost        |    5x12 |
+| Lost        |     6x3 |
 
 ** American
 - Star Trek - The Next Generation
