@@ -97,7 +97,7 @@
 | name        | episode |
 |-------------+---------|
 | Mr Sunshine |       6 |
-| Lost        |     6x3 |
+| Lost        |     6x7 |
 
 ** American
 - Star Trek - The Next Generation
