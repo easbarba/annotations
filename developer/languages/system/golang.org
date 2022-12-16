@@ -181,6 +181,22 @@ var x = [...]int{10, 20, 30} // [3]int{ 10, 20, 30, }
 var x [2][3]int{0, {}} // [2][3]int{ [3]int{ 0, 0, 0, }, [3]int{ 0, 0, 0, }, }
 #+end_src
 
+*elipsis*
+an ellipsis “...”  in place of the length means the array length is determined by the number of initializers.
+
+#+begin_src go
+q := [...]int{1, 2, 3}
+fmt.Printf("%T\n", q) // "[3]int"
+#+end_src
+
+*==*
+#+begin_src go
+a := [2]int{1, 2}
+b := [...]int{1, 2}
+c := [2]int{1, 3}
+fmt.Println(a == b, a == c, b == c) // "true false false"
+#+end_src
+
 *len*
 #+begin_src go
 len([2]int{0,0,}) // 2
@@ -1336,7 +1352,6 @@ const (
 *Run*
 *StdinPipe*
 *.Close*
-
 
 ** path
 *** filepath
