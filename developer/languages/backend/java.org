@@ -300,39 +300,6 @@ class MyDate extends Date {
 }
 #+end_src
 
-** Classes
-*** Member Access
-*** Local Classes
-A local class is declared locally within a block of Java code, rather than as a
-member of a class.
-#+begin_src java
-    // This method creates and returns an Enumeration object
-public java.util.Enumeration enumerate() {
-    // Here's the definition of Enumerator as a local class
-    class Enumerator implements java.util.Enumeration {
-        Linkable current;
-
-        public Enumerator() {
-            current = head;
-        }
-
-        public boolean hasMoreElements() {
-            return (current != null);
-        }
-
-        public Object nextElement() {
-            if (current == null)
-                throw new java.util.NoSuchElementException();
-            Object value = current;
-            current = current.getNext();
-            return value;
-        }
-    }
-    // Now return an instance of the Enumerator class defined directly above
-    return new Enumerator();
-}
-#+end_src
-
 ** Modifiers
 *** final
 #+begin_src sh
@@ -404,7 +371,14 @@ class B extends A { // ERROR! Can't subclass A
 	//...
 }
 #+end_src
-*** Seal
+*** Sealed
+#+begin_src java
+sealed class Meh() {
+
+}
+#+end_src
+
+*** Non Sealed
 *** Inheritance
 - inherits all from super object
 - single-inheritance
@@ -460,6 +434,38 @@ equals()
 hashCode()
 toString()
 #+end_src
+*** Member Access
+*** Local Classes
+A local class is declared locally within a block of Java code, rather than as a
+member of a class.
+#+begin_src java
+    // This method creates and returns an Enumeration object
+public java.util.Enumeration enumerate() {
+    // Here's the definition of Enumerator as a local class
+    class Enumerator implements java.util.Enumeration {
+        Linkable current;
+
+        public Enumerator() {
+            current = head;
+        }
+
+        public boolean hasMoreElements() {
+            return (current != null);
+        }
+
+        public Object nextElement() {
+            if (current == null)
+                throw new java.util.NoSuchElementException();
+            Object value = current;
+            current = current.getNext();
+            return value;
+        }
+    }
+    // Now return an instance of the Enumerator class defined directly above
+    return new Enumerator();
+}
+#+end_src
+
 ** Interfaces
 - Cannot mantain state
 - JDK 7: an interface could not define any implementation whatsoever.
@@ -744,6 +750,13 @@ class ExceptionDemo {
 }
 #+end_src
 
+*UnsupportedOperationException()*
+
+#+begin_src java
+
+    throw new UnsupportedOperationException("not implemented");
+#+end_src
+
 *Chained Exceptions*
 
 Allows you to associate another exception with an exception. This second
@@ -883,6 +896,18 @@ Optional<Meh> meh = new Meh("as", "asd");
 *of()*
 
 *ofNullable()*
+
+*get()*
+
+#+begin_src java
+meh.get().getName();
+#+end_src
+
+*isPresent()*
+
+#+begin_src java
+meh.isPresent()
+#+end_src
 
 #+begin_src java
 Optional.ofNullable*(new Meh("as", "asd"))
@@ -1153,6 +1178,9 @@ Closes a file releases the system resources allocated to the file, allowing them
 #+begin_src java
 void close( ) throws IOException
 #+end_src
+*** Reduce
+*** Filter
+*** Map
 
 ** IO
 *** BufferedReader
@@ -1792,6 +1820,10 @@ static Integer valueOf(int val)
 static Integer valueOf(String valStr) throws NumberFormatException
 #+end_src
 
+** Environment Variables
+*JAVA_HOME*
+*JDK_JAVA_OPTIONS*
+
 * Standard Library
 ** java.lang
 *** System
@@ -1935,6 +1967,26 @@ Path filepath = Paths.get(System.getProperty("user.home"), "data", "foo.txt");
 #+end_src
 ** System
 
+** Library
+*** String
+*** Object
+- superclass of all other classes
+- reference variable of type Object can refer to an object of any other class.
+**** methods
+|           |   |
+|-----------+---|
+| clone     |   |
+| equals    |   |
+| finalize  |   |
+| getClass  |   |
+| hashCode  |   |
+| notify    |   |
+| notifyAll |   |
+| toString  |   |
+| wait      |   |
+
+**** Passed as Param
+- Pass as reference, will change the object passsed as param outside of method.
 * Commands
 ** java
 launch a Java application
@@ -1975,34 +2027,12 @@ Read Java declarations and compile them into class files
 ** javap
 ** jshell
 
-* Utilities
-- jlink
-- jpackage
-  -
-* Environment Variables
-*JAVA_HOME*
-*JDK_JAVA_OPTIONS*
-
-* Library
-** String
-** Object
-- superclass of all other classes
-- reference variable of type Object can refer to an object of any other class.
-*** methods
-|           |   |
-|-----------+---|
-| clone     |   |
-| equals    |   |
-| finalize  |   |
-| getClass  |   |
-| hashCode  |   |
-| notify    |   |
-| notifyAll |   |
-| toString  |   |
-| wait      |   |
-
-*** Passed as Param
-- Pass as reference, will change the object passsed as param outside of method.
+* Packages
+** jlink
+** jpackage
+** java
+** javac
+** jar
 * Scripting
 - remove .java extension
 - chmod +x
@@ -2019,7 +2049,7 @@ public class HelloScripting {
 }
 
 #+end_src
-* Utilities
+* Ops
 ** Container
 #+begin_src  dockerfile
 FROM maven:3-eclipse-temurin-17 AS builder
@@ -2136,7 +2166,7 @@ O que você precisa para participar desse processo seletivo?
     Fortes conhecimentos em linguagem SQL;
     Fortes conhecimentos em Bancos de dados PostgreSQL ;
     Inglês técnico, nível intermediário;
-* Projects idea
+* TODO
 - TODO List. Implementa um Trello usando só Java.
 - Sisteminha de caixa de restaurante. Pega o pedido, vai pra cozinha, faz balanço de estoque, etc...
 - Sistema de agendamento de consulta. Pode evoluir para um sistema de gerenciamento de prontuário em que o médico usa pra fazer anamnese.
