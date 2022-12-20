@@ -1,0 +1,13 @@
+#+title: Apito
+
+* Backend
+** Domain
+*** TODO Users
+- Name
+- Email
+*** TODO Matches
+- Referee
+- User
+- Teams
+- Score
+* Frontend
