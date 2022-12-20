@@ -59,8 +59,40 @@ mvn compile
 Compiles tests too
 
 *** test
-test the compiled source code using a suitable unit testing framework.
+Test the compiled source code using a suitable unit testing framework.
 These tests should not require the code be packaged or deployed
+
+- skip all test execution during maven build
+
+#+begin_src java
+mvn package -DskipTests
+#+end_src
+
+- execute all test cases
+
+#+begin_src java
+mvn test
+#+end_src
+
+- execute specific test group
+#+begin_src java
+mvn test -DincludeGroups=TestGroup1,TestGroup2
+#+end_src
+
+- exclude specific test group during execution
+#+begin_src java
+mvn test -DexcludeGroups=TestGroup3,TestGroup4
+#+end_src
+
+- execute specific package testcases
+#+begin_src java
+mvn test -Dtest="test.java.com.service.map.**"
+#+end_src
+
+- execute specific test
+#+begin_src java
+mvn test -Dtest=Test1,Test2
+#+end_src
 
 *** clean
 
@@ -113,6 +145,8 @@ mvn wrapper:wrapper
 *** archetype
 *generate*
 #+begin_src shell
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+
 mvn archetype:generate -DgroupId=com.sohamkamani \ -DartifactId=mvn-example \ -DarchetypeArtifactId=maven-archetype-quickstart \ -DarchetypeVersion=1.4
 #+end_src
 
