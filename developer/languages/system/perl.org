@@ -138,10 +138,12 @@ sub { print "meh" }
 * Standard Library
 ** Getopt::Long
 
-* Commands
+* Packages
 ** perl
 ** perldoc
 perlintern  perlinterp  perlintro   perliol     perlipc     perlirix
 ** perlbug
 ** perlivp
 ** perlthanks
+** cpan
+You can re-run configuration any time with 'o conf init' in the CPAN shell
