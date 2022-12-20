@@ -2,19 +2,19 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                  |
-|--------------------------+------------------------------------------------------------+--------------------|
-| Java Complete Reference  | Chapter 12  Enumerations, Autoboxing, and Annotations      | Marker Annotations |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |                    |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                    |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                    |
+| name                     | chapter                                                    | @ |
+|--------------------------+------------------------------------------------------------+---|
+| Java Complete Reference  | 20 java.util Part 1: The Collections Framework             |   |
+| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |   |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |   |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |   |
 
 ** SLOC
-| Source Code | folder                               | file           | @ |
-|-------------+--------------------------------------+----------------+---|
-| openjdk     | src/java.base/share/classes/java/io  | Bits.java      |   |
-| common-cli  | src/main/java/org/apache/commons/cli | GnuParser.java |   |
-| jbang       |                                      |                |   |
+| Source Code | folder                                               | file                           | @ |
+|-------------+------------------------------------------------------+--------------------------------+---|
+| openjdk     | src/jdk.jlink/share/classes/jdk/tools/jlink/internal | AbstractResourcePoolEntry.java |   |
+| common-cli  | src/main/java/org/apache/commons/cli                 | GnuParser.java                 |   |
+| jbang       |                                                      |                                |   |
 
 * Base
 ** Types
