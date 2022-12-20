@@ -2,12 +2,12 @@
 
 * Progress
 ** Books
-| name                            | chapter                                      | @                                    |
-|---------------------------------+----------------------------------------------+--------------------------------------|
-| FullStack Spring Boot and React | 3: Using JPA to Create and Access a Database | Adding relationships between tables  |
-| Learn Microservices w/ Spring   | 3 A Basic Spring Boot Application            | API-First Approach                   |
-| Spring in Action                | 2 Developing web applications                | 2.5 Choosing a view template library |
-| Spring Up & Running             | 5 Configuring and Inspecting Spring App      |                                      |
+| name                            | chapter                                      | @                                   |
+|---------------------------------+----------------------------------------------+-------------------------------------|
+| FullStack Spring Boot and React | 3: Using JPA to Create and Access a Database | Adding relationships between tables |
+| Learn Microservices w/ Spring   | 3 A Basic Spring Boot Application            | API-First Approach                  |
+| Spring in Action                | 7 REST                                       | 7.1.2 Sending data to the server    |
+| Spring Up & Running             | 5 Configuring and Inspecting Spring App      |                                     |
 
 ** SLOC
 | Source Code      | folder | file | @ |
