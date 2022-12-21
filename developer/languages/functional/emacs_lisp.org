@@ -1,37 +1,5 @@
-#+TILE: Emacs Lisp Programming Language
+#+TILE: Emacs Lisp
 
-* Summary
-  :PROPERTIES:
-  :TOC:      :include all :depth 2 :ignore this
-  :END:
-:CONTENTS:
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#base][Base]]
-  - [[#types][Types]]
-  - [[#cons-cell][Cons Cell]]
-  - [[#sequences][Sequences]]
-  - [[#terms][Terms]]
-- [[#resources][Resources]]
-- [[#important-commands][Important Commands]]
-- [[#regexp][RegExp]]
-- [[#packages-brainstorm][Packages Brainstorm]]
-  - [[#exwm-notify-dbus-notification-as-tool-box][EXWM notify dbus notification as tool-box]]
-  - [[#exwm-status-bar][EXWM status bar]]
-  - [[#ffmpeg-trim-audio][ffmpeg: trim audio]]
-  - [[#ereader-fix-toc-add-feature-n-jump-to-next-head][ereader: fix toc, add feature "n" jump to next head]]
-  - [[#packageel-functional---add-fallback-pack-per-version][package.el functional - Add fallback, pack per version...]]
-  - [[#ido-everywhere---for-real][ido-everywhere - for real]]
-  - [[#ido-quick-help--similar-to-company-quick-help][ido-quick-help > similar to company-quick-help]]
-  - [[#echo-box--an-eldoc-box-for-echo-messages-to-pop-up-box][echo-box > an eldoc-box for echo *messages* to pop up box]]
-  - [[#emacs-interface-with-system-packages-as-emmsvc][Emacs Interface with system packages as emms,vc...]]
-  - [[#emacs-replace-system-packages-as-elfeed-nov][Emacs Replace system packages as elfeed, nov...]]
-  - [[#org-mode-packages-ideas][Org mode packages ideas]]
-- [[#packages][Packages]]
-  - [[#exwm][Exwm]]
-- [[#to-read][To read]]
-:END:
 * Progress
 ** Books
 | Books      | Cap       | @ |
@@ -188,46 +156,12 @@
    | point | cursor position |
    |       |                 |
 
-* Resources
-  - Development Group: https://lists.gnu.org/archive/html/emacs-devel/
-* Important Commands
-  | Command                                       | Description                                                                                                                                           |
-  |-----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------|
-  | dired-mark-extension                          | Mark all files with a certain extension for use in later commands.                                                                                    |
-  | check-parens                                  | Check for unbalanced parentheses in the current buffer.                                                                                               |
-  | ffap                                          | find file at point                                                                                                                                    |
-  | ruler-mode                                    | (you can adjust the margins on the fly) neat.                                                                                                         |
-  | skeletons                                     | the emacs built-in answer to yasnippets. The cool thing is they have a global "skeleton" and a mode specific.                                         |
-  | org                                           | Org has a built in context mode (setq org-use-speed-commands t) where if you are on the first star certain things like n and p will navigate headers. |
-  | C-u C-x                                       | ( executes the last macro and lets you put in more input. Extremely useful for when I forget to type C-n or whatever to link the macro.               |
-  | redshank                                      |                                                                                                                                                       |
-  | elint                                         |                                                                                                                                                       |
-  | elp                                           |                                                                                                                                                       |
-  | ert                                           |                                                                                                                                                       |
-  | set-selective-display                         |                                                                                                                                                       |
-  | hideshow                                      | folding sections                                                                                                                                      |
-  | occur                                         |                                                                                                                                                       |
-  | reveal-mode                                   |                                                                                                                                                       |
-  | substitute-in-file-name                       |                                                                                                                                                       |
-  | expand-file-name                              |                                                                                                                                                       |
-  | string-match                                  |                                                                                                                                                       |
-  | list-display-colors                           |                                                                                                                                                       |
-  | read-file-name                                |                                                                                                                                                       |
-  | read-directory-name                           | Read directory name, prompting with PROMPT and completing in directory DIR.                                                                           |
-  | custom-reevaluate-setting                     | Reset the value of SYMBOL by re-evaluating its saved or standard value.                                                                               |
-  | (info "(elisp) key binding conventions")      |                                                                                                                                                       |
-  | M-x apropos RET print\                        | insert\                                                                                                                                               |
-  | Compile el files conflict: find -name "*.elc" | xargs rm                                                                                                                                              |
-  | var: system-configuration-options             | emacs enabled configure options                                                                                                                       |
-  | url-hexify-string                             |                                                                                                                                                       |
-  | artist-mode                                   | painting in emacs                                                                                                                                     |
-
 * RegExp
-  | regexp           | desc                          |
-  |------------------+-------------------------------|
-  | \(\<\w+-?\w+\>\) | match any "word-word" pattern |
+| regexp           | desc                          |
+|------------------+-------------------------------|
+| \(\<\w+-?\w+\>\) | match any "word-word" pattern |
 
-* Packages Brainstorm
+* Projects
 ** TODO EXWM notify dbus notification as tool-box
 ** TODO EXWM status bar
    #+begin_src emacs-lisp
@@ -354,18 +288,5 @@
 *** TODO epub-to-org: converting epubs to org package and more: reading progress, comments, TODO, thumbnails, agenda integration
 *** TODO #+BEGIN_SRC: prettify it for better readibility
 *** TODO org-mode: #+BEGIN_SRC: heading property that state every code under this parent heading are elisp code, should be tangled...
-* Packages
-** Exwm
-*** Desktop Entry (/usr/share/xsessions/exwm.desktop)
-    #+begin_src conf
-    [Desktop Entry]
-    Name=EXWM
-    Comment=Emacs X11 Window Manager
-    Exec=emacs
-    Type=Application
-    X-LightDM-DesktopName=exwm
-    DesktopNames=EXWM
-    #+end_src
-
 * To read
   https://youtu.be/9i_9hse_Y08 - How to Cut Emacs Start Up Time in Half! - Emacs From Scratch #12
