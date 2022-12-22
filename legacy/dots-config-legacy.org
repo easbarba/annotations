@@ -12,6 +12,108 @@ tmux,master,https://github.com/tmux/tmux
 redis,unstable,https://github.com/redis/redis
 curl,master,https://github.com/curl/curl
 #+end_src
+** golang
+#+begin_src json
+{
+   "lang": "golang",
+   "projects": [
+      {
+         "name": "go-git",
+         "branch": "master",
+         "url": "https://github.com/go-git/go-git"
+      },
+      {
+         "name": "ent",
+         "branch": "master",
+         "url": "https://github.com/ent/ent"
+      },
+      {
+         "name": "shfmt",
+         "branch": "master",
+         "url": "https://github.com/mvdan/sh"
+      },
+      {
+         "name": "gin",
+         "branch": "master",
+         "url": "https://github.com/gin-gonic/gin"
+      },
+      {
+         "name": "containerd",
+         "branch": "main",
+         "url": "https://github.com/containerd/containerd"
+      },
+      {
+         "name": "k3d",
+         "branch": "main",
+         "url": "https://github.com/k3d-io/k3d"
+      },
+      {
+         "name": "k3s",
+         "branch": "master",
+         "url": "https://github.com/k3s-io/k3s"
+      },
+      {
+         "name": "kubernetes",
+         "branch": "master",
+         "url": "https://github.com/kubernetes/kubernetes"
+      },
+      {
+         "name": "buildah",
+         "branch": "main",
+         "url": "https://github.com/containers/buildah"
+      },
+      {
+         "name": "podman",
+         "branch": "main",
+         "url": "https://github.com/containers/podman"
+      },
+      {
+         "name": "go-tools",
+         "branch": "master",
+         "url": "https://github.com/golang/tools"
+      },
+      {
+         "name": "go",
+         "branch": "master",
+         "url": "https://go.googlesource.com/go"
+      }
+   ]
+}
+#+end_src
+** study
+#+begin_src json
+        {
+        "name": "jonashackt-spring-boot-vuejs",
+        "branch": "master",
+        "url": "https://github.com/jonashackt/spring-boot-vuejs"
+    },
+        {
+        "name": "eddycjy-go-gin-example",
+        "branch": "master",
+        "url": "https://github.com/eddycjy/go-gin-example"
+    },
+        {
+        "name": "Building-Distributed-Applications-in-Gin",
+        "branch": "main",
+        "url": "https://github.com/PacktPublishing/Building-Distributed-Applications-in-Gin"
+    },
+        {
+        "name": "quii-learn-go-with-tests",
+        "branch": "main",
+        "url": "https://github.com/quii/learn-go-with-tests"
+    },
+        {
+        "name": "martenwallewein-go-sample-microservice",
+        "branch": "master",
+        "url": "https://github.com/martenwallewein/go-sample-microservice"
+    },
+        {
+        "name": "book-of-kubernetes-examples",
+        "branch": "main",
+        "url": "https://github.com/book-of-kubernetes/examples"
+    },
+
+#+end_src
 ** clojure
 #+begin_src csv
 name,branch,url
