@@ -417,7 +417,7 @@ print newline, word, and byte counts for each file
 ** grep
 | option              | description                                                                                                 |
 |---------------------+-------------------------------------------------------------------------------------------------------------|
-| -v                  | lines that doesnt match pattern                                                                             |
+| -v                  | Invert the sense of matching, to select non-matching lines.                                                 |
 | --exclude-dir=<DIR> |                                                                                                             |
 | -P                  | perl regex                                                                                                  |
 | -m <int>            | stop at                                                                                                     |
