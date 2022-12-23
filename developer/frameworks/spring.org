@@ -156,7 +156,7 @@ public interface CarRepository extends CrudRepository
 *@OneToMany*
 *@ManyToOne*
 - It is recommended that you use FetchType.LAZY for all associations.
-- the toMany relationships defaults to FetchType.LAZY , but the toOne relationships, should defined if needed.
+- the Romany relationships defaults to FetchType.LAZY , but the toOne relationships, should defined if needed.
 - lazy strategy means that when it is fetched from the database,  will be fetched when needed.
 - eager means that the it will be fetched immediately.
 
@@ -192,10 +192,43 @@ List<Car> findByBrand(String brand);
 @Query(“select c from Car c where c.brand like %?1")
 List<Car> findByBrandEndsWith(String brand);
 #+end_src
+** Customizing
+- Repository methods are composed of a verb, an optional subject, the word By, and a predicate.
+
+  #+begin_src java
+List<TacoOrder> readOrdersByDeliveryZipAndPlacedAtBetween(String deliveryZip, Date startDate, Date endDate);
+  #+end_src
+* Database
+** JPA
+@Entity
+
+#+begin_src java
+@Entity
+public class Ingredient {
+    @Id
+    private String id;
+    private String name;
+    private Type type;
+}
+#+end_src
+
+@Id
+Designates it as the property that will uniquely identify the entity in the database.
+** JBDC
+
 * DAO
 #+begin_quote
 The DAO API hides from the application all the complexity of performing CRUD operations in the underlying storage mechanism. This permits both layers to evolve separately without knowing anything about each other.
 #+end_quote
+* Clients
+** RestTemplate
+#+begin_src java
+RestTemplate rest = new RestTemplate();
+#+end_src
+
+** Traverson
+** WebClient
+
 * Librar
 ** HttpStatus
 #+begin_src java
