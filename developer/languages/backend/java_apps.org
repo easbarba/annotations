@@ -314,6 +314,13 @@ creates a constructor with all the existing fields.
  generates basic equals() and hashCode() methods using all fields by default, but we could also
  customize it.
 
+#+begin_src java
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+#+end_src
+
 * Ant
 * Gradle
 ** commands
