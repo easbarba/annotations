@@ -348,9 +348,13 @@ public String greet(@PathVariable("name") String name) {
 #+end_src
 
 *@ResponseStatus*
-#+begin_src java
+The status code is applied to the HTTP response when the handler method is invoked
+and overrides status information set by other means, like {@code ResponseEntity} or {@code "redirect:"}.
 
+#+begin_src java
+@ResponseStatus(HttpStatus.NO_CONTENT)
 #+end_src
+
 * URL structure
 GET http://ourhost.com/challenges/5?factorA=40
 These are its different parts:

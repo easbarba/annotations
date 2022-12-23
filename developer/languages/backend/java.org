@@ -169,7 +169,7 @@ class BoolTest {
 }
 #+end_src
 ** Collection Types
-*** Arrays
+*** Array
 *new*
 #+begin_src java
 String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
@@ -201,7 +201,9 @@ System.out.println(cars.length);
 *copy Of*
 *compare*
 *sort*
-*** Lists
+*** List
+- Extends Collection to handle sequences (lists of objects).
+
 *add*
 Add item to last position
 
@@ -269,7 +271,41 @@ while(it.hasNext()){
       System.out.println(valor + " " + mapaNomes.get(valor));
     }
 #+end_src
+*** Collection
+- interface
+- enables you to work with groups of objects; it is at the top of the collections hierarchy.
+- iterable
+- declares the core methods that all collections will have.
 
+#+begin_src java
+interface Collection<E>
+#+end_src
+
+#+begin_src java
+import java.util.Collection;
+
+Collection<String> meh;
+#+end_src
+
+*contains*
+
+
+*equals*
+
+*removeIf*
+
+*** Queue
+- Extends Collection to handle special types of lists in which elements are removed only from the head.
+*** Deque
+- Extends Queue to handle a double-ended queue.
+*** Set
+- Extends Collection to handle sets, which must contain unique elements.
+*** SortedSet
+- Extends Set to handle sorted sets.
+*** NavigableSet
+- Extends SortedSet to handle retrieval of elements based on closest-match searches.
+** Iterable
+** Iterator
 ** Packages
 - must be stored in sub-directories represented in the dot path
 - A class declared in a source file with no package declaration belongs to the anonymous default package
@@ -1966,6 +2002,11 @@ get
 Path filepath = Paths.get(System.getProperty("user.home"), "data", "foo.txt");
 #+end_src
 ** System
+*** getProperty
+#+begin_src java
+System.getProperty("user.home")
+#+end_src
+*** getenv
 
 ** Library
 *** String
