@@ -889,6 +889,7 @@ http://synthcode.com/scheme/fmt/
 * Projects
 ** TODO Wayland Guile Scheme Window Manager
 - emacs-like
+** TODO tagedit
 * Videos
 - [[https:https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures][SICP Videos]]
 -  https://vimeo.com/lispnyc
