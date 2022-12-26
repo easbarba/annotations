@@ -1,0 +1,18 @@
+#+title: Chicken
+
+* Commands
+** csi
+*-ss*
+
+#+begin_src shell
+csi -ss quickrep.scm <quickrep.dat 'a.*c' A
+#+end_src
+
+*-q*
+
+* Scripting
+*shebang*
+
+#+begin_src scheme
+#!/usr/local/bin/csi -script
+#+end_src
