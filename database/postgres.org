@@ -1100,8 +1100,8 @@ sudo -u postgres createuser --createdb --createrole --pwprompt "$USER"
 #+end_src
 
 * Test
-regression
-pgTap
+- regression
+- pgTap
 * Terms
 |                                       |                                                                                    |
 |---------------------------------------+------------------------------------------------------------------------------------|
@@ -1159,8 +1159,6 @@ Extract
 nnection refused - :econnrefused
 #+end_src
 
-* Online tools
-- https://mockaroo.com/
 * Ops
 ** local and non-root database
 #+begin_src shell-script
