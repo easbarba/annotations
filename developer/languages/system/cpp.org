@@ -1,27 +1,18 @@
 #+title: C++
 
-* Summary
-:PROPERTIES:
-:TOC:      :include all
-:END:
-:CONTENTS:
-- [[#summary][Summary]]
-- [[#progress][Progress]]
-  - [[#books][Books]]
-  - [[#sloc][SLOC]]
-- [[#cli][cli]]
-- [[#base][base]]
-:END:
 * Progress
 ** Books
-| name | chapter | @ |
-|------+---------+---|
-|      |         |   |
+| name             | chapter | @ |
+|------------------+---------+---|
+| C++ Crash Course | 1       |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
 |-------------+--------+------+---|
 |             |        |      |   |
 
-* cli
-* base
+* Base
+** Type
+** Collection Types
+* Commands
+* Library
