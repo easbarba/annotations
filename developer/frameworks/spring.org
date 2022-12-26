@@ -195,9 +195,17 @@ List<Car> findByBrandEndsWith(String brand);
 ** Customizing
 - Repository methods are composed of a verb, an optional subject, the word By, and a predicate.
 
-  #+begin_src java
+#+begin_src java
 List<TacoOrder> readOrdersByDeliveryZipAndPlacedAtBetween(String deliveryZip, Date startDate, Date endDate);
-  #+end_src
+#+end_src
+
+@Query
+
+#+begin_src java
+@Query("Order o where o.deliveryCity='Seattle'")
+List<TacoOrder> readOrdersDeliveredInSeattle();
+#+end_src
+
 * Database
 ** JPA
 @Entity
