@@ -4,7 +4,7 @@
 ** Books
 | name             | chapter | @ |
 |------------------+---------+---|
-| C++ Crash Course | 1       |   |
+| C++ Crash Course | 2 types |   |
 
 ** SLOC
 | Source Code | folder | file | @ |
@@ -14,5 +14,48 @@
 * Base
 ** Type
 ** Collection Types
+** Conditional
+*** if
+#+begin_src cpp
+int x = 0; u
+if (x > 0) printf("Positive.");
+else if (x < 0) printf("Negative.");
+else printf("Zero.");
+#+end_src
+*** while
+*** for
+** Comments
+#+begin_src cpp
+// This comment is on its own line
+int the_answer = 42; // This is an in-line comment
+#+end_src
+
+#+begin_src cpp
+/*
+ * This is a comment
+ * That lives on multiple lines
+ * Don't forget to close
+*/
+#+end_src
+
+** Functions
+#+begin_src cpp
+return-typeu function_namev(par-type1 par_name1w, par-type2 par_name2x) {
+--snip--
+returny return-value;
+}
+#+end_src
+
+** Misc
+*** noreturn
+Indicates that the function will not return control flow to the calling function
+after it finishes (e.g. functions that terminate the application, throw
+exceptions, loop indefinitely, etc.)
+
+#+begin_src cpp
+[[noreturn]] void cli(int argc, char *argv[]) {
+...
+}
+#+end_src
 * Commands
 * Library
