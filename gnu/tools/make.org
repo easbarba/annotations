@@ -1,5 +1,20 @@
 #+TITLE: GNU Make
 
+* Base
+- starts with a tab character, not spaces.
+
+** Variables
+#+begin_src makefile
+name := "meh"
+#+end_src
+** Misc
+@echo
+#+begin_src makefile
+@echo "Compiled "$<" successfully!"
+#+end_src
+
+** Commentary
+* Makefile
 * Commands
 ** Options
 *-C*
@@ -20,9 +35,7 @@ make -f ci.make
 make -f ci.build
 #+end_src
 
-* Base
-- starts with a tab character, not spaces.
-** Traits
+* Traits
 
 |                 |                                                                 |
 |-----------------+-----------------------------------------------------------------|
@@ -31,6 +44,5 @@ make -f ci.build
 | <word>: <word2> | other targets that must be run before the speciﬁed target runs. |
 | .PHONY:<word>   | <word> doesn't represent a file name in this Makefile           |
 |                 |                                                                 |
-* Makefile
 * Resources
 - https://makefiletutorial.com/
