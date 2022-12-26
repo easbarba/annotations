@@ -1,15 +1,12 @@
 #+TITLE: SQL
 
-* CRUD
-** Create
-** Read
-** Update
-** Delete
-* cascade
+* Online tools
+- https://mockaroo.com/
+* Cascade
 #+begin_src sql
 drop table if exists owner CASCADE
 #+end_src
-* alter
+* Alter
 #+begin_src sql
 alter table car add constraint foreign key references owner
 #+end_src
@@ -28,3 +25,10 @@ cand AS (
 )
 SELECT obj->>'nm', (obj->>'vap')::int, (replace(obj->>'pvap', ',', '.'))::numeric FROM cand;
 #+end_src
+* Docs
+Oracle DBModeler, Power Designer, MySQL Workbench, ERD Tool... ferramentas de modelagem, mantendo o modelo separado da implementação.
+
+Na implementação, ferramentas de versionamento como Liquibase, Flyway...
+
+dbdocs.io
+http://dbdiagram.io
