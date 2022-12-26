@@ -70,7 +70,7 @@ defining a variable
 #+end_src
 
 ** Types
-*** atom
+*** Atom
 - all atoms are s-expression
 - empty list is not an atom
 
@@ -90,6 +90,97 @@ defining a variable
 
 #+end_src
 
+*** Numbers
+#+begin_src scheme
+1234 ;; 1234
+#+end_src
+
+#+begin_src scheme
+(define (factorial n)
+  (let loop ((n n) (product 1))
+    (if (= n 0)
+        product
+        (loop (- n 1) (* product n)))))
+#+end_src
+
+*integer?*
+
+#+begin_src scheme
+(integer? 487)
+⇒ #t
+(integer? 3.0)
+⇒ #t
+(integer? -3.4)
+⇒ #f
+#+end_src
+
+*exact-integer?*
+
+*number?
+#+begin_src scheme
+(number? 3) ;; ⇒ #t
+(number? "hello there!") ; ⇒ #f
+(define pi 3.141592654)
+(number? pi) ; ⇒ #t
+#+end_src
+
+*integer?*
+*exact-integer?*
+*real?*
+*rational?*
+*inf?*
+*nan?*
+*finite?*
+*nan*
+*inf*
+*numerator*
+*denominator*
+*complex?*
+*exact?*
+*inexact?*
+*odd?*
+*even?*
+*quotient*
+*modulo*
+*gcd*
+*lcm*
+*modulo-expt*
+*exact-integer-sqrt*
+*number->string*
+*positive?*
+*negative?*
+
+**** arithmetic
+***** /
+***** +
+***** -
+***** *
+***** 1+
+***** 1-
+***** abs
+***** max
+***** min
+***** truncate   truncate/  truncated-print     truncate-file       truncate-quotient   truncate-remainder
+***** round
+***** floor  floor/ floor-quotient   floor-remainder
+***** ceiling  ceiling/  ceiling-quotient   ceiling-remainder
+***** double
+***** euclidean/ euclidean-quotient   euclidean-remainder
+*****
+*** String
+#+begin_src scheme
+"Cacildis"
+#+end_src
+
+*string-append*
+*string-join*
+*string-lenght*
+*string->char-set!*
+*string->list*
+*string->number*
+*string->symbol*
+*string=*
+*string=?*
 *** Booleans
 - #t and #f
 - #true and #false in R7RS
@@ -113,66 +204,6 @@ defining a variable
 (char? #\U) #t
 
 #+end_src
-*** Numbers
-#+begin_src scheme
-1234 ;; 1234
-#+end_src
-
-**** functions
-***** number?
-***** integer?
-***** exact-integer?
-***** real?
-***** rational?
-***** inf?
-***** nan?
-***** finite?
-***** nan
-***** inf
-***** numerator
-***** denominator
-***** complex?
-***** exact?
-***** inexact?
-***** odd?
-***** even?
-***** quotient
-***** modulo
-***** gcd
-***** lcm
-***** modulo-expt
-***** exact-integer-sqrt
-***** number->string
-**** arithmetic
-***** /
-***** +
-***** -
-***** *
-***** 1+
-***** 1-
-***** abs
-***** max
-***** min
-***** truncate   truncate/  truncated-print     truncate-file       truncate-quotient   truncate-remainder
-***** round
-***** floor  floor/ floor-quotient   floor-remainder
-***** ceiling  ceiling/  ceiling-quotient   ceiling-remainder
-***** double
-***** euclidean/ euclidean-quotient   euclidean-remainder
-*****
-*** Strings
-#+begin_src scheme
-"Cacildis"
-#+end_src
-
-*string-append*
-*string-join*
-*string-lenght*
-*string->char-set!*
-*string->list*
-*string->number*
-*string->symbol*
-
 *** null
 ** Collections Types
 *** List
