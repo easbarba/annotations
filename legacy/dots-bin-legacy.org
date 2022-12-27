@@ -6,6 +6,8 @@
 :END:
 #+begin_src shell
 xorg=(screenkey maim awesome awesome-extra diodon  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
+wayland=(bemenu foot clipman grimshot)
+cpp=(qtcreator rapidjson-dev)
 wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa mpd mpc ncmpcpp playerctl brightnessctl zathura)
 langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
 user=(telegram-desktop )
