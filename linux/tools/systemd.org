@@ -90,3 +90,20 @@ man environment.d
 ** rescue.target (single-user)
    - systemd.unit=emergency.target in boot loader to avoid local filesystems to be mounted (Redhat)
    - systemd.unit=rescue.target ... to boot into rescue mode
+** boot target
+get default with:
+
+#+begin_src shell
+systemctl get-default
+#+end_src
+
+*text mode*
+#+begin_src shell
+sudo systemctl set-default multi-user.target
+#+end_src
+
+*graphical mode*
+
+#+begin_src shell
+sudo systemctl set-default graphical.target
+#+end_src
