@@ -13,7 +13,109 @@
 
 * Base
 ** Type
+*** Integer
+#+begin_src cpp
+int main() {
+  unsigned short a = 0b10101010;
+  u printf("%hu\n", a);
+  int b = 0123;
+  v printf("%d\n", b);
+  unsigned long long d = 0xFFFFFFFFFFFFFFFF;
+  w printf("%llu\n", d);
+}
+#+end_src
+*** Character
+char16_t  Used for 2-byte character sets.
+char32_t Used for 4-byte character sets. (Example: UTF-32.)
+signed char Same as char but guaranteed to be signed.
+unsigned char Same as char but guaranteed to be unsigned.
+wchar_t Large enough to contain the largest character of the imple-
+mentation’s locale. (Example: Unicode.)
+*** Boolean
+- true state converts to 1, and false converts to 0.
+- non-zero integer converts to true, and 0 converts to false.
+
+#+begin_src cpp
+#include <cstdio>
+int main() {
+  bool b1 = true;
+  u // b1 is true
+      bool b2 = false;
+  v // b2 is false
+      printf("%d %d\n", b1, b2);
+  w
+}
+#+end_src
+
+#+begin_src cpp
+#include <cstdio>
+int main() {
+  printf(" 7 == 7: %du\n", 7 == 7v);
+  printf(" 7 != 7: %d\n", 7 != 7);
+  printf("10 > 20: %d\n", 10 > 20);
+  printf("10 >= 20: %d\n", 10 >= 20);
+  printf("10 < 20: %d\n", 10 < 20);
+  printf("20 <= 20: %d\n", 20 <= 20);
+}
+#+end_src
+
+#+begin_src cpp
+#include <cstdio>
+int main() {
+  bool t = true;
+  bool f = false;
+  printf("!true: %d\n", !t);
+  u printf("true && false: %d\n", t && f);
+  v printf("true && !false: %d\n", t && !f);
+  w printf("true || false: %d\n", t || f);
+  x printf("false || false: %d\n", f || f);
+  y
+}
+#+end_src
+
+*sizeof*
+The unary operator sizeof takes a type operand and returns the size (in bytes) of that type.
+*** String
+#+begin_src cpp
+short array[] = { 104, 105, 32, 98, 105, 108, 108, 0 };
+size_t n_elements = sizeof(array)u / sizeof(short)v
+#+end_src
+
+*multiline*
+#+begin_src cpp
+#include <cstdio>
+int main() {
+  char house[] = "a "
+                 "house "
+                 "of "
+                 "gold.";
+  printf("A book holds %s\n ", house);
+}
+#+end_src
+
 ** Collection Types
+*** Array
+#+begin_src cpp
+int array[] = { 1, 2, 3, 4 };
+#+end_src
+
+#+begin_src cpp
+#include <cstdio>
+int main() {
+  int arr[] = {1, 2, 3, 4};
+  u printf("The third element is %d.\n", arr[2] v);
+  arr[2] = 100;
+  w printf("The third element is %d.\n", arr[2] x);
+}
+#+end_src
+
+*sizeof*
+#+begin_src cpp
+short array[] = { 104, 105, 32, 98, 105, 108, 108, 0 };
+size_t n_elements = sizeof(array) / sizeof(short);
+#+end_src
+
+** Comparison
 ** Conditional
 *** if
 #+begin_src cpp
@@ -24,6 +126,12 @@ else printf("Zero.");
 #+end_src
 *** while
 *** for
+** void
+Returns type for functions that don’t return any value
+#+begin_src cpp
+#include <cstdio>
+void taunt() { printf("Hey, laser lips, your mama was a snow blower."); }
+#+end_src
 ** Comments
 #+begin_src cpp
 // This comment is on its own line
@@ -37,7 +145,36 @@ int the_answer = 42; // This is an in-line comment
  * Don't forget to close
 */
 #+end_src
+** Loop
+*** For
+#+begin_src cpp
+#include <cstddef>
+#include <cstdio>
 
+int main() {
+  unsigned long maximum = 0;
+  unsigned long values[] = {10, 50, 20, 40, 0};
+  for (size_t i = 0; i < 5; i++) {
+    if (values[i] > maximum)
+      maximum = values[i];
+  }
+  printf("The maximum value is %lu", maximum);
+}
+#+end_src
+
+*** Ranged For
+#+begin_src cpp
+#include <cstdio>
+int main() {
+  unsigned long maximum = 0;
+  unsigned long values[] = {10, 50, 20, 40, 0};
+  for (unsigned long value : values) {
+    if (value > maximum)
+      maximum = value;
+  }
+  printf("The maximum value is %lu.", maximum);
+}
+#+end_src
 ** Functions
 #+begin_src cpp
 return-typeu function_namev(par-type1 par_name1w, par-type2 par_name2x) {
@@ -59,3 +196,16 @@ exceptions, loop indefinitely, etc.)
 #+end_src
 * Commands
 * Library
+* Jobs
+** C++ Developer Braintrust
+
+Key Qualifications
+
+    Minimum 8 years of experience in programing in C and/or C++
+    Fluency coding in more than one language
+    Excellent proficiency at engaging & debugging with hardware systems using low level software debugging tools (gdb, lldb, …)
+    Strong knowledge of hardware concepts needed for high performance low level software (L1, L2, memory latency, TLB, DMA)
+    Basic familiarity with Linux kernel concepts (system calls, kernel threads, interrupts, paging, scheduling)
+    Experience with GPU development (OpenCL/CUDA, OpenGL GLSL, or DirectX HLSL)
+    You absolutely must be good at figuring out how to do something you’ve never done before.
+    Good command of the English language
