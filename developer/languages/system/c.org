@@ -4,6 +4,7 @@
 ** Book
 | Book                | Chapter                   | @            |
 |---------------------+---------------------------+--------------|
+| Learn C Programming |                           |              |
 | Build your own Lisp | 7 Evaluation              |              |
 | C Modern Approach   | 3 Formatted  Input/output |              |
 | C Primer Plus       | 3 Data and C              | The int Type |
@@ -16,14 +17,31 @@
 
 * Base
 ** Types
-*** Int
-- signed integer
+*** Integer
+*signed integer*
+- 4 bytes
 - can be positive, negative, or zero
+
+#+begin_src c
+signed int meh;
+#+end_src
+
+*unsigned integer*
+- 4 bytes
+- can only be positive
+
+#+begin_src c
+unsigned meh;
+unsigned int meh;
+#+end_src
+
 *** Float
 #+begin_src c
 print("%f", 2.0)
 #+end_src
 *** Long
+- 8 bytes
+
 *** Short
 *** Char
 *** Unsigned
