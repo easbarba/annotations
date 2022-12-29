@@ -2,12 +2,12 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @ |
-|--------------------------+------------------------------------------------------------+---|
-| Java Complete Reference  | 20 java.util Part 1: The Collections Framework             |   |
-| Coding Interview in Java | 3 Common Non-Technical Questions and How To Answer Them    |   |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |   |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |   |
+| name                     | chapter                                                    | @                   |
+|--------------------------+------------------------------------------------------------+---------------------|
+| Java Complete Reference  | 20 java.util Part 1: The Collections Framework             | The ArrayList Class |
+| Coding Interview in Java | 4 How to Handle Failures                                   |                     |
+| Effective Java 9         | 2 Creating and Destroying Objects                          |                     |
+| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                     |
 
 ** SLOC
 | Source Code | folder                                               | file                           | @ |
@@ -217,6 +217,14 @@ Merge lists
 #+begin_src java
 List<String> meh = list.addAll(anotherList);
 #+end_src
+
+*interface*
+- Elements can be inserted or accessed by their position in the list, using a zero-based index.
+
+#+begin_src java
+interface List<E>
+#+end_src
+
 *** HashSet
 - unique elements on list
 
@@ -296,8 +304,37 @@ Collection<String> meh;
 
 *** Queue
 - Extends Collection to handle special types of lists in which elements are removed only from the head.
+
+*poll()*
+- returns null if the queue is empty.
+
+*remove()*
+- throws an exception if the queue is empty.
+
+*element()*
+- returns the element at the head of the queue. The element is not removed.
+
+*peek()*
+- obtains but don’t remove the element at the head of the queue.
+
+*offer()*
+- attempts to add an element to a queue.
+- may fail on fixed length queues and might be full.
+
+*interface*
+- first-in, first-out list
+
+
+
 *** Deque
 - Extends Queue to handle a double-ended queue.
+
+*interface*
+- extends Queue and declares the behavior of a double-ended queue.
+#+begin_src java
+interface Deque<E>
+#+end_src
+
 *** Set
 - Extends Collection to handle sets, which must contain unique elements.
 *** SortedSet
