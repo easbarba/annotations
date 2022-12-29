@@ -438,6 +438,10 @@ final void meth() {
 System.out.println("This is a final method.");
 }
 #+end_src
+** Misc
+*** Void
+- has one field, TYPE, that holds a reference to the Class object for type void.
+- cannot create instances of this class.
 
 ** Variables
 - an identifier, a type, and an optional initialize
