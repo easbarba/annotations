@@ -2,12 +2,11 @@
 
 * Progress
 ** Books
-| name                     | chapter                                                    | @                    |
-|--------------------------+------------------------------------------------------------+----------------------|
-| Java Complete Reference  | 20 java.util Part 1: The Collections Framework             | The LinkedList Class |
-| Coding Interview in Java | 4 How to Handle Failures                                   |                      |
-| Effective Java 9         | 2 Creating and Destroying Objects                          |                      |
-| Java Precisely           | 16 Compilation, Source Files, Class Names, and Class Files |                      |
+| name                     | chapter                                      | @                                           |
+|--------------------------+----------------------------------------------+---------------------------------------------|
+| Java Complete Reference  | 20 The Collections Framework                 |  Working with Maps                                           | Effective Java 9         | 2 Creating and Destroying Objects            | Item  2                                     |
+| Coding Interview in Java | 4 How to Handle Failures                     |                                             |
+| Java Precisely           | 16 Compilation, Source Files, Class Names... |                                             |
 
 ** SLOC
 | Source Code | folder                                               | file                           | @ |
@@ -209,6 +208,7 @@ System.out.println(cars.length);
 - dynamically increase or decrease in size
 - when this size is exceeded, the collection is automatically enlarged.
 - when objects are removed, the array can be shrunk.
+- implements the RandomAccess Interface
 
 #+begin_src java
 import java.util.*;
@@ -379,7 +379,6 @@ Collection<String> meh;
 *interface*
 - first-in, first-out list
 
-
 *** Deque
 - Extends Queue to handle a double-ended queue.
 
@@ -395,8 +394,62 @@ interface Deque<E>
 - Extends Set to handle sorted sets.
 *** NavigableSet
 - Extends SortedSet to handle retrieval of elements based on closest-match searches.
+*** RandomAccess
+- interface
+- signals that it supports efficient random access to its elements
 ** Iterable
 ** Iterator
+*** Iterator
+#+begin_src java
+interface Iterator<E>
+#+end_src
+
+#+begin_src java
+ArrayList<String> meh = new ArrayList<String>();
+meh.add("meh");
+meh.add("forevis");
+meh.add("timao");
+Iterator m = meh.iterator();
+#+end_src
+
+*next()*
+
+#+begin_src java
+m.next() // meh
+m.next() // forevis
+#+end_src
+
+*hasNext()*
+
+#+begin_src java
+m.hasNext() // meh
+m.next() // forevis
+#+end_src
+
+*** ListIterator
+- extends /Iterator/
+- allow bidirectional traversal of a list
+- modification of elements
+
+#+begin_src java
+interface ListIterator<E>
+#+end_src
+*** Spliterators
+- interface
+- cycles through a sequence of elements with substantially more functionality.
+- parallel iteration of portions of the sequence (supports parallel programming).
+
+#+begin_src java
+interface Spliterator<T>
+#+end_src
+
+*tryAdvance()*
+
+*forEachRemaining()*
+
+*characteristics()*
+
+*hasCharacteristics()*
 ** Packages
 - must be stored in sub-directories represented in the dot path
 - A class declared in a source file with no package declaration belongs to the anonymous default package
@@ -426,7 +479,10 @@ import java.io.*;
 class MyDate extends Date {
 }
 #+end_src
-
+** Modules
+** Consumer
+- functional interface
+- applies an action to an object
 ** Modifiers
 *** final
 #+begin_src sh
@@ -833,6 +889,49 @@ interface IntStack {
     }
 }
 #+end_src
+** Functional Interface
+*accept()*
+
+#+begin_src java
+void accept(T objRef)
+#+end_src
+
+#+begin_src java
+// A simple Spliterator demonstration.
+import java.util.*;
+
+class SpliteratorDemo {
+    public static void main(String[] args) {
+        // Create an array list for doubles.
+        ArrayList<Double> vals = new ArrayList<>();
+
+        // Add values to the array list.
+        vals.add(1.0);
+        vals.add(2.0);
+        vals.add(3.0);
+        vals.add(4.0);
+        vals.add(5.0);
+
+        // Use tryAdvance() to display contents of vals.
+        System.out.print("Contents of vals:\n");
+        Spliterator<Double> spltitr = vals.spliterator();
+        while (spltitr.tryAdvance((n) -> System.out.println(n)));
+        System.out.println();
+
+        // Create new list that contains square roots.
+        spltitr = vals.spliterator();
+        ArrayList<Double> sqrs = new ArrayList<>();
+        while (spltitr.tryAdvance((n) -> sqrs.add(Math.sqrt(n))));
+
+        // Use forEachRemaining() to display contents of sqrs.
+        System.out.print("Contents of sqrs:\n");
+        spltitr = sqrs.spliterator();
+        spltitr.forEachRemaining((n) -> System.out.println(n));
+        System.out.println();
+    }
+}
+#+end_src
+
 ** Exceptions
 - can be generated by the Java run-time system
 - can be manually generated by your code
@@ -2265,6 +2364,33 @@ Excellent written and verbal communication skills in English
 Willingness to travel up to 50% of the time, within the North America region, when needed for events and meetings
 Project lead, architecture design, or sales engineering experience is a plus
 Bachelor's or master's degree is a plus
+** accenture quarkus dev
+Qualifications
+O que estamos buscando?
+
+Principais desafios;
+
+Conhecimentos sólidos em Java e Quarkus
+Conhecimento em Graal VM
+Banco de dados relacionais e não relacionais
+Experiencia / Conhecimento nos princípios; Application Design Patterns, DDD, Message Driven, Event Sourcing, ESB
+Experiencia / Conhecimento em Microservices, FaaS, Serveless
+Experiencia / Conhecimento nas clouds (GCP, AWS, Azure)
+Desenvolvimento de componentes para o uso na área de arquitetura e pela equipe de desenvolvedores.
+Gerar documentação técnica para outros arquitetos e desenvolvedores.
+Conhecimentos diferenciais.
+
+Participação na elaboração de roadmap estratégicos com o foco na modernização e transformação da área de arquitetura.
+Participação na elaboração e definição de escopo para projetos estratégicos de TI.
+NodeJS
+OCI
+IaaS, PaaS, CaaS, SaaS
+Cloud Security
+IaC
+DevSecOps
+Kubernetes
+Infraestrutura
+Servidores
 ** Kamila code
 - lambda
 - stream
