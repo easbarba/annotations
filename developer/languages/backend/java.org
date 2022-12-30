@@ -2,11 +2,12 @@
 
 * Progress
 ** Books
-| name                     | chapter                                      | @                                           |
-|--------------------------+----------------------------------------------+---------------------------------------------|
-| Java Complete Reference  | 20 The Collections Framework                 |  Working with Maps                                           | Effective Java 9         | 2 Creating and Destroying Objects            | Item  2                                     |
-| Coding Interview in Java | 4 How to Handle Failures                     |                                             |
-| Java Precisely           | 16 Compilation, Source Files, Class Names... |                                             |
+| name                     | chapter                                      | @                 |
+|--------------------------+----------------------------------------------+-------------------|
+| Java Complete Reference  | 20 The Collections Framework                 | Working with Maps |
+| Effective Java           | Item 2                                       |                   |
+| Coding Interview in Java | 4 How to Handle Failures                     |                   |
+| Java Precisely           | 16 Compilation, Source Files, Class Names... |                   |
 
 ** SLOC
 | Source Code | folder                                               | file                           | @ |
@@ -287,6 +288,14 @@ interface List<E>
 new HashSet<>(listedList)
 #+end_src
 *** Map
+- do not implement the Collection interface.
+- stores associations between keys and values, or key/value pairs.
+- given a key, you can find its value.
+- both keys and values are objects.
+- keys must be unique, but the values may be duplicated.
+- some maps can accept a null key and null values, others cannot.
+- don’t implement the Iterable interfac
+
 *import*
 
 #+begin_src java
@@ -299,7 +308,20 @@ import java.util.TreeMap;
 Map<integer, string=""> mapaNomes = new HashMap<integer, string="">();
 #+end_src
 
-*put*
+**** interface
+- 
+
+*keySet()*
+
+*entrySet()*
+
+*values()*
+
+*of()*
+
+*get()*
+
+*put()*
 
 #+begin_src java
 mapaNomes.put(1, "João Delfino");
@@ -334,6 +356,18 @@ while(it.hasNext()){
       System.out.println(valor + " " + mapaNomes.get(valor));
     }
 #+end_src
+**** exceptions
+*ClassCastException*
+thrown when an object is incompatible with the elements in a map.
+
+*NullPointerException*
+thrown if an attempt is made to use a null object and null is not allowed in the map.
+
+*UnsupportedOperationException*
+thrown when an attempt is made to change an unmodifiable map.
+
+*IllegalArgumentException*
+thrown if an invalid argument is used.
 *** Collection
 - interface
 - enables you to work with groups of objects; it is at the top of the collections hierarchy.
