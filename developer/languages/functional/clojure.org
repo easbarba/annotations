@@ -10,8 +10,8 @@
 | Source Code | folder                  | file     | @ |
 |-------------+-------------------------+----------+---|
 | clojure     | clojure/src/clj/clojure | core.clj |   |
-| lein        |                         |          |   |
-| clojure-lsp |                         |          |   |
+| clojure_lsp | lib/src/clojure_lsp     | api.clj  |   |
+
 * Base
 ** Types
 *** Strings
@@ -37,6 +37,8 @@ false
 *** Atoms
 ** Collections
 *** Lists
+- an ordered collection of items
+
 #+begin_src clojure
 '(1 2 3 "four" 5 "six")
 '(1 2.0 2.9999 "four" 5.001 "six")
@@ -49,32 +51,60 @@ false
 (def more-novels (conj novels "Jaws")) ; ("Jaws" "Emma" "Coma" "War and Peace")
 #+end_src
 
+*
+
 *** Vectors
 - preferred over to lists
 - transformed to list at runtime
 
+*literals*
 #+begin_src clojure
 [1 "two" 3 "four"]
 [1 [true 3 "four" 5] 6]
 #+end_src
 
+*creation*
+
 #+begin_src clojure
 (vector true 3 "four" 5)
 #+end_src
 
-#+begin_src clojure
-(def meh ["Emma" "Coma" "War and Peace"])
-(count meh) ; Returns 3.
-(first meh) ; "Emma"
-(rest meh)  ; ("Coma" "War and Peace")
-(first (rest (rest meh))) ; "War and Peace"
-(nth meh 2) ; "War and Peace"
-#+end_src
+*assignment*
 
 #+begin_src clojure
 (def meh ["Emma" "Coma" "War and Peace"])
-(conj meh "Carrie") ; ["Emma" "Coma" "War and Peace" "Carrie"]
+#+end_src
+
+*first / rest*
+
+#+begin_src clojure
+(first meh) ; "Emma"
+(rest meh)  ; ("Coma" "War and Peace")
+(first (rest (rest meh))) ; "War and Peace"
+#+end_src
+
+*count*
+
+#+begin_src clojure
+(count meh) ; Returns 3.
+#+end_src
+
+*nth*
+
+#+begin_src clojure
+(nth meh 2) ; "War and Peace"
+#+end_src
+
+*cons*
+
+#+begin_src clojure
 (cons "Carrie" meh) ; ("Carrie" "Emma" "Coma" "War and Peace")
+#+end_src
+
+*conj*
+
+#+begin_src clojure
+(conj meh "Carrie") ; ["Emma" "Coma" "War and Peace" "Carrie"]
 #+end_src
 
 *** Arrays
