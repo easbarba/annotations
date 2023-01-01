@@ -2,6 +2,7 @@
 
 * [[https://getcomposer.org/][Composer]]
 A Dependency Manager for PHP
+
 ** phar
 ** commands
 *** suggest
@@ -18,8 +19,4 @@ composer create-project laravel/laravel projectName
 #+begin_src shell
 composer create-project --prefer-dist laravel/laravel crud_basico
 #+end_src
-
-* Frameworks
-** drupal
-*** drush
-** laravel
+** suggets
