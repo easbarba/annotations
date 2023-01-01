@@ -22,6 +22,15 @@ php artisan db:seed --class=ArticlesTableSeeder
 #+end_src
 *** :show
 *** :table <NAME>
+** migrate
+*** install
+#+begin_src shell
+php artisan migrate:install
+#+end_src
+*** fresh
+#+begin_src shell
+php artisan migrate:fresh
+#+end_src
 ** env
 ** serve
 *** options
