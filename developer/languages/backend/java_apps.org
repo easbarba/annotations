@@ -6,9 +6,10 @@
 |-------+------------------------+------------------|
 | Junit | 2 Exploring Core Junit | 2.2 Nested tests |
 ** SLOC
-| Source Code | folder                                                | file          | @ |
-|-------------+-------------------------------------------------------+---------------+---|
-| JUnit5      | junit-jupiter-api/src/main/java/org/junit/jupiter/api | AfterAll.java |   |
+| Source Code       | folder                                                        | file                      | @ |
+|-------------------+---------------------------------------------------------------+---------------------------+---|
+| JUnit5            | junit-jupiter-api/src/main/java/org/junit/jupiter/api         | AfterAll.java             |   |
+| apache-maven-core | api/maven-api-model/src/main/java/org/apache/maven/api/model  | ImmutableCollections.java |   |
 * Maven
 version: JDK7
 ** phases
@@ -46,6 +47,7 @@ mvn -B package --file pom.xml
 #+end_src
 
 *** compile
+
 - maven-compiler-plugin
 - defaults to ./target folder
 
@@ -103,7 +105,23 @@ mvn clean install -U
 #+end_src
 
 *** install
-Install package to local repository
+Copies the project artifacts to the user's local repository.
+
+*:install*
+  Installs the project's main artifact, and any other artifacts attached by
+  other plugins in the lifecycle, to the local repository.
+
+
+#+begin_src shell
+mvn install:install
+#+end_src
+
+*:install-file*
+  Installs a file in the local repository.
+
+#+begin_src shell
+mvn install:install-file
+#+end_src
 
 *** deploy
 Make package result available to others, typically run from CI environment
@@ -133,10 +151,23 @@ mvn -B package --file pom.xml
 *** verify
 *** dependency
 *:tree*
-*** dependency
-#+begin_src shell
+
+*:purge-local-repository*
+
+#+begin_src java
 mvn dependency:purge-local-repository
 #+end_src
+
+*:copy-dependencies*
+
+#+begin_src java
+mvn dependency:copy-dependencies -DoutputDirectory=/mydeps
+#+end_src
+
+*:list*
+
+*:tree*
+
 *** wrapper
 generate nvmw locally
 #+begin_src shell
@@ -146,8 +177,6 @@ mvn wrapper:wrapper
 *generate*
 #+begin_src shell
 mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
-
-mvn archetype:generate -DgroupId=com.sohamkamani \ -DartifactId=mvn-example \ -DarchetypeArtifactId=maven-archetype-quickstart \ -DarchetypeVersion=1.4
 #+end_src
 
 jar
