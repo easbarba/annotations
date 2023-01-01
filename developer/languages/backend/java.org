@@ -687,242 +687,6 @@ public java.util.Enumeration enumerate() {
 }
 #+end_src
 
-** Interfaces
-- Cannot mantain state
-- JDK 7: an interface could not define any implementation whatsoever.
-- JDK 8: adds a default implementation to an interface method.
-- JDK 8: adds static interface methods
-- JDK 9: includes private methods
-- a class must provide the complete set of methods required by the interface. 
-- designed to support dynamic method resolution at run time.
-- one class can implement any number of interfaces.
-
-#+begin_src java
-interface Callback {
-    void callback(int param);
-}
-#+end_src
-
-- variables are implicitly final and static
-- methods and variables are implicitly public.
-- interface's method must be public
-
-#+begin_src java
-class Client implements Callback { // interface's method must be public
-// Implement Callback's interface
-    public void callback(int p) {
-        System.out.println("callback called with " + p);
-    }
-}
-#+end_src
-
-#+begin_src java
-class Client implements Callback {
-    // Implement Callback's interface
-    public void callback(int p) {
-        System.out.println("callback called with " + p);
-    }
-
-    void nonIfaceMeth() {
-        System.out.println("Classes that implement interfaces " + "may also define other members, too.");
-    }
-}
-#+end_src
-
-Interface as variable reference
-- An interface reference variable has knowledge only of the methods declared by its interface declaration.
-
-#+begin_src java
-class TestIface {
-    public static void main(String[] args) {
-        Callback c = new Client();
-        c.callback(42);
-    }
-}
-#+end_src
-
-Partial Implementations
-- not fully implement the methods required by that interface, then that class must be declared as abstract.
-- Any class that inherits Incomplete must implement callback( ) or be declared abstract itself.
-
-#+begin_src java
-abstract class Incomplete implements Callback {
-    int a, b;
-
-    void show() {
-        System.out.println(a + " " + b);
-    }
-    // ...
-}
-#+end_src
-
-Nested Interfaces
-
-- member interfaces
-- can be declared as public, private, or protected.
-- differs from a top-level interface, which must either be declared as public or use the default access level
-
-
-#+begin_src java
-class A {
-    // this is a nested interface
-    public interface NestedIF {
-        boolean isNotNegative(int x);
-    }
-}
-
-// B implements the nested interface.
-class B implements A.NestedIF {
-    public boolean isNotNegative(int x) {
-        return x < 0 ? false : true;
-    }
-}
-
-class NestedIFDemo {
-    public static void main(String[] args) {
-        // use a nested interface reference
-        A.NestedIF nif = new B();
-        if (nif.isNotNegative(10))
-            System.out.println("10 is not negative");
-        if (nif.isNotNegative(-12))
-            System.out.println("this won't be displayed");
-    }
-}
-#+end_src
-
-Extending interfaces
-
-- must provide implementations for all methods required by the interface inheritance chain
-
-#+begin_src java
-// One interface can extend another.
-interface A {
-    void meth1();
-    void meth2();
-}
-
-// B now includes meth1() and meth2() -- it adds meth3().
-interface B extends A {
-    void meth3();
-}
-
-// This class must implement all of A and B
-class MyClass implements B {
-    public void meth1() {
-        System.out.println("Implement meth1().");
-    }
-
-    public void meth2() {
-        System.out.println("Implement meth2().");
-    }
-
-    public void meth3() {
-        System.out.println("Implement meth3().");
-    }
-}
-
-class IFExtend {
-    public static void main(String[] args) {
-        MyClass ob = new MyClass();
-        ob.meth1();
-        ob.meth2();
-        ob.meth3();
-    }
-}
-#+end_src
-
-Default method
-
-- extension method
-- provide a body, rather than being abstract.
-- supplies an implementation that will be used if no other implementation is explicitly provided
-- JDK 8
-
-#+begin_src java
-interface IntStack {
-    void push(int item); // store an item
-    int pop(); // retrieve an item
-    // Because clear( ) has a default, it need not be
-    // implemented by a preexisting class that uses IntStack.
-    default void clear() {
-        System.out.println("clear() not implemented.");
-    }
-}
-#+end_src
-
-- refers to a default implementation in an inherited interface by using super.
-
-#+begin_src
-Alpha.super.reset();
-#+end_src
-
-*Interface static Methods*
-
-- no implementation of the interface is necessary, and no instance of the interface is required, in order to call a static method.
-
-#+begin_src java
-public interface MyIF {
-    // This is a "normal" interface method declaration.
-    // It does NOT define a default implementation.
-    int getNumber();
-
-    // This is a default method. Notice that it provides
-    // a default implementation.
-    default String getString() {
-        return "Default String";
-    }
-
-    // This is a static interface method.
-    static int getDefaultNumber() {
-        return 0;
-    }
-}
-
-// ...
-int defNum = MyIF.getDefaultNumber();
-#+end_src
-
-*Private Interface Methods*
-
-- only called by a default method or another private method defined by the same interface.
-- cannot be used by code outside the interface in which it is defined, including subinterfaces
-- used as a shared common piece of code
-
-#+begin_src java
-// Another version of IntStack that has a private interface
-// method that is used by two default methods.
-interface IntStack {
-    void push(int item); // store an item
-
-    int pop();
-    // retrieve an item
-
-    // A default method that returns an array that contains
-    // the top n elements on the stack.
-    default int[] popNElements(int n) {
-        // Return the requested elements.
-        return getElements(n);
-    }
-
-    // A default method that returns an array that contains
-    // the next n elements on the stack after skipping elements.
-    default int[] skipAndPopNElements(int skip, int n) {
-        // Skip the specified number of elements.
-        getElements(skip);
-        // Return the requested elements.
-        return getElements(n);
-    }
-
-    // A private method that returns an array containing
-    // the top n elements on the stack
-    private int[] getElements(int n) {
-        int[] elements = new int[n];
-        for (int i = 0; i < n; i++)
-            elements[i] = pop();
-        return elements;
-    }
-}
-#+end_src
 ** Functional Interface
 *accept()*
 
@@ -1677,6 +1441,282 @@ type member( ) default value ;
 #+end_src
 *Marker Annotations*
 
+** Interfaces
+- Cannot mantain state
+- JDK 7: an interface could not define any implementation whatsoever.
+- JDK 8: adds a default implementation to an interface method.
+- JDK 8: adds static interface methods
+- JDK 9: includes private methods
+- a class must provide the complete set of methods required by the interface.
+- designed to support dynamic method resolution at run time.
+- one class can implement any number of interfaces.
+
+#+begin_src java
+interface Callback {
+    void callback(int param);
+}
+#+end_src
+
+- variables are implicitly final and static
+- methods and variables are implicitly public.
+- interface's method must be public
+
+#+begin_src java
+class Client implements Callback { // interface's method must be public
+// Implement Callback's interface
+    public void callback(int p) {
+        System.out.println("callback called with " + p);
+    }
+}
+#+end_src
+
+#+begin_src java
+class Client implements Callback {
+    // Implement Callback's interface
+    public void callback(int p) {
+        System.out.println("callback called with " + p);
+    }
+
+    void nonIfaceMeth() {
+        System.out.println("Classes that implement interfaces " + "may also define other members, too.");
+    }
+}
+#+end_src
+
+Interface as variable reference
+- An interface reference variable has knowledge only of the methods declared by its interface declaration.
+
+#+begin_src java
+class TestIface {
+    public static void main(String[] args) {
+        Callback c = new Client();
+        c.callback(42);
+    }
+}
+#+end_src
+
+Partial Implementations
+- not fully implement the methods required by that interface, then that class must be declared as abstract.
+- Any class that inherits Incomplete must implement callback( ) or be declared abstract itself.
+
+#+begin_src java
+abstract class Incomplete implements Callback {
+    int a, b;
+
+    void show() {
+        System.out.println(a + " " + b);
+    }
+    // ...
+}
+#+end_src
+
+Nested Interfaces
+
+- member interfaces
+- can be declared as public, private, or protected.
+- differs from a top-level interface, which must either be declared as public or use the default access level
+
+
+#+begin_src java
+class A {
+    // this is a nested interface
+    public interface NestedIF {
+        boolean isNotNegative(int x);
+    }
+}
+
+// B implements the nested interface.
+class B implements A.NestedIF {
+    public boolean isNotNegative(int x) {
+        return x < 0 ? false : true;
+    }
+}
+
+class NestedIFDemo {
+    public static void main(String[] args) {
+        // use a nested interface reference
+        A.NestedIF nif = new B();
+        if (nif.isNotNegative(10))
+            System.out.println("10 is not negative");
+        if (nif.isNotNegative(-12))
+            System.out.println("this won't be displayed");
+    }
+}
+#+end_src
+
+Extending interfaces
+
+- must provide implementations for all methods required by the interface inheritance chain
+
+#+begin_src java
+// One interface can extend another.
+interface A {
+    void meth1();
+    void meth2();
+}
+
+// B now includes meth1() and meth2() -- it adds meth3().
+interface B extends A {
+    void meth3();
+}
+
+// This class must implement all of A and B
+class MyClass implements B {
+    public void meth1() {
+        System.out.println("Implement meth1().");
+    }
+
+    public void meth2() {
+        System.out.println("Implement meth2().");
+    }
+
+    public void meth3() {
+        System.out.println("Implement meth3().");
+    }
+}
+
+class IFExtend {
+    public static void main(String[] args) {
+        MyClass ob = new MyClass();
+        ob.meth1();
+        ob.meth2();
+        ob.meth3();
+    }
+}
+#+end_src
+
+Default method
+
+- extension method
+- provide a body, rather than being abstract.
+- supplies an implementation that will be used if no other implementation is explicitly provided
+- JDK 8
+
+#+begin_src java
+interface IntStack {
+    void push(int item); // store an item
+    int pop(); // retrieve an item
+    // Because clear( ) has a default, it need not be
+    // implemented by a preexisting class that uses IntStack.
+    default void clear() {
+        System.out.println("clear() not implemented.");
+    }
+}
+#+end_src
+
+- refers to a default implementation in an inherited interface by using super.
+
+#+begin_src
+Alpha.super.reset();
+#+end_src
+
+*Interface static Methods*
+
+- no implementation of the interface is necessary, and no instance of the interface is required, in order to call a static method.
+
+#+begin_src java
+public interface MyIF {
+    // This is a "normal" interface method declaration.
+    // It does NOT define a default implementation.
+    int getNumber();
+
+    // This is a default method. Notice that it provides
+    // a default implementation.
+    default String getString() {
+        return "Default String";
+    }
+
+    // This is a static interface method.
+    static int getDefaultNumber() {
+        return 0;
+    }
+}
+
+// ...
+int defNum = MyIF.getDefaultNumber();
+#+end_src
+
+*Private Interface Methods*
+
+- only called by a default method or another private method defined by the same interface.
+- cannot be used by code outside the interface in which it is defined, including subinterfaces
+- used as a shared common piece of code
+
+#+begin_src java
+// Another version of IntStack that has a private interface
+// method that is used by two default methods.
+interface IntStack {
+    void push(int item); // store an item
+
+    int pop();
+    // retrieve an item
+
+    // A default method that returns an array that contains
+    // the top n elements on the stack.
+    default int[] popNElements(int n) {
+        // Return the requested elements.
+        return getElements(n);
+    }
+
+    // A default method that returns an array that contains
+    // the next n elements on the stack after skipping elements.
+    default int[] skipAndPopNElements(int skip, int n) {
+        // Skip the specified number of elements.
+        getElements(skip);
+        // Return the requested elements.
+        return getElements(n);
+    }
+
+    // A private method that returns an array containing
+    // the top n elements on the stack
+    private int[] getElements(int n) {
+        int[] elements = new int[n];
+        for (int i = 0; i < n; i++)
+            elements[i] = pop();
+        return elements;
+    }
+}
+#+end_src
+
+*functional interface*
+
+#+begin_src java
+@Repository
+public interface RefereeRepository extends CrudRepository<Referee, Long> {}
+// Another functional interface.
+interface NumericTest {
+  boolean test(int n);
+}
+#+end_src
+
+#+begin_src java
+class LambdaDemo2 {
+  public static void main(String[] args) {
+    // A lambda expression that tests if a number is even.
+    NumericTest isEven = (n) -> (n % 2) == 0;
+    if (isEven.test(10))
+      System.out.println("10 is even");
+    if (!isEven.test(9))
+      System.out.println("9 is not even");
+    // Now, use a lambda expression that tests if a number
+    // is non-negative.
+    NumericTest isNonNeg = (n) -> n >= 0;
+    if (isNonNeg.test(1))
+      System.out.println("1 is non-negative");
+    if (!isNonNeg.test(-1))
+      System.out.println("-1 is negative");
+  }
+}
+#+end_src
+
+*functional with parameters*
+
+#+begin_src java
+interface NumericTest2 {
+    boolean test(int n, int d);
+}
+#+end_src
+
 ** Generics
 Creates classes, interfaces, and methods that will work in a type-safe manner
 with various kinds of data
@@ -2024,10 +2064,16 @@ class RawDemo {
 - at times referred as SAM type, where SAM stands for Single Abstract Method
 - lambda operator, arrow operator
 - −> can be verbalized as “becomes” or “goes to.”
+- if explicitly declare the type of a parameter, then all of the parameters must have declared types.
 
 #+begin_src java
 () -> 123.45
 () -> Math.random() * 100
+#+end_src
+
+*typed lambda*
+#+begin_src java
+(int n) -> (n % 2)==0
 #+end_src
 
 - type and number of the lambda expression’s parameters must be compatible  with the method’s parameters
@@ -2047,6 +2093,19 @@ interface SumMe {
 
 SumMe summing = (x,y) -> x + y; // ==> $Lambda$21/0x0000000800c0b408@1ddc4ec2
 summing.Summing(1.2,1.2) // ==> 2.4
+#+end_src
+
+*Block Lambda*
+- allow multiple statements
+- use a return statement to return a value.
+
+#+begin_src java
+NumericFunc factorial = (n) -> {
+  int result = 1;
+  for (int i = 1; i <= n; i++)
+    result = i * result;
+  return result;
+};
 #+end_src
 
 ** Autoboxing
@@ -2462,6 +2521,63 @@ O que você precisa para participar desse processo seletivo?
     Fortes conhecimentos em linguagem SQL;
     Fortes conhecimentos em Bancos de dados PostgreSQL ;
     Inglês técnico, nível intermediário;
+* Tips
+** e57Kp9P7 - on how get a java job
+I am self-taught and I have been a Java developer for 2 years, so it is possible. Is it hard? Yes, definitely.
+
+What does it take to become a good software engineer? Years of hard work in a quality computer training course followed by years of real-world experience. Corollary: on average, a good junior software engineer is not a good software engineer.
+
+What does it take to become a good junior software engineer? Years of hard work in a quality computer training course. Corollary: on average, a self-taught junior software engineer is not a good junior software engineer.
+
+There are, of course, a lot of exceptions, but in my experience this is the hard truth for an average person like me. It means one important thing: what you're aiming at is probably to become a mediocre junior software engineer. So the central problem is: how does a mediocre junior software engineer become employable? I would focus on the following.
+
+Choose a well-defined skillset
+You need to become familiar with a minimum set of technical skills to build a very specific kind of product for an employer. Do not count on your limited computer science knowledge, avoid "whiteboard" interviews at all costs. Be (reasonably) open about your mediocrity. Do not even bother with "computer science" at all (yet!). Stick to this limited skillset at all cost at the beginning. There are a few "islands of employability" for mediocre junior software engineers. The most common is maybe the so-called "backend web development" island. On the top of my mind:
+
+Java SE (especially the features that were added in Java 8: streams, Optional, the java.time API...). Basic Java data structures (List, Map, etc.). Basics of OOP, the layer model, etc.
+
+Interacting with a SQL database: SQL basics (MySQL, PostgreSQL), JDBC, ORM (JPA/Hibernate), etc.
+
+A few Java EE web specifications (check Apache Tomcat): Servlet, JSP, Java Expression Language, WebSocket, etc.
+
+HTML, CSS, basics of JS
+
+At this point, an extremely basic project would be to manipulate data in a SQL database from a HTML web interface (CRUD: Create, Read, Update, Delete). Then:
+
+Building a REST API: JAX-RS, Jackson, etc.
+
+Spring: generalities about dependency injection, Spring JDBC, Spring Data JDBC/Spring Data JPA, Spring MVC, etc. Basically, wrap everything you learned before into the "Spring" mentality and toolset.
+
+Spring Boot
+
+Basics of DevOps
+
+This is a very minimum, check online resources for details.
+
+Know your tools
+Know two IDEs: Eclipse and IntelliJ (Community Edition). Very important and underrated: know your debugger inside and out!
+
+Unit testing: general principles, JUnit, Mockito, etc. Learn how to unit test in a Spring-based project. Learn also about integration testing.
+
+Maven, Gradle, Git. Be GOOD at Git! Study the GitFlow "framework". Learn how to manage a remote repo and how to collaborate on a project.
+
+Code quality: Checkstyle, SpotBugs, PMD, SonarQube, JaCoCo, etc.
+
+Learn how to learn
+Build real projects. Finish them, polish them a bit, put them on your CV along with your skillset. I'd say you need at least 3 middle-sized projects on a publicly available repo. It's even better if it's live. If you want, build projects even after you get a developer position, it is the best way to learn out of your comfort zone. Don't destroy your health doing so. Get rest.
+
+Practice "katas": choose a technology and explore it. Example: the java.time API. Use Unit Tests to learn - the Baeldung website uses this technique quite often to demonstrate a functionality. An example here. Keep these katas! They will be a precious reference for your future self.
+
+Read books, stay connected (Reddit, HackerNews, etc.).
+
+Read about the history of Java, important personalities, etc. Use Anki.
+
+Conclusion
+You can do all this in 3 or 4 months of full-time, highly motivated work. I would not aim for a remote job: it will be more difficult to find, and I assure you that you WILL need the physical presence of mentors if you find a job.
+
+This is only an entry card. You'll then have to catch up on a very high number of things if you want to become a good developer. That means using your free time and staying motivated.
+
+Good luck!
 * TODO
 - TODO List. Implementa um Trello usando só Java.
 - Sisteminha de caixa de restaurante. Pega o pedido, vai pra cozinha, faz balanço de estoque, etc...
