@@ -9,7 +9,9 @@ xorg=(screenkey maim awesome awesome-extra diodon  rofi lxappearance  unclutter 
 wayland=(bemenu foot clipman grimshot)
 cpp=(qtcreator rapidjson-dev)
 wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa mpd mpc ncmpcpp playerctl brightnessctl zathura)
-langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools php php-common php-curl)
+langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools ruby-full)
+java=(openjdk-17-jre openjdk-17-jdk)
+java_tools=(clang-format maven ant)
 user=(telegram-desktop )
 term=(zsh)
 editors=(micro)
@@ -30,6 +32,7 @@ libfile-mimeinfo-perl
 x11proto-dev  rclone
 fontconfig libfreetype6
 #+end_src
+*
 * e-debian-dev
 #+begin_src shell
 php=(php-curl php-dom php-bcmath php-mbstring php-zip php-xml php-mysql prettier/plugin-php)
