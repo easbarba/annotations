@@ -1689,3 +1689,29 @@ Nice to have
     Understanding of AWS services
     Experience working remotely
     Familiar/involved with open source projects
+* Jobs
+** Picpay - Pleno
+Responsabilidade e atribuições
+
+Você trabalhará em um time multidisciplinar e contará com o apoio de toda a equipe! Além disso, terá a oportunidade de participar de decisões técnicas, talks, cursos, e estará em um ambiente que encoraja a experimentação e excelência de entrega!
+
+Como pessoa desenvolvedora do time de observabilidade você terá as seguintes responsabilidade e atribuições:
+
+Desenvolver soluções escaláveis como plataforma e que serão utilizadas por todo o time de tecnologia do PicPay;
+Criar cenários de teste para validar suas entregas e garantir que as mesmas estão com qualidade;
+Estar próximo dos demais squads de tecnologia do PicPay para apoiá-los na utilização das soluções de observabilidade e disseminar boas práticas;
+Acompanhar métricas técnicas para garantir o bom funcionamento das soluções de observabilidade;
+Entender a relação entre software em produção e custo das tecnologias utilizadas;
+Participar das rotinas do time, questionar e propor soluções que atendam os objetivos da empresa;
+Participar da estratégia de solução de causas raízes dos problemas;
+Ser protagonista do autodesenvolvimento, tomar o controle da direção da própria carreira e evolução profissional.
+
+Requisitos e qualificações
+
+Para lidar com milhões de pontos de dados de telemetria diários e no desenvolvimento de soluções de observabilidade, é importante que você tenha:
+
+Experiência com desenvolvimento de código em Go;
+Conhecimento prático sobre ciclo de desenvolvimento de software e observability-driven development;
+Conhecimento sobre os conceitos de observabilidade;
+Conhecimento sobre Kubernetes Operators;
+Conhecimento sobre OpenTelemetry e soluções Open Source.
