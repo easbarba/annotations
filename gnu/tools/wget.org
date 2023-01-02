@@ -1,7 +1,16 @@
 #+title: GNU wget
 
-* Configuration
 * Options
+** -
+- '-' is specified as file, URLs are read from the standard input.
+
+#+begin_src shell
+wget -q -O -
+#+end_src
+** -O
+** -q
+
+* .wgetrc
 * Examples
 
 #+begin_src shell
