@@ -277,71 +277,6 @@
 #+end_src
 ** golang
 #+begin_src json
-{
-   "lang": "golang",
-   "projects": [
-      {
-         "name": "go-git",
-         "branch": "master",
-         "url": "https://github.com/go-git/go-git"
-      },
-      {
-         "name": "ent",
-         "branch": "master",
-         "url": "https://github.com/ent/ent"
-      },
-      {
-         "name": "shfmt",
-         "branch": "master",
-         "url": "https://github.com/mvdan/sh"
-      },
-      {
-         "name": "gin",
-         "branch": "master",
-         "url": "https://github.com/gin-gonic/gin"
-      },
-      {
-         "name": "containerd",
-         "branch": "main",
-         "url": "https://github.com/containerd/containerd"
-      },
-      {
-         "name": "k3d",
-         "branch": "main",
-         "url": "https://github.com/k3d-io/k3d"
-      },
-      {
-         "name": "k3s",
-         "branch": "master",
-         "url": "https://github.com/k3s-io/k3s"
-      },
-      {
-         "name": "kubernetes",
-         "branch": "master",
-         "url": "https://github.com/kubernetes/kubernetes"
-      },
-      {
-         "name": "buildah",
-         "branch": "main",
-         "url": "https://github.com/containers/buildah"
-      },
-      {
-         "name": "podman",
-         "branch": "main",
-         "url": "https://github.com/containers/podman"
-      },
-      {
-         "name": "go-tools",
-         "branch": "master",
-         "url": "https://github.com/golang/tools"
-      },
-      {
-         "name": "go",
-         "branch": "master",
-         "url": "https://go.googlesource.com/go"
-      }
-   ]
-}
 #+end_src
 ** study
 #+begin_src json
@@ -502,14 +437,6 @@ harec,master,https://git.sr.ht/~sircmpwn/harec
 hautils,master,https://git.sr.ht/~sircmpwn/hautils
 hare,master,https://git.sr.ht/~sircmpwn/hare
 #+end_src
-** javascript
-#+begin_src csv
-name,branch,url
-frontity,dev,https://github.com/frontity/frontity
-lucasfcosta-testing-javascript-applications,master,https://github.com/lucasfcosta/testing-javascript-applications
-axios,main,https://github.com/axios/axios
-npm,latest,https://github.com/npm/cli
-#+end_src
 ** lua
 #+begin_src csv
 name,branch,url
@@ -568,13 +495,38 @@ swift-format,main,https://github.com/apple/swift-format
 swift,main,https://github.com/apple/swift
 #+end_src
 ** dart
-#+begin_src csv
-name,branch,url
-dart-sass,main,https://github.com/sass/dart-sass
-flutter,master,https://github.com/flutter/flutter
-dart-pad,master,https://github.com/dart-lang/dart-pad
-dart-test,master,https://github.com/dart-lang/test
-dart,main,https://github.com/dart-lang/sdk
+#+begin_src json
+{
+    "lang": "dart",
+    "projects": [
+        {
+        "name": "dart-sass",
+        "branch": "main",
+        "url": "https://github.com/sass/dart-sass"
+    },
+        {
+        "name": "flutter",
+        "branch": "master",
+        "url": "https://github.com/flutter/flutter"
+    },
+        {
+        "name": "dart-pad",
+        "branch": "master",
+        "url": "https://github.com/dart-lang/dart-pad"
+    },
+        {
+        "name": "dart-test",
+        "branch": "master",
+        "url": "https://github.com/dart-lang/test"
+    },
+        {
+        "name": "dart",
+        "branch": "main",
+        "url": "https://github.com/dart-lang/sdk"
+    }
+    ]
+}
+
 #+end_src
 ** css
 #+begin_src yaml
@@ -621,17 +573,6 @@ zig-bootstrap,https://github.com/ziglang/zig-bootstrap
    - https://github.com/bugzilla/bugzilla
    - https://github.com/hachiojipm/awesome-perl
    - https://github.com/Perl/perl5
-#+end_src
-** dart
-#+begin_src yaml
-   --- # Dart
-   - https://github.com/roughike/inKino
-   - https://github.com/flame-engine/flame
-   - https://github.com/felangel/bloc
-   - https://github.com/flutter/plugins
-   - https://github.com/dart-lang/build
-   - https://github.com/dart-lang/sdk
-
 #+end_src
 * zae
     #+begin_src yaml

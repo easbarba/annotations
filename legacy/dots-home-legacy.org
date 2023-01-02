@@ -9,10 +9,6 @@ export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 export GEM_HOME="$HOME/.local/gem"
 export PATH="$GEM_HOME/bin:$PATH"
 
-# ** GOLANG
-export GOPATH=$HOME/.local/go
-export PATH="$GOPATH/bin":$PATH
-
 # PERL
 export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
 export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
