@@ -1077,12 +1077,100 @@ def main() {
 }
 #+end_src
 ** Errors
-*** errors
-*** fmt.Errorf
-#+begin_src go
-return 0, fmt.Errorf("%d isn't an even number", i)
+- returning a value of type error as the last return value for a function.
+- Errors can be returned as nil, and in fact, it’s the default, or “zero”, value of on error in Go.
+- Lastly, error messages are usually written in lower-case and don’t end in punctuation.
+- its a bad practice to ignore the values returned from a function.
+
+#+begin_src go.
+type error interface {
+	Error() string
+}
 #+end_src
-*** sentinel error
+
+*errors*
+#+begin_src go
+package main
+
+import "errors"
+
+func DoSomething() error {
+    return errors.New("something didn't work")
+}
+#+end_src
+
+
+
+*Sentinel Errors*
+- indicate that you cannot start or continue process ing
+- should be treated as read-only
+
+*custom errors*
+
+#+begin_src go
+type Status int
+
+const (
+	InvalidLogin Status = iota + 1
+	NotFound
+)
+
+type StatusErr struct {
+	Status
+	Status
+	Message string
+}
+
+func (se StatusErr) Error() string {
+	return se.Message
+}
+
+func LoginAndGetData(uid, pwd, file string) ([]byte, error) {
+	err := login(uid, pwd)
+	if err != nil {
+		return nil, StatusErr{
+			Status:  InvalidLogin,
+			Message: fmt.Sprintf("invalid credentials for user %s", uid),
+		}
+	}
+	data, err := getData(file)
+	if err != nil {
+		return nil, StatusErr{
+			Status:  NotFound,
+			Message: fmt.Sprintf("file %s not found", file),
+		}
+	}
+	return data, nil
+}
+#+end_src
+
+*Wrapping errors*
+- preserve an error while adding additional information
+
+*errors.Unwrap*
+- returns the wrapped error, if there is one or nil.
+
+#+begin_src go
+func fileChecker(name string) error {
+	f, err := os.Open(name)
+	if err != nil {
+		return fmt.Errorf("in fileChecker: %w", err)
+	}
+	f.Close()
+	return nil
+}
+
+func main() {
+	err := fileChecker("not_here.txt")
+	if err != nil {
+		fmt.Println(err)
+		if wrappedErr := errors.Unwrap(err); wrappedErr != nil {
+			fmt.Println(wrappedErr)
+		}
+	}
+}
+#+end_src
+
 ** Blocks
 *** Package Levels
 *** Universe block
@@ -1269,10 +1357,26 @@ flag.Parse()
 #+end_src
 
 ** fmt
-- Sprintf
-- Scanf
+*Sprintf*
 
-*** printf
+*Scanf*
+
+*Errorf*
+
+#+begin_src go
+package main
+
+import "fmt"
+
+func Divide(a, b int) (int, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("can't divide '%d' by zero", a)
+    }
+    return a / b, nil
+}
+#+end_src
+
+*printf*
 - %T, %t, %x, %c
 
 #+begin_src go
@@ -1408,83 +1512,6 @@ t.Run("AddNewTask", func(t *testing.T) {
 - IsLetter
 - IsUpper
 - IsLower
-* Commands
-** vet
-      Examines Go source code and reports suspicious constructs
-
-      |   |   |
-      |---+---|
-      |   |   |
-
-** build
-- build project and create binary
-|                  |              |
-|------------------+--------------|
-| -o <name> <file> | set location |
-|                  |              |
-
-** get
-- modules only
-
-add to project as dependecy
-#+begin_src shell
-go get github.com/russross/blackfriday/v2@latest
-#+end_src
-** doc
-** mod
-*** init
-#+begin_src shell
-go mod init MODULE_PATH
-#+end_src
-*** tidy
-Add/remove deps non listed in dep file
-*** download
-Download downloads the named modules, which can be module patterns selecting
-dependencies of the main module or module queries of the form path@version.
-With no arguments, download applies to all dependencies of the main module
-(equivalent to 'go mod download all').
-
-The go command will automatically download modules as needed during ordinary
-execution. The "go mod download" command is useful mainly for pre-filling
-the local cache or to compute the answers for a Go module proxy.
-
-*** vendor
-#+begin_src shell
-go mod vendor
-#+end_src
-*** graph
-*** edit
-** list
-|        |   |
-|--------+---|
-| -m all |   |
-|        |   |
-
-** install
-|               |                            |
-|---------------+----------------------------|
-| <name>        |                            |
-| <name>@latest | latest version of the tool |
-
-#+begin_src shell
-
-go install github.com/rakyll/hey@latest
-
-#+end_src
-
-** run
-Run compiles and runs the named main Go package.
-
-** env
-- list golang environment variables
-*** $GOPATH
-*** $GOPROXY
-** test
-|                 |   |
-|-----------------+---|
-| -v or --verbose |   |
-| -h or --help    |   |
-
 * Project Structure
 ** go.mod
 *** require
@@ -1596,6 +1623,83 @@ placed.
 * Files
 * Terms
 - runes: single characthers
+* go
+** vet
+      Examines Go source code and reports suspicious constructs
+
+      |   |   |
+      |---+---|
+      |   |   |
+
+** build
+- build project and create binary
+|                  |              |
+|------------------+--------------|
+| -o <name> <file> | set location |
+|                  |              |
+
+** get
+- modules only
+
+add to project as dependecy
+#+begin_src shell
+go get github.com/russross/blackfriday/v2@latest
+#+end_src
+** doc
+** mod
+*** init
+#+begin_src shell
+go mod init MODULE_PATH
+#+end_src
+*** tidy
+Add/remove deps non listed in dep file
+*** download
+Download downloads the named modules, which can be module patterns selecting
+dependencies of the main module or module queries of the form path@version.
+With no arguments, download applies to all dependencies of the main module
+(equivalent to 'go mod download all').
+
+The go command will automatically download modules as needed during ordinary
+execution. The "go mod download" command is useful mainly for pre-filling
+the local cache or to compute the answers for a Go module proxy.
+
+*** vendor
+#+begin_src shell
+go mod vendor
+#+end_src
+*** graph
+*** edit
+** list
+|        |   |
+|--------+---|
+| -m all |   |
+|        |   |
+
+** install
+|               |                            |
+|---------------+----------------------------|
+| <name>        |                            |
+| <name>@latest | latest version of the tool |
+
+#+begin_src shell
+
+go install github.com/rakyll/hey@latest
+
+#+end_src
+
+** run
+Run compiles and runs the named main Go package.
+
+** env
+- list golang environment variables
+*** $GOPATH
+*** $GOPROXY
+** test
+|                 |   |
+|-----------------+---|
+| -v or --verbose |   |
+| -h or --help    |   |
+
 * Packages
 ** tool
 *** vet
@@ -1617,6 +1721,7 @@ vet is a tool for static analysis of Go programs.
 #+begin_src shell-script
 goimports -l -w .
 #+end_src
+** godoc
 * Ops
 ** Dockerfile
 #+begin_src dockerfile
