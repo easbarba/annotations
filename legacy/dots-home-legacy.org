@@ -2,6 +2,9 @@
 
 * .profile
 #+begin_src shell
+# PHP
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+
 # RUBY
 export GEM_HOME="$HOME/.local/gem"
 export PATH="$GEM_HOME/bin:$PATH"
