@@ -2,10 +2,12 @@
 
 * Progress
 ** Books
-| name                   | chapter                    | @                          |
-|------------------------+----------------------------+----------------------------|
-| Cli applications in go | 3 Working with Files in Go |                            |
-| Learning go            | 8 Errors                   | Pointers Are a Last Resort |
+| name                    | chapter                         | @                                     |
+|-------------------------+---------------------------------+---------------------------------------|
+| Cli applications in go  | 3 Working with Files in Go      |                                       |
+| Go Programming Language | 7 Interfaces                    | 7.3. Interface Satisfaction           |
+| Learning go             | 8 Errors                        | Pointers Are a Last Resort            |
+| 100 mistakes            | 2 Code and project organization | 2.1 #1: Unintended variable shadowing |
 
 ** SLOC
 | Source Code | folder                | file      | @                 |
@@ -636,14 +638,16 @@ type Outer struct {
 #+end_src
 ** Interface Types
 - zero value = nil
+- abstract type
 - lists the methods that must be implemented by a concrete type to meet the interface
 - method set of the interface.
 - can be declared in any block.
 - Interfaces are named as “er” in the end.
 - depends on behavior allows swap implementations
 - accept interfaces, return structs.
-- not returning interfaces avoid wversioning.
+- not returning interfaces avoid versioning.
 - can embed an interface in an interface.
+- satisfied implicitly
 
 #+begin_src go
 type Stringer interface {
@@ -734,7 +738,6 @@ Declared with the keyword func, input parameters, return values, and the opening
 func(j int) {
   fmt.Println("printing", j, "from inside of an anonymous function")
 }
-
 #+end_src
 
 Don’t have a name.
@@ -1382,6 +1385,13 @@ func Divide(a, b int) (int, error) {
 #+begin_src go
 fmt.Printf("%[1]  %[2]. %[2]", name age)
 #+end_src
+
+*Fprintf*
+- F prefix stands for file
+- the formatted output should be written to the file provided as the first argument.
+#+begin_src go
+#+end_src
+
 
 ** http
 ** io
