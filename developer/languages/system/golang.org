@@ -5,7 +5,7 @@
 | name                    | chapter                         | @                                     |
 |-------------------------+---------------------------------+---------------------------------------|
 | Cli applications in go  | 3 Working with Files in Go      |                                       |
-| Go Programming Language | 7 Interfaces                    | 7.3. Interface Satisfaction           |
+| Go Programming Language | 7 Interfaces                    | 7.4. Parsing Flags with flag.Value    |
 | Learning go             | 8 Errors                        | Pointers Are a Last Resort            |
 | 100 mistakes            | 2 Code and project organization | 2.1 #1: Unintended variable shadowing |
 
@@ -636,7 +636,7 @@ type Outer struct {
     X int
 }
 #+end_src
-** Interface Types
+** Interface
 - zero value = nil
 - abstract type
 - lists the methods that must be implemented by a concrete type to meet the interface
@@ -648,11 +648,44 @@ type Outer struct {
 - not returning interfaces avoid versioning.
 - can embed an interface in an interface.
 - satisfied implicitly
+- Only the methods revealed by the interface type may be called, even if the concrete type has others
 
 #+begin_src go
 type Stringer interface {
     String() string
 }
+#+end_src
+
+*Interface satisfaction*
+
+#+begin_src go
+var w io.Writer
+w = os.Stdout
+w = new(bytes.Buffer)
+w = time.Second
+// OK: *os.File has Write method
+// OK: *bytes.Buffer has Write method
+// compile error: time.Duration lacks Write method
+var rwc io.ReadWriteCloser
+rwc = os.Stdout
+// OK: *os.File has Read, Write, Close methods
+rwc = new(bytes.Buffer) // compile error: *bytes.Buffer lacks Close method
+#+end_src
+
+*Empty interface type*
+- can assign any value to the empty interface
+
+#+begin_src go
+func meh(forevis string, interface{}) { ... }
+#+end_src
+
+#+begin_src go
+var any interface{}
+any = true
+any = 12.34
+any = "hello"
+any = map[string]int{"one": 1}
+any = new(bytes.Buffer)
 #+end_src
 
 ** Operators
