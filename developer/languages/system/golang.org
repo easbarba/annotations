@@ -1425,7 +1425,6 @@ fmt.Printf("%[1]  %[2]. %[2]", name age)
 #+begin_src go
 #+end_src
 
-
 ** http
 ** io
 Package io provides basic interfaces to I/O primitives. Its primary job is to
@@ -1502,8 +1501,24 @@ const (
 
 ** path
 *** filepath
-** path
-*** filepath
+** http
+
+*ResponseWriter*
+#+begin_src go
+func home(w http.ResponseWriter, r *http.Request) { ... }
+#+end_src
+
+*NotFound*
+
+#+begin_src go
+func home(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+	...
+}
+#+end_src
 ** runtime
 *** runtime.GOOS
 
