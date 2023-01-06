@@ -1502,13 +1502,7 @@ const (
 ** path
 *** filepath
 ** http
-
-*ResponseWriter*
-#+begin_src go
-func home(w http.ResponseWriter, r *http.Request) { ... }
-#+end_src
-
-*NotFound*
+*NotFound()*
 
 #+begin_src go
 func home(w http.ResponseWriter, r *http.Request) {
@@ -1518,6 +1512,23 @@ func home(w http.ResponseWriter, r *http.Request) {
 	}
 	...
 }
+#+end_src
+
+
+*Handle()*
+
+*HandleFunc()*
+
+*** ResponseWriter
+- interface
+#+begin_src go
+func home(w http.ResponseWriter, r *http.Request) { ... }
+#+end_src
+
+*Write*
+
+#+begin_src go
+w.Write([]byte("Hello World"))
 #+end_src
 ** runtime
 *** runtime.GOOS
