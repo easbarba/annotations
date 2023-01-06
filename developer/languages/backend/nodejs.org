@@ -2,9 +2,12 @@
 
 * Progress
 ** Books
-| Books                      | Cap                      | @ |
-|----------------------------+--------------------------+---|
-| Get Programming w/ Node.js | 5 HANDLING INCOMING DATA |   |
+| Books                                 | Cap                      | @ |
+|---------------------------------------+--------------------------+---|
+| Web Development with Node and Express |                          |   |
+| Node.js Web Development               |                          |   |
+| Nodejs Design Patterns                |                          |   |
+| Get Programming w/ Node.js            | 5 HANDLING INCOMING DATA |   |
 
 ** SLOC
 | Project   | folder                  | file         | @ |
