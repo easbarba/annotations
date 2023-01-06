@@ -12,7 +12,7 @@
 ** SLOC
 | Source Code | folder                | file      | @                 |
 |-------------+-----------------------+-----------+-------------------|
-| go          | net/http              | client.go |                   |
+| go          | net/http              | server.go |                   |
 | podman      | cmd/podman/containers | cp.go     | copyFromContainer |
 
 * Base
