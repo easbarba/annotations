@@ -982,7 +982,7 @@ CREATE ROLE user1 with LOGIN;
 ALTER USER user1 CREATEDB;
 #+end_src
 
-* Commands
+* Applications
 ** psql
 A command-line client that allows you to interact with, connect, and administer
 databases and the cluster itself.
@@ -991,6 +991,11 @@ databases and the cluster itself.
 psql -d postgresql://username@host:port/database
 psql -d postgresql://dim@localhost:5432/f1db
 psql -d "user=dim host=localhost port=5432 dbname=f1db"
+#+end_src
+
+*run sql files*
+#+begin_src
+psql -U apito -d apito_development -a -f ops/sql/clean.sql
 #+end_src
 
 *** prompt options
