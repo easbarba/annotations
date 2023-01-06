@@ -35,6 +35,11 @@ x11proto-dev  rclone
 fontconfig libfreetype6
 #+end_src
 *
+* s-ops-container
+#+begin_src shell
+openjdk:17-jdk maven:3-eclipse-temurin-17 openjdk:19-jdk-alpine
+
+#+end_src
 * e-debian-dev
 #+begin_src shell
 php=(php-curl php-dom php-bcmath php-mbstring php-zip php-xml php-mysql prettier/plugin-php)
