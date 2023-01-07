@@ -23,6 +23,11 @@
 
 *init*
 
+#+begin_src shell
+npm -y
+npm init @eslint/config'
+#+end_src
+
 *start*
 
 *stop*
