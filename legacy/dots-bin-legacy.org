@@ -1,19 +1,14 @@
 #+TITLE: Dots | .local/bin
 
-* e_debian
+* debian
+** e_debian
 :PROPERTIES:
 :ID:       01cb0739-249c-4be7-9739-39f9e5a56381
 :END:
 #+begin_src shell
 xorg=(screenkey maim awesome awesome-extra diodon  rofi lxappearance  unclutter feh scrot network-manager-gnome xautolock xorg xserver-xorg-core xclip xsel slock dmenu)
 wayland=(bemenu foot clipman grimshot)
-cpp=(qtcreator rapidjson-dev)
 wm=(syncthing gopher ssh-askpass-gnome pasystray volumeicon-alsa mpd mpc ncmpcpp playerctl brightnessctl zathura)
-php=(php php-common)
-php_libs=(php-curl php-xml php-json php-mbstring php-zip php-xsl php-pgsql)
-langs=(clojure clojure-tools sbcl erlang elixir clang clangd clang-format glslang-tools ruby-full)
-java=(openjdk-17-jre openjdk-17-jdk)
-java_tools=(clang-format maven ant)
 user=(telegram-desktop )
 term=(zsh)
 editors=(micro)
@@ -35,13 +30,13 @@ x11proto-dev  rclone
 fontconfig libfreetype6
 #+end_src
 *
-* s-ops-container
+** e-debian-dev
 #+begin_src shell
-openjdk:17-jdk maven:3-eclipse-temurin-17 openjdk:19-jdk-alpine
-
-#+end_src
-* e-debian-dev
-#+begin_src shell
+php=(php php-common)
+php_libs=(php-curl php-xml php-json php-mbstring php-zip php-xsl php-pgsql)
+langs=(clojure clojure-tools sbcl erlang elixir )
+cpp=(clang clangd clang-format glslang-tools)
+cpp_tools=(qtcreator rapidjson-dev)
 php=(php-curl php-dom php-bcmath php-mbstring php-zip php-xml php-mysql prettier/plugin-php)
 
 # DART
@@ -62,6 +57,10 @@ sudo systemctl restart postgresql
 
 #+end_src
 
+* container
+#+begin_src shell
+openjdk:19-jdk-alpine
+#+end_src
 * wm-autostart
 #+begin_src shell
   'xautolock -time 8 -locker "slock" -detectsleep'
@@ -128,7 +127,7 @@ front() {
 #+begin_src shell
 element-desktop telegram-desktop transmission-gtk winetricks ripgrep parcellite
 #+end_src
-* e_distro
+* distro misc
    #+begin_src shell-script
 
 
