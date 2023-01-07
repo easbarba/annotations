@@ -2,12 +2,16 @@
 
 * .profile
 #+begin_src shell
+# RUST
+export CARGO_HOME=$HOME/.cargo
+export PATH="$CARGO_HOME/bin":$PATH
+
+# DENO
+export DENO_INSTALL="/home/easbarba/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # PHP
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
-
-# RUBY
-export GEM_HOME="$HOME/.local/gem"
-export PATH="$GEM_HOME/bin:$PATH"
 
 # PERL
 export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
@@ -16,23 +20,19 @@ export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
-
 # COMMON LISP
 export SBCL_HOME=$HOME/.local/lib/sbcl
 
-# PHP
-export PATH="$HOME/.config/composer/vendor/bin:$PATH"
-
 # ** GNOME KEYRING
-# if [ -n "$DESKTOP_SESSION" ]; then
-# eval $(gnome-keyring-daemon --start)
-# export SSH_AUTH_SOCK
-# export GNOME_KEYRING_PID
-# export GNOME_KEYRING_CONTROL
-# fi
+if [ -n "$DESKTOP_SESSION" ]; then
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+export GNOME_KEYRING_PID
+export GNOME_KEYRING_CONTROL
+fi
 
 # export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | sed -n 2p)
-# SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # ===================================================
 
 # RUST
@@ -83,35 +83,19 @@ export PATH="$HOME/.cargo/bin"${PATH:+:}$PATH
 
 # guile
 # RUBY
-# export GUIX_GEM_PATH="$GUIX_PROFILE/lib/ruby/vendor_ruby"
-# export GEM_PATH="$GUIX_GEM_PATH"${GEM_PATH:+:}$GEM_PATH
+export GUIX_GEM_PATH="$GUIX_PROFILE/lib/ruby/vendor_ruby"
+export GEM_PATH="$GUIX_GEM_PATH"${GEM_PATH:+:}$GEM_PATH
 
 # Shared Libraries
-# export LD_LIBRARY_PATH="$GUIX_PROFILE/lib"
+export LD_LIBRARY_PATH="$GUIX_PROFILE/lib"
 
-# export SSL_CERT_FILE="$SSL_CERT_FILE:$GUIX_PROFILE/etc/ssl/certs/ca-certificates.crt" # yt-dlp
+export SSL_CERT_FILE="$SSL_CERT_FILE:$GUIX_PROFILE/etc/ssl/certs/ca-certificates.crt" # yt-dlp
 # ===================================================
 
 # ruby
 # irb
-# export irbrc="$XDG_CONFIG_HOME/irb"
+export irbrc="$XDG_CONFIG_HOME/irb"
 # ===================================================
-
-
-#+end_src
-* env vars
-#+begin_src shell
-# RUST
-export CARGO_HOME=$HOME/.cargo
-export PATH="$CARGO_HOME/bin":$PATH
-
-# BUN
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# DENO
-export DENO_INSTALL="/home/easbarba/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
 #+end_src
 * irbrc
    #+begin_src ruby
@@ -458,7 +442,3 @@ asdf_js()
 
    source "$HOME/.profile"
    #+end_src
-* .xinitrc
-#+begin_src shell
-
-#+end_src
