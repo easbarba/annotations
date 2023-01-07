@@ -1581,6 +1581,29 @@ t.Run("AddNewTask", func(t *testing.T) {
 - IsLetter
 - IsUpper
 - IsLower
+** json
+*Marshal*
+#+begin_src go
+json.Marshal(config.Projects)
+#+end_src
+
+*MarshalIndent*
+#+begin_src go
+json.MarshalIndent(fs, "", "  ")
+#+end_src
+** unsafe
+*SizeOf*
+
+#+begin_src go
+const sz = int(unsafe.SizeOf(Struct{}))
+#+end_src
+
+*Pointer*
+#+begin_src go
+const sz = int(unsafe.SizeOf(Struct{}))
+var asByteSlice []byte = (*(*[sz]byte)(unsafe.Pointer(&struct_value)))[:]
+#+end_src
+
 * Project Structure
 ** go.mod
 *** require
