@@ -93,6 +93,15 @@ Tries to know all possible methods (GET, POST, and so on) defined
 ** Endpoints
 ** Resources
 - may be represented in a different format from the one in which it is stored.
+* Goals
+- Whos: Where you list the API’s users (or profles)
+- Whats: Where you list what these users can do
+- Hows: Where you decompose each of the what’s into steps
+- Inputs (source): Where you list what is needed for each step and where it comes from (to spot missing whos, whats, or hows)
+- Output (usage): Where you list what is returned by each step and how it is used (to spot missing whos, whats, or hows)
+- Goals: Where you explicitly and concisely reformulate each how + inputs + outputs
+
+
 * Bests Practices
 ** Faulty tolerant
 ** Cache
