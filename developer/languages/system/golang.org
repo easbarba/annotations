@@ -1520,6 +1520,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 *HandleFunc()*
 
+*Error()*
+
 *** ResponseWriter
 - interface
 #+begin_src go
