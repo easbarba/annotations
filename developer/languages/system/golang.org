@@ -10,10 +10,11 @@
 | 100 mistakes            | 2 Code and project organization | 2.1 #1: Unintended variable shadowing |
 
 ** SLOC
-| Source Code | folder                | file      | @                 |
-|-------------+-----------------------+-----------+-------------------|
-| go          | net/http              | server.go |                   |
-| podman      | cmd/podman/containers | cp.go     | copyFromContainer |
+| Source Code | folder                       | file         | @                 |
+|-------------+------------------------------+--------------+-------------------|
+| go          | net/http                     | server.go    |                   |
+| gopls       | go-tools/gopls/internal/lsp/ | code_lens.go |                   |
+| podman      | cmd/podman/containers        | cp.go        | copyFromContainer |
 
 * Base
 ** Types
