@@ -60,6 +60,8 @@ sudo systemctl restart postgresql
 * container
 #+begin_src shell
 openjdk:19-jdk-alpine
+mongo:6
+openjdk:17-jdk-alpine
 #+end_src
 * wm-autostart
 #+begin_src shell
