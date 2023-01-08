@@ -2,12 +2,13 @@
 
 * Progress
 ** Books
-| name                    | chapter                         | @                                     |
-|-------------------------+---------------------------------+---------------------------------------|
-| Cli applications in go  | 3 Working with Files in Go      |                                       |
-| Go Programming Language | 7 Interfaces                    | 7.4. Parsing Flags with flag.Value    |
-| Learning go             | 8 Errors                        | Pointers Are a Last Resort            |
-| 100 mistakes            | 2 Code and project organization | 2.1 #1: Unintended variable shadowing |
+| name                    | chapter                                 | @                                     |
+|-------------------------+-----------------------------------------+---------------------------------------|
+| Lets go                 | 2.6. Project structure and organization |                                       |
+| Cli applications in go  | 3 Working with Files in Go              |                                       |
+| Go Programming Language | 7 Interfaces                            | 7.4. Parsing Flags with flag.Value    |
+| Learning go             | 8 Errors                                | Pointers Are a Last Resort            |
+| 100 mistakes            | 2 Code and project organization         | 2.1 #1: Unintended variable shadowing |
 
 ** SLOC
 | Source Code | folder                       | file         | @                 |
@@ -1522,6 +1523,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 *Error()*
 
+
+
 *** ResponseWriter
 - interface
 #+begin_src go
@@ -1533,6 +1536,21 @@ func home(w http.ResponseWriter, r *http.Request) { ... }
 #+begin_src go
 w.Write([]byte("Hello World"))
 #+end_src
+*** Header
+#+begin_src go
+w.Header().Set("Cache-Control", "public, max-age=31536000")
+w.Header().Add("Cache-Control", "public")
+w.Header().Add("Cache-Control", "max-age=31536000")
+w.Header().Del("Cache-Control")
+w.Header().Get("Cache-Control")
+w.Header().Values("Cache-Control")
+#+end_src
+*** methods
+*MethodPost*
+*MethodGet*
+*** status
+*StatusMethodNotAllowed*
+
 ** runtime
 *** runtime.GOOS
 
