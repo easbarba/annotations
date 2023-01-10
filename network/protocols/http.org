@@ -52,8 +52,22 @@ The client request may be perfect, but due to a bug in the server code, these er
 | 502 | Bad Gateway           | server itself got an error response from another service vendor                                                  |
 | 503 | Service Unavailable   | server is down due to multiple reasons, like a heavy load or for maintenance                                     |
 | 504 | Gateway Timeout       | server is waiting a long time for a response from another vendor and is taking too much time to serve the client |
+* Headers
+* URI
+** URL
+*** Clean URL
+https://en.wikipedia.org/wiki/Clean_URL
 * Components
 - Method
 - Endpoint
 - HTTP headers
 - Body
+* Content Security Policy
+* Referrer-Policy
+- cross-origin
+* X-Content-Type-Options
+- nosniff
+* X-Frame-Options
+- deny
+* X-XSS-Protection
+ - 0
