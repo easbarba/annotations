@@ -2,13 +2,14 @@
 
 * Progress
 ** Books
-| name                    | chapter                                 | @                                     |
-|-------------------------+-----------------------------------------+---------------------------------------|
-| Lets go                 | 2.6. Project structure and organization |                                       |
-| Cli applications in go  | 3 Working with Files in Go              |                                       |
-| Go Programming Language | 7 Interfaces                            | 7.4. Parsing Flags with flag.Value    |
-| Learning go             | 8 Errors                                | Pointers Are a Last Resort            |
-| 100 mistakes            | 2 Code and project organization         | 2.1 #1: Unintended variable shadowing |
+| name                    | chapter                         | @                                     |
+|-------------------------+---------------------------------+---------------------------------------|
+| Lets go                 | Chapter 6.4. Panic recovery     |                                       |
+| Effective Go            | Names                           |                                       |
+| Cli applications in go  | 3 Working with Files in Go      |                                       |
+| Go Programming Language | 7 Interfaces                    | 7.4. Parsing Flags with flag.Value    |
+| Learning go             | 8 Errors                        | Pointers Are a Last Resort            |
+| 100 mistakes            | 2 Code and project organization | 2.1 #1: Unintended variable shadowing |
 
 ** SLOC
 | Source Code | folder                       | file         | @                 |
@@ -287,15 +288,25 @@ test := [][]int{{1,2,3},{1,2,3}}
 #+begin_src go
 var nilMap map[string]int // map[] // 0 length
 totalWins := map[string]int{}
+#+end_src
 
+*new*
+#+begin_src go
+make(map[string]string)
+make(map[int][]string, 10)
+#+end_src
+
+*literals*
+#+begin_src go
 teams := map[string][]string {
     "Orcas": []string{"Fred", "Ralph", "Bijou"},
     "Lions": []string{"Sarah", "Peter", "Billie"},
     "Kittens": []string{"Waldo", "Raul", "Ze"},
 }
+#+end_src
 
-ages := make(map[int][]string, 10)
-
+*access*
+#+begin_src go
 // comma ok
 m := map[string]int{
     "hello": 5,
@@ -309,8 +320,12 @@ fmt.Println(v, ok)
 
 v, ok = m["goodbye"]
 if !ok { fmt.Print("MEEEEEEEEEEH") }
+#+end_src
 
-
+*add*
+#+begin_src go
+m["pi"] = 3.14             // Add a new key-value pair
+m["pi"] = 3.1416           // Update value
 #+end_src
 
 *delete*
@@ -332,6 +347,8 @@ for _, name := range names {
     fmt.Printf("%s\t%d\n", name, ages[name])
 }
 #+end_src
+
+*append*
 
 *** Struct
 |            |                                                    |
