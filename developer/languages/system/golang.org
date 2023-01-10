@@ -2,14 +2,14 @@
 
 * Progress
 ** Books
-| name                    | chapter                         | @                                     |
-|-------------------------+---------------------------------+---------------------------------------|
-| Lets go                 | Chapter 6.4. Panic recovery     |                                       |
-| Effective Go            | Names                           |                                       |
-| Cli applications in go  | 3 Working with Files in Go      |                                       |
-| Go Programming Language | 7 Interfaces                    | 7.4. Parsing Flags with flag.Value    |
-| Learning go             | 8 Errors                        | Pointers Are a Last Resort            |
-| 100 mistakes            | 2 Code and project organization | 2.1 #1: Unintended variable shadowing |
+| name                    | chapter                                          | @                                     |
+|-------------------------+--------------------------------------------------+---------------------------------------|
+| Lets go                 | Chapter 7.2. Clean URLs and method-based routing |                                       |
+| Effective Go            | Names                                            |                                       |
+| Cli applications in go  | 3 Working with Files in Go                       |                                       |
+| Go Programming Language | 7 Interfaces                                     | 7.4. Parsing Flags with flag.Value    |
+| Learning go             | 8 Errors                                         | Pointers Are a Last Resort            |
+| 100 mistakes            | 2 Code and project organization                  | 2.1 #1: Unintended variable shadowing |
 
 ** SLOC
 | Source Code | folder                       | file         | @                 |
